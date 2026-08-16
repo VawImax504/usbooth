@@ -3,767 +3,1300 @@
 
 <head>
 
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>UsBooth ♡</title>
 
-  <title>UsBooth ♡</title>
+<style>
 
-  <style>
+*{
+  box-sizing:border-box;
+}
 
-    * {
-      box-sizing: border-box;
-    }
+body{
+  margin:0;
+  min-height:100vh;
 
-    body {
-      margin: 0;
-      min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at top,
+      #32172b,
+      #09090d 55%
+    );
 
-      background:
-        radial-gradient(
-          circle at top,
-          #32172b,
-          #09090d 55%
-        );
+  color:white;
 
-      color: white;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 
-      font-family:
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
+  display:flex;
+  justify-content:center;
+}
 
-      display: flex;
-      justify-content: center;
-    }
+.app{
+  width:min(1000px,100%);
+  padding:30px 18px 60px;
+}
 
-    .app {
-      width: min(1000px, 100%);
-      padding: 30px 18px 60px;
-    }
+header{
+  text-align:center;
+  margin-bottom:35px;
+}
 
-    header {
-      text-align: center;
-      margin-bottom: 35px;
-    }
+.logo{
+  font-size:18px;
+  font-weight:900;
+  letter-spacing:2px;
+}
 
-    .logo {
-      font-size: 18px;
-      font-weight: 900;
-      letter-spacing: 2px;
-    }
+.heart{
+  color:#ff719f;
+}
 
-    .heart {
-      color: #ff719f;
-    }
+h1{
+  font-size:clamp(42px,8vw,70px);
+  line-height:1;
+  margin:20px 0 15px;
+  letter-spacing:-3px;
+}
 
-    h1 {
-      font-size: clamp(42px, 8vw, 70px);
-      line-height: 1;
-      margin: 20px 0 15px;
-      letter-spacing: -3px;
-    }
+.subtitle{
+  color:#aaa7b4;
+  font-size:16px;
+  line-height:1.5;
+}
 
-    .subtitle {
-      color: #aaa7b4;
-      font-size: 16px;
-      line-height: 1.5;
-    }
+.card{
+  background:#15151e;
+  border:1px solid #302f3d;
+  border-radius:25px;
+  padding:15px;
 
-    .camera-card {
-      background: #15151e;
-      border: 1px solid #302f3d;
-      border-radius: 25px;
-      padding: 15px;
+  box-shadow:
+    0 25px 80px #0008;
+}
 
-      box-shadow:
-        0 25px 80px #0008;
-    }
+.roomArea{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
 
-    .camera-wrapper {
-      position: relative;
+  margin-bottom:18px;
+}
 
-      width: 100%;
+input{
+  width:180px;
 
-      aspect-ratio: 4 / 3;
+  padding:13px 15px;
 
-      background: #030305;
+  border-radius:12px;
 
-      border-radius: 18px;
+  border:1px solid #393847;
 
-      overflow: hidden;
-    }
+  background:#0d0d14;
 
-    #camera {
-      width: 100%;
-      height: 100%;
+  color:white;
 
-      object-fit: cover;
+  outline:none;
 
-      display: block;
+  text-transform:uppercase;
 
-      background: #030305;
-    }
+  text-align:center;
 
-    .camera-label {
-      position: absolute;
+  letter-spacing:3px;
 
-      top: 12px;
-      left: 12px;
+  font-weight:800;
+}
 
-      padding: 7px 11px;
+button{
+  border:0;
 
-      background: #000b;
+  padding:13px 20px;
 
-      border-radius: 999px;
+  border-radius:999px;
 
-      font-size: 11px;
-      font-weight: 900;
+  font-weight:900;
 
-      z-index: 5;
-    }
+  cursor:pointer;
 
-    .camera-status {
-      text-align: center;
+  background:#ff719f;
 
-      margin-top: 12px;
+  color:#210812;
+}
 
-      color: #888592;
+button.secondary{
+  background:#252531;
 
-      font-size: 13px;
-    }
+  color:white;
 
-    .controls {
-      display: flex;
+  border:1px solid #3b3a48;
+}
 
-      justify-content: center;
+button:disabled{
+  opacity:.5;
 
-      gap: 10px;
+  cursor:not-allowed;
+}
 
-      flex-wrap: wrap;
+.status{
+  text-align:center;
 
-      margin-top: 18px;
-    }
+  padding:13px;
 
-    button {
-      border: 0;
+  border-radius:14px;
 
-      padding: 13px 20px;
+  background:#101018;
 
-      border-radius: 999px;
+  border:1px solid #292835;
 
-      font-weight: 900;
+  color:#aaa7b4;
 
-      cursor: pointer;
+  font-size:13px;
 
-      background: #ff719f;
+  margin-bottom:15px;
+}
 
-      color: #210812;
-    }
+.status.connected{
+  color:#8ff0ba;
+}
 
-    button.secondary {
-      background: #252531;
+.status.error{
+  color:#ff8da9;
+}
 
-      color: white;
+.roomDisplay{
+  text-align:center;
 
-      border: 1px solid #3b3a48;
-    }
+  margin:12px 0 20px;
 
-    button:disabled {
-      opacity: 0.5;
+  color:#aaa7b4;
 
-      cursor: not-allowed;
-    }
+  font-size:12px;
+}
 
-    .info {
-      margin-top: 18px;
+.roomDisplay strong{
+  color:#ff9fbd;
 
-      padding: 14px;
+  font-size:22px;
 
-      border-radius: 15px;
+  letter-spacing:4px;
 
-      background: #101018;
+  display:block;
 
-      border: 1px solid #292835;
+  margin-top:4px;
+}
 
-      color: #aaa7b4;
+.cameraWrapper{
+  position:relative;
 
-      font-size: 13px;
+  width:100%;
 
-      line-height: 1.5;
+  aspect-ratio:4/3;
 
-      text-align: center;
-    }
+  background:#030305;
 
-    .error {
-      display: none;
+  border-radius:18px;
 
-      margin-top: 15px;
+  overflow:hidden;
+}
 
-      padding: 14px;
+#camera{
+  width:100%;
+  height:100%;
 
-      border-radius: 14px;
+  object-fit:cover;
 
-      background: #351924;
+  display:block;
 
-      border: 1px solid #71364d;
+  background:#030305;
+}
 
-      color: #ffc1d0;
+.cameraLabel{
+  position:absolute;
 
-      font-size: 13px;
+  top:12px;
+  left:12px;
 
-      word-break: break-word;
-    }
+  padding:7px 11px;
 
-    footer {
-      text-align: center;
+  background:#000b;
 
-      margin-top: 40px;
+  border-radius:999px;
 
-      color: #656371;
+  font-size:11px;
 
-      font-size: 11px;
-    }
+  font-weight:900;
+}
 
-    @media (max-width: 600px) {
+.cameraStatus{
+  text-align:center;
 
-      .app {
-        padding:
-          20px
-          10px
-          40px;
-      }
+  margin-top:12px;
 
-      .camera-card {
-        padding: 10px;
+  color:#888592;
 
-        border-radius: 20px;
-      }
+  font-size:13px;
+}
 
-    }
+.controls{
+  display:flex;
 
-  </style>
+  justify-content:center;
+
+  gap:10px;
+
+  flex-wrap:wrap;
+
+  margin-top:18px;
+}
+
+.error{
+  display:none;
+
+  margin-top:15px;
+
+  padding:14px;
+
+  border-radius:14px;
+
+  background:#351924;
+
+  border:1px solid #71364d;
+
+  color:#ffc1d0;
+
+  font-size:13px;
+
+  word-break:break-word;
+}
+
+.info{
+  margin-top:18px;
+
+  padding:14px;
+
+  border-radius:15px;
+
+  background:#101018;
+
+  border:1px solid #292835;
+
+  color:#aaa7b4;
+
+  font-size:13px;
+
+  line-height:1.5;
+
+  text-align:center;
+}
+
+footer{
+  text-align:center;
+
+  margin-top:40px;
+
+  color:#656371;
+
+  font-size:11px;
+}
+
+@media(max-width:600px){
+
+  .app{
+    padding:
+      20px
+      10px
+      40px;
+  }
+
+  .card{
+    padding:10px;
+
+    border-radius:20px;
+  }
+
+}
+
+</style>
 
 </head>
 
 
 <body>
 
-  <main class="app">
 
-    <header>
-
-      <div class="logo">
-        ♡ <span class="heart">US</span>BOOTH
-      </div>
-
-      <h1>
-        Us, even from
-        <span style="color:#ff719f">
-          miles away.
-        </span>
-      </h1>
-
-      <div class="subtitle">
-        Two phones. One booth.
-        One little memory to keep.
-      </div>
-
-    </header>
+<main class="app">
 
 
-    <section class="camera-card">
+<header>
 
-      <div class="camera-wrapper">
+  <div class="logo">
+    ♡ <span class="heart">US</span>BOOTH
+  </div>
 
-        <video
-          id="camera"
-          autoplay
-          muted
-          playsinline
-        ></video>
+  <h1>
+    Us, even from
+    <span style="color:#ff719f">
+      miles away.
+    </span>
+  </h1>
 
-        <div class="camera-label">
-          YOU · LIVE
-        </div>
+  <div class="subtitle">
+    Phase 3 · Room connection
+  </div>
 
-      </div>
-
-
-      <div
-        id="cameraStatus"
-        class="camera-status"
-      >
-        Camera not started
-      </div>
+</header>
 
 
-      <div class="controls">
-
-        <button
-          id="startCamera"
-        >
-          Start camera
-        </button>
+<section class="card">
 
 
-        <button
-          id="flipCamera"
-          class="secondary"
-          disabled
-        >
-          🔄 Flip camera
-        </button>
+  <!-- ROOM CONTROLS -->
+
+  <div class="roomArea">
+
+    <button id="createRoom">
+      Create booth
+    </button>
+
+    <input
+      id="roomInput"
+      maxlength="6"
+      placeholder="ROOM"
+    >
+
+    <button
+      id="joinRoom"
+      class="secondary"
+    >
+      Join booth
+    </button>
+
+  </div>
 
 
-        <button
-          id="mirrorCamera"
-          class="secondary"
-          disabled
-        >
-          🪞 Mirror
-        </button>
+  <!-- ROOM -->
 
-      </div>
+  <div
+    id="roomDisplay"
+    class="roomDisplay"
+    style="display:none"
+  >
 
+    Your room:
 
-      <div
-        id="error"
-        class="error"
-      ></div>
+    <strong id="roomCode">
+      ------
+    </strong>
 
-
-      <div class="info">
-
-        <strong>Phase 1 + 2</strong><br>
-
-        This version only tests the website
-        and your local camera.
-
-        <br><br>
-
-        Metered/WebRTC will be added
-        <strong>after this works.</strong>
-
-      </div>
-
-    </section>
+  </div>
 
 
-    <footer>
-      UsBooth · Phase 1 + 2
-    </footer>
+  <!-- CONNECTION -->
 
-  </main>
-
-
-  <script>
-
-    /* ==================================================
-       STATE
-    ================================================== */
-
-    let localStream = null;
-
-    let facingMode = "user";
-
-    let mirrored = false;
+  <div
+    id="connectionStatus"
+    class="status"
+  >
+    Not connected
+  </div>
 
 
-    /* ==================================================
-       ELEMENTS
-    ================================================== */
+  <!-- CAMERA -->
 
-    const camera =
-      document.getElementById(
-        "camera"
+  <div class="cameraWrapper">
+
+    <video
+      id="camera"
+      autoplay
+      muted
+      playsinline
+    ></video>
+
+    <div class="cameraLabel">
+      YOU · LIVE
+    </div>
+
+  </div>
+
+
+  <div
+    id="cameraStatus"
+    class="cameraStatus"
+  >
+    Camera not started
+  </div>
+
+
+  <!-- CONTROLS -->
+
+  <div class="controls">
+
+    <button
+      id="startCamera"
+    >
+      Start camera
+    </button>
+
+    <button
+      id="flipCamera"
+      class="secondary"
+      disabled
+    >
+      🔄 Flip camera
+    </button>
+
+    <button
+      id="mirrorCamera"
+      class="secondary"
+      disabled
+    >
+      🪞 Mirror
+    </button>
+
+  </div>
+
+
+  <div
+    id="error"
+    class="error"
+  ></div>
+
+
+  <div class="info">
+
+    <strong>Phase 3</strong>
+
+    <br><br>
+
+    Create a room on one phone.
+
+    <br>
+
+    Enter the same room code on
+    the second phone.
+
+    <br><br>
+
+    This phase only tests the
+    <strong>Metered connection.</strong>
+
+    <br>
+
+    Remote camera comes in Phase 4.
+
+  </div>
+
+
+</section>
+
+
+<footer>
+  UsBooth · Phase 3
+</footer>
+
+
+</main>
+
+
+<!-- ==================================================
+     METERED SDK
+================================================== -->
+
+<script src="https://unpkg.com/@metered-ca/realtime/dist/index.umd.js"></script>
+
+
+<script>
+
+
+/* ==================================================
+   METERED KEY
+================================================== */
+
+const METERED_PUBLISHABLE_KEY =
+  "pk_live_782e36762825a38641834f99647209f4c8716774";
+
+
+/* ==================================================
+   METERED SDK
+================================================== */
+
+const {
+  MeteredPeer
+} = window.MeteredPeer;
+
+
+/* ==================================================
+   STATE
+================================================== */
+
+let peer = null;
+
+let room = "";
+
+let localStream = null;
+
+let facingMode = "user";
+
+let mirrored = false;
+
+
+/* ==================================================
+   ELEMENTS
+================================================== */
+
+const camera =
+  document.getElementById(
+    "camera"
+  );
+
+const startCameraButton =
+  document.getElementById(
+    "startCamera"
+  );
+
+const flipCameraButton =
+  document.getElementById(
+    "flipCamera"
+  );
+
+const mirrorCameraButton =
+  document.getElementById(
+    "mirrorCamera"
+  );
+
+const cameraStatus =
+  document.getElementById(
+    "cameraStatus"
+  );
+
+const errorBox =
+  document.getElementById(
+    "error"
+  );
+
+const connectionStatus =
+  document.getElementById(
+    "connectionStatus"
+  );
+
+const roomDisplay =
+  document.getElementById(
+    "roomDisplay"
+  );
+
+const roomCode =
+  document.getElementById(
+    "roomCode"
+  );
+
+const roomInput =
+  document.getElementById(
+    "roomInput"
+  );
+
+
+/* ==================================================
+   STATUS
+================================================== */
+
+function setConnectionStatus(
+  text,
+  type = ""
+){
+
+  connectionStatus.textContent =
+    text;
+
+  connectionStatus.className =
+    "status " + type;
+
+}
+
+
+/* ==================================================
+   ERROR
+================================================== */
+
+function showError(
+  error
+){
+
+  console.error(
+    "USBOOTH ERROR:",
+    error
+  );
+
+  errorBox.textContent =
+    error?.message ||
+    String(error);
+
+  errorBox.style.display =
+    "block";
+
+  setConnectionStatus(
+    "Connection error",
+    "error"
+  );
+
+}
+
+
+/* ==================================================
+   ROOM CODE
+================================================== */
+
+function generateRoomCode(){
+
+  const characters =
+    "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+  let result = "";
+
+  for(
+    let i = 0;
+    i < 6;
+    i++
+  ){
+
+    result +=
+      characters[
+        Math.floor(
+          Math.random() *
+          characters.length
+        )
+      ];
+
+  }
+
+  return result;
+
+}
+
+
+/* ==================================================
+   CAMERA
+================================================== */
+
+async function startCamera(){
+
+  errorBox.style.display =
+    "none";
+
+
+  if(localStream){
+
+    localStream
+      .getTracks()
+      .forEach(
+        track =>
+          track.stop()
       );
 
-    const startButton =
-      document.getElementById(
-        "startCamera"
+  }
+
+
+  if(
+    !navigator.mediaDevices ||
+    !navigator.mediaDevices.getUserMedia
+  ){
+
+    showError(
+      new Error(
+        "Camera API unavailable. HTTPS is required."
+      )
+    );
+
+    return false;
+
+  }
+
+
+  try{
+
+    cameraStatus.textContent =
+      "Requesting camera…";
+
+
+    localStream =
+      await navigator
+        .mediaDevices
+        .getUserMedia({
+
+          video:{
+            facingMode,
+
+            width:{
+              ideal:1280
+            },
+
+            height:{
+              ideal:960
+            }
+
+          },
+
+          audio:false
+
+        });
+
+
+    camera.srcObject =
+      localStream;
+
+
+    camera.muted =
+      true;
+
+    camera.autoplay =
+      true;
+
+    camera.playsInline =
+      true;
+
+
+    await camera.play();
+
+
+    updateMirror();
+
+
+    cameraStatus.textContent =
+      "Camera working ✓";
+
+    cameraStatus.style.color =
+      "#8ff0ba";
+
+
+    startCameraButton.textContent =
+      "Camera running ✓";
+
+
+    flipCameraButton.disabled =
+      false;
+
+    mirrorCameraButton.disabled =
+      false;
+
+
+    console.log(
+      "LOCAL CAMERA READY ✓"
+    );
+
+
+    return true;
+
+  }
+
+  catch(error){
+
+    showError(
+      error
+    );
+
+    return false;
+
+  }
+
+}
+
+
+/* ==================================================
+   MIRROR
+================================================== */
+
+function updateMirror(){
+
+  camera.style.transform =
+    mirrored
+      ? "scaleX(-1)"
+      : "scaleX(1)";
+
+
+  mirrorCameraButton.textContent =
+    mirrored
+      ? "🪞 Mirrored"
+      : "🪞 Mirror";
+
+}
+
+
+/* ==================================================
+   FLIP
+================================================== */
+
+async function flipCamera(){
+
+  facingMode =
+    facingMode === "user"
+      ? "environment"
+      : "user";
+
+
+  await startCamera();
+
+}
+
+
+/* ==================================================
+   METERED SETUP
+================================================== */
+
+function setupMetered(){
+
+  if(
+    typeof MeteredPeer !==
+    "function"
+  ){
+
+    throw new Error(
+      "MeteredPeer failed to load."
+    );
+
+  }
+
+
+  console.log(
+    "Creating MeteredPeer…"
+  );
+
+
+  peer =
+    new MeteredPeer({
+
+      apiKey:
+        METERED_PUBLISHABLE_KEY
+
+    });
+
+
+  /* ----------------------------------------------
+     CONNECTION STATE
+  ---------------------------------------------- */
+
+  peer.on(
+    "state-change",
+    ({
+      to
+    })=>{
+
+      console.log(
+        "METERED STATE:",
+        to
       );
 
-    const flipButton =
-      document.getElementById(
-        "flipCamera"
-      );
 
-    const mirrorButton =
-      document.getElementById(
-        "mirrorCamera"
-      );
+      if(
+        to === "joining"
+      ){
 
-    const cameraStatus =
-      document.getElementById(
-        "cameraStatus"
-      );
-
-    const errorBox =
-      document.getElementById(
-        "error"
-      );
-
-
-    /* ==================================================
-       ERROR
-    ================================================== */
-
-    function showError(error) {
-
-      console.error(
-        "CAMERA ERROR:",
-        error
-      );
-
-      errorBox.textContent =
-        error?.message ||
-        String(error);
-
-      errorBox.style.display =
-        "block";
-
-      cameraStatus.textContent =
-        "Camera failed";
-
-      cameraStatus.style.color =
-        "#ff8da9";
-
-    }
-
-
-    /* ==================================================
-       START CAMERA
-    ================================================== */
-
-    async function startCamera() {
-
-      errorBox.style.display =
-        "none";
-
-
-      /*
-        Stop previous camera first.
-      */
-
-      if (localStream) {
-
-        localStream
-          .getTracks()
-          .forEach(
-            track => track.stop()
-          );
+        setConnectionStatus(
+          "Connecting to Metered…"
+        );
 
       }
 
 
-      /*
-        Check browser support.
-      */
+      if(
+        to === "joined"
+      ){
 
-      if (
-        !navigator.mediaDevices ||
-        !navigator.mediaDevices.getUserMedia
-      ) {
-
-        showError(
-          new Error(
-            "Camera API is unavailable. Make sure you are using HTTPS."
-          )
+        setConnectionStatus(
+          "Connected to room ✓",
+          "connected"
         );
+
+      }
+
+
+      if(
+        to === "reconnecting"
+      ){
+
+        setConnectionStatus(
+          "Reconnecting…"
+        );
+
+      }
+
+
+      if(
+        to === "closed"
+      ){
+
+        setConnectionStatus(
+          "Disconnected",
+          "error"
+        );
+
+      }
+
+    }
+  );
+
+
+  /* ----------------------------------------------
+     PEER JOINED
+  ---------------------------------------------- */
+
+  peer.on(
+    "peer-joined",
+    ({
+      peer:remote
+    })=>{
+
+      console.log(
+        "================================"
+      );
+
+      console.log(
+        "REMOTE PEER JOINED ✓"
+      );
+
+      console.log(
+        "REMOTE PEER ID:",
+        remote.id
+      );
+
+      console.log(
+        "================================"
+      );
+
+
+      setConnectionStatus(
+        "Both phones connected ✓",
+        "connected"
+      );
+
+    }
+  );
+
+
+  /* ----------------------------------------------
+     PEER LEFT
+  ---------------------------------------------- */
+
+  peer.on(
+    "peer-left",
+    ({
+      peer:remote
+    })=>{
+
+      console.log(
+        "REMOTE PEER LEFT:",
+        remote?.id
+      );
+
+
+      setConnectionStatus(
+        "Other phone left the room"
+      );
+
+    }
+  );
+
+
+  /* ----------------------------------------------
+     ERROR
+  ---------------------------------------------- */
+
+  peer.on(
+    "error",
+    ({
+      err
+    })=>{
+
+      console.error(
+        "METERED ERROR:",
+        err
+      );
+
+      showError(
+        err
+      );
+
+    }
+  );
+
+}
+
+
+/* ==================================================
+   JOIN ROOM
+================================================== */
+
+async function connectToRoom(){
+
+  try{
+
+    errorBox.style.display =
+      "none";
+
+
+    /*
+      Camera must be ready first.
+    */
+
+    if(!localStream){
+
+      const cameraOK =
+        await startCamera();
+
+
+      if(!cameraOK){
 
         return;
 
       }
 
-
-      try {
-
-        cameraStatus.textContent =
-          "Requesting camera…";
-
-
-        /*
-          Ask for camera.
-        */
-
-        localStream =
-          await navigator
-            .mediaDevices
-            .getUserMedia({
-
-              video: {
-
-                facingMode:
-
-                  facingMode,
-
-                width: {
-
-                  ideal: 1280
-
-                },
-
-                height: {
-
-                  ideal: 960
-
-                }
-
-              },
-
-              audio: false
-
-            });
-
-
-        console.log(
-          "LOCAL STREAM:",
-          localStream
-        );
-
-
-        console.log(
-          "VIDEO TRACKS:",
-          localStream.getVideoTracks()
-        );
-
-
-        /*
-          Attach camera to video.
-        */
-
-        camera.srcObject =
-          localStream;
-
-
-        camera.muted =
-          true;
-
-        camera.autoplay =
-          true;
-
-        camera.playsInline =
-          true;
-
-
-        /*
-          Make sure browser actually
-          starts rendering it.
-        */
-
-        await camera.play();
-
-
-        /*
-          Mirror state.
-        */
-
-        updateMirror();
-
-
-        /*
-          UI.
-        */
-
-        cameraStatus.textContent =
-          "Camera working ✓";
-
-        cameraStatus.style.color =
-          "#8ff0ba";
-
-
-        startButton.textContent =
-          "Camera running ✓";
-
-
-        flipButton.disabled =
-          false;
-
-        mirrorButton.disabled =
-          false;
-
-
-        /*
-          Useful diagnostics.
-        */
-
-        console.log(
-          "VIDEO WIDTH:",
-          camera.videoWidth
-        );
-
-        console.log(
-          "VIDEO HEIGHT:",
-          camera.videoHeight
-        );
-
-
-        console.log(
-          "CAMERA READY ✓"
-        );
-
-      }
-
-      catch (error) {
-
-        showError(
-          error
-        );
-
-      }
-
     }
 
 
-    /* ==================================================
-       FLIP CAMERA
-    ================================================== */
+    /*
+      Create MeteredPeer.
+    */
 
-    async function flipCamera() {
-
-      facingMode =
-        facingMode === "user"
-          ? "environment"
-          : "user";
+    setupMetered();
 
 
-      await startCamera();
+    /*
+      Add local stream BEFORE join.
 
-    }
+      We are intentionally NOT
+      handling remote video yet.
+    */
 
-
-    /* ==================================================
-       MIRROR
-    ================================================== */
-
-    function updateMirror() {
-
-      if (mirrored) {
-
-        camera.style.transform =
-          "scaleX(-1)";
-
-        mirrorButton.textContent =
-          "🪞 Mirrored";
-
+    peer.addStream(
+      localStream,
+      {
+        role:"camera",
+        label:"front cam"
       }
-
-      else {
-
-        camera.style.transform =
-          "scaleX(1)";
-
-        mirrorButton.textContent =
-          "🪞 Mirror";
-
-      }
-
-    }
+    );
 
 
-    function toggleMirror() {
+    console.log(
+      "LOCAL STREAM ADDED TO METERED ✓"
+    );
 
+
+    setConnectionStatus(
+      "Joining room…"
+    );
+
+
+    /*
+      Join same channel on both phones.
+    */
+
+    await peer.join(
+      "usbooth-" +
+      room
+    );
+
+
+    console.log(
+      "JOIN SUCCESS ✓"
+    );
+
+
+    setConnectionStatus(
+      "Connected — waiting for other phone…",
+      "connected"
+    );
+
+  }
+
+  catch(error){
+
+    showError(
+      error
+    );
+
+  }
+
+}
+
+
+/* ==================================================
+   CREATE ROOM
+================================================== */
+
+async function createRoom(){
+
+  room =
+    generateRoomCode();
+
+
+  roomCode.textContent =
+    room;
+
+
+  roomDisplay.style.display =
+    "block";
+
+
+  console.log(
+    "CREATED ROOM:",
+    room
+  );
+
+
+  await connectToRoom();
+
+}
+
+
+/* ==================================================
+   JOIN EXISTING ROOM
+================================================== */
+
+async function joinRoom(){
+
+  const entered =
+    roomInput.value
+      .trim()
+      .toUpperCase();
+
+
+  if(
+    entered.length !== 6
+  ){
+
+    showError(
+      new Error(
+        "Room code must be 6 characters."
+      )
+    );
+
+    return;
+
+  }
+
+
+  room =
+    entered;
+
+
+  roomCode.textContent =
+    room;
+
+
+  roomDisplay.style.display =
+    "block";
+
+
+  console.log(
+    "JOINING ROOM:",
+    room
+  );
+
+
+  await connectToRoom();
+
+}
+
+
+/* ==================================================
+   BUTTON EVENTS
+================================================== */
+
+document
+  .getElementById(
+    "createRoom"
+  )
+  .addEventListener(
+    "click",
+    createRoom
+  );
+
+
+document
+  .getElementById(
+    "joinRoom"
+  )
+  .addEventListener(
+    "click",
+    joinRoom
+  );
+
+
+startCameraButton
+  .addEventListener(
+    "click",
+    startCamera
+  );
+
+
+flipCameraButton
+  .addEventListener(
+    "click",
+    flipCamera
+  );
+
+
+mirrorCameraButton
+  .addEventListener(
+    "click",
+    ()=>{
       mirrored =
         !mirrored;
 
-
       updateMirror();
+    }
+  );
+
+
+roomInput
+  .addEventListener(
+    "keydown",
+    event=>{
+
+      if(
+        event.key ===
+        "Enter"
+      ){
+
+        joinRoom();
+
+      }
 
     }
+  );
 
 
-    /* ==================================================
-       BUTTONS
-    ================================================== */
+/* ==================================================
+   DIAGNOSTICS
+================================================== */
 
-    startButton.addEventListener(
-      "click",
-      startCamera
-    );
+console.log(
+  "UsBooth Phase 3 loaded ✓"
+);
 
+console.log(
+  "MeteredPeer:",
+  typeof MeteredPeer
+);
 
-    flipButton.addEventListener(
-      "click",
-      flipCamera
-    );
-
-
-    mirrorButton.addEventListener(
-      "click",
-      toggleMirror
-    );
+console.log(
+  "Secure context:",
+  window.isSecureContext
+);
 
 
-    /* ==================================================
-       VIDEO EVENTS
-    ================================================== */
+</script>
 
-    camera.addEventListener(
-      "loadedmetadata",
-      () => {
-
-        console.log(
-          "VIDEO METADATA:",
-          camera.videoWidth,
-          "x",
-          camera.videoHeight
-        );
-
-      }
-    );
-
-
-    camera.addEventListener(
-      "playing",
-      () => {
-
-        console.log(
-          "VIDEO PLAYING ✓"
-        );
-
-      }
-    );
-
-
-    camera.addEventListener(
-      "error",
-      event => {
-
-        console.error(
-          "VIDEO ELEMENT ERROR:",
-          event
-        );
-
-      }
-    );
-
-
-    /* ==================================================
-       INITIAL
-    ================================================== */
-
-    console.log(
-      "UsBooth Phase 1 + 2 loaded ✓"
-    );
-
-    console.log(
-      "Secure context:",
-      window.isSecureContext
-    );
-
-    console.log(
-      "MediaDevices:",
-      navigator.mediaDevices
-    );
-
-  </script>
 
 </body>
-
 </html>
