@@ -1150,7 +1150,6 @@ body:after{width:320px;height:320px;right:-120px;bottom:5%;background:radial-gra
 .livePreviewCard.frame-film:after{bottom:2px}
 
 .livePreviewCard.layout-single{grid-template-columns:1fr}
-.livePreviewCard.layout-single .previewFeedRemote{display:none}
 .livePreviewCard.layout-polaroid{background:#fff;padding:24px 28px 48px}
 .livePreviewCard.layout-strip{grid-template-columns:1fr 1fr}
 .livePreviewCard.layout-collage{grid-template-columns:1.35fr .65fr;grid-template-rows:1fr 1fr}
@@ -1177,6 +1176,29 @@ body:after{width:320px;height:320px;right:-120px;bottom:5%;background:radial-gra
 .frameTypeHidden{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
 @media(max-width:650px){.framePicker{grid-template-columns:repeat(2,1fr)}}
 .previewConnectionBadge{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);z-index:8;padding:5px 9px;border-radius:999px;background:rgba(10,8,12,.72);border:1px solid rgba(255,255,255,.12);color:#e8e2e8;font-size:6px;letter-spacing:.5px;white-space:nowrap}
+
+
+/* =========================================================
+   TWO-PHONE PREVIEW: ALWAYS SHOW BOTH CAMERAS
+========================================================= */
+.livePreviewCard.twoPhonePreview{
+  grid-template-columns:1fr 1fr !important;
+}
+.livePreviewCard.twoPhonePreview .previewFeedRemote{
+  display:block !important;
+  visibility:visible !important;
+}
+.livePreviewCard.twoPhonePreview .previewFeedLocal,
+.livePreviewCard.twoPhonePreview .previewFeedRemote{
+  min-height:0;
+  height:100%;
+}
+.livePreviewCard.singlePhonePreview{
+  grid-template-columns:1fr !important;
+}
+.livePreviewCard.singlePhonePreview .previewFeedRemote{
+  display:none !important;
+}
 
 </style>
 </head>
@@ -2706,7 +2728,20 @@ async function attachRemoteStream(
     previewRemoteVideo.autoplay = true;
     previewRemoteVideo.playsInline = true;
     previewRemoteVideo.muted = true;
-    previewRemoteVideo.play().catch(()=>{});
+
+    const playRemotePreview = () => {
+      if(previewRemoteVideo.srcObject){
+        previewRemoteVideo.play().catch(()=>{});
+      }
+    };
+
+    previewRemoteVideo.onloadedmetadata =
+      playRemotePreview;
+
+    previewRemoteVideo.oncanplay =
+      playRemotePreview;
+
+    playRemotePreview();
   }
 
   remoteVideo.autoplay =
@@ -6168,6 +6203,74 @@ console.log(
 
 <script>
 /* =========================================================
+   FRAME PICKER — FOUR REAL OPTIONS
+========================================================= */
+(() => {
+  const picker = document.getElementById("framePicker");
+  const select = document.getElementById("frameTypeSelect");
+
+  if(!picker || !select) return;
+
+  function setFrame(type){
+    if(!["classic","polaroid","film","heart"].includes(type)){
+      type="classic";
+    }
+
+    select.value = type;
+
+    picker.querySelectorAll(".frameChoice").forEach(btn => {
+      btn.classList.toggle(
+        "active",
+        btn.dataset.frameType === type
+      );
+    });
+
+    /*
+      Tell every part of the booth that the frame changed.
+    */
+    select.dispatchEvent(
+      new Event("input",{bubbles:true})
+    );
+
+    select.dispatchEvent(
+      new Event("change",{bubbles:true})
+    );
+
+    /*
+      Extra custom event for any future editor/preview code.
+    */
+    document.dispatchEvent(
+      new CustomEvent("usbooth:framechange",{
+        detail:{frame:type}
+      })
+    );
+  }
+
+  /*
+    Event delegation means the buttons remain clickable
+    even if another part of the UI gets re-rendered.
+  */
+  picker.addEventListener("click",(event)=>{
+    const button =
+      event.target.closest(".frameChoice");
+
+    if(!button) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    setFrame(
+      button.dataset.frameType
+    );
+  });
+
+  setFrame(
+    select.value || "classic"
+  );
+})();
+</script>
+<script>
+/* =========================================================
    FINAL AUDIO + TRUE LIVE DOM PREVIEW
 ========================================================= */
 (() => {
@@ -6230,17 +6333,27 @@ console.log(
     const theme=document.querySelector(".themeChoice.active")?.dataset.theme||"classic";
     const layout=document.querySelector(".layoutChoice.active")?.dataset.layout||"single";
 
-    card.className="livePreviewCard frame-"+frameType+" layout-"+(
-      layout==="single"?"single":
-      layout==="polaroid"?"polaroid":
-      layout==="collage"?"collage":"strip"
-    );
+    card.className=
+      "livePreviewCard " +
+      (mode==="Two Phone"
+        ? "twoPhonePreview "
+        : "singlePhonePreview ") +
+      "frame-"+frameType+" layout-"+(
+        layout==="single"?"single":
+        layout==="polaroid"?"polaroid":
+        layout==="collage"?"collage":"strip"
+      );
 
     if(style==="polaroid") card.classList.add("layout-polaroid");
     if(style==="strip") card.classList.add("layout-strip");
 
     const remoteWrap=$("previewRemoteWrap");
-    if(remoteWrap) remoteWrap.style.display=mode==="Single Phone"?"none":"";
+    if(remoteWrap){
+      remoteWrap.style.display =
+        mode==="Single Phone"
+          ? "none"
+          : "block";
+    }
 
     const colors={cream:"#f4ecdf",white:"#fff",pink:"#ffdce8",black:"#111"};
     card.style.background=colors[frame]||colors.cream;
