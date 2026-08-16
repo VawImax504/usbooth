@@ -1061,6 +1061,29 @@ body::before{
  .templateRow{grid-template-columns:repeat(2,1fr)}
 }
 
+
+.themeStudio,.memoryVault{margin-top:16px;padding:15px;border:1px solid #302e3a;border-radius:17px;background:#101018}
+.studioTop,.vaultTop{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.studioEyebrow{display:block;color:#777481;font-size:7px;font-weight:1000;letter-spacing:2px;margin-bottom:4px}
+.themeStudio h3,.memoryVault h3{margin:0;font-size:15px}.themeTabs{display:flex;gap:5px;margin:14px 0 10px}
+.themeTab{border:0;background:#17161f;color:#7e7a86;border-radius:999px;padding:8px 12px;font-size:8px;font-weight:1000}
+.themeTab.active{background:#ff719f;color:#210812}
+.themePane{display:none}.themePane.active{display:block}
+.themeGrid,.layoutGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.themeChoice,.layoutChoice{min-height:86px;border:1px solid #302e39;border-radius:12px;background:#15141d;color:#aaa6b2;text-align:left;padding:10px}
+.themeChoice span,.layoutChoice span{display:block;color:#ff9fbd;font-size:20px;margin-bottom:6px}
+.themeChoice b,.layoutChoice b{display:block;color:#eee;font-size:9px}.themeChoice small,.layoutChoice small{font-size:7px;color:#696672}
+.themeChoice.active,.layoutChoice.active{border-color:#ff719f;background:#221722}
+.detailRow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.detailRow label{color:#777481;font-size:8px;font-weight:900}.detailRow input{display:block;width:100%;margin-top:6px;border:1px solid #302e39;background:#15141d;color:#eee;border-radius:9px;padding:10px;font-size:9px;outline:none}
+.detailRow input:focus{border-color:#ff719f}.detailActions{display:flex;gap:6px;margin-top:9px}
+.memoryTools{display:flex;gap:7px;margin:13px 0}.memoryTools input,.memoryTools select{flex:1;border:1px solid #302e39;background:#15141d;color:#aaa6b2;border-radius:9px;padding:9px;font-size:8px;outline:none}
+.memoryVaultGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.memoryItem{position:relative;overflow:hidden;border:1px solid #302e39;border-radius:12px;background:#15141d}
+.memoryItem img{display:block;width:100%;aspect-ratio:1;object-fit:cover}.memoryMeta{padding:8px}.memoryMeta b{display:block;color:#eee;font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.memoryMeta small{color:#696672;font-size:7px}.memoryBtns{display:flex;gap:4px;padding:0 8px 8px}.memoryBtns button{flex:1;border:1px solid #302e39;background:#111018;color:#aaa6b2;border-radius:7px;padding:6px;font-size:7px;font-weight:900}
+.memoryBtns .fav.active{color:#ff719f;border-color:#ff719f}.danger{color:#ff8ba8!important}.emptyMemories{grid-column:1/-1;text-align:center;padding:25px;color:#696672;font-size:9px;border:1px dashed #302e39;border-radius:12px}
+@media(max-width:700px){.themeGrid,.layoutGrid,.memoryVaultGrid{grid-template-columns:repeat(2,1fr)}.detailRow{grid-template-columns:1fr}.memoryTools{flex-direction:column}}
+
 </style>
 </head>
 
@@ -1321,6 +1344,56 @@ body::before{
     <button class="templateCard" data-template="love" type="button"><span>♡</span><b>Love</b><small>Soft & cute</small></button>
   </div>
 </div>
+
+
+<section class="themeStudio" id="themeStudio">
+  <div class="studioTop">
+    <div>
+      <span class="studioEyebrow">PHASE F · CREATIVE STUDIO</span>
+      <h3>Make it yours ♡</h3>
+    </div>
+    <button id="toggleThemeStudio" class="miniAction" type="button">Hide</button>
+  </div>
+
+  <div class="themeTabs">
+    <button class="themeTab active" data-theme-tab="themes" type="button">Themes</button>
+    <button class="themeTab" data-theme-tab="layouts" type="button">Layouts</button>
+    <button class="themeTab" data-theme-tab="details" type="button">Details</button>
+  </div>
+
+  <div class="themePane active" data-pane="themes">
+    <div class="themeGrid">
+      <button class="themeChoice active" data-theme="classic" type="button"><span>▣</span><b>Classic</b><small>Clean & timeless</small></button>
+      <button class="themeChoice" data-theme="love" type="button"><span>♡</span><b>Love</b><small>Soft & romantic</small></button>
+      <button class="themeChoice" data-theme="vintage" type="button"><span>◉</span><b>Vintage</b><small>Film-inspired</small></button>
+      <button class="themeChoice" data-theme="midnight" type="button"><span>☾</span><b>Midnight</b><small>Dark & cinematic</small></button>
+      <button class="themeChoice" data-theme="party" type="button"><span>✦</span><b>Party</b><small>Fun & bright</small></button>
+      <button class="themeChoice" data-theme="minimal" type="button"><span>—</span><b>Minimal</b><small>Simple & clean</small></button>
+    </div>
+  </div>
+
+  <div class="themePane" data-pane="layouts">
+    <div class="layoutGrid">
+      <button class="layoutChoice active" data-layout="single" type="button"><span>▣</span><b>Single</b><small>One memory</small></button>
+      <button class="layoutChoice" data-layout="polaroid" type="button"><span>▤</span><b>Polaroid</b><small>Instant film</small></button>
+      <button class="layoutChoice" data-layout="strip2" type="button"><span>▥</span><b>2 Strip</b><small>Two shots</small></button>
+      <button class="layoutChoice" data-layout="strip3" type="button"><span>▥</span><b>3 Strip</b><small>Three shots</small></button>
+      <button class="layoutChoice" data-layout="strip4" type="button"><span>▥</span><b>4 Strip</b><small>Classic booth</small></button>
+      <button class="layoutChoice" data-layout="collage" type="button"><span>▦</span><b>Collage</b><small>Memory wall</small></button>
+    </div>
+  </div>
+
+  <div class="themePane" data-pane="details">
+    <div class="detailRow">
+      <label>Memory title <input id="memoryTitleInput" maxlength="50" placeholder="Our little memory ♡"></label>
+      <label>Footer text <input id="memoryFooterInput" maxlength="50" placeholder="UsBooth · 2026"></label>
+    </div>
+    <div class="detailActions">
+      <button id="stampDateButton" class="miniAction" type="button">＋ Add today's date</button>
+      <button id="clearDetailsButton" class="miniAction" type="button">Clear details</button>
+    </div>
+  </div>
+</section>
 
 <div class="settings">
 
@@ -5738,6 +5811,112 @@ console.log(
     new MutationObserver(refreshState).observe($("status"), {childList:true,subtree:true,characterData:true});
     refreshState();
   }
+})();
+</script>
+
+
+<script>
+/* =========================================================
+   PHASE F + G — THEMES, LAYOUTS, MEMORIES
+   Uses browser-local storage; no server photo upload is added.
+========================================================= */
+(() => {
+  const $=id=>document.getElementById(id);
+  const KEY="usbooth.memories.v1";
+  const THEME_KEY="usbooth.theme.v1";
+
+  const load=()=>{try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch{return[]}};
+  const save=x=>localStorage.setItem(KEY,JSON.stringify(x));
+
+  let memories=load();
+  let activeTheme=localStorage.getItem(THEME_KEY)||"classic";
+  let activeLayout="single";
+
+  function render(){
+    const grid=$("memoryVaultGrid"), count=$("memoryCount");
+    if(!grid)return;
+    const q=($("memorySearch")?.value||"").trim().toLowerCase();
+    let arr=memories.filter(m=>(m.title+" "+m.footer).toLowerCase().includes(q));
+    const sort=$("memorySort")?.value||"newest";
+    arr.sort((a,b)=>{
+      if(sort==="oldest")return a.created-b.created;
+      if(sort==="favorites")return Number(b.favorite)-Number(a.favorite)||b.created-a.created;
+      return b.created-a.created;
+    });
+    if(count)count.textContent=memories.length;
+    if(!arr.length){grid.innerHTML='<div class="emptyMemories">No matching memories yet ♡</div>';return}
+    grid.innerHTML="";
+    arr.forEach(m=>{
+      const card=document.createElement("article");
+      card.className="memoryItem";
+      const img=document.createElement("img"); img.src=m.dataUrl; img.alt=m.title||"UsBooth memory";
+      const meta=document.createElement("div"); meta.className="memoryMeta";
+      meta.innerHTML="<b></b><small></small>";
+      meta.children[0].textContent=m.title||"Untitled memory";
+      meta.children[1].textContent=new Date(m.created).toLocaleString();
+      const btns=document.createElement("div");btns.className="memoryBtns";
+      const fav=document.createElement("button");fav.className="fav"+(m.favorite?" active":"");fav.textContent=m.favorite?"♥":"♡";
+      fav.onclick=()=>{m.favorite=!m.favorite;save(memories);render()};
+      const dl=document.createElement("button");dl.textContent="↓ Save";
+      dl.onclick=()=>downloadData(m.dataUrl,(m.title||"usbooth-memory").replace(/[^\w-]+/g,"-")+".png");
+      const del=document.createElement("button");del.textContent="×";
+      del.onclick=()=>{memories=memories.filter(x=>x.id!==m.id);save(memories);render()};
+      btns.append(fav,dl,del);card.append(img,meta,btns);grid.append(card);
+    });
+  }
+
+  function downloadData(url,name){
+    const a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
+  }
+
+  window.usboothSaveMemory=(dataUrl, extra={})=>{
+    if(!dataUrl)return;
+    memories.unshift({
+      id:crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random(),
+      dataUrl,
+      title:extra.title||$("memoryTitleInput")?.value.trim()||"Our little memory ♡",
+      footer:extra.footer||$("memoryFooterInput")?.value.trim()||"UsBooth",
+      theme:activeTheme,layout:activeLayout,
+      favorite:false,created:Date.now()
+    });
+    save(memories);render();
+  };
+
+  document.querySelectorAll(".themeTab").forEach(tab=>tab.onclick=()=>{
+    document.querySelectorAll(".themeTab").forEach(x=>x.classList.toggle("active",x===tab));
+    document.querySelectorAll(".themePane").forEach(x=>x.classList.toggle("active",x.dataset.pane===tab.dataset.themeTab));
+  });
+  document.querySelectorAll(".themeChoice").forEach(btn=>btn.onclick=()=>{
+    activeTheme=btn.dataset.theme;localStorage.setItem(THEME_KEY,activeTheme);
+    document.querySelectorAll(".themeChoice").forEach(x=>x.classList.toggle("active",x===btn));
+    document.documentElement.dataset.usboothTheme=activeTheme;
+  });
+  document.querySelectorAll(".layoutChoice").forEach(btn=>btn.onclick=()=>{
+    activeLayout=btn.dataset.layout;
+    document.querySelectorAll(".layoutChoice").forEach(x=>x.classList.toggle("active",x===btn));
+  });
+  $("toggleThemeStudio")?.addEventListener("click",()=>{
+    const panes=document.querySelectorAll("#themeStudio .themePane");
+    const hidden=panes[0]?.style.display==="none";
+    panes.forEach(x=>x.style.display=hidden?"":"none");
+    $("toggleThemeStudio").textContent=hidden?"Hide":"Show";
+  });
+  $("stampDateButton")?.addEventListener("click",()=>{
+    const i=$("memoryFooterInput");if(i)i.value=(i.value?i.value+" · ":"")+new Date().toLocaleDateString();
+  });
+  $("clearDetailsButton")?.addEventListener("click",()=>{if($("memoryTitleInput"))$("memoryTitleInput").value="";if($("memoryFooterInput"))$("memoryFooterInput").value=""});
+  $("memorySearch")?.addEventListener("input",render);
+  $("memorySort")?.addEventListener("change",render);
+  $("clearMemoriesButton")?.addEventListener("click",()=>{
+    if(confirm("Clear all saved UsBooth memories from this browser?")){memories=[];save(memories);render()}
+  });
+  $("exportMemoriesButton")?.addEventListener("click",()=>{
+    const blob=new Blob([JSON.stringify(memories.map(({dataUrl,...m})=>m),null,2)],{type:"application/json"});
+    const url=URL.createObjectURL(blob);downloadData(url,"usbooth-memories.json");URL.revokeObjectURL(url);
+  });
+
+  document.documentElement.dataset.usboothTheme=activeTheme;
+  render();
 })();
 </script>
 
