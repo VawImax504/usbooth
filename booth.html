@@ -1102,18 +1102,30 @@ body:after{width:320px;height:320px;right:-120px;bottom:5%;background:radial-gra
 .shotPreviewHeader h3{margin:3px 0 0;font-size:13px}
 .shotPreviewHeader>span{font-size:7px;color:#ff9cba;border:1px solid #543342;padding:6px 8px;border-radius:999px}
 .shotPreviewStage{display:flex;justify-content:center;padding:14px 0 10px}
-.previewPhotoMock{position:relative;width:min(220px,55vw);aspect-ratio:3/4;border:8px solid #f2eee8;background:linear-gradient(145deg,#6c4b5a,#21151d);box-shadow:0 12px 30px rgba(0,0,0,.4);overflow:hidden;display:flex;align-items:center;justify-content:center}
-.previewPhotoMock:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.08),transparent 35%,rgba(255,113,159,.15))}
-.previewLocalMini,.previewRemoteMini{position:absolute;width:43%;height:53%;top:20%;background:linear-gradient(145deg,#6d5360,#2b1c26);border:2px solid rgba(255,255,255,.72);box-shadow:0 5px 15px rgba(0,0,0,.3)}
-.previewLocalMini{left:5%;transform:rotate(-4deg)}.previewRemoteMini{right:5%;transform:rotate(4deg)}
-.previewFrameOverlay{position:absolute;inset:0;border:10px solid rgba(255,255,255,.18);pointer-events:none}
-.previewCaption{position:absolute;bottom:12px;left:10px;right:10px;text-align:center;color:#fff;font-family:Georgia,serif;font-size:12px;text-shadow:0 2px 8px #000}
-.previewDate{position:absolute;top:8px;right:9px;color:#fff;font-size:6px;opacity:.8}
+.livePreviewShell{width:min(600px,100%);display:flex;justify-content:center}
+.livePreviewCard{position:relative;width:min(540px,92vw);aspect-ratio:4/3;background:#f4ecdf;padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px;overflow:hidden;box-shadow:0 15px 45px rgba(0,0,0,.35);transition:.2s}
+.previewFeed{position:relative;min-width:0;min-height:0;overflow:hidden;background:#241720;border:2px solid rgba(255,255,255,.65);transition:.2s;clip-path:inset(0)}
+.previewFeed video{width:100%;height:100%;display:block;object-fit:cover;transform:scaleX(-1);background:linear-gradient(145deg,#3b2934,#171018)}
+.previewFeedRemote video{transform:none}
+.previewFeed span{position:absolute;left:8px;top:7px;padding:4px 7px;border-radius:999px;background:rgba(0,0,0,.58);color:#fff;font-size:6px;font-weight:1000;letter-spacing:1px}
+.previewOverlay{position:absolute;inset:0;pointer-events:none;border:5px solid rgba(255,255,255,.55)}
+.previewCaptionLive{position:absolute;left:18px;right:18px;bottom:8px;text-align:center;color:#302820;font:italic 17px Georgia,serif;text-shadow:0 1px 2px rgba(255,255,255,.35);pointer-events:none}
+.previewDateLive{position:absolute;right:22px;top:7px;color:#514b50;font-size:6px;pointer-events:none}
 .previewHint{text-align:center;color:#777481;font-size:7px;line-height:1.5}
-@media(max-width:700px){.previewPhotoMock{width:180px}}
+.livePreviewCard.shape-rounded .previewFeed{border-radius:28px}
+.livePreviewCard.shape-heart .previewFeed{clip-path:polygon(50% 94%,44% 88%,20% 70%,8% 53%,5% 36%,10% 21%,22% 13%,35% 14%,50% 30%,65% 14%,78% 13%,90% 21%,95% 36%,92% 53%,80% 70%,56% 88%)}
+.livePreviewCard.shape-film{background:#17151a;padding:18px 30px}
+.livePreviewCard.shape-film .previewFeed{border-radius:2px;border:3px solid #0b0a0d}
+.livePreviewCard.shape-film:before,.livePreviewCard.shape-film:after{content:"••••••••••••";position:absolute;left:4px;right:4px;color:#08070a;letter-spacing:12px;font-size:14px;line-height:1;overflow:hidden;z-index:3}
+.livePreviewCard.shape-film:before{top:2px}.livePreviewCard.shape-film:after{bottom:2px}
+.livePreviewCard.layout-single{grid-template-columns:1fr}
+.livePreviewCard.layout-single .previewFeedRemote{display:none}
+.livePreviewCard.layout-polaroid{background:#fff;padding:24px 28px 48px}
+.livePreviewCard.layout-strip{grid-template-columns:1fr 1fr}
+.livePreviewCard.layout-collage{grid-template-columns:1.35fr .65fr;grid-template-rows:1fr 1fr}
+.livePreviewCard.layout-collage .previewFeedLocal{grid-row:1/3}
+@media(max-width:700px){.livePreviewCard{width:92vw}.previewCaptionLive{font-size:14px}}
 
-
-.previewCanvasWrap{width:min(600px,100%);padding:10px;display:flex;justify-content:center}.previewCanvasWrap canvas{display:block;width:min(100%,560px);height:auto;border-radius:12px;box-shadow:0 15px 45px rgba(0,0,0,.35);background:#111}
 </style>
 </head>
 
@@ -1319,8 +1331,20 @@ body:after{width:320px;height:320px;right:-120px;bottom:5%;background:radial-gra
     <span id="previewModeLabel">Classic · Single</span>
   </div>
   <div class="shotPreviewStage">
-    <div class="previewCanvasWrap">
-      <canvas id="shotPreviewCanvas" width="600" height="450"></canvas>
+    <div class="livePreviewShell" id="livePreviewShell">
+      <div class="livePreviewCard" id="livePreviewCard">
+        <div class="previewFeed previewFeedLocal" id="previewLocalWrap">
+          <video id="previewLocalVideo" autoplay playsinline muted></video>
+          <span>YOU</span>
+        </div>
+        <div class="previewFeed previewFeedRemote" id="previewRemoteWrap">
+          <video id="previewRemoteVideo" autoplay playsinline></video>
+          <span>THEM</span>
+        </div>
+        <div class="previewOverlay" id="previewOverlay"></div>
+        <div class="previewCaptionLive" id="previewCaptionLive">us, somehow ♡</div>
+        <div class="previewDateLive" id="previewDateLive"></div>
+      </div>
     </div>
   </div>
   <div class="previewHint">Your selected theme, layout, frame and caption are reflected here before you press the shutter.</div>
@@ -2946,40 +2970,116 @@ function drawCover(
   h
 ){
 
+  const shape =
+    frameShapeSelect?.value ||
+    "classic";
+
   const scale =
     Math.max(
       w / img.width,
       h / img.height
     );
 
+  const sw=w/scale;
+  const sh=h/scale;
+  const sx=(img.width-sw)/2;
+  const sy=(img.height-sh)/2;
 
-  const sw =
-    w / scale;
+  ctx.save();
 
-  const sh =
-    h / scale;
+  if(shape==="rounded"){
 
+    const r=Math.min(55,w/2,h/2);
 
-  const sx =
-    (img.width -
-      sw) / 2;
+    ctx.beginPath();
+    ctx.moveTo(x+r,y);
+    ctx.arcTo(x+w,y,x+w,y+h,r);
+    ctx.arcTo(x+w,y+h,x,y+h,r);
+    ctx.arcTo(x,y+h,x,y,r);
+    ctx.arcTo(x,y,x+w,y,r);
+    ctx.closePath();
 
-  const sy =
-    (img.height -
-      sh) / 2;
+  }else if(shape==="heart"){
 
+    ctx.beginPath();
+    ctx.moveTo(x+w/2,y+h);
+    ctx.bezierCurveTo(
+      x,y+h*.68,
+      x,y+h*.25,
+      x+w*.25,y+h*.18
+    );
+    ctx.bezierCurveTo(
+      x+w*.40,y+h*.10,
+      x+w*.48,y+h*.20,
+      x+w/2,y+h*.30
+    );
+    ctx.bezierCurveTo(
+      x+w*.52,y+h*.20,
+      x+w*.60,y+h*.10,
+      x+w*.75,y+h*.18
+    );
+    ctx.bezierCurveTo(
+      x+w,y+h*.25,
+      x+w,y+h*.68,
+      x+w/2,y+h
+    );
+    ctx.closePath();
+
+  }else{
+
+    ctx.beginPath();
+    ctx.rect(x,y,w,h);
+    ctx.closePath();
+
+  }
+
+  ctx.clip();
 
   ctx.drawImage(
     img,
-    sx,
-    sy,
-    sw,
-    sh,
-    x,
-    y,
-    w,
-    h
+    sx,sy,sw,sh,
+    x,y,w,h
   );
+
+  ctx.restore();
+
+  if(shape==="film"){
+
+    ctx.save();
+
+    ctx.strokeStyle="#111";
+    ctx.lineWidth=Math.max(8,Math.min(w,h)*.025);
+    ctx.strokeRect(x,y,w,h);
+
+    const holeW=Math.max(7,w*.035);
+    const holeH=Math.max(4,h*.018);
+    const count=Math.max(4,Math.floor(w/45));
+
+    ctx.fillStyle="#111";
+
+    for(let i=0;i<count;i++){
+
+      const hx=x+i*(w-holeW)/(count-1);
+
+      ctx.fillRect(
+        hx,
+        y-holeH/2,
+        holeW,
+        holeH
+      );
+
+      ctx.fillRect(
+        hx,
+        y+h-holeH/2,
+        holeW,
+        holeH
+      );
+
+    }
+
+    ctx.restore();
+
+  }
 
 }
 
@@ -5993,76 +6093,114 @@ console.log(
 
 
 <script>
-/* FINAL AUDIO + TRUE LIVE RESULT PREVIEW */
+/* =========================================================
+   FINAL AUDIO + TRUE LIVE DOM PREVIEW
+========================================================= */
 (() => {
-  const $=id=>document.getElementById(id);
-  const remote=$('remoteVideo'), sound=$('soundButton');
+  const $ = id => document.getElementById(id);
+
+  const remote = $("remoteVideo");
+  const sound = $("soundButton");
 
   async function enableRemoteAudio(){
     if(!remote || !remote.srcObject) return;
-    remote.muted=false; remote.volume=1;
-    try{ await remote.play(); }catch(e){ console.log('Remote audio awaits a user gesture.'); }
-    if(sound) sound.textContent='🔊 Sound On';
+    remote.muted=false;
+    remote.volume=1;
+    try{ await remote.play(); }catch{}
+    if(sound) sound.textContent="🔊 Sound On";
   }
-  sound?.addEventListener('click',enableRemoteAudio);
-  remote?.addEventListener('click',enableRemoteAudio);
-  remote?.addEventListener('loadedmetadata',enableRemoteAudio);
-  remote?.addEventListener('canplay',enableRemoteAudio);
 
-  const canvas=$('shotPreviewCanvas');
-  const ctx=canvas?.getContext('2d');
-  if(!canvas||!ctx)return;
+  sound?.addEventListener("click",enableRemoteAudio);
+  remote?.addEventListener("click",enableRemoteAudio);
+  remote?.addEventListener("loadedmetadata",enableRemoteAudio);
+  remote?.addEventListener("canplay",enableRemoteAudio);
 
-  function roundedRectPath(c,x,y,w,h,r){
-    r=Math.min(r,w/2,h/2); c.beginPath(); c.moveTo(x+r,y); c.arcTo(x+w,y,x+w,y+h,r); c.arcTo(x+w,y+h,x,y+h,r); c.arcTo(x,y+h,x,y,r); c.arcTo(x,y,x+w,y,r); c.closePath();
+  const card=$("livePreviewCard");
+  const localPreview=$("previewLocalVideo");
+  const remotePreview=$("previewRemoteVideo");
+
+  if(!card || !localPreview || !remotePreview) return;
+
+  function syncStreams(){
+    const local=$("localVideo");
+    const remoteSource=$("remoteVideo");
+
+    if(local?.srcObject && localPreview.srcObject !== local.srcObject)
+      localPreview.srcObject=local.srcObject;
+
+    if(remoteSource?.srcObject && remotePreview.srcObject !== remoteSource.srcObject)
+      remotePreview.srcObject=remoteSource.srcObject;
+
+    if(localPreview.srcObject) localPreview.play().catch(()=>{});
+    if(remotePreview.srcObject) remotePreview.play().catch(()=>{});
   }
-  function heartPath(c,x,y,w,h){
-    c.beginPath(); c.moveTo(x+w/2,y+h); c.bezierCurveTo(x,y+h*.68,x,y+h*.25,x+w*.25,y+h*.18); c.bezierCurveTo(x+w*.4,y+h*.1,x+w*.48,y+h*.2,x+w/2,y+h*.3); c.bezierCurveTo(x+w*.52,y+h*.2,x+w*.6,y+h*.1,x+w*.75,y+h*.18); c.bezierCurveTo(x+w,y+h*.25,x+w,y+h*.68,x+w/2,y+h); c.closePath();
-  }
-  function drawCover(c,img,x,y,w,h,shape='classic'){
-    c.save();
-    if(shape==='rounded') roundedRectPath(c,x,y,w,h,28);
-    else if(shape==='heart') heartPath(c,x,y,w,h);
-    else { c.beginPath(); c.rect(x,y,w,h); c.closePath(); }
-    c.clip();
-    const scale=Math.max(w/img.width,h/img.height); const sw=w/scale,sh=h/scale; const sx=(img.width-sw)/2,sy=(img.height-sh)/2;
-    c.drawImage(img,sx,sy,sw,sh,x,y,w,h); c.restore();
-  }
-  function color(){const v=$('frameSelect')?.value||'cream';return v==='pink'?'#ffdce8':v==='black'?'#111111':v==='white'?'#fff':'#f4ecdf'}
-  function drawPlaceholder(c,x,y,w,h,label,shape){c.save();c.fillStyle='#2a1a24';c.fillRect(x,y,w,h);c.fillStyle='rgba(255,113,159,.18)';c.fillRect(x,y,w,h);c.fillStyle='#fff';c.font='700 18px system-ui';c.textAlign='center';c.textBaseline='middle';c.fillText(label,x+w/2,y+h/2);c.restore()}
+
   function refresh(){
-    const W=600,H=450; ctx.clearRect(0,0,W,H);
-    const style=$('styleSelect')?.value||'together';
-    const shape=$('frameShapeSelect')?.value||'classic';
-    const bg=color(); ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
-    const local=document.getElementById('localVideo'); const rem=document.getElementById('remoteVideo');
-    const hasLocal=local?.readyState>=2; const hasRemote=rem?.readyState>=2 && rem?.srcObject;
-    const cap=($('captionInput')?.value||'').trim()||'us, somehow ♡';
-    const date=new Date().toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'});
-    ctx.save();ctx.filter=`brightness(${Number($('brightness')?.value||100)/100}) contrast(${Number($('contrast')?.value||100)/100})`;
-    if(style==='polaroid'){
-      ctx.fillStyle='#fff';ctx.fillRect(35,25,530,400);
-      if(hasLocal) drawCover(ctx,local,55,45,245,285,shape); else drawPlaceholder(ctx,55,45,245,285,'YOU',shape);
-      if(hasRemote) drawCover(ctx,rem,320,45,215,285,shape); else drawPlaceholder(ctx,320,45,215,285,'THEM',shape);
-      ctx.restore();ctx.fillStyle='#252025';ctx.font='italic 22px Georgia';ctx.textAlign='center';ctx.fillText(cap,300,365);ctx.font='700 10px system-ui';ctx.fillText(date,300,397);
-    } else if(style==='strip'){
-      ctx.restore();
-      ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
-      const n=Math.max(2,Math.min(4,Number($('shotsSelect')?.value||3))); const h=(H-45-(n-1)*8)/n;
-      for(let i=0;i<n;i++){const y=20+i*(h+8); if(hasLocal) drawCover(ctx,local,55,y,235,h,shape); else drawPlaceholder(ctx,55,y,235,h,`SHOT ${i+1}`,shape); if(hasRemote) drawCover(ctx,rem,310,y,235,h,shape); else drawPlaceholder(ctx,310,y,235,h,'THEM',shape)}
-      ctx.fillStyle='#fff';ctx.font='italic 13px Georgia';ctx.textAlign='center';ctx.fillText(cap,300,H-5);
-    } else {
-      ctx.restore();
-      if(hasLocal) drawCover(ctx,local,28,28,265,335,shape); else drawPlaceholder(ctx,28,28,265,335,'YOU',shape);
-      if(hasRemote) drawCover(ctx,rem,307,28,265,335,shape); else drawPlaceholder(ctx,307,28,265,335,'THEM',shape);
-      ctx.fillStyle=bg;ctx.fillRect(0,378,W,72);ctx.fillStyle=bg==='black'?'#fff':'#302820';ctx.font='italic 22px Georgia';ctx.textAlign='center';ctx.fillText(cap,300,402);ctx.font='700 9px system-ui';ctx.fillText(date,300,430);
-    }
-    const mode=new URLSearchParams(location.search).get('mode')==='single'?'Single Phone':'Two Phone';
-    $('previewModeLabel').textContent=`${style} · ${shape} · ${mode}`;
+    syncStreams();
+
+    const style=$("styleSelect")?.value||"together";
+    const shape=$("frameShapeSelect")?.value||"classic";
+    const frame=$("frameSelect")?.value||"cream";
+    const shots=Number($("shotsSelect")?.value||3);
+    const caption=($("captionInput")?.value||"").trim()||"us, somehow ♡";
+    const filter=$("filterSelect")?.value||"none";
+    const brightness=Number($("brightness")?.value||100)/100;
+    const contrast=Number($("contrast")?.value||100)/100;
+    const mode=new URLSearchParams(location.search).get("mode")==="single"?"Single Phone":"Two Phone";
+    const theme=document.querySelector(".themeChoice.active")?.dataset.theme||"classic";
+    const layout=document.querySelector(".layoutChoice.active")?.dataset.layout||"single";
+
+    card.className="livePreviewCard shape-"+shape+" layout-"+(
+      layout==="single"?"single":
+      layout==="polaroid"?"polaroid":
+      layout==="collage"?"collage":"strip"
+    );
+
+    if(style==="polaroid") card.classList.add("layout-polaroid");
+    if(style==="strip") card.classList.add("layout-strip");
+
+    const remoteWrap=$("previewRemoteWrap");
+    if(remoteWrap) remoteWrap.style.display=mode==="Single Phone"?"none":"";
+
+    const colors={cream:"#f4ecdf",white:"#fff",pink:"#ffdce8",black:"#111"};
+    card.style.background=colors[frame]||colors.cream;
+
+    const filterMap={
+      none:"",
+      bw:"grayscale(1)",
+      vintage:"sepia(.65) saturate(.8)",
+      warm:"sepia(.18) saturate(1.2)",
+      cool:"hue-rotate(12deg) saturate(.85)",
+      dreamy:"brightness(1.08) saturate(.9)"
+    };
+
+    const vf=filterMap[filter]||filter;
+    [localPreview,remotePreview].forEach(v=>{
+      v.style.filter=`${vf} brightness(${brightness}) contrast(${contrast})`;
+    });
+
+    $("previewCaptionLive").textContent=caption;
+    $("previewDateLive").textContent=new Date().toLocaleDateString(
+      undefined,{day:"numeric",month:"short",year:"numeric"}
+    );
+
+    $("previewModeLabel").textContent=
+      `${theme} · ${shape} · ${mode} · ${shots} shot${shots===1?"":"s"}`;
   }
-  ['styleSelect','shotsSelect','frameSelect','frameShapeSelect','filterSelect','brightness','contrast','captionInput'].forEach(id=>$(id)?.addEventListener('input',refresh));
-  ['styleSelect','shotsSelect','frameSelect','frameShapeSelect','filterSelect'].forEach(id=>$(id)?.addEventListener('change',refresh));
-  setInterval(refresh,600); refresh();
+
+  [
+    "styleSelect","shotsSelect","frameSelect","frameShapeSelect",
+    "filterSelect","brightness","contrast","captionInput"
+  ].forEach(id=>{
+    $(id)?.addEventListener("input",refresh);
+    $(id)?.addEventListener("change",refresh);
+  });
+
+  document.querySelectorAll(".themeChoice,.layoutChoice,.templateCard")
+    .forEach(x=>x.addEventListener("click",()=>setTimeout(refresh,30)));
+
+  setInterval(syncStreams,500);
+  refresh();
 })();
 </script>
 
