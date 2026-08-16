@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -10,10 +9,7 @@
   content="width=device-width, initial-scale=1.0, viewport-fit=cover"
 >
 
-<meta
-  name="theme-color"
-  content="#09090d"
->
+<meta name="theme-color" content="#09090d">
 
 <title>UsBooth ♡</title>
 
@@ -38,9 +34,9 @@ body{
   background:
     radial-gradient(
       circle at 50% -10%,
-      #4b1d3b 0%,
-      #17101a 30%,
-      #09090d 65%
+      #54203f 0%,
+      #1a111b 30%,
+      #09090d 68%
     );
 
   color:#fff;
@@ -55,18 +51,33 @@ body{
     sans-serif;
 }
 
+button,
+input,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+button:disabled{
+  cursor:not-allowed;
+  opacity:.42;
+}
+
 
 /* =========================================================
    APP
 ========================================================= */
 
 .app{
-  width:min(1200px,100%);
+  width:min(1250px,100%);
   margin:auto;
 
   padding:
-    28px
-    18px
+    24px
+    16px
     70px;
 }
 
@@ -77,16 +88,13 @@ body{
 
 header{
   text-align:center;
-
-  margin-bottom:28px;
+  margin-bottom:25px;
 }
 
 .logo{
-  font-size:15px;
-
-  font-weight:900;
-
-  letter-spacing:3px;
+  font-size:14px;
+  font-weight:1000;
+  letter-spacing:4px;
 }
 
 .logo span{
@@ -103,46 +111,43 @@ h1{
     clamp(
       42px,
       8vw,
-      76px
+      78px
     );
 
-  line-height:.95;
-
-  letter-spacing:-4px;
+  line-height:.92;
+  letter-spacing:-5px;
 }
 
-.heroAccent{
+.accent{
   color:#ff719f;
 }
 
 .subtitle{
   color:#aaa7b4;
-
-  font-size:15px;
-
+  font-size:14px;
   line-height:1.6;
 }
 
 
 /* =========================================================
-   CARD
+   MAIN CARD
 ========================================================= */
 
 .card{
   background:
-    rgba(21,21,30,.88);
+    rgba(20,20,29,.9);
 
   border:
     1px solid
     #302f3d;
 
-  border-radius:26px;
+  border-radius:27px;
 
   padding:16px;
 
   box-shadow:
     0 30px 100px
-    rgba(0,0,0,.45);
+    rgba(0,0,0,.48);
 
   backdrop-filter:
     blur(20px);
@@ -150,59 +155,52 @@ h1{
 
 
 /* =========================================================
-   ROOM BAR
+   TOP BAR
 ========================================================= */
 
-.roomBar{
+.topBar{
   display:flex;
-
   justify-content:center;
-
   align-items:center;
-
   gap:9px;
-
   flex-wrap:wrap;
-
-  margin-bottom:14px;
 }
 
-input{
+.roomInput{
   width:170px;
 
   padding:
-    13px
-    15px;
+    12px
+    14px;
 
   border:
     1px solid
-    #3b3948;
+    #3c3948;
 
   border-radius:12px;
 
-  background:#0c0c12;
-
-  color:#fff;
+  background:#0b0b11;
+  color:white;
 
   outline:none;
-
-  font-size:14px;
-
-  font-weight:900;
 
   text-align:center;
 
   text-transform:uppercase;
 
   letter-spacing:4px;
+
+  font-size:13px;
+
+  font-weight:900;
 }
 
-input:focus{
+.roomInput:focus{
   border-color:#ff719f;
 
   box-shadow:
     0 0 0 3px
-    rgba(255,113,159,.12);
+    rgba(255,113,159,.1);
 }
 
 
@@ -210,48 +208,37 @@ input:focus{
    BUTTONS
 ========================================================= */
 
-button{
+.btn{
   border:0;
 
   border-radius:999px;
 
   padding:
-    12px
-    18px;
-
-  font-size:13px;
-
-  font-weight:900;
-
-  cursor:pointer;
-
-  transition:
-    transform .15s ease,
-    opacity .15s ease,
-    background .15s ease;
+    11px
+    17px;
 
   background:#ff719f;
 
   color:#210812;
+
+  font-size:12px;
+
+  font-weight:1000;
+
+  transition:
+    transform .15s ease,
+    opacity .15s ease;
 }
 
-button:hover{
+.btn:hover{
   transform:translateY(-1px);
 }
 
-button:active{
+.btn:active{
   transform:scale(.97);
 }
 
-button:disabled{
-  opacity:.45;
-
-  cursor:not-allowed;
-
-  transform:none;
-}
-
-button.secondary{
+.btn.secondary{
   background:#252531;
 
   color:#fff;
@@ -261,10 +248,10 @@ button.secondary{
     #3b3a48;
 }
 
-button.danger{
+.btn.danger{
   background:#40202b;
 
-  color:#ffb4c7;
+  color:#ffb5c8;
 
   border:
     1px solid
@@ -273,7 +260,7 @@ button.danger{
 
 
 /* =========================================================
-   ROOM INFO
+   ROOM
 ========================================================= */
 
 .roomInfo{
@@ -282,13 +269,12 @@ button.danger{
   text-align:center;
 
   margin:
-    4px
-    0
-    14px;
+    13px
+    0;
 
-  color:#9996a4;
+  color:#888592;
 
-  font-size:11px;
+  font-size:10px;
 }
 
 .roomCode{
@@ -298,11 +284,11 @@ button.danger{
 
   color:#ff9fbd;
 
-  font-size:24px;
+  font-size:25px;
+
+  letter-spacing:7px;
 
   font-weight:1000;
-
-  letter-spacing:6px;
 }
 
 
@@ -311,9 +297,11 @@ button.danger{
 ========================================================= */
 
 .status{
-  padding:12px;
+  margin:
+    12px
+    0;
 
-  margin-bottom:14px;
+  padding:11px;
 
   border-radius:13px;
 
@@ -327,16 +315,16 @@ button.danger{
 
   text-align:center;
 
-  font-size:12px;
+  font-size:11px;
 
   font-weight:700;
 }
 
-.status.connected{
+.status.ok{
   color:#8ff0ba;
 }
 
-.status.warning{
+.status.warn{
   color:#ffd68a;
 }
 
@@ -346,10 +334,10 @@ button.danger{
 
 
 /* =========================================================
-   VIDEO GRID
+   CAMERA GRID
 ========================================================= */
 
-.videoGrid{
+.cameraGrid{
   display:grid;
 
   grid-template-columns:
@@ -359,47 +347,47 @@ button.danger{
   gap:14px;
 }
 
-.videoCard{
+.cameraBox{
   position:relative;
 
   overflow:hidden;
 
-  aspect-ratio:4 / 3;
+  aspect-ratio:4/3;
 
-  border-radius:20px;
+  border-radius:21px;
 
-  background:#020205;
+  background:#020204;
 
   border:
     1px solid
-    #383643;
+    #373543;
 }
 
-.videoCard video{
+.cameraBox video{
   position:absolute;
 
   inset:0;
 
   width:100%;
-
   height:100%;
 
   object-fit:cover;
 
-  background:#020205;
+  background:#020204;
+
+  display:block;
 }
 
-.videoTag{
+.cameraLabel{
   position:absolute;
 
   top:11px;
-
   left:11px;
 
-  z-index:10;
+  z-index:20;
 
   padding:
-    7px
+    6px
     10px;
 
   border-radius:999px;
@@ -407,24 +395,23 @@ button.danger{
   background:
     rgba(0,0,0,.7);
 
-  font-size:10px;
+  font-size:9px;
 
   font-weight:1000;
 
-  letter-spacing:.7px;
+  letter-spacing:1px;
 }
 
-.liveTag{
+.liveLabel{
   position:absolute;
 
   top:11px;
-
   right:11px;
 
-  z-index:10;
+  z-index:20;
 
   padding:
-    7px
+    6px
     10px;
 
   border-radius:999px;
@@ -443,22 +430,24 @@ button.danger{
 
   inset:0;
 
-  z-index:5;
+  z-index:10;
 
   display:grid;
 
   place-items:center;
 
+  text-align:center;
+
   background:#030305;
 
   color:#777484;
 
-  text-align:center;
-
-  font-size:13px;
+  font-size:12px;
 }
 
-.remoteWaiting .heart{
+.remoteWaiting span{
+  display:block;
+
   margin-bottom:10px;
 
   color:#ff9fbd;
@@ -466,47 +455,127 @@ button.danger{
   font-size:42px;
 }
 
-.remoteDebug{
+.debug{
   position:absolute;
 
-  left:10px;
+  left:9px;
+  right:9px;
+  bottom:9px;
 
-  right:10px;
+  z-index:25;
 
-  bottom:10px;
-
-  z-index:20;
-
-  padding:6px 8px;
+  padding:6px;
 
   border-radius:8px;
 
-  background:rgba(0,0,0,.65);
+  background:
+    rgba(0,0,0,.62);
 
   color:#aaa7b4;
 
-  font-size:9px;
+  font-size:8px;
 
   text-align:center;
-
-  pointer-events:none;
 }
 
 
 /* =========================================================
-   CONTROLS
+   CAMERA CONTROLS
 ========================================================= */
 
-.controls{
+.controlRow{
   display:flex;
 
   justify-content:center;
 
-  gap:8px;
+  gap:7px;
 
   flex-wrap:wrap;
 
-  margin-top:14px;
+  margin-top:12px;
+}
+
+
+/* =========================================================
+   PHOTO SETTINGS
+========================================================= */
+
+.settings{
+  margin-top:18px;
+
+  padding:
+    14px;
+
+  border-radius:17px;
+
+  background:#101018;
+
+  border:
+    1px solid
+    #292835;
+}
+
+.settingsTitle{
+  margin-bottom:10px;
+
+  font-size:12px;
+
+  font-weight:1000;
+}
+
+.settingGrid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      1fr
+    );
+
+  gap:9px;
+}
+
+.setting{
+  min-width:0;
+}
+
+.setting label{
+  display:block;
+
+  margin-bottom:5px;
+
+  color:#777484;
+
+  font-size:9px;
+
+  font-weight:800;
+}
+
+select,
+.range{
+  width:100%;
+}
+
+select{
+  padding:9px;
+
+  border:
+    1px solid
+    #383643;
+
+  border-radius:9px;
+
+  background:#09090f;
+
+  color:white;
+
+  outline:none;
+
+  font-size:10px;
+}
+
+input[type="range"]{
+  accent-color:#ff719f;
 }
 
 
@@ -521,26 +590,23 @@ button.danger{
 
   align-items:center;
 
-  justify-content:center;
-
-  gap:8px;
+  gap:7px;
 
   margin:
     22px
     0
-    12px;
+    8px;
 }
 
 .shutter{
-  width:76px;
-
-  height:76px;
+  width:78px;
+  height:78px;
 
   padding:0;
 
   border-radius:50%;
 
-  background:#fff;
+  background:white;
 
   border:
     8px
@@ -548,22 +614,20 @@ button.danger{
     #ff719f;
 
   box-shadow:
-    0 0 0 4px
-    rgba(255,113,159,.18);
-
-  color:#210812;
+    0 0 0 5px
+    rgba(255,113,159,.13);
 
   font-size:0;
 }
 
-.shutter:disabled{
-  opacity:.4;
+.shutter:active{
+  transform:scale(.92);
 }
 
 .shutterHint{
-  color:#777484;
+  color:#6f6c79;
 
-  font-size:10px;
+  font-size:9px;
 }
 
 
@@ -583,48 +647,48 @@ button.danger{
   place-items:center;
 
   background:
-    rgba(0,0,0,.62);
+    rgba(0,0,0,.66);
 
   backdrop-filter:
-    blur(7px);
+    blur(8px);
 }
 
 .countdownNumber{
   font-size:
     clamp(
-      110px,
+      120px,
       25vw,
-      240px
+      260px
     );
+
+  line-height:1;
 
   font-weight:1000;
 
-  color:#fff;
-
   text-shadow:
-    0 0 40px
-    rgba(255,113,159,.75);
+    0 0 50px
+    rgba(255,113,159,.8);
 
   animation:
-    countdownPop
+    countPop
     .8s
     ease
     both;
 }
 
-@keyframes countdownPop{
+@keyframes countPop{
 
-  from{
-    transform:scale(.5);
+  0%{
+    transform:scale(.4);
     opacity:0;
   }
 
   50%{
-    transform:scale(1.1);
+    transform:scale(1.12);
     opacity:1;
   }
 
-  to{
+  100%{
     transform:scale(1);
     opacity:1;
   }
@@ -645,19 +709,19 @@ button.danger{
 
   pointer-events:none;
 
-  background:#fff;
+  background:white;
 
   opacity:0;
 }
 
 .flash.active{
   animation:
-    cameraFlash
+    flash
     .35s
     ease;
 }
 
-@keyframes cameraFlash{
+@keyframes flash{
 
   0%{
     opacity:0;
@@ -678,10 +742,10 @@ button.danger{
    GALLERY
 ========================================================= */
 
-.gallerySection{
-  margin-top:25px;
+.gallery{
+  margin-top:22px;
 
-  padding-top:22px;
+  padding-top:20px;
 
   border-top:
     1px solid
@@ -699,30 +763,32 @@ button.danger{
 
   flex-wrap:wrap;
 
-  margin-bottom:14px;
+  margin-bottom:12px;
 }
 
 .galleryTitle{
-  font-size:16px;
+  font-size:15px;
 
   font-weight:1000;
 }
 
 .galleryCount{
+  margin-top:2px;
+
   color:#777484;
 
-  font-size:11px;
+  font-size:9px;
 }
 
-.galleryActions{
+.galleryButtons{
   display:flex;
 
-  gap:7px;
+  gap:6px;
 
   flex-wrap:wrap;
 }
 
-.gallery{
+.photoGrid{
   display:grid;
 
   grid-template-columns:
@@ -737,20 +803,22 @@ button.danger{
   gap:10px;
 }
 
-.emptyGallery{
-  padding:30px 15px;
+.empty{
+  grid-column:1/-1;
 
-  border-radius:16px;
+  padding:35px 15px;
 
   border:
     1px dashed
-    #3a3846;
+    #3b3947;
 
-  color:#666370;
+  border-radius:15px;
+
+  color:#65626e;
 
   text-align:center;
 
-  font-size:12px;
+  font-size:11px;
 }
 
 .photo{
@@ -758,20 +826,19 @@ button.danger{
 
   overflow:hidden;
 
+  aspect-ratio:4/3;
+
   border-radius:15px;
 
-  background:#08080c;
+  background:#050507;
 
   border:
     1px solid
-    #34323f;
-
-  aspect-ratio:4 / 3;
+    #34323e;
 }
 
 .photo img{
   width:100%;
-
   height:100%;
 
   display:block;
@@ -783,7 +850,6 @@ button.danger{
   position:absolute;
 
   top:8px;
-
   left:8px;
 
   padding:
@@ -795,7 +861,29 @@ button.danger{
   background:
     rgba(0,0,0,.7);
 
-  font-size:9px;
+  font-size:8px;
+
+  font-weight:1000;
+}
+
+.photoSource{
+  position:absolute;
+
+  top:8px;
+  right:8px;
+
+  padding:
+    5px
+    8px;
+
+  border-radius:999px;
+
+  background:
+    rgba(0,0,0,.7);
+
+  color:#ff9fbd;
+
+  font-size:7px;
 
   font-weight:1000;
 }
@@ -803,11 +891,9 @@ button.danger{
 .photoActions{
   position:absolute;
 
-  bottom:8px;
-
-  left:8px;
-
-  right:8px;
+  left:7px;
+  right:7px;
+  bottom:7px;
 
   display:flex;
 
@@ -818,10 +904,63 @@ button.danger{
   flex:1;
 
   padding:
-    8px
-    8px;
+    7px;
 
-  font-size:10px;
+  border:0;
+
+  border-radius:8px;
+
+  background:
+    rgba(0,0,0,.76);
+
+  color:white;
+
+  font-size:8px;
+
+  font-weight:900;
+}
+
+
+/* =========================================================
+   FILTER PREVIEW
+========================================================= */
+
+.filter-none{
+  filter:none;
+}
+
+.filter-grayscale{
+  filter:grayscale(1);
+}
+
+.filter-sepia{
+  filter:sepia(.75);
+}
+
+.filter-vivid{
+  filter:saturate(1.45)
+         contrast(1.12);
+}
+
+.filter-cool{
+  filter:
+    saturate(1.1)
+    contrast(1.05)
+    hue-rotate(12deg);
+}
+
+.filter-warm{
+  filter:
+    saturate(1.1)
+    sepia(.18)
+    contrast(1.05);
+}
+
+.filter-dreamy{
+  filter:
+    brightness(1.08)
+    saturate(.88)
+    contrast(.92);
 }
 
 
@@ -846,7 +985,7 @@ button.danger{
 
   color:#ffc1d0;
 
-  font-size:11px;
+  font-size:10px;
 
   line-height:1.5;
 
@@ -855,13 +994,13 @@ button.danger{
 
 
 /* =========================================================
-   HELP
+   INFO
 ========================================================= */
 
-.help{
-  margin-top:16px;
+.info{
+  margin-top:17px;
 
-  padding:14px;
+  padding:13px;
 
   border-radius:14px;
 
@@ -871,13 +1010,13 @@ button.danger{
     1px solid
     #292835;
 
-  color:#85828f;
-
-  font-size:11px;
-
-  line-height:1.6;
+  color:#777484;
 
   text-align:center;
+
+  font-size:10px;
+
+  line-height:1.6;
 }
 
 
@@ -886,13 +1025,13 @@ button.danger{
 ========================================================= */
 
 footer{
-  margin-top:35px;
+  margin-top:30px;
 
-  color:#575460;
-
-  font-size:10px;
+  color:#55525e;
 
   text-align:center;
+
+  font-size:9px;
 }
 
 
@@ -900,12 +1039,12 @@ footer{
    RESPONSIVE
 ========================================================= */
 
-@media(max-width:700px){
+@media(max-width:760px){
 
   .app{
     padding:
-      18px
-      9px
+      16px
+      8px
       55px;
   }
 
@@ -915,23 +1054,18 @@ footer{
     border-radius:20px;
   }
 
-  .videoGrid{
+  .cameraGrid{
     grid-template-columns:1fr;
   }
 
-  .gallery{
+  .settingGrid{
     grid-template-columns:
-      repeat(
-        2,
-        minmax(
-          0,
-          1fr
-        )
-      );
+      repeat(2,1fr);
   }
 
-  .galleryHeader{
-    align-items:flex-start;
+  .photoGrid{
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
 }
@@ -947,10 +1081,6 @@ footer{
 <div class="app">
 
 
-<!-- =======================================================
-     HEADER
-======================================================= -->
-
 <header>
 
   <div class="logo">
@@ -959,7 +1089,7 @@ footer{
 
   <h1>
     Us, even from
-    <span class="heroAccent">
+    <span class="accent">
       miles away.
     </span>
   </h1>
@@ -972,25 +1102,25 @@ footer{
 </header>
 
 
-<!-- =======================================================
-     MAIN
-======================================================= -->
-
 <section class="card">
 
 
-<!-- =======================================================
+<!-- =====================================================
      ROOM
-======================================================= -->
+===================================================== -->
 
-<div class="roomBar">
+<div class="topBar">
 
-  <button id="createRoom">
+  <button
+    id="createRoom"
+    class="btn"
+  >
     Create Booth
   </button>
 
   <input
     id="roomInput"
+    class="roomInput"
     maxlength="6"
     placeholder="ROOM"
     autocomplete="off"
@@ -998,7 +1128,7 @@ footer{
 
   <button
     id="joinRoom"
-    class="secondary"
+    class="btn secondary"
   >
     Join Booth
   </button>
@@ -1011,7 +1141,7 @@ footer{
   class="roomInfo"
 >
 
-  Room code
+  ROOM CODE
 
   <span
     id="roomCode"
@@ -1023,9 +1153,9 @@ footer{
 </div>
 
 
-<!-- =======================================================
+<!-- =====================================================
      STATUS
-======================================================= -->
+===================================================== -->
 
 <div
   id="status"
@@ -1035,16 +1165,14 @@ footer{
 </div>
 
 
-<!-- =======================================================
-     VIDEOS
-======================================================= -->
+<!-- =====================================================
+     CAMERA
+===================================================== -->
 
-<div class="videoGrid">
+<div class="cameraGrid">
 
 
-  <!-- LOCAL -->
-
-  <div class="videoCard">
+  <div class="cameraBox">
 
     <video
       id="localVideo"
@@ -1053,20 +1181,18 @@ footer{
       muted
     ></video>
 
-    <div class="videoTag">
+    <div class="cameraLabel">
       YOU
     </div>
 
-    <div class="liveTag">
+    <div class="liveLabel">
       LIVE
     </div>
 
   </div>
 
 
-  <!-- REMOTE -->
-
-  <div class="videoCard">
+  <div class="cameraBox">
 
     <video
       id="remoteVideo"
@@ -1075,6 +1201,7 @@ footer{
       muted
     ></video>
 
+
     <div
       id="remoteWaiting"
       class="remoteWaiting"
@@ -1082,9 +1209,7 @@ footer{
 
       <div>
 
-        <div class="heart">
-          ♡
-        </div>
+        <span>♡</span>
 
         Waiting for your person…
 
@@ -1092,21 +1217,24 @@ footer{
 
     </div>
 
-    <div class="videoTag">
+
+    <div class="cameraLabel">
       THEM
     </div>
 
+
     <div
       id="remoteLive"
-      class="liveTag"
+      class="liveLabel"
       style="display:none"
     >
       LIVE
     </div>
 
+
     <div
       id="remoteDebug"
-      class="remoteDebug"
+      class="debug"
     >
       Not connected
     </div>
@@ -1116,29 +1244,30 @@ footer{
 </div>
 
 
-<!-- =======================================================
+<!-- =====================================================
      CAMERA CONTROLS
-======================================================= -->
+===================================================== -->
 
-<div class="controls">
+<div class="controlRow">
 
   <button
     id="startCamera"
+    class="btn"
   >
     Start Camera
   </button>
 
   <button
     id="flipCamera"
-    class="secondary"
+    class="btn secondary"
     disabled
   >
     🔄 Flip
   </button>
 
   <button
-    id="mirrorCamera"
-    class="secondary"
+    id="mirrorButton"
+    class="btn secondary"
     disabled
   >
     🪞 Mirror
@@ -1146,18 +1275,150 @@ footer{
 
   <button
     id="micButton"
-    class="secondary"
+    class="btn secondary"
     disabled
   >
-    🎙 Mic On
+    🎙 Mic
+  </button>
+
+  <button
+    id="fullscreenButton"
+    class="btn secondary"
+  >
+    ⛶ Fullscreen
   </button>
 
 </div>
 
 
-<!-- =======================================================
+<!-- =====================================================
+     PHOTO SETTINGS
+===================================================== -->
+
+<div class="settings">
+
+  <div class="settingsTitle">
+    PHOTO SETTINGS
+  </div>
+
+
+  <div class="settingGrid">
+
+
+    <div class="setting">
+
+      <label>
+        TIMER
+      </label>
+
+      <select id="timerSelect">
+
+        <option value="0">
+          Instant
+        </option>
+
+        <option value="3" selected>
+          3 seconds
+        </option>
+
+        <option value="5">
+          5 seconds
+        </option>
+
+        <option value="10">
+          10 seconds
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="setting">
+
+      <label>
+        FILTER
+      </label>
+
+      <select id="filterSelect">
+
+        <option value="none">
+          Original
+        </option>
+
+        <option value="grayscale">
+          B&W
+        </option>
+
+        <option value="sepia">
+          Sepia
+        </option>
+
+        <option value="vivid">
+          Vivid
+        </option>
+
+        <option value="cool">
+          Cool
+        </option>
+
+        <option value="warm">
+          Warm
+        </option>
+
+        <option value="dreamy">
+          Dreamy
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="setting">
+
+      <label>
+        BRIGHTNESS
+      </label>
+
+      <input
+        id="brightness"
+        class="range"
+        type="range"
+        min="70"
+        max="130"
+        value="100"
+      >
+
+    </div>
+
+
+    <div class="setting">
+
+      <label>
+        CONTRAST
+      </label>
+
+      <input
+        id="contrast"
+        class="range"
+        type="range"
+        min="70"
+        max="140"
+        value="100"
+      >
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
      SHUTTER
-======================================================= -->
+===================================================== -->
 
 <div class="shutterArea">
 
@@ -1177,9 +1438,9 @@ footer{
 </div>
 
 
-<!-- =======================================================
+<!-- =====================================================
      ERROR
-======================================================= -->
+===================================================== -->
 
 <div
   id="error"
@@ -1187,18 +1448,18 @@ footer{
 ></div>
 
 
-<!-- =======================================================
+<!-- =====================================================
      GALLERY
-======================================================= -->
+===================================================== -->
 
-<section class="gallerySection">
+<section class="gallery">
 
   <div class="galleryHeader">
 
     <div>
 
       <div class="galleryTitle">
-        Your memories
+        Your Memories
       </div>
 
       <div
@@ -1211,19 +1472,19 @@ footer{
     </div>
 
 
-    <div class="galleryActions">
+    <div class="galleryButtons">
 
       <button
         id="downloadAll"
-        class="secondary"
+        class="btn secondary"
         disabled
       >
         ↓ Download All
       </button>
 
       <button
-        id="clearGallery"
-        class="danger"
+        id="clearAll"
+        class="btn danger"
         disabled
       >
         Clear
@@ -1235,12 +1496,12 @@ footer{
 
 
   <div
-    id="gallery"
-    class="gallery"
+    id="photoGrid"
+    class="photoGrid"
   >
 
-    <div class="emptyGallery">
-      Your photos will appear here.
+    <div class="empty">
+      Your captured memories will appear here.
     </div>
 
   </div>
@@ -1248,38 +1509,20 @@ footer{
 </section>
 
 
-<!-- =======================================================
-     HELP
-======================================================= -->
+<div class="info">
 
-<div class="help">
-
-  <strong>How to use UsBooth</strong>
+  <strong>UsBooth</strong>
 
   <br>
 
-  1. Start the camera.
+  Create a booth → connect the second phone →
+  wait for both cameras → choose your timer/filter →
+  press the shutter.
 
   <br>
 
-  2. One phone creates a booth.
-
-  <br>
-
-  3. The other phone enters the room code.
-
-  <br>
-
-  4. Wait until both cameras are live.
-
-  <br>
-
-  5. Press the shutter.
-
-  <br>
-
-  6. Both phones capture and exchange
-  the photo preview.
+  Each phone captures its own frame and receives
+  the other phone's photo.
 
 </div>
 
@@ -1295,9 +1538,9 @@ footer{
 </div>
 
 
-<!-- =======================================================
+<!-- =====================================================
      COUNTDOWN
-======================================================= -->
+===================================================== -->
 
 <div
   id="countdown"
@@ -1320,9 +1563,9 @@ footer{
 ></div>
 
 
-<!-- =======================================================
+<!-- =====================================================
      METERED SDK
-======================================================= -->
+===================================================== -->
 
 <script src="https://unpkg.com/@metered-ca/realtime@1/dist/index.umd.js"></script>
 
@@ -1330,24 +1573,15 @@ footer{
 <script>
 
 /* =========================================================
-   CONFIG
+   METERED KEY
 ========================================================= */
 
 const METERED_PUBLISHABLE_KEY =
   "pk_live_ba65e083706365bb7fd3b4a21db37916bb0681f4";
 
 
-/*
-  IMPORTANT:
-
-  This is a publishable key.
-
-  Never put an sk_id or sk_secret here.
-*/
-
-
 /* =========================================================
-   METERED
+   SDK
 ========================================================= */
 
 const {
@@ -1365,21 +1599,28 @@ let localStream = null;
 
 let remotePeer = null;
 
+let remoteStream = null;
+
 let roomCodeValue = "";
 
-let facingMode = "user";
+let remoteVideoReady = false;
 
 let mirrored = false;
 
 let micEnabled = true;
 
-let remoteVideoReady = false;
+let captureBusy = false;
 
-let photoNumber = 0;
+let photoCounter = 0;
 
-let captureInProgress = false;
+let transferMap = new Map();
 
-let incomingTransfers = new Map();
+
+/* =========================================================
+   PHOTO STORAGE
+========================================================= */
+
+const photos = [];
 
 
 /* =========================================================
@@ -1446,9 +1687,9 @@ const flipCameraButton =
     "flipCamera"
   );
 
-const mirrorCameraButton =
+const mirrorButton =
   document.getElementById(
-    "mirrorCamera"
+    "mirrorButton"
   );
 
 const micButton =
@@ -1456,9 +1697,34 @@ const micButton =
     "micButton"
   );
 
+const fullscreenButton =
+  document.getElementById(
+    "fullscreenButton"
+  );
+
 const captureButton =
   document.getElementById(
     "captureButton"
+  );
+
+const timerSelect =
+  document.getElementById(
+    "timerSelect"
+  );
+
+const filterSelect =
+  document.getElementById(
+    "filterSelect"
+  );
+
+const brightness =
+  document.getElementById(
+    "brightness"
+  );
+
+const contrast =
+  document.getElementById(
+    "contrast"
   );
 
 const countdown =
@@ -1476,9 +1742,9 @@ const flash =
     "flash"
   );
 
-const gallery =
+const photoGrid =
   document.getElementById(
-    "gallery"
+    "photoGrid"
   );
 
 const galleryCount =
@@ -1491,14 +1757,14 @@ const downloadAllButton =
     "downloadAll"
   );
 
-const clearGalleryButton =
+const clearAllButton =
   document.getElementById(
-    "clearGallery"
+    "clearAll"
   );
 
 
 /* =========================================================
-   UTILITY
+   STATUS
 ========================================================= */
 
 function setStatus(
@@ -1549,15 +1815,15 @@ function clearError(){
 
 
 /* =========================================================
-   ROOM CODE
+   ROOM
 ========================================================= */
 
 function generateRoomCode(){
 
-  const characters =
+  const chars =
     "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
-  let result = "";
+  let code = "";
 
   for(
     let i = 0;
@@ -1565,23 +1831,80 @@ function generateRoomCode(){
     i++
   ){
 
-    result +=
-      characters[
+    code +=
+      chars[
         Math.floor(
           Math.random() *
-          characters.length
+          chars.length
         )
       ];
 
   }
 
-  return result;
+  return code;
 
 }
 
 
 /* =========================================================
-   LOCAL CAMERA
+   CAMERA FILTER PREVIEW
+========================================================= */
+
+function updateVideoAppearance(){
+
+  const filter =
+    filterSelect.value;
+
+  const b =
+    Number(
+      brightness.value
+    ) / 100;
+
+  const c =
+    Number(
+      contrast.value
+    ) / 100;
+
+
+  const filters = {
+
+    none:
+      "none",
+
+    grayscale:
+      "grayscale(1)",
+
+    sepia:
+      "sepia(.75)",
+
+    vivid:
+      "saturate(1.45) contrast(1.12)",
+
+    cool:
+      "saturate(1.1) contrast(1.05) hue-rotate(12deg)",
+
+    warm:
+      "saturate(1.1) sepia(.18) contrast(1.05)",
+
+    dreamy:
+      "brightness(1.08) saturate(.88) contrast(.92)"
+
+  };
+
+
+  const base =
+    filters[filter] ||
+    "none";
+
+
+  localVideo.style.filter =
+    `${base} brightness(${b}) contrast(${c})`;
+
+}
+
+
+/* =========================================================
+   CAMERA
 ========================================================= */
 
 async function startCamera(){
@@ -1596,27 +1919,11 @@ async function startCamera(){
 
     showError(
       new Error(
-        "Camera access is unavailable. Use HTTPS."
+        "Camera API unavailable. Use HTTPS."
       )
     );
 
     return false;
-
-  }
-
-
-  /*
-    Stop previous stream.
-  */
-
-  if(localStream){
-
-    localStream
-      .getTracks()
-      .forEach(
-        track =>
-          track.stop()
-      );
 
   }
 
@@ -1628,13 +1935,31 @@ async function startCamera(){
     );
 
 
+    /*
+      Stop old tracks.
+    */
+
+    if(localStream){
+
+      localStream
+        .getTracks()
+        .forEach(
+          track =>
+            track.stop()
+        );
+
+    }
+
+
     localStream =
       await navigator
         .mediaDevices
         .getUserMedia({
 
           video:{
-            facingMode:facingMode,
+            facingMode:
+              window.usboothFacingMode ||
+              "user",
 
             width:{
               ideal:1280
@@ -1657,10 +1982,8 @@ async function startCamera(){
     localVideo.muted =
       true;
 
-
     localVideo.playsInline =
       true;
-
 
     localVideo.autoplay =
       true;
@@ -1669,35 +1992,31 @@ async function startCamera(){
     await localVideo.play();
 
 
-    /*
-      Controls.
-    */
+    startCameraButton.textContent =
+      "Camera Running ✓";
+
 
     flipCameraButton.disabled =
       false;
 
-    mirrorCameraButton.disabled =
+    mirrorButton.disabled =
       false;
 
     micButton.disabled =
       false;
 
 
-    startCameraButton.textContent =
-      "Camera Running ✓";
+    updateVideoAppearance();
 
 
     setStatus(
       "Camera ready.",
-      "connected"
+      "ok"
     );
 
 
-    updateMirror();
-
-
     /*
-      If Metered already exists,
+      If peer already exists,
       update the stream.
     */
 
@@ -1705,7 +2024,7 @@ async function startCamera(){
 
       try{
 
-        peer.addStream(
+        await peer.addStream(
           localStream,
           {
             role:"camera",
@@ -1716,7 +2035,7 @@ async function startCamera(){
       }catch(error){
 
         console.warn(
-          "Could not update Metered stream:",
+          "Stream update failed:",
           error
         );
 
@@ -1753,8 +2072,11 @@ async function startCamera(){
 
 async function flipCamera(){
 
-  facingMode =
-    facingMode === "user"
+  window.usboothFacingMode =
+    (
+      window.usboothFacingMode ||
+      "user"
+    ) === "user"
       ? "environment"
       : "user";
 
@@ -1776,7 +2098,7 @@ function updateMirror(){
       : "scaleX(1)";
 
 
-  mirrorCameraButton.textContent =
+  mirrorButton.textContent =
     mirrored
       ? "🪞 Mirrored"
       : "🪞 Mirror";
@@ -1784,55 +2106,58 @@ function updateMirror(){
 }
 
 
-function toggleMirror(){
+mirrorButton.addEventListener(
+  "click",
+  () => {
 
-  mirrored =
-    !mirrored;
+    mirrored =
+      !mirrored;
 
-  updateMirror();
+    updateMirror();
 
-}
+  }
+);
 
 
 /* =========================================================
-   MICROPHONE
+   MIC
 ========================================================= */
 
-function toggleMic(){
+micButton.addEventListener(
+  "click",
+  () => {
 
-  if(!localStream){
-    return;
-  }
-
-
-  const tracks =
-    localStream
-      .getAudioTracks();
-
-
-  if(!tracks.length){
-    return;
-  }
-
-
-  micEnabled =
-    !micEnabled;
-
-
-  tracks.forEach(
-    track => {
-      track.enabled =
-        micEnabled;
+    if(!localStream){
+      return;
     }
-  );
 
 
-  micButton.textContent =
-    micEnabled
-      ? "🎙 Mic On"
-      : "🔇 Mic Off";
+    const tracks =
+      localStream
+        .getAudioTracks();
 
-}
+
+    micEnabled =
+      !micEnabled;
+
+
+    tracks.forEach(
+      track => {
+
+        track.enabled =
+          micEnabled;
+
+      }
+    );
+
+
+    micButton.textContent =
+      micEnabled
+        ? "🎙 Mic"
+        : "🔇 Muted";
+
+  }
+);
 
 
 /* =========================================================
@@ -1844,24 +2169,24 @@ function resetRemote(){
   remoteVideoReady =
     false;
 
+  remoteStream =
+    null;
 
   remoteVideo.pause();
-
 
   remoteVideo.srcObject =
     null;
 
-
   remoteWaiting.style.display =
     "grid";
-
 
   remoteLive.style.display =
     "none";
 
-
   remoteDebug.textContent =
     "Not connected";
+
+  updateCaptureButton();
 
 }
 
@@ -1881,28 +2206,23 @@ async function attachRemoteStream(
 
 
   console.log(
-    "REMOTE STREAM:",
-    stream
-  );
-
-
-  console.log(
-    "REMOTE METADATA:",
+    "REMOTE STREAM RECEIVED ✓",
+    stream,
     metadata
   );
 
 
-  const videoTracks =
+  const tracks =
     stream.getVideoTracks();
 
 
   console.log(
     "REMOTE VIDEO TRACKS:",
-    videoTracks
+    tracks
   );
 
 
-  if(!videoTracks.length){
+  if(!tracks.length){
 
     remoteDebug.textContent =
       "No remote video track";
@@ -1912,13 +2232,14 @@ async function attachRemoteStream(
   }
 
 
+  remoteStream =
+    stream;
+
+
   /*
     IMPORTANT:
 
-    Use Metered's stream directly.
-
-    This follows Metered's current
-    WebRTC implementation.
+    Attach the Metered MediaStream directly.
   */
 
   remoteVideo.srcObject =
@@ -1928,28 +2249,15 @@ async function attachRemoteStream(
   remoteVideo.autoplay =
     true;
 
-
   remoteVideo.playsInline =
     true;
-
 
   remoteVideo.muted =
     true;
 
 
-  remoteVideo.style.display =
-    "block";
-
-  remoteVideo.style.visibility =
-    "visible";
-
-  remoteVideo.style.opacity =
-    "1";
-
-
   remoteWaiting.style.display =
     "none";
-
 
   remoteLive.style.display =
     "block";
@@ -1963,8 +2271,9 @@ async function attachRemoteStream(
     async () => {
 
       console.log(
-        "REMOTE VIDEO SIZE:",
+        "REMOTE VIDEO:",
         remoteVideo.videoWidth,
+        "x",
         remoteVideo.videoHeight
       );
 
@@ -1984,13 +2293,9 @@ async function attachRemoteStream(
 
         setStatus(
           "Both cameras connected ✓",
-          "connected"
+          "ok"
         );
 
-
-        /*
-          Now allow shutter.
-        */
 
         updateCaptureButton();
 
@@ -1999,12 +2304,12 @@ async function attachRemoteStream(
       catch(error){
 
         console.error(
-          "REMOTE VIDEO PLAY ERROR:",
+          "Remote play failed:",
           error
         );
 
         remoteDebug.textContent =
-          "Remote video playback failed";
+          "Remote playback failed";
 
       }
 
@@ -2017,19 +2322,13 @@ async function attachRemoteStream(
       remoteVideoReady =
         true;
 
-
       remoteDebug.textContent =
         "LIVE";
-
 
       updateCaptureButton();
 
     };
 
-
-  /*
-    Attempt immediate playback.
-  */
 
   try{
 
@@ -2056,9 +2355,8 @@ function updateCaptureButton(){
 
   captureButton.disabled =
     !localStream ||
-    !peer ||
     !remoteVideoReady ||
-    captureInProgress;
+    captureBusy;
 
 }
 
@@ -2067,30 +2365,41 @@ function updateCaptureButton(){
    COUNTDOWN
 ========================================================= */
 
-function wait(
-  ms
+function sleep(
+  milliseconds
 ){
 
   return new Promise(
     resolve =>
       setTimeout(
         resolve,
-        ms
+        milliseconds
       )
   );
 
 }
 
 
-async function showCountdown(){
+async function countdownFor(
+  seconds
+){
+
+  if(
+    seconds <= 0
+  ){
+
+    return;
+
+  }
+
 
   countdown.style.display =
     "grid";
 
 
   for(
-    let i = 3;
-    i >= 1;
+    let i = seconds;
+    i > 0;
     i--
   ){
 
@@ -2098,21 +2407,19 @@ async function showCountdown(){
       i;
 
 
-    /*
-      Restart animation.
-    */
-
     countdownNumber.style.animation =
       "none";
 
+
     void countdownNumber.offsetWidth;
 
+
     countdownNumber.style.animation =
-      "countdownPop .8s ease both";
+      "countPop .8s ease both";
 
 
-    await wait(
-      800
+    await sleep(
+      1000
     );
 
   }
@@ -2122,8 +2429,8 @@ async function showCountdown(){
     "📸";
 
 
-  await wait(
-    400
+  await sleep(
+    250
   );
 
 
@@ -2137,7 +2444,7 @@ async function showCountdown(){
    FLASH
 ========================================================= */
 
-function triggerFlash(){
+function cameraFlash(){
 
   flash.classList.remove(
     "active"
@@ -2155,13 +2462,18 @@ function triggerFlash(){
 
 
 /* =========================================================
-   CAPTURE LOCAL PHOTO
+   CAPTURE CANVAS
 ========================================================= */
 
-function captureLocalPhoto(){
+function createPhoto(){
 
-  if(!localVideo.videoWidth){
+  if(
+    !localVideo.videoWidth ||
+    !localVideo.videoHeight
+  ){
+
     return null;
+
   }
 
 
@@ -2173,7 +2485,6 @@ function captureLocalPhoto(){
 
   const width =
     localVideo.videoWidth;
-
 
   const height =
     localVideo.videoHeight;
@@ -2193,9 +2504,8 @@ function captureLocalPhoto(){
 
 
   /*
-    Preserve the user's
-    mirror preference in
-    the captured image.
+    Mirror captured photo
+    if mirror mode is active.
   */
 
   if(mirrored){
@@ -2213,6 +2523,62 @@ function captureLocalPhoto(){
   }
 
 
+  /*
+    Apply selected filter
+    to the actual photo.
+  */
+
+  const filter =
+    filterSelect.value;
+
+
+  const b =
+    Number(
+      brightness.value
+    ) / 100;
+
+  const c =
+    Number(
+      contrast.value
+    ) / 100;
+
+
+  const filters = {
+
+    none:
+      "none",
+
+    grayscale:
+      "grayscale(1)",
+
+    sepia:
+      "sepia(.75)",
+
+    vivid:
+      "saturate(1.45) contrast(1.12)",
+
+    cool:
+      "saturate(1.1) contrast(1.05) hue-rotate(12deg)",
+
+    warm:
+      "saturate(1.1) sepia(.18) contrast(1.05)",
+
+    dreamy:
+      "brightness(1.08) saturate(.88) contrast(.92)"
+
+  };
+
+
+  const filterString =
+    `${filters[filter] || "none"}
+     brightness(${b})
+     contrast(${c})`;
+
+
+  ctx.filter =
+    filterString;
+
+
   ctx.drawImage(
     localVideo,
     0,
@@ -2222,38 +2588,29 @@ function captureLocalPhoto(){
   );
 
 
-  /*
-    Compress enough that
-    photo transfer remains
-    practical.
-  */
-
   return canvas.toDataURL(
     "image/jpeg",
-    .72
+    .78
   );
 
 }
 
 
 /* =========================================================
-   PHOTO GALLERY
+   ADD PHOTO
 ========================================================= */
-
-const photos = [];
-
 
 function addPhoto(
   dataUrl,
-  source = "local"
+  source = "YOU"
 ){
 
   if(!dataUrl){
-    return;
+    return null;
   }
 
 
-  photoNumber++;
+  photoCounter++;
 
 
   const photo = {
@@ -2266,14 +2623,14 @@ function addPhoto(
         .slice(2),
 
     number:
-      photoNumber,
-
-    dataUrl,
+      photoCounter,
 
     source,
 
-    createdAt:
-      new Date()
+    dataUrl,
+
+    created:
+      Date.now()
 
   };
 
@@ -2291,18 +2648,26 @@ function addPhoto(
 }
 
 
+/* =========================================================
+   RENDER GALLERY
+========================================================= */
+
 function renderGallery(){
 
-  gallery.innerHTML =
+  photoGrid.innerHTML =
     "";
 
 
-  if(!photos.length){
+  if(
+    photos.length === 0
+  ){
 
-    gallery.innerHTML =
-      `<div class="emptyGallery">
-        Your photos will appear here.
-      </div>`;
+    photoGrid.innerHTML =
+      `
+      <div class="empty">
+        Your captured memories will appear here.
+      </div>
+      `;
 
   }
 
@@ -2320,63 +2685,123 @@ function renderGallery(){
         "photo";
 
 
-      item.innerHTML = `
-
-        <img
-          src="${photo.dataUrl}"
-          alt="UsBooth photo ${photo.number}"
-        >
-
-        <div class="photoNumber">
-          #${photo.number}
-        </div>
-
-        <div class="photoActions">
-
-          <button
-            class="downloadPhoto"
-          >
-            ↓ Download
-          </button>
-
-          <button
-            class="deletePhoto secondary"
-          >
-            × Delete
-          </button>
-
-        </div>
-
-      `;
-
-
-      item
-        .querySelector(
-          ".downloadPhoto"
-        )
-        .addEventListener(
-          "click",
-          () =>
-            downloadPhoto(
-              photo
-            )
+      const img =
+        document.createElement(
+          "img"
         );
 
 
-      item
-        .querySelector(
-          ".deletePhoto"
-        )
-        .addEventListener(
-          "click",
-          () =>
-            deletePhoto(
-              photo.id
-            )
+      img.src =
+        photo.dataUrl;
+
+
+      img.alt =
+        `UsBooth photo ${photo.number}`;
+
+
+      const number =
+        document.createElement(
+          "div"
         );
 
 
-      gallery.appendChild(
+      number.className =
+        "photoNumber";
+
+
+      number.textContent =
+        `#${photo.number}`;
+
+
+      const source =
+        document.createElement(
+          "div"
+        );
+
+
+      source.className =
+        "photoSource";
+
+
+      source.textContent =
+        photo.source;
+
+
+      const actions =
+        document.createElement(
+          "div"
+        );
+
+
+      actions.className =
+        "photoActions";
+
+
+      const download =
+        document.createElement(
+          "button"
+        );
+
+
+      download.textContent =
+        "↓ Download";
+
+
+      download.addEventListener(
+        "click",
+        () =>
+          downloadPhoto(
+            photo
+          )
+      );
+
+
+      const deleteButton =
+        document.createElement(
+          "button"
+        );
+
+
+      deleteButton.textContent =
+        "× Delete";
+
+
+      deleteButton.addEventListener(
+        "click",
+        () =>
+          deletePhoto(
+            photo.id
+          )
+      );
+
+
+      actions.appendChild(
+        download
+      );
+
+      actions.appendChild(
+        deleteButton
+      );
+
+
+      item.appendChild(
+        img
+      );
+
+      item.appendChild(
+        number
+      );
+
+      item.appendChild(
+        source
+      );
+
+      item.appendChild(
+        actions
+      );
+
+
+      photoGrid.appendChild(
         item
       );
 
@@ -2396,14 +2821,14 @@ function renderGallery(){
     photos.length === 0;
 
 
-  clearGalleryButton.disabled =
+  clearAllButton.disabled =
     photos.length === 0;
 
 }
 
 
 /* =========================================================
-   DOWNLOAD PHOTO
+   DOWNLOAD
 ========================================================= */
 
 function downloadPhoto(
@@ -2437,8 +2862,28 @@ function downloadPhoto(
 }
 
 
+async function downloadAll(){
+
+  for(
+    const photo of photos
+  ){
+
+    downloadPhoto(
+      photo
+    );
+
+
+    await sleep(
+      180
+    );
+
+  }
+
+}
+
+
 /* =========================================================
-   DELETE PHOTO
+   DELETE
 ========================================================= */
 
 function deletePhoto(
@@ -2452,7 +2897,7 @@ function deletePhoto(
     );
 
 
-  if(index !== -1){
+  if(index >= 0){
 
     photos.splice(
       index,
@@ -2467,67 +2912,28 @@ function deletePhoto(
 }
 
 
-/* =========================================================
-   DOWNLOAD ALL
-========================================================= */
-
-async function downloadAll(){
+function clearAllPhotos(){
 
   if(!photos.length){
     return;
   }
 
 
-  /*
-    Browser download restrictions mean
-    we trigger them sequentially.
-  */
-
-  for(
-    const photo of photos
+  if(
+    !confirm(
+      "Delete all photos?"
+    )
   ){
 
-    downloadPhoto(
-      photo
-    );
-
-
-    await wait(
-      150
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   CLEAR GALLERY
-========================================================= */
-
-function clearGallery(){
-
-  if(!photos.length){
     return;
-  }
 
-
-  const confirmed =
-    window.confirm(
-      "Delete all photos from this phone?"
-    );
-
-
-  if(!confirmed){
-    return;
   }
 
 
   photos.length =
     0;
 
-
-  photoNumber =
+  photoCounter =
     0;
 
 
@@ -2540,22 +2946,21 @@ function clearGallery(){
    PHOTO TRANSFER
 =========================================================
 
-   Metered peer.send() has a message-size limit,
-   so photos are compressed and split into chunks.
+   Metered server-routed messages have a
+   hard size limit. We therefore chunk the
+   compressed JPEG.
 
-   This keeps the transfer small enough for the
-   signalling message path.
 ========================================================= */
 
-const PHOTO_CHUNK_SIZE =
-  30000;
+const CHUNK_SIZE =
+  38000;
 
 
 /* =========================================================
    SEND PHOTO
 ========================================================= */
 
-async function sendPhotoToRemote(
+async function sendPhoto(
   dataUrl
 ){
 
@@ -2565,47 +2970,32 @@ async function sendPhotoToRemote(
 
 
   const transferId =
-    Date.now() +
-    "-" +
-    Math.random()
-      .toString(36)
-      .slice(2);
+    `${Date.now()}-${
+      Math.random()
+        .toString(36)
+        .slice(2)
+    }`;
 
 
   const total =
     Math.ceil(
       dataUrl.length /
-      PHOTO_CHUNK_SIZE
+      CHUNK_SIZE
     );
 
-
-  console.log(
-    "Sending photo:",
-    transferId,
-    total,
-    "chunks"
-  );
-
-
-  /*
-    Tell remote a transfer is beginning.
-  */
 
   await peer.send({
 
     type:
       "photo-start",
 
-    transferId,
+    id:
+      transferId,
 
     total
 
   });
 
-
-  /*
-    Send chunks.
-  */
 
   for(
     let i = 0;
@@ -2616,10 +3006,10 @@ async function sendPhotoToRemote(
     const chunk =
       dataUrl.slice(
         i *
-          PHOTO_CHUNK_SIZE,
+          CHUNK_SIZE,
 
         (i + 1) *
-          PHOTO_CHUNK_SIZE
+          CHUNK_SIZE
       );
 
 
@@ -2628,7 +3018,8 @@ async function sendPhotoToRemote(
       type:
         "photo-chunk",
 
-      transferId,
+      id:
+        transferId,
 
       index:
         i,
@@ -2641,28 +3032,23 @@ async function sendPhotoToRemote(
 
 
     /*
-      Small pause to prevent
-      overwhelming the signalling
-      path on mobile networks.
+      Prevent a burst of signalling messages.
     */
 
-    await wait(
-      15
+    await sleep(
+      12
     );
 
   }
 
-
-  /*
-    Finish.
-  */
 
   await peer.send({
 
     type:
       "photo-end",
 
-    transferId
+    id:
+      transferId
 
   });
 
@@ -2678,30 +3064,49 @@ async function sendPhotoToRemote(
    RECEIVE PHOTO
 ========================================================= */
 
-function handleIncomingData(
-  data
+function receiveMessage(
+  payload
 ){
 
-  if(!data){
-    return;
-  }
-
-
   /*
-    Some SDK versions deliver
-    the payload inside `data`,
-    others can pass it directly.
+    Current Metered SDK sends:
+      { senderPeerId, data }
+
+    Keep fallback support for a direct payload.
   */
 
   const message =
-    data.data ||
-    data;
+    payload &&
+    payload.data !== undefined
+      ? payload.data
+      : payload;
 
 
   if(
     !message ||
     typeof message !== "object"
   ){
+
+    return;
+
+  }
+
+
+  /* -------------------------------------------------------
+     REMOTE CAPTURE
+  ------------------------------------------------------- */
+
+  if(
+    message.type ===
+    "capture"
+  ){
+
+    /*
+      Remote phone is telling us to
+      capture at the synchronized moment.
+    */
+
+    localCapture();
 
     return;
 
@@ -2717,15 +3122,17 @@ function handleIncomingData(
     "photo-start"
   ){
 
-    incomingTransfers.set(
-      message.transferId,
+    transferMap.set(
+      message.id,
       {
 
         total:
           message.total,
 
         chunks:
-          []
+          new Array(
+            message.total
+          )
 
       }
     );
@@ -2746,15 +3153,13 @@ function handleIncomingData(
   ){
 
     const transfer =
-      incomingTransfers.get(
-        message.transferId
+      transferMap.get(
+        message.id
       );
 
 
     if(!transfer){
-
       return;
-
     }
 
 
@@ -2779,32 +3184,33 @@ function handleIncomingData(
   ){
 
     const transfer =
-      incomingTransfers.get(
-        message.transferId
+      transferMap.get(
+        message.id
       );
 
 
     if(!transfer){
-
       return;
-
     }
 
 
     const complete =
-      transfer.chunks.length ===
-      transfer.total;
+      transfer.chunks.every(
+        chunk =>
+          typeof chunk ===
+          "string"
+      );
 
 
     if(!complete){
 
       console.warn(
-        "Incomplete photo transfer."
+        "Incomplete photo received."
       );
 
 
-      incomingTransfers.delete(
-        message.transferId
+      transferMap.delete(
+        message.id
       );
 
 
@@ -2819,43 +3225,19 @@ function handleIncomingData(
       );
 
 
-    incomingTransfers.delete(
-      message.transferId
-    );
-
-
-    console.log(
-      "REMOTE PHOTO RECEIVED ✓"
+    transferMap.delete(
+      message.id
     );
 
 
     addPhoto(
       dataUrl,
-      "remote"
+      "THEM"
     );
 
 
-    return;
-
-  }
-
-
-  /* -------------------------------------------------------
-     REMOTE SHUTTER
-  ------------------------------------------------------- */
-
-  if(
-    message.type ===
-    "remote-capture"
-  ){
-
-    /*
-      The remote phone tells us to capture.
-      We capture locally too.
-    */
-
-    performCapture(
-      false
+    console.log(
+      "REMOTE PHOTO RECEIVED ✓"
     );
 
   }
@@ -2867,12 +3249,38 @@ function handleIncomingData(
    CAPTURE
 ========================================================= */
 
-async function performCapture(
-  broadcast = true
-){
+async function localCapture(){
+
+  if(!localStream){
+    return;
+  }
+
+
+  cameraFlash();
+
+
+  const photo =
+    createPhoto();
+
+
+  if(photo){
+
+    addPhoto(
+      photo,
+      "YOU"
+    );
+
+  }
+
+}
+
+
+async function capturePhoto(){
 
   if(
-    captureInProgress
+    captureBusy ||
+    !localStream ||
+    !remoteVideoReady
   ){
 
     return;
@@ -2880,16 +3288,7 @@ async function performCapture(
   }
 
 
-  if(
-    !localStream
-  ){
-
-    return;
-
-  }
-
-
-  captureInProgress =
+  captureBusy =
     true;
 
 
@@ -2898,39 +3297,49 @@ async function performCapture(
 
   try{
 
+    const seconds =
+      Number(
+        timerSelect.value
+      );
+
+
     /*
-      Only the initiator runs the
-      countdown and broadcasts the
-      capture command.
+      Only the phone whose button
+      was pressed runs the countdown.
     */
 
-    if(broadcast){
+    if(seconds > 0){
 
-      await showCountdown();
+      await countdownFor(
+        seconds
+      );
 
-      /*
-        Tell the other phone to capture.
-      */
+    }
 
-      if(peer){
 
-        try{
+    /*
+      Tell the other phone to capture.
+    */
 
-          await peer.send({
+    if(peer){
 
-            type:
-              "remote-capture"
+      try{
 
-          });
+        await peer.send({
 
-        }catch(error){
+          type:
+            "capture"
 
-          console.warn(
-            "Remote capture signal failed:",
-            error
-          );
+        });
 
-        }
+      }
+
+      catch(error){
+
+        console.warn(
+          "Capture sync signal failed:",
+          error
+        );
 
       }
 
@@ -2938,23 +3347,21 @@ async function performCapture(
 
 
     /*
-      If this is the remote phone,
-      it captures immediately after
-      receiving the command.
+      Capture our own frame.
     */
 
-    triggerFlash();
+    const dataUrl =
+      createPhoto();
 
 
-    const localPhoto =
-      captureLocalPhoto();
+    cameraFlash();
 
 
-    if(localPhoto){
+    if(dataUrl){
 
       addPhoto(
-        localPhoto,
-        "local"
+        dataUrl,
+        "YOU"
       );
 
 
@@ -2962,22 +3369,20 @@ async function performCapture(
         Send our photo to the other phone.
       */
 
-      if(peer){
+      try{
 
-        try{
+        await sendPhoto(
+          dataUrl
+        );
 
-          await sendPhotoToRemote(
-            localPhoto
-          );
+      }
 
-        }catch(error){
+      catch(error){
 
-          console.error(
-            "PHOTO SEND FAILED:",
-            error
-          );
-
-        }
+        console.error(
+          "PHOTO TRANSFER ERROR:",
+          error
+        );
 
       }
 
@@ -2995,7 +3400,7 @@ async function performCapture(
   }
 
 
-  captureInProgress =
+  captureBusy =
     false;
 
 
@@ -3005,110 +3410,47 @@ async function performCapture(
 
 
 /* =========================================================
-   CREATE BOOTH
+   FULLSCREEN
 ========================================================= */
 
-async function createRoom(){
+fullscreenButton.addEventListener(
+  "click",
+  async () => {
 
-  clearError();
+    try{
 
+      if(
+        !document.fullscreenElement
+      ){
 
-  /*
-    Camera first.
-  */
+        await document.documentElement
+          .requestFullscreen();
 
-  if(!localStream){
+      }
 
-    const ready =
-      await startCamera();
+      else{
 
+        await document.exitFullscreen();
 
-    if(!ready){
-      return;
+      }
+
+    }
+
+    catch(error){
+
+      console.warn(
+        "Fullscreen unavailable:",
+        error
+      );
+
     }
 
   }
-
-
-  roomCodeValue =
-    generateRoomCode();
-
-
-  roomCode.textContent =
-    roomCodeValue;
-
-
-  roomInfo.style.display =
-    "block";
-
-
-  await connectMetered();
-
-}
+);
 
 
 /* =========================================================
-   JOIN BOOTH
-========================================================= */
-
-async function joinRoom(){
-
-  clearError();
-
-
-  const entered =
-    roomInput.value
-      .trim()
-      .toUpperCase();
-
-
-  if(
-    entered.length !== 6
-  ){
-
-    showError(
-      new Error(
-        "Enter a valid 6-character room code."
-      )
-    );
-
-    return;
-
-  }
-
-
-  if(!localStream){
-
-    const ready =
-      await startCamera();
-
-
-    if(!ready){
-      return;
-    }
-
-  }
-
-
-  roomCodeValue =
-    entered;
-
-
-  roomCode.textContent =
-    roomCodeValue;
-
-
-  roomInfo.style.display =
-    "block";
-
-
-  await connectMetered();
-
-}
-
-
-/* =========================================================
-   METERED SETUP
+   METERED
 ========================================================= */
 
 function setupMetered(){
@@ -3119,7 +3461,7 @@ function setupMetered(){
   ){
 
     throw new Error(
-      "MeteredPeer failed to load."
+      "MeteredPeer did not load."
     );
 
   }
@@ -3135,7 +3477,7 @@ function setupMetered(){
 
 
   /* =======================================================
-     PEER STATE
+     STATE
   ======================================================= */
 
   peer.on(
@@ -3168,8 +3510,8 @@ function setupMetered(){
       ){
 
         setStatus(
-          "Room connected — waiting for your person…",
-          "connected"
+          "Connected — waiting for your person…",
+          "ok"
         );
 
       }
@@ -3181,8 +3523,8 @@ function setupMetered(){
       ){
 
         setStatus(
-          "Connection lost — reconnecting…",
-          "warning"
+          "Reconnecting…",
+          "warn"
         );
 
       }
@@ -3208,7 +3550,7 @@ function setupMetered(){
 
 
   /* =======================================================
-     REMOTE PEER JOINED
+     PEER JOINED
   ======================================================= */
 
   peer.on(
@@ -3229,14 +3571,13 @@ function setupMetered(){
 
       setStatus(
         "Other phone connected — starting camera…",
-        "connected"
+        "ok"
       );
 
 
-      /*
-        Stream-added is Metered's documented
-        remote video event.
-      */
+      /* ---------------------------------------------------
+         STREAM ADDED
+      --------------------------------------------------- */
 
       remote.on(
         "stream-added",
@@ -3246,7 +3587,8 @@ function setupMetered(){
         }) => {
 
           console.log(
-            "REMOTE STREAM-ADDED ✓"
+            "REMOTE STREAM-ADDED ✓",
+            metadata
           );
 
 
@@ -3259,17 +3601,15 @@ function setupMetered(){
       );
 
 
-      /*
-        Track fallback for SDK versions
-        exposing the lower-level track event.
-      */
+      /* ---------------------------------------------------
+         TRACK FALLBACK
+      --------------------------------------------------- */
 
       remote.on(
         "track",
         ({
           track,
-          streams,
-          metadata
+          streams
         }) => {
 
           console.log(
@@ -3287,8 +3627,7 @@ function setupMetered(){
           ){
 
             attachRemoteStream(
-              streams[0],
-              metadata
+              streams[0]
             );
 
           }
@@ -3297,9 +3636,9 @@ function setupMetered(){
       );
 
 
-      /*
-        Stream removed.
-      */
+      /* ---------------------------------------------------
+         STREAM REMOVED
+      --------------------------------------------------- */
 
       remote.on(
         "stream-removed",
@@ -3312,24 +3651,7 @@ function setupMetered(){
             stream
           );
 
-        }
-      );
-
-
-      /*
-        Remote state.
-      */
-
-      remote.on(
-        "state-change",
-        ({
-          to
-        }) => {
-
-          console.log(
-            "REMOTE PEER STATE:",
-            to
-          );
+          resetRemote();
 
         }
       );
@@ -3370,38 +3692,21 @@ function setupMetered(){
 
 
   /* =======================================================
-     DATA / MESSAGE
+     DATA
   ======================================================= */
 
   peer.on(
     "data",
-    data => {
+    payload => {
 
       console.log(
         "METERED DATA:",
-        data
+        payload
       );
 
 
-      handleIncomingData(
-        data
-      );
-
-    }
-  );
-
-
-  /*
-    Some SDK builds/examples expose
-    message events differently.
-  */
-
-  peer.on(
-    "message",
-    data => {
-
-      handleIncomingData(
-        data
+      receiveMessage(
+        payload
       );
 
     }
@@ -3409,7 +3714,7 @@ function setupMetered(){
 
 
   /* =======================================================
-     ERROR
+     ERRORS
   ======================================================= */
 
   peer.on(
@@ -3435,10 +3740,10 @@ function setupMetered(){
 
 
 /* =========================================================
-   CONNECT METERED
+   CONNECT
 ========================================================= */
 
-async function connectMetered(){
+async function connect(){
 
   try{
 
@@ -3446,15 +3751,13 @@ async function connectMetered(){
 
 
     /*
-      Prevent accidental duplicate peers.
+      Don't create duplicate peers.
     */
 
     if(peer){
 
       try{
-
         peer.close();
-
       }catch(_){}
 
       peer =
@@ -3467,23 +3770,17 @@ async function connectMetered(){
 
 
     /*
-      Attach camera BEFORE join.
-
-      This is the recommended Metered
-      flow for WebRTC.
+      Attach camera BEFORE joining.
+      Metered documents this as the
+      preferred WebRTC flow.
     */
 
-    peer.addStream(
+    await peer.addStream(
       localStream,
       {
         role:"camera",
         label:"front cam"
       }
-    );
-
-
-    console.log(
-      "LOCAL STREAM ADDED ✓"
     );
 
 
@@ -3499,13 +3796,13 @@ async function connectMetered(){
 
 
     console.log(
-      "METERED JOIN SUCCESS ✓"
+      "JOIN SUCCESS ✓"
     );
 
 
     setStatus(
       "Connected — waiting for your person…",
-      "connected"
+      "ok"
     );
 
 
@@ -3525,7 +3822,106 @@ async function connectMetered(){
 
 
 /* =========================================================
-   BUTTONS
+   CREATE ROOM
+========================================================= */
+
+async function createRoom(){
+
+  clearError();
+
+
+  if(!localStream){
+
+    const ready =
+      await startCamera();
+
+
+    if(!ready){
+      return;
+    }
+
+  }
+
+
+  roomCodeValue =
+    generateRoomCode();
+
+
+  roomCode.textContent =
+    roomCodeValue;
+
+
+  roomInfo.style.display =
+    "block";
+
+
+  await connect();
+
+}
+
+
+/* =========================================================
+   JOIN ROOM
+========================================================= */
+
+async function joinRoom(){
+
+  clearError();
+
+
+  const code =
+    roomInput.value
+      .trim()
+      .toUpperCase();
+
+
+  if(
+    code.length !== 6
+  ){
+
+    showError(
+      new Error(
+        "Room code must be exactly 6 characters."
+      )
+    );
+
+    return;
+
+  }
+
+
+  if(!localStream){
+
+    const ready =
+      await startCamera();
+
+
+    if(!ready){
+      return;
+    }
+
+  }
+
+
+  roomCodeValue =
+    code;
+
+
+  roomCode.textContent =
+    code;
+
+
+  roomInfo.style.display =
+    "block";
+
+
+  await connect();
+
+}
+
+
+/* =========================================================
+   EVENTS
 ========================================================= */
 
 document
@@ -3562,27 +3958,10 @@ flipCameraButton
   );
 
 
-mirrorCameraButton
-  .addEventListener(
-    "click",
-    toggleMirror
-  );
-
-
-micButton
-  .addEventListener(
-    "click",
-    toggleMic
-  );
-
-
 captureButton
   .addEventListener(
     "click",
-    () =>
-      performCapture(
-        true
-      )
+    capturePhoto
   );
 
 
@@ -3593,10 +3972,31 @@ downloadAllButton
   );
 
 
-clearGalleryButton
+clearAllButton
   .addEventListener(
     "click",
-    clearGallery
+    clearAllPhotos
+  );
+
+
+filterSelect
+  .addEventListener(
+    "change",
+    updateVideoAppearance
+  );
+
+
+brightness
+  .addEventListener(
+    "input",
+    updateVideoAppearance
+  );
+
+
+contrast
+  .addEventListener(
+    "input",
+    updateVideoAppearance
   );
 
 
@@ -3622,6 +4022,14 @@ roomInput
    INITIAL
 ========================================================= */
 
+window.usboothFacingMode =
+  "user";
+
+
+updateMirror();
+
+updateVideoAppearance();
+
 renderGallery();
 
 resetRemote();
@@ -3634,7 +4042,7 @@ console.log(
 );
 
 console.log(
-  "UsBooth loaded ✓"
+  "USBOOTH PHOTO BOOTH LOADED ✓"
 );
 
 console.log(
@@ -3654,5 +4062,4 @@ console.log(
 </script>
 
 </body>
-
 </html>
