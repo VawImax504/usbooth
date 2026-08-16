@@ -5000,50 +5000,361 @@ console.log(
 
 <script>
 /* =========================================================
-   USBOOTH PHASE C — EDITOR STUDIO
+   USBOOTH PHASE C — EDITOR STUDIO (ROBUST)
 ========================================================= */
 (() => {
   const $ = id => document.getElementById(id);
-  const overlay=$('editorOverlay'), canvas=$('editorCanvas'), ctx=canvas.getContext('2d');
-  const reviewEdit=$('reviewEdit');
-  let sourceImage=null, originalImage=null, appliedPhoto=null;
-  const state={rotate:0,flip:false,crop:'original',filter:'none',brightness:100,contrast:100,saturation:100,warmth:0,vignette:0,frame:'none',text:'',textPosition:'bottom',textSize:34,sticker:'',stickerPos:'br'};
-  const stickers=['None','❤️','💕','✨','⭐','🌸','🎀','🦋','🌙','☁️','🥰','🎉','🎂','💌','♡','✦','☀️'];
-  const stickerGrid=$('editorStickerGrid');
-  stickers.forEach((x,i)=>{const b=document.createElement('button');b.type='button';b.className='stickerBtn'+(i===0?' active':'');b.textContent=x;b.dataset.sticker=x==='None'?'':x;b.onclick=()=>{state.sticker=b.dataset.sticker;[...stickerGrid.children].forEach(n=>n.classList.remove('active'));b.classList.add('active');renderEditor()};stickerGrid.appendChild(b)});
-  const bindRange=(id,key,out)=>{$(id).addEventListener('input',e=>{state[key]=Number(e.target.value);$(out).textContent=e.target.value;renderEditor()})};
-  bindRange('editBrightness','brightness','editBrightnessOut');bindRange('editContrast','contrast','editContrastOut');bindRange('editSaturation','saturation','editSaturationOut');bindRange('editWarmth','warmth','editWarmthOut');bindRange('editVignette','vignette','editVignetteOut');bindRange('editTextSize','textSize','editTextSizeOut');
-  function resetState(){Object.assign(state,{rotate:0,flip:false,crop:'original',filter:'none',brightness:100,contrast:100,saturation:100,warmth:0,vignette:0,frame:'none',text:'',textPosition:'bottom',textSize:34,sticker:'',stickerPos:'br'});$('editBrightness').value=100;$('editContrast').value=100;$('editSaturation').value=100;$('editWarmth').value=0;$('editVignette').value=0;$('editTextSize').value=34;$('editBrightnessOut').textContent='100';$('editContrastOut').textContent='100';$('editSaturationOut').textContent='100';$('editWarmthOut').textContent='0';$('editVignetteOut').textContent='0';$('editTextSizeOut').textContent='34';$('editText').value='';$('editCrop').value='original';$('editFrame').value='none';$('editTextPosition').value='bottom';document.querySelectorAll('[data-edit-filter]').forEach((b,i)=>b.classList.toggle('active',i===0));document.querySelectorAll('[data-sticker-pos]').forEach((b,i)=>b.classList.toggle('active',i===8));document.querySelectorAll('.stickerBtn').forEach((b,i)=>b.classList.toggle('active',i===0));}
-  function openEditor(src){if(!src)return;sourceImage=src;originalImage=src;resetState();overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');loadEditorImage(src).then(renderEditor)}
-  function closeEditor(){overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');sourceImage=null;}
-  function loadEditorImage(src){return new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>{originalImage=im;resolve(im)};im.onerror=reject;im.src=src})}
-  function filterCSS(){switch(state.filter){case'bw':return'grayscale(1)';case'vintage':return'sepia(.35) saturate(1.15) contrast(1.05)';case'warm':return'sepia(.18) saturate(1.2) brightness(1.03)';case'cool':return'saturate(.95) hue-rotate(10deg) contrast(1.04)';case'dreamy':return'brightness(1.08) saturate(.85) contrast(.92)';default:return'none'}}
-  function cropRect(w,h){let target=state.crop==='square'?1:state.crop==='portrait'?.8:state.crop==='classic'?4/3:state.crop==='story'?9/16:null;if(!target)return[0,0,w,h];let r=w/h;if(r>target){const nw=h*target;return[(w-nw)/2,0,nw,h]}const nh=w/target;return[0,(h-nh)/2,w,nh]}
-  function frameColor(){return state.frame==='cream'?'#f4ecdf':state.frame==='pink'?'#ffdce8':state.frame==='black'?'#111111':state.frame==='white'?'#ffffff':'transparent'}
-  function drawEditor(){if(!originalImage)return;const im=originalImage;const rotated=state.rotate%180!==0;const baseW=im.width,baseH=im.height;const cw=rotated?baseH:baseW,ch=rotated?baseW:baseH;const [sx,sy,sw,sh]=cropRect(cw,ch);const max=1100,scale=Math.min(1,max/Math.max(sw,sh));canvas.width=Math.max(1,Math.round(sw*scale));canvas.height=Math.max(1,Math.round(sh*scale));ctx.save();ctx.clearRect(0,0,canvas.width,canvas.height);ctx.translate(canvas.width/2,canvas.height/2);ctx.rotate(state.rotate*Math.PI/180);ctx.scale(state.flip?-1:1,1);const fscale=canvas.width/sw;ctx.filter=`${filterCSS()} brightness(${state.brightness/100}) contrast(${state.contrast/100}) saturate(${state.saturation/100})`;let dw=sw*fscale,dh=sh*fscale;ctx.drawImage(im,-dw/2,-dh/2,dw,dh);ctx.filter='none';ctx.restore();
-    // Warmth overlay
-    if(state.warmth!==0){ctx.save();ctx.globalAlpha=Math.abs(state.warmth)/100;ctx.fillStyle=state.warmth>0?'#ff9b5e':'#6fa8ff';ctx.globalCompositeOperation='soft-light';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.restore()}
-    if(state.vignette>0){const g=ctx.createRadialGradient(canvas.width/2,canvas.height/2,Math.min(canvas.width,canvas.height)*.2,canvas.width/2,canvas.height/2,Math.max(canvas.width,canvas.height)*.72);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,`rgba(0,0,0,${state.vignette/100})`);ctx.fillStyle=g;ctx.fillRect(0,0,canvas.width,canvas.height)}
-    const pad=Math.max(18,canvas.width*.035);if(state.frame!=='none'){ctx.strokeStyle=frameColor();ctx.lineWidth=pad*2;ctx.strokeRect(pad,pad,canvas.width-pad*2,canvas.height-pad*2)}
-    if(state.text){ctx.save();ctx.fillStyle=state.frame==='black'?'#fff':'#fff';ctx.shadowColor='rgba(0,0,0,.55)';ctx.shadowBlur=8;ctx.font=`700 ${state.textSize*scale}px system-ui`;ctx.textAlign='center';ctx.textBaseline='middle';let y=state.textPosition==='top'?pad+state.textSize:state.textPosition==='center'?canvas.height/2:canvas.height-pad-state.textSize;ctx.fillText(state.text,canvas.width/2,y);ctx.restore()}
-    if(state.sticker){ctx.save();ctx.font=`${Math.max(28,canvas.width*.07)}px sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';const m=canvas.width*.1;const xs={tl:m,tc:canvas.width/2,tr:canvas.width-m,ml:m,mc:canvas.width/2,mr:canvas.width-m,bl:m,bc:canvas.width/2,br:canvas.width-m};const ys={tl:m,tc:m,tr:m,ml:canvas.height/2,mc:canvas.height/2,mr:canvas.height/2,bl:canvas.height-m,bc:canvas.height-m,br:canvas.height-m};ctx.shadowColor='rgba(0,0,0,.35)';ctx.shadowBlur=8;ctx.fillText(state.sticker,xs[state.stickerPos],ys[state.stickerPos]);ctx.restore()}
+  const overlay = $('editorOverlay');
+  const canvas = $('editorCanvas');
+  const ctx = canvas ? canvas.getContext('2d') : null;
+  const reviewEdit = $('reviewEdit');
+
+  if (!overlay || !canvas || !ctx) {
+    console.error('UsBooth editor: editor elements are missing.');
+    return;
   }
-  function renderEditor(){drawEditor()}
-  $('editCrop').addEventListener('change',e=>{state.crop=e.target.value;renderEditor()});$('editFrame').addEventListener('change',e=>{state.frame=e.target.value;renderEditor()});$('editText').addEventListener('input',e=>{state.text=e.target.value;renderEditor()});$('editTextPosition').addEventListener('change',e=>{state.textPosition=e.target.value;renderEditor()});
-  $('editorRotateLeft').onclick=()=>{state.rotate=(state.rotate-90)%360;renderEditor()};$('editorRotateRight').onclick=()=>{state.rotate=(state.rotate+90)%360;renderEditor()};$('editorFlip').onclick=()=>{state.flip=!state.flip;renderEditor()};
-  $('editReset').onclick=()=>{const keepText=state.text;resetState();state.text=keepText;$('editText').value=keepText;renderEditor()};
-  document.querySelectorAll('[data-edit-filter]').forEach(b=>b.onclick=()=>{state.filter=b.dataset.editFilter;document.querySelectorAll('[data-edit-filter]').forEach(x=>x.classList.toggle('active',x===b));renderEditor()});
-  document.querySelectorAll('[data-sticker-pos]').forEach(b=>b.onclick=()=>{state.stickerPos=b.dataset.stickerPos;document.querySelectorAll('[data-sticker-pos]').forEach(x=>x.classList.toggle('active',x===b));renderEditor()});
-  reviewEdit?.addEventListener('click',()=>{
-      if(!reviewPhoto){
-        setStatus('No photo available to edit.','warn');
-        return;
-      }
-      openEditor(reviewPhoto);
+
+  let sourceImage = null;
+  let originalImage = null;
+
+  const state = {
+    rotate: 0,
+    flip: false,
+    crop: 'original',
+    filter: 'none',
+    brightness: 100,
+    contrast: 100,
+    saturation: 100,
+    warmth: 0,
+    vignette: 0,
+    frame: 'none',
+    text: '',
+    textPosition: 'bottom',
+    textSize: 34,
+    sticker: '',
+    stickerPos: 'br'
+  };
+
+  const stickers = ['None','❤️','💕','✨','⭐','🌸','🎀','🦋','🌙','☁️','🥰','🎉','🎂','💌','♡','✦','☀️'];
+  const stickerGrid = $('editorStickerGrid');
+
+  if (stickerGrid) {
+    stickers.forEach((x, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'stickerBtn' + (i === 0 ? ' active' : '');
+      b.textContent = x;
+      b.dataset.sticker = x === 'None' ? '' : x;
+      b.onclick = () => {
+        state.sticker = b.dataset.sticker;
+        [...stickerGrid.children].forEach(n => n.classList.remove('active'));
+        b.classList.add('active');
+        renderEditor();
+      };
+      stickerGrid.appendChild(b);
     });
-  $('editorClose').onclick=closeEditor;$('editorCancel').onclick=closeEditor;overlay.addEventListener('click',e=>{if(e.target===overlay)closeEditor()});
-  $('editorApply').onclick=()=>{if(!canvas.width)return;const edited=canvas.toDataURL('image/jpeg',.95);if(typeof reviewPhoto!=='undefined'){reviewPhoto=edited;reviewImage.src=edited;reviewSub.textContent='Edited memory · ready to save'}closeEditor();setStatus('Edits applied ✓','ok')};
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))closeEditor()});
+  }
+
+  function bindRange(id, key, out) {
+    const input = $(id);
+    const output = $(out);
+    if (!input || !output) return;
+    input.addEventListener('input', e => {
+      state[key] = Number(e.target.value);
+      output.textContent = e.target.value;
+      renderEditor();
+    });
+  }
+
+  bindRange('editBrightness','brightness','editBrightnessOut');
+  bindRange('editContrast','contrast','editContrastOut');
+  bindRange('editSaturation','saturation','editSaturationOut');
+  bindRange('editWarmth','warmth','editWarmthOut');
+  bindRange('editVignette','vignette','editVignetteOut');
+  bindRange('editTextSize','textSize','editTextSizeOut');
+
+  function resetState() {
+    Object.assign(state, {
+      rotate: 0, flip: false, crop: 'original', filter: 'none',
+      brightness: 100, contrast: 100, saturation: 100, warmth: 0,
+      vignette: 0, frame: 'none', text: '', textPosition: 'bottom',
+      textSize: 34, sticker: '', stickerPos: 'br'
+    });
+
+    const values = {
+      editBrightness: 100,
+      editContrast: 100,
+      editSaturation: 100,
+      editWarmth: 0,
+      editVignette: 0,
+      editTextSize: 34
+    };
+
+    Object.entries(values).forEach(([id, value]) => {
+      const el = $(id);
+      if (el) el.value = value;
+    });
+
+    const outputs = {
+      editBrightnessOut: '100',
+      editContrastOut: '100',
+      editSaturationOut: '100',
+      editWarmthOut: '0',
+      editVignetteOut: '0',
+      editTextSizeOut: '34'
+    };
+
+    Object.entries(outputs).forEach(([id, value]) => {
+      const el = $(id);
+      if (el) el.textContent = value;
+    });
+
+    if ($('editText')) $('editText').value = '';
+    if ($('editCrop')) $('editCrop').value = 'original';
+    if ($('editFrame')) $('editFrame').value = 'none';
+    if ($('editTextPosition')) $('editTextPosition').value = 'bottom';
+
+    document.querySelectorAll('[data-edit-filter]').forEach((b, i) =>
+      b.classList.toggle('active', i === 0)
+    );
+    document.querySelectorAll('[data-sticker-pos]').forEach(b =>
+      b.classList.toggle('active', b.dataset.stickerPos === 'br')
+    );
+    document.querySelectorAll('.stickerBtn').forEach((b, i) =>
+      b.classList.toggle('active', i === 0)
+    );
+  }
+
+  function loadEditorImage(src) {
+    return new Promise((resolve, reject) => {
+      const im = new Image();
+      im.onload = () => resolve(im);
+      im.onerror = () => reject(new Error('Could not load this photo into the editor.'));
+      im.src = src;
+    });
+  }
+
+  function cropRect(w, h) {
+    const target =
+      state.crop === 'square' ? 1 :
+      state.crop === 'portrait' ? .8 :
+      state.crop === 'classic' ? 4/3 :
+      state.crop === 'story' ? 9/16 : null;
+
+    if (!target) return [0, 0, w, h];
+    const r = w / h;
+    if (r > target) {
+      const nw = h * target;
+      return [(w - nw) / 2, 0, nw, h];
+    }
+    const nh = w / target;
+    return [0, (h - nh) / 2, w, nh];
+  }
+
+  function filterCSS() {
+    switch (state.filter) {
+      case 'bw': return 'grayscale(1)';
+      case 'vintage': return 'sepia(.35) saturate(1.15) contrast(1.05)';
+      case 'warm': return 'sepia(.18) saturate(1.2) brightness(1.03)';
+      case 'cool': return 'saturate(.95) hue-rotate(10deg) contrast(1.04)';
+      case 'dreamy': return 'brightness(1.08) saturate(.85) contrast(.92)';
+      default: return 'none';
+    }
+  }
+
+  function frameColor() {
+    return state.frame === 'cream' ? '#f4ecdf' :
+           state.frame === 'pink' ? '#ffdce8' :
+           state.frame === 'black' ? '#111111' :
+           state.frame === 'white' ? '#ffffff' : 'transparent';
+  }
+
+  function renderEditor() {
+    if (!originalImage) return;
+
+    const im = originalImage;
+    const rotated = Math.abs(state.rotate) % 180 !== 0;
+    const baseW = im.width;
+    const baseH = im.height;
+    const cw = rotated ? baseH : baseW;
+    const ch = rotated ? baseW : baseH;
+    const [sx, sy, sw, sh] = cropRect(cw, ch);
+    const max = 1100;
+    const scale = Math.min(1, max / Math.max(sw, sh));
+
+    canvas.width = Math.max(1, Math.round(sw * scale));
+    canvas.height = Math.max(1, Math.round(sh * scale));
+
+    ctx.save();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.rotate(state.rotate * Math.PI / 180);
+    ctx.scale(state.flip ? -1 : 1, 1);
+
+    const fscale = canvas.width / sw;
+    ctx.filter = `${filterCSS()} brightness(${state.brightness/100}) contrast(${state.contrast/100}) saturate(${state.saturation/100})`;
+
+    ctx.drawImage(im, -sw*fscale/2, -sh*fscale/2, sw*fscale, sh*fscale);
+    ctx.filter = 'none';
+    ctx.restore();
+
+    if (state.warmth !== 0) {
+      ctx.save();
+      ctx.globalAlpha = Math.abs(state.warmth) / 100;
+      ctx.fillStyle = state.warmth > 0 ? '#ff9b5e' : '#6fa8ff';
+      ctx.globalCompositeOperation = 'soft-light';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.restore();
+    }
+
+    if (state.vignette > 0) {
+      const g = ctx.createRadialGradient(
+        canvas.width/2, canvas.height/2, Math.min(canvas.width,canvas.height)*.2,
+        canvas.width/2, canvas.height/2, Math.max(canvas.width,canvas.height)*.72
+      );
+      g.addColorStop(0, 'rgba(0,0,0,0)');
+      g.addColorStop(1, `rgba(0,0,0,${state.vignette/100})`);
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    const pad = Math.max(18, canvas.width * .035);
+    if (state.frame !== 'none') {
+      ctx.strokeStyle = frameColor();
+      ctx.lineWidth = pad * 2;
+      ctx.strokeRect(pad, pad, canvas.width-pad*2, canvas.height-pad*2);
+    }
+
+    if (state.text) {
+      ctx.save();
+      ctx.fillStyle = state.frame === 'black' ? '#fff' : '#fff';
+      ctx.shadowColor = 'rgba(0,0,0,.55)';
+      ctx.shadowBlur = 8;
+      ctx.font = `700 ${Math.max(12, state.textSize * scale)}px system-ui`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      const y =
+        state.textPosition === 'top' ? pad + state.textSize :
+        state.textPosition === 'center' ? canvas.height/2 :
+        canvas.height - pad - state.textSize;
+      ctx.fillText(state.text, canvas.width/2, y);
+      ctx.restore();
+    }
+
+    if (state.sticker) {
+      ctx.save();
+      ctx.font = `${Math.max(28, canvas.width*.07)}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      const m = canvas.width*.1;
+      const xs = {tl:m,tc:canvas.width/2,tr:canvas.width-m,ml:m,mc:canvas.width/2,mr:canvas.width-m,bl:m,bc:canvas.width/2,br:canvas.width-m};
+      const ys = {tl:m,tc:m,tr:m,ml:canvas.height/2,mc:canvas.height/2,mr:canvas.height/2,bl:canvas.height-m,bc:canvas.height-m,br:canvas.height-m};
+      ctx.shadowColor = 'rgba(0,0,0,.35)';
+      ctx.shadowBlur = 8;
+      ctx.fillText(state.sticker, xs[state.stickerPos], ys[state.stickerPos]);
+      ctx.restore();
+    }
+  }
+
+  async function openEditor(src) {
+    if (!src) {
+      console.warn('UsBooth editor: no source photo.');
+      return;
+    }
+
+    try {
+      sourceImage = src;
+      resetState();
+
+      // Open the panel FIRST so the user always gets immediate visual feedback.
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('editor-open');
+
+      originalImage = await loadEditorImage(src);
+      renderEditor();
+    } catch (err) {
+      console.error('UsBooth editor failed:', err);
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      if (typeof showError === 'function') showError(err);
+      else alert(err.message || 'Could not open the editor.');
+    }
+  }
+
+  window.usboothOpenEditor = openEditor;
+
+  function closeEditor() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('editor-open');
+    sourceImage = null;
+  }
+
+  $('editCrop')?.addEventListener('change', e => { state.crop = e.target.value; renderEditor(); });
+  $('editFrame')?.addEventListener('change', e => { state.frame = e.target.value; renderEditor(); });
+  $('editText')?.addEventListener('input', e => { state.text = e.target.value; renderEditor(); });
+  $('editTextPosition')?.addEventListener('change', e => { state.textPosition = e.target.value; renderEditor(); });
+
+  $('editorRotateLeft')?.addEventListener('click', () => { state.rotate = (state.rotate - 90) % 360; renderEditor(); });
+  $('editorRotateRight')?.addEventListener('click', () => { state.rotate = (state.rotate + 90) % 360; renderEditor(); });
+  $('editorFlip')?.addEventListener('click', () => { state.flip = !state.flip; renderEditor(); });
+
+  $('editReset')?.addEventListener('click', () => {
+    const keepText = state.text;
+    resetState();
+    state.text = keepText;
+    if ($('editText')) $('editText').value = keepText;
+    renderEditor();
+  });
+
+  document.querySelectorAll('[data-edit-filter]').forEach(b => {
+    b.addEventListener('click', () => {
+      state.filter = b.dataset.editFilter;
+      document.querySelectorAll('[data-edit-filter]').forEach(x => x.classList.toggle('active', x === b));
+      renderEditor();
+    });
+  });
+
+  document.querySelectorAll('[data-sticker-pos]').forEach(b => {
+    b.addEventListener('click', () => {
+      state.stickerPos = b.dataset.stickerPos;
+      document.querySelectorAll('[data-sticker-pos]').forEach(x => x.classList.toggle('active', x === b));
+      renderEditor();
+    });
+  });
+
+  reviewEdit?.addEventListener('click', () => {
+    if (typeof reviewPhoto === 'undefined' || !reviewPhoto) {
+      if (typeof showError === 'function') showError(new Error('No photo is available to edit.'));
+      return;
+    }
+    openEditor(reviewPhoto);
+  });
+
+  $('editorClose')?.addEventListener('click', closeEditor);
+  $('editorCancel')?.addEventListener('click', closeEditor);
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) closeEditor();
+  });
+
+  $('editorApply')?.addEventListener('click', () => {
+    if (!canvas.width) return;
+    const edited = canvas.toDataURL('image/jpeg', .95);
+
+    if (typeof reviewPhoto !== 'undefined') {
+      reviewPhoto = edited;
+      if ($('reviewImage')) $('reviewImage').src = edited;
+      if ($('reviewSub')) $('reviewSub').textContent = 'Edited memory · ready to save';
+    }
+
+    closeEditor();
+    if (typeof setStatus === 'function') setStatus('Edits applied ✓', 'ok');
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeEditor();
+  });
 })();
 </script>
 
