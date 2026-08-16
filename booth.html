@@ -1200,6 +1200,133 @@ body:after{width:320px;height:320px;right:-120px;bottom:5%;background:radial-gra
   display:none !important;
 }
 
+
+/* =========================================================
+   FINAL BOOTH UI POLISH
+========================================================= */
+.settings{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.07);
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,113,159,.07),transparent 28%),
+    rgba(12,10,15,.78);
+  box-shadow:0 20px 70px rgba(0,0,0,.22);
+}
+.settingsTitle{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  letter-spacing:2px;
+}
+.settingsTitle:after{
+  content:"LIVE STUDIO";
+  font-size:6px;
+  letter-spacing:1.2px;
+  color:#ff9ab8;
+  border:1px solid rgba(255,113,159,.22);
+  border-radius:999px;
+  padding:4px 7px;
+  margin-left:auto;
+}
+.settingsGrid{
+  gap:10px;
+}
+.setting{
+  position:relative;
+  padding:11px;
+  border:1px solid rgba(255,255,255,.055);
+  background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+  border-radius:15px;
+  transition:border-color .18s ease,transform .18s ease,background .18s ease;
+}
+.setting:hover{
+  border-color:rgba(255,151,184,.18);
+  background:linear-gradient(145deg,rgba(255,113,159,.055),rgba(255,255,255,.015));
+}
+.setting label{
+  font-size:7px;
+  letter-spacing:1.2px;
+  color:#aaa2ad;
+  font-weight:900;
+}
+.setting select,
+.setting input[type="text"]{
+  margin-top:7px;
+  min-height:36px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.08);
+  background:#17131a;
+}
+.setting input[type="range"]{
+  margin-top:13px;
+  width:100%;
+  accent-color:#ff719f;
+}
+.settingsGrid > .setting:nth-child(1)::before{
+  content:"COMPOSITION";
+  display:block;
+  margin:-2px 0 8px;
+  color:#ff91b0;
+  font-size:6px;
+  font-weight:1000;
+  letter-spacing:1.6px;
+}
+.settingsGrid > .setting:nth-child(4)::before{
+  content:"LOOK & LIGHT";
+  display:block;
+  margin:-2px 0 8px;
+  color:#ff91b0;
+  font-size:6px;
+  font-weight:1000;
+  letter-spacing:1.6px;
+}
+.settingsGrid > .setting:nth-child(7)::before{
+  content:"YOUR MEMORY";
+  display:block;
+  margin:-2px 0 8px;
+  color:#ff91b0;
+  font-size:6px;
+  font-weight:1000;
+  letter-spacing:1.6px;
+}
+.frameSetting{
+  padding:14px;
+  border-color:rgba(255,113,159,.14);
+  background:
+    linear-gradient(145deg,rgba(255,113,159,.075),rgba(255,255,255,.018));
+}
+.frameSetting > label{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  color:#ffd5e1;
+}
+.frameSetting > label:after{
+  content:"Choose your final look";
+  color:#77717c;
+  font-weight:600;
+  letter-spacing:0;
+  text-transform:none;
+}
+.frameChoice{
+  min-height:92px;
+}
+.frameChoice.active{
+  transform:translateY(-1px);
+}
+.shutterArea{
+  margin-top:16px;
+}
+.shutterHint{
+  opacity:.8;
+}
+@media(max-width:650px){
+  .settingsGrid{gap:8px}
+  .setting{padding:10px}
+  .frameChoice{min-height:84px}
+}
+
 </style>
 </head>
 
@@ -2166,14 +2293,9 @@ const captionInput =
     "captionInput"
   );
 
-const frameSelect =
+const frameTypeSelect =
   document.getElementById(
-    "frameSelect"
-  );
-
-const frameShapeSelect =
-  document.getElementById(
-    "frameShapeSelect"
+    "frameTypeSelect"
   );
 
 const countdown =
@@ -3050,8 +3172,20 @@ function frameColors(){
   };
 
 
+  const selectedFrame =
+    frameTypeSelect?.value ||
+    "classic";
+
+  const frameMap = {
+    classic: "cream",
+    polaroid: "white",
+    film: "black",
+    heart: "pink"
+  };
+
   return frames[
-    frameSelect.value
+    frameMap[selectedFrame] ||
+    "cream"
   ] ||
   frames.cream;
 
@@ -6044,21 +6178,30 @@ console.log(
   // Template shortcuts use the existing style/frame selectors.
   const cards = [...document.querySelectorAll(".templateCard")];
   const style = $("styleSelect");
-  const frame = $("frameSelect");
+  const frame = $("frameTypeSelect");
   const caption = $("captionInput");
 
   const templates = {
-    classic: {style:"together", frame:"cream", caption:"us, somehow ♡"},
-    polaroid: {style:"polaroid", frame:"white", caption:"a little memory ♡"},
-    strip: {style:"strip", frame:"white", caption:"our photo strip ♡"},
-    love: {style:"together", frame:"pink", caption:"together, always ♡"}
+    classic: {style:"together", frame:"classic", caption:"us, somehow ♡"},
+    polaroid: {style:"polaroid", frame:"polaroid", caption:"a little memory ♡"},
+    strip: {style:"strip", frame:"film", caption:"our photo strip ♡"},
+    love: {style:"together", frame:"heart", caption:"together, always ♡"}
   };
 
   function applyTemplate(name) {
     const t = templates[name];
     if (!t) return;
-    if (style) style.value = t.style;
-    if (frame) frame.value = t.frame;
+    if (style) {
+      style.value = t.style;
+      style.dispatchEvent(new Event("change",{bubbles:true}));
+    }
+    if (frame) {
+      frame.value = t.frame;
+      frame.dispatchEvent(new Event("change",{bubbles:true}));
+      document.querySelectorAll(".frameChoice").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.frameType === t.frame);
+      });
+    }
     if (caption && !caption.value.trim()) caption.value = t.caption;
     cards.forEach(c => c.classList.toggle("active", c.dataset.template === name));
   }
@@ -6323,7 +6466,8 @@ console.log(
 
     const style=$("styleSelect")?.value||"together";
     const frameType=$("frameTypeSelect")?.value||"classic";
-    const frame=$("frameSelect")?.value||"cream";
+    const frameColorMap={classic:"cream",polaroid:"white",film:"black",heart:"pink"};
+    const frame=frameColorMap[frameType]||"cream";
     const shots=Number($("shotsSelect")?.value||3);
     const caption=($("captionInput")?.value||"").trim()||"us, somehow ♡";
     const filter=$("filterSelect")?.value||"none";
@@ -6396,7 +6540,7 @@ console.log(
   }
 
   [
-    "styleSelect","shotsSelect","frameSelect","frameTypeSelect",
+    "styleSelect","shotsSelect","frameTypeSelect",
     "filterSelect","brightness","contrast","captionInput"
   ].forEach(id=>{
     $(id)?.addEventListener("input",refresh);
