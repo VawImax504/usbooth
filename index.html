@@ -241,6 +241,9 @@ input{
   height:100%;
   object-fit:cover;
   display:block;
+  position:relative;
+  z-index:1;
+  background:#050509;
 }
 
 .mirrored{
@@ -736,11 +739,12 @@ footer{
 
 
           <video
-            id="remoteVideo"
-            autoplay
-            playsinline
-            style="display:none"
-          ></video>
+  id="remoteVideo"
+  autoplay
+  playsinline
+  muted
+  style="display:block"
+            ></video>
 
 
           <div class="cameraTag">
@@ -1770,58 +1774,73 @@ function setupPeer(){
    REMOTE VIDEO
 ===================================================== */
 
-function attachRemote(
-  remote
-){
+function attachRemote(stream){
 
-  if(!remote){
+  console.log("REMOTE STREAM:", stream);
 
+  if(!stream){
+    console.error("No remote stream received");
     return;
-
   }
 
+  remoteStream = stream;
 
-  remoteStream =
-    remote;
+  // Make absolutely sure the video element is visible
+  remoteVideo.style.display = "block";
+  remoteVideo.style.visibility = "visible";
+  remoteVideo.style.opacity = "1";
 
-  remoteVideo.srcObject =
-    remote;
+  // Attach stream
+  remoteVideo.srcObject = stream;
 
-  remoteVideo.style.display =
-    "block";
+  partnerWaiting.style.display = "none";
 
-  partnerWaiting.style.display =
-    "none";
+  document.getElementById("remoteLive").style.display = "block";
 
+  remoteReady = true;
 
-  document.getElementById(
-    "remoteLive"
-  ).style.display =
-    "block";
+  // Wait until browser knows the video dimensions
+  remoteVideo.onloadedmetadata = async () => {
 
-
-  remoteReady =
-    true;
-
-
-  remoteVideo
-    .play()
-    .catch(
-      ()=>{}
+    console.log(
+      "REMOTE VIDEO METADATA:",
+      remoteVideo.videoWidth,
+      "x",
+      remoteVideo.videoHeight
     );
 
+    try {
 
-  setStatus(
-    "Both cameras connected ✓",
-    "ok"
-  );
+      await remoteVideo.play();
 
+      console.log("REMOTE VIDEO PLAYING");
 
-  progress.textContent =
-    "Ready to take photos";
+      setStatus(
+        "Both cameras connected ✓",
+        "ok"
+      );
+
+      progress.textContent =
+        "Ready to take photos";
+
+    } catch(error) {
+
+      console.error(
+        "REMOTE VIDEO PLAY ERROR:",
+        error
+      );
+
+      showError(
+        new Error(
+          "Remote camera connected, but browser could not play the video."
+        )
+      );
+
+    }
+
+  };
 
 }
-
 
 /* =====================================================
    ROOM
