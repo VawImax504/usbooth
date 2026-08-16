@@ -1467,34 +1467,25 @@ function setupMetered(){
          STREAM ADDED
       ================================================= */
 
-      remote.on(
-        "stream-added",
-        ({
-          stream,
-          metadata
-        })=>{
+remote.on("stream-added", ({ stream, metadata }) => {
 
-          console.log(
-            "REMOTE STREAM-ADDED EVENT ✓"
-          );
+    console.log(
+        "REMOTE STREAM-ADDED ✓"
+    );
 
-          console.log(
-            "REMOTE STREAM:",
-            stream
-          );
+    console.log(
+        "REMOTE STREAM:",
+        stream
+    );
 
-          console.log(
-            "REMOTE METADATA:",
-            metadata
-          );
+    console.log(
+        "REMOTE METADATA:",
+        metadata
+    );
 
+    attachRemoteStream(stream);
 
-          attachRemoteStream(
-            stream
-          );
-
-        }
-      );
+});
 
 
       /* =================================================
