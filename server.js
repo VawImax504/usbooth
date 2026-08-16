@@ -18,12 +18,13 @@ app.get("/", (req, res) => {
 app.get("/health", (req, res) => {
   res.json({
     ok: true,
-    service: "usbooth"
+    service: "usbooth",
+    version: "1.0.0"
   });
 });
 
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-server.listen(port, "0.0.0.0", () => {
-  console.log(`UsBooth running on port ${port}`);
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`UsBooth running on port ${PORT}`);
 });
