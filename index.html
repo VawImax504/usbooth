@@ -60,6 +60,37 @@ footer{margin-top:80px;text-align:center;color:#57535f;font-size:9px}
   .features{grid-template-columns:1fr 1fr}
   .steps{grid-template-columns:1fr}
 }
+
+.heroActions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:28px}
+.primaryCta,.secondaryCta{display:inline-flex;align-items:center;gap:10px;text-decoration:none;border-radius:999px;padding:13px 18px;font-size:11px;font-weight:1000}
+.primaryCta{background:#ff719f;color:#210812}
+.primaryCta b{font-size:16px}
+.secondaryCta{background:#15141d;color:#ddd8e2;border:1px solid #373542}
+.choose,.featureBand,.how,.useCases,.finalCta{max-width:1000px;margin:0 auto}
+.sectionEyebrow{color:#ff91b2;font-size:9px;font-weight:1000;letter-spacing:3px}
+.choose{text-align:center;padding-top:30px}
+.choose h2,.how h2,.useCases h2,.finalCta h2{font-size:clamp(27px,4vw,42px);margin:10px 0}
+.sectionLead{color:#777481;font-size:11px}
+.choices{margin-top:24px}
+.choiceTop{display:flex;justify-content:space-between;align-items:center}
+.liveTag{padding:6px 8px;border-radius:999px;background:#211c28;color:#ff9fba;font-size:7px;font-weight:1000;letter-spacing:1px}
+.choice h3{font-size:28px;margin:8px 0}
+.choiceBottom{display:flex;justify-content:space-between;align-items:center;position:absolute;left:28px;right:25px;bottom:23px;color:#aaa6b2;font-size:9px;font-weight:900}
+.choice .go{position:static}
+.featureBand{margin-top:95px;padding:42px 0;border-top:1px solid #252430;border-bottom:1px solid #252430;text-align:center}
+.featureBand h2{font-size:28px;margin:10px 0 25px}
+.feature i{display:block;font-style:normal;font-size:22px;margin-bottom:10px}
+.how{text-align:center;padding-top:80px}
+.useCases{display:flex;justify-content:space-between;gap:30px;align-items:center;padding-top:85px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;max-width:560px}
+.chips span{padding:10px 12px;border:1px solid #302f3a;background:#111018;border-radius:999px;color:#aaa6b2;font-size:9px}
+.finalCta{text-align:center;margin-top:85px;padding:60px 15px;border:1px solid #302e3a;border-radius:28px;background:radial-gradient(circle at 50% 0,#392033,#111018 60%)}
+.finalCta h2{margin-bottom:24px}
+@media(max-width:700px){
+ .useCases{display:block;text-align:center}.chips{justify-content:center;margin-top:20px}
+ .featureBand{margin-top:65px}.how{padding-top:65px}.finalCta{margin-top:65px}
+}
+
 </style>
 </head>
 <body>
@@ -69,56 +100,82 @@ footer{margin-top:80px;text-align:center;color:#57535f;font-size:9px}
   <div class="navPill">FREE TO USE</div>
 </nav>
 
+
 <main>
 <section class="hero">
-  <div class="eyebrow">ONE BOOTH · TWO PLACES</div>
-  <h1>How are you<br><span>shooting?</span></h1>
+  <div class="eyebrow">♡ DIGITAL PHOTOBOOTH · FREE TO USE</div>
+  <h1>One booth.<br><span>Two places.</span></h1>
   <p>
-    Choose your setup. Whether you're sitting next to each other
-    or miles apart, UsBooth turns the moment into one shared memory.
+    A playful digital photobooth for the people you wish were
+    standing beside you — whether they're beside you or miles away.
   </p>
-</section>
-
-<section class="choices">
-  <a class="choice" href="booth.html?mode=single">
-    <div class="icon">📸</div>
-    <div class="badge">ONE DEVICE</div>
-    <h2>We're together</h2>
-    <p>
-      One phone, one camera, two people. Perfect when you're
-      sitting next to each other.
-    </p>
-    <div class="go">→</div>
-  </a>
-
-  <a class="choice" href="booth.html?mode=two">
-    <div class="icon">📱</div>
-    <div class="badge">TWO DEVICES</div>
-    <h2>We're apart</h2>
-    <p>
-      Connect two phones from different places and create a
-      photo that feels like you were together.
-    </p>
-    <div class="go">→</div>
-  </a>
-</section>
-
-<section class="features">
-  <div class="feature"><b>📷 Studio Camera</b><span>Live preview, camera controls and photobooth shooting.</span></div>
-  <div class="feature"><b>🎞️ Photo Strips</b><span>Turn multiple shots into a finished booth strip.</span></div>
-  <div class="feature"><b>✨ Creative Tools</b><span>Frames, filters, captions and more.</span></div>
-  <div class="feature"><b>♡ Memories</b><span>Keep, download and share the moments you create.</span></div>
-</section>
-
-<section class="how">
-  <h2>Three steps. One memory.</h2>
-  <div class="steps">
-    <div class="step"><strong>01</strong><b>Choose your booth</b><p>One phone for together, two phones for long distance.</p></div>
-    <div class="step"><strong>02</strong><b>Take the shot</b><p>Set the timer, pose and let UsBooth capture the moment.</p></div>
-    <div class="step"><strong>03</strong><b>Keep it forever</b><p>Edit, download and save your finished memory.</p></div>
+  <div class="heroActions">
+    <a class="primaryCta" href="#choose">Create a memory <b>→</b></a>
+    <a class="secondaryCta" href="#how">How it works</a>
   </div>
 </section>
+
+<section id="choose" class="choose">
+  <div class="sectionEyebrow">CHOOSE YOUR BOOTH</div>
+  <h2>How are you shooting?</h2>
+  <p class="sectionLead">Pick the setup that matches where you are right now.</p>
+
+  <div class="choices">
+    <a class="choice" href="booth.html?mode=single">
+      <div class="choiceTop"><span class="icon">📸</span><span class="liveTag">NO ROOM NEEDED</span></div>
+      <div class="badge">ONE DEVICE</div>
+      <h3>We're together</h3>
+      <p>One phone, one camera, two people. Perfect for a sofa, café, party or date.</p>
+      <div class="choiceBottom"><span>Open booth</span><div class="go">→</div></div>
+    </a>
+
+    <a class="choice" href="booth.html?mode=two">
+      <div class="choiceTop"><span class="icon">📱</span><span class="liveTag">LONG DISTANCE</span></div>
+      <div class="badge">TWO DEVICES</div>
+      <h3>We're apart</h3>
+      <p>Connect two phones from different places and create one shared photo together.</p>
+      <div class="choiceBottom"><span>Open booth</span><div class="go">→</div></div>
+    </a>
+  </div>
+</section>
+
+<section class="featureBand">
+  <div class="sectionEyebrow">MADE FOR MEMORIES</div>
+  <h2>Everything you'd expect from a photobooth.</h2>
+  <div class="features">
+    <div class="feature"><i>⏱</i><b>Countdowns</b><span>Instant, 3, 5 or 10 second timers.</span></div>
+    <div class="feature"><i>🎞</i><b>Photo strips</b><span>Turn multiple shots into a finished strip.</span></div>
+    <div class="feature"><i>✨</i><b>Creative styles</b><span>Polaroids, frames, filters and captions.</span></div>
+    <div class="feature"><i>♡</i><b>Memories</b><span>Download and keep the photos you create.</span></div>
+  </div>
+</section>
+
+<section id="how" class="how">
+  <div class="sectionEyebrow">HOW IT WORKS</div>
+  <h2>Three steps. One memory.</h2>
+  <div class="steps">
+    <div class="step"><strong>01</strong><b>Choose</b><p>One phone when you're together. Two phones when you're apart.</p></div>
+    <div class="step"><strong>02</strong><b>Pose</b><p>Set your timer, get ready and let UsBooth capture the moment.</p></div>
+    <div class="step"><strong>03</strong><b>Keep it</b><p>Choose a layout, make it yours and download the finished memory.</p></div>
+  </div>
+</section>
+
+<section class="useCases">
+  <div><div class="sectionEyebrow">USE IT ANYWHERE</div><h2>More than couples.</h2></div>
+  <div class="chips">
+    <span>💕 Couples</span><span>👯 Friends</span><span>🎂 Birthdays</span>
+    <span>🎓 Graduations</span><span>💍 Weddings</span><span>🎉 Parties</span>
+    <span>🏫 College fests</span><span>☕ Cafés</span>
+  </div>
+</section>
+
+<section class="finalCta">
+  <div class="eyebrow">READY?</div>
+  <h2>Make the moment a memory.</h2>
+  <a class="primaryCta" href="#choose">Start UsBooth <b>→</b></a>
+</section>
 </main>
+
 
 <footer>UsBooth · One booth. Two places. ♡</footer>
 </div>
