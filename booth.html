@@ -1084,6 +1084,34 @@ body::before{
 .memoryBtns .fav.active{color:#ff719f;border-color:#ff719f}.danger{color:#ff8ba8!important}.emptyMemories{grid-column:1/-1;text-align:center;padding:25px;color:#696672;font-size:9px;border:1px dashed #302e39;border-radius:12px}
 @media(max-width:700px){.themeGrid,.layoutGrid,.memoryVaultGrid{grid-template-columns:repeat(2,1fr)}.detailRow{grid-template-columns:1fr}.memoryTools{flex-direction:column}}
 
+
+
+/* FINAL ROMANTIC FINISH */
+body{
+  background:
+    radial-gradient(circle at 10% 0%,rgba(255,91,143,.22),transparent 30%),
+    radial-gradient(circle at 90% 12%,rgba(168,88,255,.18),transparent 28%),
+    radial-gradient(circle at 50% 100%,rgba(255,111,159,.12),transparent 35%),
+    linear-gradient(145deg,#09070d 0%,#140b13 46%,#0b0810 100%);
+}
+body:before,body:after{content:"";position:fixed;pointer-events:none;z-index:-1;border-radius:50%;filter:blur(2px)}
+body:before{width:260px;height:260px;left:-100px;top:20%;background:radial-gradient(circle,rgba(255,113,159,.13),transparent 68%)}
+body:after{width:320px;height:320px;right:-120px;bottom:5%;background:radial-gradient(circle,rgba(142,93,255,.12),transparent 68%)}
+.shotPreviewPanel{margin:14px 0;padding:14px;border:1px solid #3a2934;border-radius:18px;background:linear-gradient(145deg,rgba(35,17,27,.9),rgba(16,13,20,.94));box-shadow:0 16px 50px rgba(0,0,0,.22)}
+.shotPreviewHeader{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.shotPreviewHeader h3{margin:3px 0 0;font-size:13px}
+.shotPreviewHeader>span{font-size:7px;color:#ff9cba;border:1px solid #543342;padding:6px 8px;border-radius:999px}
+.shotPreviewStage{display:flex;justify-content:center;padding:14px 0 10px}
+.previewPhotoMock{position:relative;width:min(220px,55vw);aspect-ratio:3/4;border:8px solid #f2eee8;background:linear-gradient(145deg,#6c4b5a,#21151d);box-shadow:0 12px 30px rgba(0,0,0,.4);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.previewPhotoMock:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.08),transparent 35%,rgba(255,113,159,.15))}
+.previewLocalMini,.previewRemoteMini{position:absolute;width:43%;height:53%;top:20%;background:linear-gradient(145deg,#6d5360,#2b1c26);border:2px solid rgba(255,255,255,.72);box-shadow:0 5px 15px rgba(0,0,0,.3)}
+.previewLocalMini{left:5%;transform:rotate(-4deg)}.previewRemoteMini{right:5%;transform:rotate(4deg)}
+.previewFrameOverlay{position:absolute;inset:0;border:10px solid rgba(255,255,255,.18);pointer-events:none}
+.previewCaption{position:absolute;bottom:12px;left:10px;right:10px;text-align:center;color:#fff;font-family:Georgia,serif;font-size:12px;text-shadow:0 2px 8px #000}
+.previewDate{position:absolute;top:8px;right:9px;color:#fff;font-size:6px;opacity:.8}
+.previewHint{text-align:center;color:#777481;font-size:7px;line-height:1.5}
+@media(max-width:700px){.previewPhotoMock{width:180px}}
+
 </style>
 </head>
 
@@ -1281,6 +1309,26 @@ body::before{
 </div>
 
 
+<section class="shotPreviewPanel" id="shotPreviewPanel">
+  <div class="shotPreviewHeader">
+    <div>
+      <span class="studioEyebrow">LIVE RESULT PREVIEW</span>
+      <h3>See your memory before you shoot</h3>
+    </div>
+    <span id="previewModeLabel">Classic · Single</span>
+  </div>
+  <div class="shotPreviewStage">
+    <div class="previewPhotoMock" id="previewPhotoMock">
+      <div class="previewRemoteMini"></div>
+      <div class="previewLocalMini"></div>
+      <div class="previewFrameOverlay" id="previewFrameOverlay"></div>
+      <div class="previewCaption" id="previewCaption">your memory ♡</div>
+      <div class="previewDate" id="previewDate"></div>
+    </div>
+  </div>
+  <div class="previewHint">Your selected theme, layout, frame and caption are reflected here before you press the shutter.</div>
+</section>
+
 <!-- =====================================================
      CAMERA CONTROLS
 ===================================================== -->
@@ -1324,6 +1372,7 @@ body::before{
   <button id="gridButton" class="toolBtn" type="button">▦ Grid</button>
   <button id="copyRoomCamera" class="toolBtn" type="button">⧉ Room Code</button>
   <button id="shareBoothCamera" class="toolBtn" type="button">↗ Share Booth</button>
+   <button id="soundButton" class="toolBtn" type="button">🔊 Sound On</button>
 </div>
 
 
@@ -5917,6 +5966,110 @@ console.log(
 
   document.documentElement.dataset.usboothTheme=activeTheme;
   render();
+})();
+</script>
+
+
+
+<script>
+/* FINAL AUDIO + LIVE RESULT PREVIEW */
+(() => {
+  const $=id=>document.getElementById(id);
+  const remote=$("remoteVideo"), sound=$("soundButton");
+
+  async function enableRemoteAudio(){
+    if(!remote || !remote.srcObject) return;
+    remote.muted=false;
+    remote.volume=1;
+    try{ await remote.play(); }catch(e){ console.log("Audio awaits user gesture:",e); }
+    if(sound) sound.textContent="🔊 Sound On";
+  }
+  sound?.addEventListener("click",enableRemoteAudio);
+  remote?.addEventListener("click",enableRemoteAudio);
+  remote?.addEventListener("loadedmetadata",enableRemoteAudio);
+  remote?.addEventListener("canplay",enableRemoteAudio);
+
+  const preview=$("shotPreviewPanel");
+  function refreshPreview(){
+    if(!preview)return;
+    const filter=$("filterSelect")?.value||"none";
+    const bright=Number($("brightness")?.value||100)/100;
+    const contrast=Number($("contrast")?.value||100)/100;
+    const frameValue=$("frameSelect")?.value||"cream";
+    const caption=$("captionInput")?.value?.trim();
+    const theme=document.querySelector(".themeChoice.active")?.dataset.theme||"classic";
+    const layout=document.querySelector(".layoutChoice.active")?.dataset.layout||"single";
+    const mode=new URLSearchParams(location.search).get("mode")==="single"?"Single":"Two Phone";
+    $("previewModeLabel").textContent=`${theme} · ${layout} · ${mode}`;
+    $("previewCaption").textContent=caption||"your memory ♡";
+    $("previewDate").textContent=new Date().toLocaleDateString();
+    const stage=$("previewPhotoMock");
+    if(stage){
+      stage.style.filter=`${filter} brightness(${bright}) contrast(${contrast})`;
+      stage.style.borderColor=
+        frameValue==="pink"?"#f4b4c8":
+        frameValue==="black"?"#18151a":
+        frameValue==="gold"?"#d9b36c":"#f2eee8";
+    }
+  }
+  ["filterSelect","brightness","contrast","captionInput","frameSelect","memoryTitleInput","memoryFooterInput"]
+    .forEach(id=>$(id)?.addEventListener("input",refreshPreview));
+  ["filterSelect","frameSelect"].forEach(id=>$(id)?.addEventListener("change",refreshPreview));
+  document.querySelectorAll(".themeChoice,.layoutChoice,.templateCard")
+    .forEach(x=>x.addEventListener("click",()=>setTimeout(refreshPreview,40)));
+  refreshPreview();
+})();
+</script>
+
+<script>
+/* EPHEMERAL CLOUD MEMORY — 10 MINUTES */
+(() => {
+  const btn=document.getElementById("cloudMemoryButton");
+  if(!btn)return;
+
+  function findImage(){
+    const candidates=[
+      "#reviewImage",".reviewImage","#resultImage","#photoResult img",
+      "#reviewCanvas","#photoCanvas"
+    ];
+    for(const selector of candidates){
+      const el=document.querySelector(selector);
+      if(!el)continue;
+      if(el.tagName==="IMG" && el.src?.startsWith("data:image/"))return el.src;
+      if(el.tagName==="CANVAS"){try{return el.toDataURL("image/jpeg",.9)}catch{}}
+    }
+    const imgs=[...document.images].filter(x=>x.src?.startsWith("data:image/"));
+    return imgs[0]?.src||null;
+  }
+
+  btn.addEventListener("click",async()=>{
+    const dataUrl=findImage();
+    if(!dataUrl){alert("Take or open a photo first.");return}
+    btn.disabled=true;btn.textContent="☁ Uploading…";
+    try{
+      const r=await fetch("/api/memory",{
+        method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+          image:dataUrl,
+          title:document.getElementById("memoryTitleInput")?.value||"UsBooth Memory"
+        })
+      });
+      const data=await r.json();
+      if(!r.ok)throw new Error(data.error||"Upload failed");
+      const url=new URL(data.url,location.origin).href;
+      if(navigator.share){
+        try{await navigator.share({title:"UsBooth ♡",text:"A temporary UsBooth memory — available for 10 minutes.",url})}catch{}
+      }else{
+        try{await navigator.clipboard.writeText(url);alert("10-minute memory link copied!")}catch{prompt("Copy this 10-minute memory link:",url)}
+      }
+      btn.textContent="☁ Link ready ✓";
+      setTimeout(()=>btn.textContent="☁ Save for 10 min",2500);
+    }catch(e){
+      console.error(e);
+      alert("Couldn't create the temporary link. Make sure the new server.js is deployed.");
+      btn.textContent="☁ Save for 10 min";
+    }finally{btn.disabled=false}
+  });
 })();
 </script>
 
