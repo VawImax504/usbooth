@@ -1112,6 +1112,8 @@ body:after{width:320px;height:320px;right:-120px;bottom:5%;background:radial-gra
 .previewHint{text-align:center;color:#777481;font-size:7px;line-height:1.5}
 @media(max-width:700px){.previewPhotoMock{width:180px}}
 
+
+.previewCanvasWrap{width:min(600px,100%);padding:10px;display:flex;justify-content:center}.previewCanvasWrap canvas{display:block;width:min(100%,560px);height:auto;border-radius:12px;box-shadow:0 15px 45px rgba(0,0,0,.35);background:#111}
 </style>
 </head>
 
@@ -1267,7 +1269,6 @@ body:after{width:320px;height:320px;right:-120px;bottom:5%;background:radial-gra
       id="remoteVideo"
       autoplay
       playsinline
-      muted
     ></video>
 
     <div
@@ -1318,12 +1319,8 @@ body:after{width:320px;height:320px;right:-120px;bottom:5%;background:radial-gra
     <span id="previewModeLabel">Classic · Single</span>
   </div>
   <div class="shotPreviewStage">
-    <div class="previewPhotoMock" id="previewPhotoMock">
-      <div class="previewRemoteMini"></div>
-      <div class="previewLocalMini"></div>
-      <div class="previewFrameOverlay" id="previewFrameOverlay"></div>
-      <div class="previewCaption" id="previewCaption">your memory ♡</div>
-      <div class="previewDate" id="previewDate"></div>
+    <div class="previewCanvasWrap">
+      <canvas id="shotPreviewCanvas" width="600" height="450"></canvas>
     </div>
   </div>
   <div class="previewHint">Your selected theme, layout, frame and caption are reflected here before you press the shutter.</div>
@@ -1652,6 +1649,22 @@ body:after{width:320px;height:320px;right:-120px;bottom:5%;background:radial-gra
     </div>
 
 
+    <div class="setting">
+
+      <label>
+        FRAME SHAPE
+      </label>
+
+      <select id="frameShapeSelect">
+        <option value="classic">Classic</option>
+        <option value="rounded">Rounded</option>
+        <option value="heart">Heart</option>
+        <option value="film">Film</option>
+      </select>
+
+    </div>
+
+
   </div>
 
 </div>
@@ -1764,7 +1777,7 @@ body:after{width:320px;height:320px;right:-120px;bottom:5%;background:radial-gra
 
 
 <!-- PHASE B REVIEW -->
-<div id="reviewOverlay" class="reviewOverlay" aria-hidden="true"><div class="reviewPanel"><div class="reviewHead"><div><div class="sessionBadge">♡ MEMORY READY</div><div class="reviewTitle">Your photo is ready</div><div id="reviewSub" class="reviewSub">Check it before saving.</div></div><button id="reviewClose" class="reviewClose" type="button">× Close</button></div><div class="reviewCanvasWrap"><img id="reviewImage" alt="UsBooth preview"></div><div id="reviewShots" class="reviewShots"></div><div class="reviewActions"><button id="reviewRetake" class="btn secondary" type="button">↻ Retake</button><button id="reviewEdit" class="btn secondary" type="button">✨ Edit</button><button id="reviewDownload" class="btn" type="button">↓ Download</button><button id="reviewKeep" class="btn" type="button">♡ Save to Memories</button></div></div></div>
+<div id="reviewOverlay" class="reviewOverlay" aria-hidden="true"><div class="reviewPanel"><div class="reviewHead"><div><div class="sessionBadge">♡ MEMORY READY</div><div class="reviewTitle">Your photo is ready</div><div id="reviewSub" class="reviewSub">Check it before saving.</div></div><button id="reviewClose" class="reviewClose" type="button">× Close</button></div><div class="reviewCanvasWrap"><img id="reviewImage" alt="UsBooth preview"></div><div id="reviewShots" class="reviewShots"></div><div class="reviewActions"><button id="reviewRetake" class="btn secondary" type="button">↻ Retake</button><button id="reviewEdit" class="btn secondary" type="button">✨ Edit</button><button id="reviewDownload" class="btn" type="button">↓ Download</button><button id="reviewKeep" class="btn" type="button">♡ Save to Memories</button><button id="reviewCloud" class="btn secondary" type="button">☁ 10-min Link</button></div></div></div>
 
 
 <!-- =====================================================
@@ -2074,6 +2087,11 @@ const captionInput =
 const frameSelect =
   document.getElementById(
     "frameSelect"
+  );
+
+const frameShapeSelect =
+  document.getElementById(
+    "frameShapeSelect"
   );
 
 const countdown =
@@ -2608,7 +2626,10 @@ async function attachRemoteStream(
     true;
 
   remoteVideo.muted =
-    true;
+    false;
+
+  remoteVideo.volume =
+    1;
 
 
   remoteWaiting.style.display =
@@ -4226,8 +4247,8 @@ async function triggerShot(
 /* PHASE B REVIEW HELPERS */
 function showCaptureProgress(current,total,text){if(!captureProgress)return;captureProgress.classList.add("visible");captureProgressText.textContent=text||"Capturing…";captureProgressCount.textContent=`${current} / ${total}`;captureProgressFill.style.width=`${Math.min(100,current/Math.max(1,total)*100)}%`}
 function hideCaptureProgress(){captureProgress?.classList.remove("visible")}
-function openReview(photo,shots=[]){reviewPhoto=photo;reviewDraftPhotos=shots.length?shots.slice():[photo];reviewImage.src=photo;reviewSub.textContent=`${shots.length>1?shots.length+" shots":"Finished photo"} · ready to save`;reviewShots.innerHTML="";reviewDraftPhotos.forEach((src,i)=>{const t=document.createElement("img");t.className="reviewShot"+(src===photo?" active":"");t.src=src;t.alt=`Shot ${i+1}`;t.onclick=()=>{reviewImage.src=src;reviewPhoto=src;[...reviewShots.children].forEach(x=>x.classList.remove("active"));t.classList.add("active")};reviewShots.appendChild(t)});reviewOverlay.classList.add("open");reviewOverlay.setAttribute("aria-hidden","false")}
-function closeReview(){reviewOverlay.classList.remove("open");reviewOverlay.setAttribute("aria-hidden","true");reviewImage.src=""}
+function openReview(photo,shots=[]){reviewPhoto=photo;window.__usboothCurrentPhoto=photo;reviewDraftPhotos=shots.length?shots.slice():[photo];reviewImage.src=photo;reviewSub.textContent=`${shots.length>1?shots.length+" shots":"Finished photo"} · ready to save`;reviewShots.innerHTML="";reviewDraftPhotos.forEach((src,i)=>{const t=document.createElement("img");t.className="reviewShot"+(src===photo?" active":"");t.src=src;t.alt=`Shot ${i+1}`;t.onclick=()=>{reviewImage.src=src;reviewPhoto=src;[...reviewShots.children].forEach(x=>x.classList.remove("active"));t.classList.add("active")};reviewShots.appendChild(t)});reviewOverlay.classList.add("open");reviewOverlay.setAttribute("aria-hidden","false")}
+function closeReview(){window.__usboothCurrentPhoto=reviewPhoto;reviewOverlay.classList.remove("open");reviewOverlay.setAttribute("aria-hidden","true");reviewImage.src=""}
 function saveReviewedPhoto(){if(!reviewPhoto)return;if(!photos.some(p=>p.dataUrl===reviewPhoto))addPhoto(reviewPhoto);setStatus("Saved to Memories ✓","ok");closeReview()}
 reviewClose?.addEventListener("click",closeReview);reviewKeep?.addEventListener("click",saveReviewedPhoto);reviewDownload?.addEventListener("click",()=>{if(reviewPhoto)downloadPhoto({number:photoNumber+1,dataUrl:reviewPhoto})});reviewOverlay?.addEventListener("click",e=>{if(e.target===reviewOverlay)closeReview()});document.addEventListener("keydown",e=>{if(e.key==="Escape"&&reviewOverlay?.classList.contains("open"))closeReview()});reviewRetake?.addEventListener("click",async()=>{closeReview();await sleep(120);if(!captureBusy)await startPhotoSession()});
 
@@ -5972,104 +5993,115 @@ console.log(
 
 
 <script>
-/* FINAL AUDIO + LIVE RESULT PREVIEW */
+/* FINAL AUDIO + TRUE LIVE RESULT PREVIEW */
 (() => {
   const $=id=>document.getElementById(id);
-  const remote=$("remoteVideo"), sound=$("soundButton");
+  const remote=$('remoteVideo'), sound=$('soundButton');
 
   async function enableRemoteAudio(){
     if(!remote || !remote.srcObject) return;
-    remote.muted=false;
-    remote.volume=1;
-    try{ await remote.play(); }catch(e){ console.log("Audio awaits user gesture:",e); }
-    if(sound) sound.textContent="🔊 Sound On";
+    remote.muted=false; remote.volume=1;
+    try{ await remote.play(); }catch(e){ console.log('Remote audio awaits a user gesture.'); }
+    if(sound) sound.textContent='🔊 Sound On';
   }
-  sound?.addEventListener("click",enableRemoteAudio);
-  remote?.addEventListener("click",enableRemoteAudio);
-  remote?.addEventListener("loadedmetadata",enableRemoteAudio);
-  remote?.addEventListener("canplay",enableRemoteAudio);
+  sound?.addEventListener('click',enableRemoteAudio);
+  remote?.addEventListener('click',enableRemoteAudio);
+  remote?.addEventListener('loadedmetadata',enableRemoteAudio);
+  remote?.addEventListener('canplay',enableRemoteAudio);
 
-  const preview=$("shotPreviewPanel");
-  function refreshPreview(){
-    if(!preview)return;
-    const filter=$("filterSelect")?.value||"none";
-    const bright=Number($("brightness")?.value||100)/100;
-    const contrast=Number($("contrast")?.value||100)/100;
-    const frameValue=$("frameSelect")?.value||"cream";
-    const caption=$("captionInput")?.value?.trim();
-    const theme=document.querySelector(".themeChoice.active")?.dataset.theme||"classic";
-    const layout=document.querySelector(".layoutChoice.active")?.dataset.layout||"single";
-    const mode=new URLSearchParams(location.search).get("mode")==="single"?"Single":"Two Phone";
-    $("previewModeLabel").textContent=`${theme} · ${layout} · ${mode}`;
-    $("previewCaption").textContent=caption||"your memory ♡";
-    $("previewDate").textContent=new Date().toLocaleDateString();
-    const stage=$("previewPhotoMock");
-    if(stage){
-      stage.style.filter=`${filter} brightness(${bright}) contrast(${contrast})`;
-      stage.style.borderColor=
-        frameValue==="pink"?"#f4b4c8":
-        frameValue==="black"?"#18151a":
-        frameValue==="gold"?"#d9b36c":"#f2eee8";
-    }
+  const canvas=$('shotPreviewCanvas');
+  const ctx=canvas?.getContext('2d');
+  if(!canvas||!ctx)return;
+
+  function roundedRectPath(c,x,y,w,h,r){
+    r=Math.min(r,w/2,h/2); c.beginPath(); c.moveTo(x+r,y); c.arcTo(x+w,y,x+w,y+h,r); c.arcTo(x+w,y+h,x,y+h,r); c.arcTo(x,y+h,x,y,r); c.arcTo(x,y,x+w,y,r); c.closePath();
   }
-  ["filterSelect","brightness","contrast","captionInput","frameSelect","memoryTitleInput","memoryFooterInput"]
-    .forEach(id=>$(id)?.addEventListener("input",refreshPreview));
-  ["filterSelect","frameSelect"].forEach(id=>$(id)?.addEventListener("change",refreshPreview));
-  document.querySelectorAll(".themeChoice,.layoutChoice,.templateCard")
-    .forEach(x=>x.addEventListener("click",()=>setTimeout(refreshPreview,40)));
-  refreshPreview();
+  function heartPath(c,x,y,w,h){
+    c.beginPath(); c.moveTo(x+w/2,y+h); c.bezierCurveTo(x,y+h*.68,x,y+h*.25,x+w*.25,y+h*.18); c.bezierCurveTo(x+w*.4,y+h*.1,x+w*.48,y+h*.2,x+w/2,y+h*.3); c.bezierCurveTo(x+w*.52,y+h*.2,x+w*.6,y+h*.1,x+w*.75,y+h*.18); c.bezierCurveTo(x+w,y+h*.25,x+w,y+h*.68,x+w/2,y+h); c.closePath();
+  }
+  function drawCover(c,img,x,y,w,h,shape='classic'){
+    c.save();
+    if(shape==='rounded') roundedRectPath(c,x,y,w,h,28);
+    else if(shape==='heart') heartPath(c,x,y,w,h);
+    else { c.beginPath(); c.rect(x,y,w,h); c.closePath(); }
+    c.clip();
+    const scale=Math.max(w/img.width,h/img.height); const sw=w/scale,sh=h/scale; const sx=(img.width-sw)/2,sy=(img.height-sh)/2;
+    c.drawImage(img,sx,sy,sw,sh,x,y,w,h); c.restore();
+  }
+  function color(){const v=$('frameSelect')?.value||'cream';return v==='pink'?'#ffdce8':v==='black'?'#111111':v==='white'?'#fff':'#f4ecdf'}
+  function drawPlaceholder(c,x,y,w,h,label,shape){c.save();c.fillStyle='#2a1a24';c.fillRect(x,y,w,h);c.fillStyle='rgba(255,113,159,.18)';c.fillRect(x,y,w,h);c.fillStyle='#fff';c.font='700 18px system-ui';c.textAlign='center';c.textBaseline='middle';c.fillText(label,x+w/2,y+h/2);c.restore()}
+  function refresh(){
+    const W=600,H=450; ctx.clearRect(0,0,W,H);
+    const style=$('styleSelect')?.value||'together';
+    const shape=$('frameShapeSelect')?.value||'classic';
+    const bg=color(); ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+    const local=document.getElementById('localVideo'); const rem=document.getElementById('remoteVideo');
+    const hasLocal=local?.readyState>=2; const hasRemote=rem?.readyState>=2 && rem?.srcObject;
+    const cap=($('captionInput')?.value||'').trim()||'us, somehow ♡';
+    const date=new Date().toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'});
+    ctx.save();ctx.filter=`brightness(${Number($('brightness')?.value||100)/100}) contrast(${Number($('contrast')?.value||100)/100})`;
+    if(style==='polaroid'){
+      ctx.fillStyle='#fff';ctx.fillRect(35,25,530,400);
+      if(hasLocal) drawCover(ctx,local,55,45,245,285,shape); else drawPlaceholder(ctx,55,45,245,285,'YOU',shape);
+      if(hasRemote) drawCover(ctx,rem,320,45,215,285,shape); else drawPlaceholder(ctx,320,45,215,285,'THEM',shape);
+      ctx.restore();ctx.fillStyle='#252025';ctx.font='italic 22px Georgia';ctx.textAlign='center';ctx.fillText(cap,300,365);ctx.font='700 10px system-ui';ctx.fillText(date,300,397);
+    } else if(style==='strip'){
+      ctx.restore();
+      ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+      const n=Math.max(2,Math.min(4,Number($('shotsSelect')?.value||3))); const h=(H-45-(n-1)*8)/n;
+      for(let i=0;i<n;i++){const y=20+i*(h+8); if(hasLocal) drawCover(ctx,local,55,y,235,h,shape); else drawPlaceholder(ctx,55,y,235,h,`SHOT ${i+1}`,shape); if(hasRemote) drawCover(ctx,rem,310,y,235,h,shape); else drawPlaceholder(ctx,310,y,235,h,'THEM',shape)}
+      ctx.fillStyle='#fff';ctx.font='italic 13px Georgia';ctx.textAlign='center';ctx.fillText(cap,300,H-5);
+    } else {
+      ctx.restore();
+      if(hasLocal) drawCover(ctx,local,28,28,265,335,shape); else drawPlaceholder(ctx,28,28,265,335,'YOU',shape);
+      if(hasRemote) drawCover(ctx,rem,307,28,265,335,shape); else drawPlaceholder(ctx,307,28,265,335,'THEM',shape);
+      ctx.fillStyle=bg;ctx.fillRect(0,378,W,72);ctx.fillStyle=bg==='black'?'#fff':'#302820';ctx.font='italic 22px Georgia';ctx.textAlign='center';ctx.fillText(cap,300,402);ctx.font='700 9px system-ui';ctx.fillText(date,300,430);
+    }
+    const mode=new URLSearchParams(location.search).get('mode')==='single'?'Single Phone':'Two Phone';
+    $('previewModeLabel').textContent=`${style} · ${shape} · ${mode}`;
+  }
+  ['styleSelect','shotsSelect','frameSelect','frameShapeSelect','filterSelect','brightness','contrast','captionInput'].forEach(id=>$(id)?.addEventListener('input',refresh));
+  ['styleSelect','shotsSelect','frameSelect','frameShapeSelect','filterSelect'].forEach(id=>$(id)?.addEventListener('change',refresh));
+  setInterval(refresh,600); refresh();
 })();
 </script>
 
 <script>
 /* EPHEMERAL CLOUD MEMORY — 10 MINUTES */
 (() => {
-  const btn=document.getElementById("cloudMemoryButton");
-  if(!btn)return;
+  const btn=document.getElementById('cloudMemoryButton');
+  const reviewCloud=document.getElementById('reviewCloud');
+  if(!btn && !reviewCloud)return;
 
-  function findImage(){
-    const candidates=[
-      "#reviewImage",".reviewImage","#resultImage","#photoResult img",
-      "#reviewCanvas","#photoCanvas"
-    ];
-    for(const selector of candidates){
-      const el=document.querySelector(selector);
-      if(!el)continue;
-      if(el.tagName==="IMG" && el.src?.startsWith("data:image/"))return el.src;
-      if(el.tagName==="CANVAS"){try{return el.toDataURL("image/jpeg",.9)}catch{}}
-    }
-    const imgs=[...document.images].filter(x=>x.src?.startsWith("data:image/"));
-    return imgs[0]?.src||null;
+  function currentPhoto(){
+    if(window.__usboothCurrentPhoto?.startsWith('data:image/')) return window.__usboothCurrentPhoto;
+    const img=document.getElementById('reviewImage');
+    if(img?.src?.startsWith('data:image/')) return img.src;
+    return null;
   }
-
-  btn.addEventListener("click",async()=>{
-    const dataUrl=findImage();
-    if(!dataUrl){alert("Take or open a photo first.");return}
-    btn.disabled=true;btn.textContent="☁ Uploading…";
+  function compress(dataUrl,maxW=1600){
+    return new Promise(resolve=>{
+      const img=new Image(); img.onload=()=>{const scale=Math.min(1,maxW/img.width);const c=document.createElement('canvas');c.width=Math.max(1,img.width*scale);c.height=Math.max(1,img.height*scale);const x=c.getContext('2d');x.drawImage(img,0,0,c.width,c.height);resolve(c.toDataURL('image/jpeg',.88));};img.onerror=()=>resolve(dataUrl);img.src=dataUrl;
+    });
+  }
+  async function createLink(button){
+    const dataUrl=currentPhoto();
+    if(!dataUrl){alert('Take a photo first, then open Review.');return;}
+    button.disabled=true;button.textContent='☁ Creating…';
     try{
-      const r=await fetch("/api/memory",{
-        method:"POST",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-          image:dataUrl,
-          title:document.getElementById("memoryTitleInput")?.value||"UsBooth Memory"
-        })
-      });
-      const data=await r.json();
-      if(!r.ok)throw new Error(data.error||"Upload failed");
+      const compressed=await compress(dataUrl);
+      const r=await fetch('/api/memory',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:compressed,title:document.getElementById('memoryTitleInput')?.value||'UsBooth Memory'})});
+      const data=await r.json().catch(()=>({}));
+      if(!r.ok)throw new Error(data.error||`Server returned ${r.status}`);
       const url=new URL(data.url,location.origin).href;
-      if(navigator.share){
-        try{await navigator.share({title:"UsBooth ♡",text:"A temporary UsBooth memory — available for 10 minutes.",url})}catch{}
-      }else{
-        try{await navigator.clipboard.writeText(url);alert("10-minute memory link copied!")}catch{prompt("Copy this 10-minute memory link:",url)}
-      }
-      btn.textContent="☁ Link ready ✓";
-      setTimeout(()=>btn.textContent="☁ Save for 10 min",2500);
-    }catch(e){
-      console.error(e);
-      alert("Couldn't create the temporary link. Make sure the new server.js is deployed.");
-      btn.textContent="☁ Save for 10 min";
-    }finally{btn.disabled=false}
-  });
+      if(navigator.share){try{await navigator.share({title:'UsBooth ♡',text:'Temporary UsBooth memory — expires in 10 minutes.',url});}catch{}}
+      else {try{await navigator.clipboard.writeText(url);alert('10-minute memory link copied!');}catch{prompt('Copy your 10-minute memory link:',url)}}
+      button.textContent='☁ Link ready ✓';setTimeout(()=>button.textContent='☁ 10-min Link',2500);
+    }catch(e){console.error(e);alert(`Temporary memory failed: ${e.message}`);button.textContent='☁ 10-min Link';}
+    finally{button.disabled=false;}
+  }
+  btn?.addEventListener('click',()=>createLink(btn));
+  reviewCloud?.addEventListener('click',()=>createLink(reviewCloud));
 })();
 </script>
 
