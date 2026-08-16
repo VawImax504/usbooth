@@ -1112,12 +1112,43 @@ body:after{width:320px;height:320px;right:-120px;bottom:5%;background:radial-gra
 .previewCaptionLive{position:absolute;left:18px;right:18px;bottom:8px;text-align:center;color:#302820;font:italic 17px Georgia,serif;text-shadow:0 1px 2px rgba(255,255,255,.35);pointer-events:none}
 .previewDateLive{position:absolute;right:22px;top:7px;color:#514b50;font-size:6px;pointer-events:none}
 .previewHint{text-align:center;color:#777481;font-size:7px;line-height:1.5}
-.livePreviewCard.shape-rounded .previewFeed{border-radius:28px}
-.livePreviewCard.shape-heart .previewFeed{clip-path:polygon(50% 94%,44% 88%,20% 70%,8% 53%,5% 36%,10% 21%,22% 13%,35% 14%,50% 30%,65% 14%,78% 13%,90% 21%,95% 36%,92% 53%,80% 70%,56% 88%)}
-.livePreviewCard.shape-film{background:#17151a;padding:18px 30px}
-.livePreviewCard.shape-film .previewFeed{border-radius:2px;border:3px solid #0b0a0d}
-.livePreviewCard.shape-film:before,.livePreviewCard.shape-film:after{content:"••••••••••••";position:absolute;left:4px;right:4px;color:#08070a;letter-spacing:12px;font-size:14px;line-height:1;overflow:hidden;z-index:3}
-.livePreviewCard.shape-film:before{top:2px}.livePreviewCard.shape-film:after{bottom:2px}
+.livePreviewCard.frame-polaroid .previewFeed{
+  border-radius:28px;
+  overflow:hidden;
+}
+.livePreviewCard.frame-polaroid .previewOverlay{
+  border-radius:34px;
+}
+.livePreviewCard.frame-heart .previewFeed{
+  border:none;
+  background:#241720;
+  clip-path:polygon(50% 96%,42% 89%,20% 72%,8% 55%,5% 38%,9% 24%,20% 15%,33% 14%,44% 20%,50% 30%,56% 20%,67% 14%,80% 15%,91% 24%,95% 38%,92% 55%,80% 72%,58% 89%);
+}
+.livePreviewCard.frame-heart .previewFeed span{top:12%}
+.livePreviewCard.frame-film{
+  background:#17151a;
+  padding:18px 30px;
+}
+.livePreviewCard.frame-film .previewFeed{
+  border:3px solid #0b0a0d;
+  border-radius:2px;
+}
+.livePreviewCard.frame-film:before,
+.livePreviewCard.frame-film:after{
+  content:"••••••••••••";
+  position:absolute;
+  left:4px;
+  right:4px;
+  color:#08070a;
+  letter-spacing:12px;
+  font-size:14px;
+  line-height:1;
+  overflow:hidden;
+  z-index:3;
+}
+.livePreviewCard.frame-film:before{top:2px}
+.livePreviewCard.frame-film:after{bottom:2px}
+
 .livePreviewCard.layout-single{grid-template-columns:1fr}
 .livePreviewCard.layout-single .previewFeedRemote{display:none}
 .livePreviewCard.layout-polaroid{background:#fff;padding:24px 28px 48px}
@@ -1125,6 +1156,27 @@ body:after{width:320px;height:320px;right:-120px;bottom:5%;background:radial-gra
 .livePreviewCard.layout-collage{grid-template-columns:1.35fr .65fr;grid-template-rows:1fr 1fr}
 .livePreviewCard.layout-collage .previewFeedLocal{grid-row:1/3}
 @media(max-width:700px){.livePreviewCard{width:92vw}.previewCaptionLive{font-size:14px}}
+
+
+/* =========================================================
+   SEPARATE FRAME PICKER
+========================================================= */
+.frameSetting{grid-column:1/-1}
+.framePicker{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}
+.frameChoice{appearance:none;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.035);color:#fff;border-radius:14px;padding:9px 7px;cursor:pointer;text-align:center;transition:.18s ease}
+.frameChoice:hover{transform:translateY(-1px);border-color:rgba(255,151,184,.4)}
+.frameChoice.active{border-color:#ff86aa;background:rgba(255,113,159,.12);box-shadow:0 0 0 1px rgba(255,113,159,.12),0 8px 24px rgba(255,72,129,.08)}
+.frameChoice b{display:block;font-size:8px;margin-top:5px}
+.frameChoice small{display:block;color:#8f8993;font-size:6px;margin-top:3px}
+.frameThumb{width:42px;height:42px;margin:auto;display:flex;align-items:center;justify-content:center;color:#3a2b30;background:#f4ecdf;border:3px solid #fff;font-size:15px;box-shadow:0 5px 12px rgba(0,0,0,.2)}
+.frameThumbPolaroid{width:35px;height:40px;align-items:flex-start;padding-top:6px;background:#fff;border-color:#eee}
+.frameThumbFilm{width:48px;height:34px;background:#222;color:#eee;border-color:#111;position:relative;font-size:12px}
+.frameThumbFilm:before,.frameThumbFilm:after{content:"••••";position:absolute;left:2px;right:2px;font-size:5px;letter-spacing:4px;color:#050505;overflow:hidden}
+.frameThumbFilm:before{top:-7px}.frameThumbFilm:after{bottom:-7px}
+.frameThumbHeart{width:42px;height:42px;border:0;background:#ffdce8;clip-path:polygon(50% 94%,42% 87%,20% 70%,8% 53%,5% 36%,10% 21%,22% 13%,35% 14%,50% 30%,65% 14%,78% 13%,90% 21%,95% 36%,92% 53%,80% 70%,58% 87%);color:#c83d6b}
+.frameTypeHidden{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
+@media(max-width:650px){.framePicker{grid-template-columns:repeat(2,1fr)}}
+.previewConnectionBadge{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);z-index:8;padding:5px 9px;border-radius:999px;background:rgba(10,8,12,.72);border:1px solid rgba(255,255,255,.12);color:#e8e2e8;font-size:6px;letter-spacing:.5px;white-space:nowrap}
 
 </style>
 </head>
@@ -1341,7 +1393,7 @@ body:after{width:320px;height:320px;right:-120px;bottom:5%;background:radial-gra
           <video id="previewRemoteVideo" autoplay playsinline></video>
           <span>THEM</span>
         </div>
-        <div class="previewOverlay" id="previewOverlay"></div>
+        <div class="previewOverlay" id="previewOverlay"></div><div class="previewConnectionBadge" id="previewConnectionBadge">Waiting for both cameras…</div>
         <div class="previewCaptionLive" id="previewCaptionLive">us, somehow ♡</div>
         <div class="previewDateLive" id="previewDateLive"></div>
       </div>
@@ -1644,48 +1696,32 @@ body:after{width:320px;height:320px;right:-120px;bottom:5%;background:radial-gra
     </div>
 
 
-    <div class="setting">
-
-      <label>
-        FRAME
-      </label>
-
-      <select id="frameSelect">
-
-        <option value="cream">
-          Cream
-        </option>
-
-        <option value="white">
-          White
-        </option>
-
-        <option value="pink">
-          Pink
-        </option>
-
-        <option value="black">
-          Black
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div class="setting">
-
-      <label>
-        FRAME SHAPE
-      </label>
-
-      <select id="frameShapeSelect">
+    <div class="setting frameSetting">
+      <label>FRAME</label>
+      <div class="framePicker" id="framePicker">
+        <button type="button" class="frameChoice active" data-frame-type="classic">
+          <span class="frameThumb frameThumbClassic">♡</span>
+          <b>Classic</b><small>Clean border</small>
+        </button>
+        <button type="button" class="frameChoice" data-frame-type="polaroid">
+          <span class="frameThumb frameThumbPolaroid">▣</span>
+          <b>Polaroid</b><small>Instant film</small>
+        </button>
+        <button type="button" class="frameChoice" data-frame-type="film">
+          <span class="frameThumb frameThumbFilm">▤</span>
+          <b>Film</b><small>Classic film</small>
+        </button>
+        <button type="button" class="frameChoice" data-frame-type="heart">
+          <span class="frameThumb frameThumbHeart">♥</span>
+          <b>Heart</b><small>Romantic</small>
+        </button>
+      </div>
+      <select id="frameTypeSelect" class="frameTypeHidden" aria-hidden="true" tabindex="-1">
         <option value="classic">Classic</option>
-        <option value="rounded">Rounded</option>
-        <option value="heart">Heart</option>
+        <option value="polaroid">Polaroid</option>
         <option value="film">Film</option>
+        <option value="heart">Heart</option>
       </select>
-
     </div>
 
 
@@ -2403,6 +2439,17 @@ async function startCamera(){
     localVideo.autoplay =
       true;
 
+      const previewLocalVideo =
+        document.getElementById("previewLocalVideo");
+
+      if(previewLocalVideo){
+        previewLocalVideo.srcObject = localStream;
+        previewLocalVideo.muted = true;
+        previewLocalVideo.playsInline = true;
+        previewLocalVideo.autoplay = true;
+        previewLocalVideo.play().catch(()=>{});
+      }
+
 
     await localVideo.play();
 
@@ -2590,6 +2637,14 @@ function resetRemote(){
   remoteVideo.srcObject =
     null;
 
+  const previewRemoteVideo =
+    document.getElementById("previewRemoteVideo");
+
+  if(previewRemoteVideo){
+    previewRemoteVideo.srcObject = null;
+  }
+
+
   remoteWaiting.style.display =
     "grid";
 
@@ -2642,6 +2697,17 @@ async function attachRemoteStream(
 
   remoteVideo.srcObject =
     stream;
+
+  const previewRemoteVideo =
+    document.getElementById("previewRemoteVideo");
+
+  if(previewRemoteVideo){
+    previewRemoteVideo.srcObject = stream;
+    previewRemoteVideo.autoplay = true;
+    previewRemoteVideo.playsInline = true;
+    previewRemoteVideo.muted = true;
+    previewRemoteVideo.play().catch(()=>{});
+  }
 
   remoteVideo.autoplay =
     true;
@@ -2971,7 +3037,7 @@ function drawCover(
 ){
 
   const shape =
-    frameShapeSelect?.value ||
+    document.getElementById("frameTypeSelect")?.value ||
     "classic";
 
   const scale =
@@ -2987,7 +3053,7 @@ function drawCover(
 
   ctx.save();
 
-  if(shape==="rounded"){
+  if(shape==="polaroid"){
 
     const r=Math.min(55,w/2,h/2);
 
@@ -3042,6 +3108,14 @@ function drawCover(
   );
 
   ctx.restore();
+
+  if(shape==="polaroid"){
+    ctx.save();
+    ctx.fillStyle="#ffffff";
+    const extra=Math.max(18,h*.10);
+    ctx.fillRect(x,y+h-extra,w,extra);
+    ctx.restore();
+  }
 
   if(shape==="film"){
 
@@ -6125,21 +6199,27 @@ console.log(
     const local=$("localVideo");
     const remoteSource=$("remoteVideo");
 
-    if(local?.srcObject && localPreview.srcObject !== local.srcObject)
-      localPreview.srcObject=local.srcObject;
+    if(local?.srcObject){
+      if(localPreview.srcObject !== local.srcObject)
+        localPreview.srcObject=local.srcObject;
+      localPreview.muted=true;
+      localPreview.play().catch(()=>{});
+    }
 
-    if(remoteSource?.srcObject && remotePreview.srcObject !== remoteSource.srcObject)
-      remotePreview.srcObject=remoteSource.srcObject;
-
-    if(localPreview.srcObject) localPreview.play().catch(()=>{});
-    if(remotePreview.srcObject) remotePreview.play().catch(()=>{});
+    if(remoteSource?.srcObject){
+      if(remotePreview.srcObject !== remoteSource.srcObject)
+        remotePreview.srcObject=remoteSource.srcObject;
+      /* Muted only on the preview copy. The main remote video stays audible. */
+      remotePreview.muted=true;
+      remotePreview.play().catch(()=>{});
+    }
   }
 
   function refresh(){
     syncStreams();
 
     const style=$("styleSelect")?.value||"together";
-    const shape=$("frameShapeSelect")?.value||"classic";
+    const frameType=$("frameTypeSelect")?.value||"classic";
     const frame=$("frameSelect")?.value||"cream";
     const shots=Number($("shotsSelect")?.value||3);
     const caption=($("captionInput")?.value||"").trim()||"us, somehow ♡";
@@ -6150,7 +6230,7 @@ console.log(
     const theme=document.querySelector(".themeChoice.active")?.dataset.theme||"classic";
     const layout=document.querySelector(".layoutChoice.active")?.dataset.layout||"single";
 
-    card.className="livePreviewCard shape-"+shape+" layout-"+(
+    card.className="livePreviewCard frame-"+frameType+" layout-"+(
       layout==="single"?"single":
       layout==="polaroid"?"polaroid":
       layout==="collage"?"collage":"strip"
@@ -6185,11 +6265,25 @@ console.log(
     );
 
     $("previewModeLabel").textContent=
-      `${theme} · ${shape} · ${mode} · ${shots} shot${shots===1?"":"s"}`;
+      `${theme} · ${frameType} · ${mode} · ${shots} shot${shots===1?"":"s"}`;
+
+    const badge=$("previewConnectionBadge");
+    if(badge){
+      const hasLocal=!!localPreview.srcObject;
+      const hasRemote=!!remotePreview.srcObject;
+      badge.textContent =
+        mode==="Single Phone"
+          ? (hasLocal ? "● Your camera is live" : "Waiting for your camera…")
+          : (hasLocal && hasRemote
+              ? "● Both cameras are live"
+              : hasLocal
+                ? "● Your camera live · waiting for them…"
+                : "Waiting for both cameras…");
+    }
   }
 
   [
-    "styleSelect","shotsSelect","frameSelect","frameShapeSelect",
+    "styleSelect","shotsSelect","frameSelect","frameTypeSelect",
     "filterSelect","brightness","contrast","captionInput"
   ].forEach(id=>{
     $(id)?.addEventListener("input",refresh);
