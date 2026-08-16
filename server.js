@@ -3,64 +3,27 @@ import http from "http";
 import path from "path";
 import { fileURLToPath } from "url";
 
-const __filename =
-  fileURLToPath(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const __dirname =
-  path.dirname(__filename);
+const app = express();
+const server = http.createServer(app);
 
-const app =
-  express();
-
-const server =
-  http.createServer(app);
-
-
-/* =====================================================
-   SERVE USBOOTH
-   ===================================================== */
+app.use(express.static(__dirname));
 
 app.get("/", (req, res) => {
-
-  res.sendFile(
-    path.join(
-      __dirname,
-      "index.html"
-    )
-  );
-
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
-
-/* =====================================================
-   HEALTH
-   ===================================================== */
-
 app.get("/health", (req, res) => {
-
   res.json({
     ok: true,
     service: "usbooth"
   });
-
 });
 
+const port = process.env.PORT || 3000;
 
-/* =====================================================
-   START
-   ===================================================== */
-
-const port =
-  process.env.PORT || 3000;
-
-server.listen(
-  port,
-  "0.0.0.0",
-  () => {
-
-    console.log(
-      `UsBooth running on port ${port}`
-    );
-
-  }
-);
+server.listen(port, "0.0.0.0", () => {
+  console.log(`UsBooth running on port ${port}`);
+});
