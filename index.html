@@ -998,6 +998,9 @@ body::before{
   .workflow{grid-template-columns:1fr}
 }
 
+
+/* PHASE B REVIEW */
+.captureProgress{display:none;margin:12px 0;padding:10px 12px;border:1px solid #292835;border-radius:12px;background:#101018}.captureProgress.visible{display:block}.captureProgressTop{display:flex;justify-content:space-between;font-size:9px;font-weight:900;color:#aaa7b4}.captureProgressBar{height:5px;margin-top:7px;border-radius:99px;background:#252431;overflow:hidden}.captureProgressFill{height:100%;width:0;background:#ff719f;border-radius:99px;transition:width .25s ease}.reviewOverlay{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(3,3,7,.82);backdrop-filter:blur(18px)}.reviewOverlay.open{display:flex}.reviewPanel{width:min(960px,100%);max-height:94vh;overflow:auto;padding:16px;border:1px solid #3a3847;border-radius:24px;background:#111119;box-shadow:0 30px 120px rgba(0,0,0,.7)}.reviewHead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.reviewTitle{font-size:18px;font-weight:1000}.reviewSub{margin-top:3px;color:#777482;font-size:9px}.reviewClose{border:1px solid #3b3948;border-radius:999px;background:#252531;color:#fff;padding:8px 12px}.reviewCanvasWrap{display:grid;place-items:center;min-height:260px;padding:10px;border-radius:18px;background:#07070b}.reviewCanvasWrap img{display:block;max-width:100%;max-height:62vh;object-fit:contain;border-radius:10px}.reviewActions{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:12px}.reviewShots{display:flex;gap:7px;overflow:auto;margin-top:10px}.reviewShot{width:74px;height:74px;flex:0 0 auto;object-fit:cover;border-radius:9px;border:2px solid transparent;cursor:pointer}.reviewShot.active{border-color:#ff719f}.sessionBadge{display:inline-flex;padding:6px 9px;border-radius:999px;background:#241621;color:#ffb1c8;font-size:8px;font-weight:1000}
 </style>
 </head>
 
@@ -1102,6 +1105,7 @@ body::before{
 >
   Start your camera to begin.
 </div>
+<div id="captureProgress" class="captureProgress"><div class="captureProgressTop"><span id="captureProgressText">Preparing session…</span><span id="captureProgressCount">0 / 0</span></div><div class="captureProgressBar"><div id="captureProgressFill" class="captureProgressFill"></div></div></div>
 
 <div class="studioBar">
   <div class="studioPill"><strong>📸 Capture</strong><span>Timed photo sessions</span></div>
@@ -1555,6 +1559,9 @@ body::before{
 </div>
 
 
+<!-- PHASE B REVIEW -->
+<div id="reviewOverlay" class="reviewOverlay" aria-hidden="true"><div class="reviewPanel"><div class="reviewHead"><div><div class="sessionBadge">♡ MEMORY READY</div><div class="reviewTitle">Your photo is ready</div><div id="reviewSub" class="reviewSub">Check it before saving.</div></div><button id="reviewClose" class="reviewClose" type="button">× Close</button></div><div class="reviewCanvasWrap"><img id="reviewImage" alt="UsBooth preview"></div><div id="reviewShots" class="reviewShots"></div><div class="reviewActions"><button id="reviewRetake" class="btn secondary" type="button">↻ Retake</button><button id="reviewDownload" class="btn" type="button">↓ Download</button><button id="reviewKeep" class="btn" type="button">♡ Save to Memories</button></div></div></div>
+
 <!-- COUNTDOWN -->
 
 <div
@@ -1627,6 +1634,8 @@ let mirrored = false;
 let micEnabled = true;
 
 let captureBusy = false;
+let reviewPhoto = null;
+let reviewDraftPhotos = [];
 
 let shootMode = "two-phone";
 
@@ -1736,6 +1745,19 @@ const captureButton =
   document.getElementById(
     "captureButton"
   );
+
+const captureProgress=document.getElementById("captureProgress");
+const captureProgressText=document.getElementById("captureProgressText");
+const captureProgressCount=document.getElementById("captureProgressCount");
+const captureProgressFill=document.getElementById("captureProgressFill");
+const reviewOverlay=document.getElementById("reviewOverlay");
+const reviewImage=document.getElementById("reviewImage");
+const reviewSub=document.getElementById("reviewSub");
+const reviewShots=document.getElementById("reviewShots");
+const reviewClose=document.getElementById("reviewClose");
+const reviewRetake=document.getElementById("reviewRetake");
+const reviewDownload=document.getElementById("reviewDownload");
+const reviewKeep=document.getElementById("reviewKeep");
 
 const styleSelect =
   document.getElementById(
@@ -2414,55 +2436,13 @@ function updateCaptureButton(){
    COUNTDOWN
 ========================================================= */
 
-async function runCountdown(
-  seconds
-){
-
-  if(
-    seconds <=
-    0
-  ){
-
-    return;
-
-  }
-
-
-  countdown.style.display =
-    "grid";
-
-
-  for(
-    let i = seconds;
-    i >= 1;
-    i--
-  ){
-
-    countNumber.textContent =
-      i;
-
-
-    await sleep(
-      1000
-    );
-
-  }
-
-
-  countNumber.textContent =
-    "📸";
-
-
-  await sleep(
-    250
-  );
-
-
-  countdown.style.display =
-    "none";
-
+async function runCountdown(seconds,label="Get ready…"){
+  if(seconds<=0)return;
+  countdown.style.display="grid";
+  if(captureProgressText)captureProgressText.textContent=label;
+  for(let i=seconds;i>=1;i--){countNumber.textContent=i;await sleep(1000)}
+  countNumber.textContent="📸";await sleep(250);countdown.style.display="none";
 }
-
 
 /* =========================================================
    FLASH
@@ -3654,6 +3634,7 @@ function receiveRemotePhoto(
   ] =
     image;
 
+  showCaptureProgress(shotIndex+1,session.totalShots,`Shot ${shotIndex+1} received ✓`);
 
   console.log(
     "REMOTE PHOTO RECEIVED ✓",
@@ -3822,13 +3803,10 @@ async function tryFinishSession(){
     }
 
 
-    addPhoto(
-      finalImage
-    );
-
+    openReview(finalImage,[finalImage,...session.localImages,...session.remoteImages]);
 
     setStatus(
-      "Shared photo ready ✓",
+      "Review your shared memory before saving.",
       "ok"
     );
 
@@ -3842,6 +3820,8 @@ async function tryFinishSession(){
 
   }
 
+
+  hideCaptureProgress();
 
   session =
     null;
@@ -3904,6 +3884,8 @@ async function triggerShot(
     Capture our own image.
   */
 
+  showCaptureProgress(currentSession.shotIndex,currentSession.totalShots,`Shot ${currentSession.shotIndex+1} — capture`);
+
   const image =
     captureFrame();
 
@@ -3933,43 +3915,31 @@ async function triggerShot(
 }
 
 
+/* PHASE B REVIEW HELPERS */
+function showCaptureProgress(current,total,text){if(!captureProgress)return;captureProgress.classList.add("visible");captureProgressText.textContent=text||"Capturing…";captureProgressCount.textContent=`${current} / ${total}`;captureProgressFill.style.width=`${Math.min(100,current/Math.max(1,total)*100)}%`}
+function hideCaptureProgress(){captureProgress?.classList.remove("visible")}
+function openReview(photo,shots=[]){reviewPhoto=photo;reviewDraftPhotos=shots.length?shots.slice():[photo];reviewImage.src=photo;reviewSub.textContent=`${shots.length>1?shots.length+" shots":"Finished photo"} · ready to save`;reviewShots.innerHTML="";reviewDraftPhotos.forEach((src,i)=>{const t=document.createElement("img");t.className="reviewShot"+(src===photo?" active":"");t.src=src;t.alt=`Shot ${i+1}`;t.onclick=()=>{reviewImage.src=src;reviewPhoto=src;[...reviewShots.children].forEach(x=>x.classList.remove("active"));t.classList.add("active")};reviewShots.appendChild(t)});reviewOverlay.classList.add("open");reviewOverlay.setAttribute("aria-hidden","false")}
+function closeReview(){reviewOverlay.classList.remove("open");reviewOverlay.setAttribute("aria-hidden","true");reviewImage.src=""}
+function saveReviewedPhoto(){if(!reviewPhoto)return;if(!photos.some(p=>p.dataUrl===reviewPhoto))addPhoto(reviewPhoto);setStatus("Saved to Memories ✓","ok");closeReview()}
+reviewClose?.addEventListener("click",closeReview);reviewKeep?.addEventListener("click",saveReviewedPhoto);reviewDownload?.addEventListener("click",()=>{if(reviewPhoto)downloadPhoto({number:photoNumber+1,dataUrl:reviewPhoto})});reviewOverlay?.addEventListener("click",e=>{if(e.target===reviewOverlay)closeReview()});document.addEventListener("keydown",e=>{if(e.key==="Escape"&&reviewOverlay?.classList.contains("open"))closeReview()});reviewRetake?.addEventListener("click",async()=>{closeReview();await sleep(120);if(!captureBusy)await startPhotoSession()});
+
 /* =========================================================
    SINGLE-PHONE SESSION
 ========================================================= */
 
 async function startSinglePhoneSession(){
-  if(captureBusy || !localStream) return;
-
-  captureBusy = true;
-  updateCaptureButton();
-  clearError();
-
-  const totalShots = Number(shotsSelect.value);
-  const images = [];
-
+  if(captureBusy||!localStream)return;
+  captureBusy=true;updateCaptureButton();clearError();
+  const totalShots=Math.max(1,Number(shotsSelect.value));const rawShots=[];
+  showCaptureProgress(0,totalShots,"Getting ready…");
   try{
-    for(let i=0;i<totalShots;i++){
-      await runCountdown(Number(timerSelect.value));
-      images.push(captureFrame());
-      cameraFlash();
-      if(i<totalShots-1) await sleep(500);
-    }
-
-    setStatus("Creating your photo…","ok");
-    let finalImage;
-
-    if(styleSelect.value === "polaroid") finalImage = await composeSinglePolaroid(images[0]);
-    else if(styleSelect.value === "strip") finalImage = await composeStrip(await Promise.all(images.map(composeSinglePhoto)));
-    else finalImage = await composeSinglePhoto(images[0]);
-
-    addPhoto(finalImage);
-    setStatus("Photo ready ✓","ok");
-  }catch(error){
-    showError(error);
-  }finally{
-    captureBusy = false;
-    updateCaptureButton();
-  }
+    for(let i=0;i<totalShots;i++){showCaptureProgress(i,totalShots,`Shot ${i+1} — get ready`);await runCountdown(Number(timerSelect.value),`Shot ${i+1} — pose!`);const image=captureFrame();cameraFlash();rawShots.push(image);showCaptureProgress(i+1,totalShots,`Shot ${i+1} captured ✓`);if(i<totalShots-1)await sleep(650)}
+    setStatus("Creating your photo…","ok");let finalImage;
+    if(styleSelect.value==="polaroid")finalImage=await composeSinglePolaroid(rawShots[0]);
+    else if(styleSelect.value==="strip"){const mini=await Promise.all(rawShots.map(src=>composeSinglePhoto(src)));finalImage=await composeStrip(mini)}
+    else finalImage=await composeSinglePhoto(rawShots[0]);
+    openReview(finalImage,[finalImage,...rawShots]);setStatus("Review your memory before saving.","ok");
+  }catch(error){showError(error)}finally{hideCaptureProgress();captureBusy=false;updateCaptureButton()}
 }
 
 /* =========================================================
@@ -4003,7 +3973,7 @@ async function startPhotoSession(){
 
 
   clearError();
-
+  showCaptureProgress(0,Number(shotsSelect.value),"Connecting both shutters…");
 
   session = {
 
@@ -4040,7 +4010,8 @@ async function startPhotoSession(){
     await runCountdown(
       Number(
         timerSelect.value
-      )
+      ),
+      `Shot 1 of ${session.totalShots} — pose!`
     );
 
 
