@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 
 <meta
@@ -15,31 +14,23 @@
 
 <style>
 
-/* =========================================================
-   BASE
-========================================================= */
-
 *{
   box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
 }
 
 body{
   margin:0;
   min-height:100vh;
 
-  color:#fff;
-
   background:
     radial-gradient(
       circle at 50% -10%,
-      #55213f,
-      #1b121d 32%,
-      #09090d 70%
+      #54203f,
+      #19111b 35%,
+      #09090d 75%
     );
+
+  color:#fff;
 
   font-family:
     Inter,
@@ -60,25 +51,15 @@ button{
   cursor:pointer;
 }
 
-
-/* =========================================================
-   APP
-========================================================= */
-
 .app{
   width:min(1200px,100%);
   margin:auto;
 
   padding:
-    22px
-    14px
+    20px
+    12px
     70px;
 }
-
-
-/* =========================================================
-   HEADER
-========================================================= */
 
 header{
   text-align:center;
@@ -97,7 +78,7 @@ header{
 
 h1{
   margin:
-    17px
+    15px
     0
     10px;
 
@@ -105,11 +86,10 @@ h1{
     clamp(
       42px,
       8vw,
-      76px
+      75px
     );
 
-  line-height:.93;
-
+  line-height:.94;
   letter-spacing:-5px;
 }
 
@@ -120,42 +100,65 @@ h1{
 .subtitle{
   color:#aaa7b4;
   font-size:14px;
-  line-height:1.6;
 }
 
-
-/* =========================================================
-   CARD
-========================================================= */
-
 .card{
-  background:
-    rgba(20,20,29,.91);
+  background:rgba(20,20,29,.92);
 
   border:
     1px solid
     #302f3d;
 
-  border-radius:27px;
+  border-radius:26px;
 
-  padding:16px;
+  padding:15px;
 
   box-shadow:
     0 30px 100px
-    rgba(0,0,0,.48);
+    rgba(0,0,0,.5);
 
-  backdrop-filter:
-    blur(20px);
+  backdrop-filter:blur(20px);
 }
 
+/* ROOM */
 
-/* =========================================================
-   GENERAL BUTTON
-========================================================= */
+.roomBar{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.roomInput{
+  width:160px;
+
+  padding:
+    11px
+    13px;
+
+  border:
+    1px solid
+    #3b3947;
+
+  border-radius:10px;
+
+  background:#09090f;
+  color:#fff;
+
+  outline:none;
+
+  text-align:center;
+  text-transform:uppercase;
+
+  letter-spacing:4px;
+
+  font-size:12px;
+  font-weight:900;
+}
 
 .btn{
   border:0;
-
   border-radius:999px;
 
   padding:
@@ -163,29 +166,10 @@ h1{
     16px;
 
   background:#ff719f;
-
   color:#210812;
 
   font-size:11px;
   font-weight:1000;
-
-  transition:
-    transform .15s ease,
-    opacity .15s ease;
-}
-
-.btn:hover{
-  transform:translateY(-1px);
-}
-
-.btn:active{
-  transform:scale(.97);
-}
-
-.btn:disabled{
-  opacity:.4;
-  cursor:not-allowed;
-  transform:none;
 }
 
 .btn.secondary{
@@ -194,7 +178,7 @@ h1{
 
   border:
     1px solid
-    #3a3947;
+    #3b3948;
 }
 
 .btn.danger{
@@ -206,52 +190,9 @@ h1{
     #71364d;
 }
 
-
-/* =========================================================
-   ROOM
-========================================================= */
-
-.roomBar{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  gap:8px;
-
-  flex-wrap:wrap;
-}
-
-.roomInput{
-  width:165px;
-
-  padding:
-    12px
-    14px;
-
-  background:#0a0a10;
-
-  color:#fff;
-
-  border:
-    1px solid
-    #3a3947;
-
-  border-radius:11px;
-
-  outline:none;
-
-  text-align:center;
-
-  text-transform:uppercase;
-
-  letter-spacing:5px;
-
-  font-size:12px;
-  font-weight:1000;
-}
-
-.roomInput:focus{
-  border-color:#ff719f;
+.btn:disabled{
+  opacity:.4;
+  cursor:not-allowed;
 }
 
 .roomInfo{
@@ -261,9 +202,9 @@ h1{
     12px
     0;
 
-  text-align:center;
-
   color:#777482;
+
+  text-align:center;
 
   font-size:9px;
 }
@@ -273,17 +214,14 @@ h1{
 
   color:#ff9fbd;
 
-  font-size:25px;
-
-  letter-spacing:7px;
+  font-size:24px;
 
   font-weight:1000;
+
+  letter-spacing:7px;
 }
 
-
-/* =========================================================
-   STATUS
-========================================================= */
+/* STATUS */
 
 .status{
   margin:
@@ -292,13 +230,13 @@ h1{
 
   padding:11px;
 
-  background:#101018;
-
   border:
     1px solid
     #292835;
 
-  border-radius:13px;
+  border-radius:12px;
+
+  background:#101018;
 
   color:#aaa7b4;
 
@@ -320,12 +258,9 @@ h1{
   color:#ff8da9;
 }
 
+/* CAMERAS */
 
-/* =========================================================
-   VIDEO
-========================================================= */
-
-.videoGrid{
+.cameraGrid{
   display:grid;
 
   grid-template-columns:
@@ -335,36 +270,34 @@ h1{
   gap:13px;
 }
 
-.videoBox{
+.cameraBox{
   position:relative;
 
   overflow:hidden;
 
   aspect-ratio:4/3;
 
+  border:
+    1px solid
+    #373541;
+
   border-radius:20px;
 
   background:#020204;
-
-  border:
-    1px solid
-    #383643;
 }
 
-.videoBox video{
-  position:absolute;
-
-  inset:0;
-
+.cameraBox video{
   width:100%;
   height:100%;
+
+  display:block;
 
   object-fit:cover;
 
   background:#020204;
 }
 
-.videoLabel{
+.cameraLabel{
   position:absolute;
 
   top:10px;
@@ -379,14 +312,14 @@ h1{
   border-radius:999px;
 
   background:
-    rgba(0,0,0,.7);
+    rgba(0,0,0,.72);
 
   font-size:8px;
   font-weight:1000;
   letter-spacing:1px;
 }
 
-.liveLabel{
+.live{
   position:absolute;
 
   top:10px;
@@ -419,11 +352,11 @@ h1{
 
   place-items:center;
 
-  text-align:center;
-
   background:#030305;
 
-  color:#777484;
+  color:#777482;
+
+  text-align:center;
 
   font-size:11px;
 }
@@ -441,18 +374,18 @@ h1{
 .remoteDebug{
   position:absolute;
 
-  left:8px;
-  right:8px;
-  bottom:8px;
+  bottom:7px;
+  left:7px;
+  right:7px;
 
-  z-index:20;
+  z-index:15;
 
   padding:5px;
 
   border-radius:7px;
 
   background:
-    rgba(0,0,0,.65);
+    rgba(0,0,0,.7);
 
   color:#aaa7b4;
 
@@ -461,10 +394,7 @@ h1{
   font-size:8px;
 }
 
-
-/* =========================================================
-   CAMERA CONTROLS
-========================================================= */
+/* CONTROLS */
 
 .controls{
   display:flex;
@@ -478,27 +408,24 @@ h1{
   margin-top:11px;
 }
 
+/* SETTINGS */
 
-/* =========================================================
-   PHOTO BOOTH SETTINGS
-========================================================= */
-
-.boothSettings{
+.settings{
   margin-top:18px;
 
   padding:14px;
 
-  border-radius:17px;
-
-  background:#101018;
-
   border:
     1px solid
     #292835;
+
+  border-radius:16px;
+
+  background:#101018;
 }
 
 .settingsTitle{
-  margin-bottom:11px;
+  margin-bottom:10px;
 
   font-size:12px;
   font-weight:1000;
@@ -528,18 +455,10 @@ h1{
 }
 
 select,
-input[type="range"],
 input[type="text"]{
   width:100%;
-}
 
-select,
-.captionInput{
   padding:9px;
-
-  background:#09090f;
-
-  color:#fff;
 
   border:
     1px solid
@@ -547,19 +466,22 @@ select,
 
   border-radius:9px;
 
+  background:#09090f;
+
+  color:#fff;
+
   outline:none;
 
   font-size:10px;
 }
 
 input[type="range"]{
+  width:100%;
+
   accent-color:#ff719f;
 }
 
-
-/* =========================================================
-   SHUTTER
-========================================================= */
+/* SHUTTER */
 
 .shutterArea{
   display:flex;
@@ -580,8 +502,6 @@ input[type="range"]{
   width:80px;
   height:80px;
 
-  padding:0;
-
   border-radius:50%;
 
   border:
@@ -598,119 +518,17 @@ input[type="range"]{
   font-size:0;
 }
 
-.shutter:active{
-  transform:scale(.92);
+.shutter:disabled{
+  opacity:.35;
 }
 
 .shutterHint{
   color:#6e6b78;
+
   font-size:9px;
 }
 
-
-/* =========================================================
-   COUNTDOWN
-========================================================= */
-
-.countdown{
-  position:fixed;
-
-  inset:0;
-
-  z-index:1000;
-
-  display:none;
-
-  place-items:center;
-
-  background:
-    rgba(0,0,0,.68);
-
-  backdrop-filter:blur(8px);
-}
-
-.countdownNumber{
-  color:white;
-
-  font-size:
-    clamp(
-      120px,
-      25vw,
-      260px
-    );
-
-  font-weight:1000;
-
-  text-shadow:
-    0 0 50px
-    rgba(255,113,159,.8);
-}
-
-@keyframes countPop{
-
-  0%{
-    transform:scale(.4);
-    opacity:0;
-  }
-
-  50%{
-    transform:scale(1.1);
-    opacity:1;
-  }
-
-  100%{
-    transform:scale(1);
-    opacity:1;
-  }
-
-}
-
-
-/* =========================================================
-   FLASH
-========================================================= */
-
-.flash{
-  position:fixed;
-
-  inset:0;
-
-  z-index:999;
-
-  pointer-events:none;
-
-  background:white;
-
-  opacity:0;
-}
-
-.flash.active{
-  animation:
-    flashAnim
-    .35s
-    ease;
-}
-
-@keyframes flashAnim{
-
-  0%{
-    opacity:0;
-  }
-
-  30%{
-    opacity:.95;
-  }
-
-  100%{
-    opacity:0;
-  }
-
-}
-
-
-/* =========================================================
-   GALLERY
-========================================================= */
+/* GALLERY */
 
 .gallery{
   margin-top:22px;
@@ -733,7 +551,7 @@ input[type="range"]{
 
   gap:10px;
 
-  margin-bottom:13px;
+  margin-bottom:12px;
 }
 
 .galleryTitle{
@@ -742,17 +560,13 @@ input[type="range"]{
 }
 
 .galleryCount{
-  margin-top:2px;
-
   color:#777482;
-
   font-size:9px;
 }
 
 .galleryActions{
   display:flex;
   gap:6px;
-  flex-wrap:wrap;
 }
 
 .photoGrid{
@@ -767,13 +581,13 @@ input[type="range"]{
       )
     );
 
-  gap:11px;
+  gap:10px;
 }
 
-.emptyGallery{
+.empty{
   grid-column:1/-1;
 
-  padding:35px 15px;
+  padding:35px;
 
   border:
     1px dashed
@@ -788,7 +602,7 @@ input[type="range"]{
   font-size:11px;
 }
 
-.photoCard{
+.photo{
   position:relative;
 
   overflow:hidden;
@@ -802,10 +616,10 @@ input[type="range"]{
     #34323e;
 }
 
-.photoCard img{
-  display:block;
-
+.photo img{
   width:100%;
+
+  display:block;
 
   aspect-ratio:3/4;
 
@@ -825,7 +639,7 @@ input[type="range"]{
   border-radius:999px;
 
   background:
-    rgba(0,0,0,.72);
+    rgba(0,0,0,.75);
 
   font-size:8px;
   font-weight:1000;
@@ -845,14 +659,14 @@ input[type="range"]{
 .photoActions button{
   flex:1;
 
-  padding:7px;
-
   border:0;
+
+  padding:7px;
 
   border-radius:8px;
 
   background:
-    rgba(0,0,0,.78);
+    rgba(0,0,0,.8);
 
   color:#fff;
 
@@ -860,15 +674,85 @@ input[type="range"]{
   font-weight:900;
 }
 
+/* COUNTDOWN */
 
-/* =========================================================
-   ERROR
-========================================================= */
+.countdown{
+  position:fixed;
+
+  inset:0;
+
+  z-index:1000;
+
+  display:none;
+
+  place-items:center;
+
+  background:
+    rgba(0,0,0,.7);
+
+  backdrop-filter:blur(8px);
+}
+
+.countNumber{
+  font-size:
+    clamp(
+      120px,
+      25vw,
+      250px
+    );
+
+  font-weight:1000;
+
+  text-shadow:
+    0 0 50px
+    rgba(255,113,159,.8);
+}
+
+/* FLASH */
+
+.flash{
+  position:fixed;
+
+  inset:0;
+
+  z-index:999;
+
+  pointer-events:none;
+
+  background:#fff;
+
+  opacity:0;
+}
+
+.flash.active{
+  animation:
+    flashAnimation
+    .35s
+    ease;
+}
+
+@keyframes flashAnimation{
+
+  0%{
+    opacity:0;
+  }
+
+  30%{
+    opacity:.95;
+  }
+
+  100%{
+    opacity:0;
+  }
+
+}
+
+/* ERROR */
 
 .error{
   display:none;
 
-  margin-top:11px;
+  margin-top:10px;
 
   padding:11px;
 
@@ -889,13 +773,8 @@ input[type="range"]{
   word-break:break-word;
 }
 
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
 footer{
-  margin-top:30px;
+  margin-top:28px;
 
   color:#55525e;
 
@@ -904,57 +783,41 @@ footer{
   font-size:9px;
 }
 
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
 @media(max-width:760px){
 
   .app{
     padding:
-      15px
+      14px
       8px
       60px;
   }
 
   .card{
     padding:10px;
-    border-radius:20px;
   }
 
-  .videoGrid{
+  .cameraGrid{
     grid-template-columns:1fr;
   }
 
   .settingsGrid{
     grid-template-columns:
-      repeat(
-        2,
-        1fr
-      );
+      repeat(2,1fr);
   }
 
   .photoGrid{
     grid-template-columns:
-      repeat(
-        2,
-        1fr
-      );
+      repeat(2,1fr);
   }
 
 }
 
 </style>
-
 </head>
-
 
 <body>
 
-
 <div class="app">
-
 
 <header>
 
@@ -970,8 +833,7 @@ footer{
   </h1>
 
   <div class="subtitle">
-    Make a photo that feels like
-    you were together.
+    Make a photo that feels like you were together.
   </div>
 
 </header>
@@ -998,7 +860,6 @@ footer{
     class="roomInput"
     maxlength="6"
     placeholder="ROOM"
-    autocomplete="off"
   >
 
   <button
@@ -1041,13 +902,13 @@ footer{
 
 
 <!-- =====================================================
-     CAMERA
+     CAMERAS
 ===================================================== -->
 
-<div class="videoGrid">
+<div class="cameraGrid">
 
 
-  <div class="videoBox">
+  <div class="cameraBox">
 
     <video
       id="localVideo"
@@ -1056,18 +917,18 @@ footer{
       muted
     ></video>
 
-    <div class="videoLabel">
+    <div class="cameraLabel">
       YOU
     </div>
 
-    <div class="liveLabel">
+    <div class="live">
       LIVE
     </div>
 
   </div>
 
 
-  <div class="videoBox">
+  <div class="cameraBox">
 
     <video
       id="remoteVideo"
@@ -1091,13 +952,13 @@ footer{
 
     </div>
 
-    <div class="videoLabel">
+    <div class="cameraLabel">
       THEM
     </div>
 
     <div
       id="remoteLive"
-      class="liveLabel"
+      class="live"
       style="display:none"
     >
       LIVE
@@ -1111,7 +972,6 @@ footer{
     </div>
 
   </div>
-
 
 </div>
 
@@ -1160,7 +1020,7 @@ footer{
      PHOTOBOOTH SETTINGS
 ===================================================== -->
 
-<div class="boothSettings">
+<div class="settings">
 
   <div class="settingsTitle">
     PHOTOBOOTH
@@ -1232,7 +1092,10 @@ footer{
           Instant
         </option>
 
-        <option value="3" selected>
+        <option
+          value="3"
+          selected
+        >
           3 sec
         </option>
 
@@ -1328,7 +1191,6 @@ footer{
 
       <input
         id="captionInput"
-        class="captionInput"
         type="text"
         maxlength="35"
         placeholder="us, somehow ♡"
@@ -1386,15 +1248,11 @@ footer{
   </button>
 
   <div class="shutterHint">
-    The finished photo will contain both of you.
+    The finished photo contains both of you.
   </div>
 
 </div>
 
-
-<!-- =====================================================
-     ERROR
-===================================================== -->
 
 <div
   id="error"
@@ -1454,7 +1312,7 @@ footer{
     class="photoGrid"
   >
 
-    <div class="emptyGallery">
+    <div class="empty">
       Your shared photos will appear here.
     </div>
 
@@ -1470,13 +1328,10 @@ footer{
   UsBooth · One photo, two places ♡
 </footer>
 
-
 </div>
 
 
-<!-- =====================================================
-     COUNTDOWN
-===================================================== -->
+<!-- COUNTDOWN -->
 
 <div
   id="countdown"
@@ -1484,8 +1339,8 @@ footer{
 >
 
   <div
-    id="countdownNumber"
-    class="countdownNumber"
+    id="countNumber"
+    class="countNumber"
   >
     3
   </div>
@@ -1500,7 +1355,7 @@ footer{
 
 
 <!-- =====================================================
-     METERED
+     METERED SDK
 ===================================================== -->
 
 <script src="https://unpkg.com/@metered-ca/realtime@1/dist/index.umd.js"></script>
@@ -1509,7 +1364,7 @@ footer{
 <script>
 
 /* =========================================================
-   METERED KEY
+   METERED
 ========================================================= */
 
 const METERED_PUBLISHABLE_KEY =
@@ -1535,35 +1390,42 @@ let localStream = null;
 
 let remotePeer = null;
 
-let remoteVideoReady = false;
+let remoteStream = null;
+
+let remoteReady = false;
+
+let roomCodeValue = "";
+
+let facingMode = "user";
 
 let mirrored = false;
 
 let micEnabled = true;
 
-let roomCodeValue = "";
-
 let captureBusy = false;
 
-let captureSession = null;
+
+/* =========================================================
+   PHOTO SESSION
+========================================================= */
+
+let session = null;
+
+
+/* =========================================================
+   INCOMING IMAGE TRANSFERS
+========================================================= */
+
+const transfers = new Map();
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+const photos = [];
 
 let photoNumber = 0;
-
-
-/*
-  Incoming image transfers.
-*/
-
-const transfers =
-  new Map();
-
-
-/*
-  Finished photos.
-*/
-
-const photos =
-  [];
 
 
 /* =========================================================
@@ -1620,11 +1482,6 @@ const roomCode =
     "roomCode"
   );
 
-const captureButton =
-  document.getElementById(
-    "captureButton"
-  );
-
 const startCameraButton =
   document.getElementById(
     "startCamera"
@@ -1643,6 +1500,11 @@ const mirrorButton =
 const micButton =
   document.getElementById(
     "micButton"
+  );
+
+const captureButton =
+  document.getElementById(
+    "captureButton"
   );
 
 const styleSelect =
@@ -1690,9 +1552,9 @@ const countdown =
     "countdown"
   );
 
-const countdownNumber =
+const countNumber =
   document.getElementById(
-    "countdownNumber"
+    "countNumber"
   );
 
 const flash =
@@ -1747,18 +1609,15 @@ function setStatus(
     text;
 
   status.className =
-    "status " +
-    type;
+    "status " + type;
 
 }
 
 
-function showError(
-  error
-){
+function showError(error){
 
   console.error(
-    "USBOOTH:",
+    "USBOOTH ERROR:",
     error
   );
 
@@ -1770,7 +1629,7 @@ function showError(
     "block";
 
   setStatus(
-    "Something went wrong.",
+    "Error — check the message below.",
     "error"
   );
 
@@ -1785,7 +1644,7 @@ function clearError(){
 }
 
 
-function randomRoom(){
+function createRoomCode(){
 
   const chars =
     "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -1814,7 +1673,78 @@ function randomRoom(){
 
 
 /* =========================================================
-   CAMERA
+   CAMERA FILTER
+========================================================= */
+
+function filterString(){
+
+  const filters = {
+
+    none:"none",
+
+    grayscale:
+      "grayscale(1)",
+
+    sepia:
+      "sepia(.75)",
+
+    vivid:
+      "saturate(1.45) contrast(1.12)",
+
+    warm:
+      "saturate(1.1) sepia(.18) contrast(1.05)",
+
+    dreamy:
+      "brightness(1.08) saturate(.88) contrast(.92)"
+
+  };
+
+  return filters[
+    filterSelect.value
+  ] || "none";
+
+}
+
+
+function updatePreview(){
+
+  const b =
+    Number(
+      brightness.value
+    ) / 100;
+
+  const c =
+    Number(
+      contrast.value
+    ) / 100;
+
+
+  localVideo.style.filter =
+    `${filterString()}
+     brightness(${b})
+     contrast(${c})`;
+
+}
+
+
+filterSelect.addEventListener(
+  "change",
+  updatePreview
+);
+
+brightness.addEventListener(
+  "input",
+  updatePreview
+);
+
+contrast.addEventListener(
+  "input",
+  updatePreview
+);
+
+
+/* =========================================================
+   START CAMERA
 ========================================================= */
 
 async function startCamera(){
@@ -1822,7 +1752,35 @@ async function startCamera(){
   clearError();
 
 
+  if(
+    !navigator.mediaDevices ||
+    !navigator.mediaDevices.getUserMedia
+  ){
+
+    showError(
+      new Error(
+        "Camera API is unavailable. Make sure the site is HTTPS."
+      )
+    );
+
+    return false;
+
+  }
+
+
   try{
+
+    setStatus(
+      "Opening camera…"
+    );
+
+
+    /*
+      IMPORTANT:
+      Stop only the old camera.
+      Do NOT touch Metered here unless
+      a stream already exists.
+    */
 
     if(localStream){
 
@@ -1834,11 +1792,6 @@ async function startCamera(){
         );
 
     }
-
-
-    const facingMode =
-      window.usboothFacingMode ||
-      "user";
 
 
     localStream =
@@ -1863,9 +1816,12 @@ async function startCamera(){
         });
 
 
+    /*
+      Attach local camera immediately.
+    */
+
     localVideo.srcObject =
       localStream;
-
 
     localVideo.muted =
       true;
@@ -1897,31 +1853,50 @@ async function startCamera(){
     updatePreview();
 
 
+    /*
+      If a peer already exists and we're
+      already connected, add the new stream.
+    */
+
+    if(peer){
+
+      try{
+
+        await peer.addStream(
+          localStream,
+          {
+            role:"camera",
+            label:"camera"
+          }
+        );
+
+      }
+
+      catch(error){
+
+        console.warn(
+          "Could not update remote stream:",
+          error
+        );
+
+      }
+
+    }
+
+
+    updateCaptureButton();
+
+
     setStatus(
       "Camera ready.",
       "ok"
     );
 
 
-    /*
-      If already connected,
-      add the new camera stream.
-    */
-
-    if(peer){
-
-      await peer.addStream(
-        localStream,
-        {
-          role:"camera",
-          label:"front cam"
-        }
-      );
-
-    }
-
-
-    updateCaptureButton();
+    console.log(
+      "LOCAL CAMERA READY ✓",
+      localStream.getVideoTracks()
+    );
 
 
     return true;
@@ -1942,23 +1917,24 @@ async function startCamera(){
 
 
 /* =========================================================
-   CAMERA FLIP
+   FLIP
 ========================================================= */
 
-async function flipCamera(){
+flipCameraButton.addEventListener(
+  "click",
+  async () => {
 
-  window.usboothFacingMode =
-    (
-      window.usboothFacingMode ||
+    facingMode =
+      facingMode ===
       "user"
-    ) === "user"
-      ? "environment"
-      : "user";
+        ? "environment"
+        : "user";
 
 
-  await startCamera();
+    await startCamera();
 
-}
+  }
+);
 
 
 /* =========================================================
@@ -2027,88 +2003,16 @@ micButton.addEventListener(
 
 
 /* =========================================================
-   PREVIEW FILTER
-========================================================= */
-
-function getFilter(){
-
-  const filters = {
-
-    none:
-      "none",
-
-    grayscale:
-      "grayscale(1)",
-
-    sepia:
-      "sepia(.75)",
-
-    vivid:
-      "saturate(1.45) contrast(1.12)",
-
-    warm:
-      "saturate(1.1) sepia(.18) contrast(1.05)",
-
-    dreamy:
-      "brightness(1.08) saturate(.88) contrast(.92)"
-
-  };
-
-
-  return filters[
-    filterSelect.value
-  ] || "none";
-
-}
-
-
-function updatePreview(){
-
-  const b =
-    Number(
-      brightness.value
-    ) / 100;
-
-  const c =
-    Number(
-      contrast.value
-    ) / 100;
-
-
-  localVideo.style.filter =
-    `${getFilter()}
-     brightness(${b})
-     contrast(${c})`;
-
-}
-
-
-filterSelect.addEventListener(
-  "change",
-  updatePreview
-);
-
-brightness.addEventListener(
-  "input",
-  updatePreview
-);
-
-contrast.addEventListener(
-  "input",
-  updatePreview
-);
-
-
-/* =========================================================
    REMOTE VIDEO
 ========================================================= */
 
 function resetRemote(){
 
-  remoteVideoReady =
+  remoteReady =
     false;
 
-  remoteVideo.pause();
+  remoteStream =
+    null;
 
   remoteVideo.srcObject =
     null;
@@ -2128,8 +2032,7 @@ function resetRemote(){
 
 
 async function attachRemoteStream(
-  stream,
-  metadata
+  stream
 ){
 
   if(!stream){
@@ -2138,9 +2041,8 @@ async function attachRemoteStream(
 
 
   console.log(
-    "REMOTE STREAM:",
-    stream,
-    metadata
+    "REMOTE STREAM RECEIVED ✓",
+    stream
   );
 
 
@@ -2148,14 +2050,21 @@ async function attachRemoteStream(
     stream.getVideoTracks();
 
 
-  if(!videoTracks.length){
+  if(
+    videoTracks.length ===
+    0
+  ){
 
     remoteDebug.textContent =
-      "No remote video track";
+      "No video track";
 
     return;
 
   }
+
+
+  remoteStream =
+    stream;
 
 
   remoteVideo.srcObject =
@@ -2177,44 +2086,43 @@ async function attachRemoteStream(
   remoteLive.style.display =
     "block";
 
-  remoteDebug.textContent =
-    "Remote stream received";
 
+  remoteDebug.textContent =
+    "Video stream received";
+
+
+  /*
+    This is deliberately simple.
+    Metered's documented path is:
+
+      remote.on("stream-added", ...)
+      remote.on("track", ...)
+
+    and assign the MediaStream to video.srcObject.
+  */
 
   remoteVideo.onloadedmetadata =
     async () => {
+
+      console.log(
+        "REMOTE METADATA:",
+        remoteVideo.videoWidth,
+        remoteVideo.videoHeight
+      );
+
 
       try{
 
         await remoteVideo.play();
 
-
-        remoteVideoReady =
-          true;
-
-
-        remoteDebug.textContent =
-          "LIVE";
-
-
-        setStatus(
-          "Both cameras connected ✓",
-          "ok"
-        );
-
-
-        updateCaptureButton();
-
       }
 
       catch(error){
 
-        console.error(
+        console.warn(
+          "Remote play:",
           error
         );
-
-        remoteDebug.textContent =
-          "Remote playback failed";
 
       }
 
@@ -2224,11 +2132,16 @@ async function attachRemoteStream(
   remoteVideo.onplaying =
     () => {
 
-      remoteVideoReady =
+      remoteReady =
         true;
 
       remoteDebug.textContent =
         "LIVE";
+
+      setStatus(
+        "Both cameras connected ✓",
+        "ok"
+      );
 
       updateCaptureButton();
 
@@ -2239,20 +2152,22 @@ async function attachRemoteStream(
 
     await remoteVideo.play();
 
-  }catch(_){}
+  }
+
+  catch(_){}
 
 }
 
 
 /* =========================================================
-   CAPTURE ENABLE
+   CAPTURE BUTTON STATE
 ========================================================= */
 
 function updateCaptureButton(){
 
   captureButton.disabled =
     !localStream ||
-    !remoteVideoReady ||
+    !remoteReady ||
     captureBusy;
 
 }
@@ -2262,12 +2177,13 @@ function updateCaptureButton(){
    COUNTDOWN
 ========================================================= */
 
-async function countdownFor(
+async function runCountdown(
   seconds
 ){
 
   if(
-    seconds <= 0
+    seconds <=
+    0
   ){
 
     return;
@@ -2285,19 +2201,8 @@ async function countdownFor(
     i--
   ){
 
-    countdownNumber.textContent =
+    countNumber.textContent =
       i;
-
-
-    countdownNumber.style.animation =
-      "none";
-
-
-    void countdownNumber.offsetWidth;
-
-
-    countdownNumber.style.animation =
-      "countPop .8s ease both";
 
 
     await sleep(
@@ -2307,12 +2212,12 @@ async function countdownFor(
   }
 
 
-  countdownNumber.textContent =
+  countNumber.textContent =
     "📸";
 
 
   await sleep(
-    220
+    250
   );
 
 
@@ -2326,7 +2231,7 @@ async function countdownFor(
    FLASH
 ========================================================= */
 
-function triggerFlash(){
+function cameraFlash(){
 
   flash.classList.remove(
     "active"
@@ -2342,16 +2247,23 @@ function triggerFlash(){
 
 
 /* =========================================================
-   CAPTURE RAW IMAGE
+   CAPTURE LOCAL FRAME
 ========================================================= */
 
-function captureRawImage(){
+function captureFrame(){
+
+  /*
+    The video MUST actually have dimensions.
+  */
 
   if(
-    !localVideo.videoWidth
+    !localVideo.videoWidth ||
+    !localVideo.videoHeight
   ){
 
-    return null;
+    throw new Error(
+      "Your camera video is not ready yet."
+    );
 
   }
 
@@ -2382,6 +2294,25 @@ function captureRawImage(){
     );
 
 
+  /*
+    Apply the exact visual filter
+    to the captured image.
+  */
+
+  ctx.filter =
+    `${filterString()}
+     brightness(${
+       Number(
+         brightness.value
+       ) / 100
+     })
+     contrast(${
+       Number(
+         contrast.value
+       ) / 100
+     })`;
+
+
   if(mirrored){
 
     ctx.translate(
@@ -2397,20 +2328,6 @@ function captureRawImage(){
   }
 
 
-  ctx.filter =
-    `${getFilter()}
-     brightness(${
-       Number(
-         brightness.value
-       ) / 100
-     })
-     contrast(${
-       Number(
-         contrast.value
-       ) / 100
-     })`;
-
-
   ctx.drawImage(
     localVideo,
     0,
@@ -2422,18 +2339,18 @@ function captureRawImage(){
 
   return canvas.toDataURL(
     "image/jpeg",
-    .78
+    .82
   );
 
 }
 
 
 /* =========================================================
-   DATA URL -> IMAGE
+   IMAGE LOADER
 ========================================================= */
 
 function loadImage(
-  dataUrl
+  src
 ){
 
   return new Promise(
@@ -2442,18 +2359,19 @@ function loadImage(
       const img =
         new Image();
 
-
       img.onload =
-        () =>
-          resolve(img);
-
+        () => resolve(img);
 
       img.onerror =
-        reject;
-
+        () =>
+          reject(
+            new Error(
+              "Could not load captured image."
+            )
+          );
 
       img.src =
-        dataUrl;
+        src;
 
     }
   );
@@ -2462,15 +2380,15 @@ function loadImage(
 
 
 /* =========================================================
-   COMPOSITION COLORS
+   FRAME COLOR
 ========================================================= */
 
-function getFrameColors(){
+function frameColors(){
 
-  const colors = {
+  const frames = {
 
     cream:{
-      bg:"#f5eee4",
+      bg:"#f4ecdf",
       text:"#302820"
     },
 
@@ -2481,7 +2399,7 @@ function getFrameColors(){
 
     pink:{
       bg:"#ffdce8",
-      text:"#5c2439"
+      text:"#572538"
     },
 
     black:{
@@ -2492,15 +2410,16 @@ function getFrameColors(){
   };
 
 
-  return colors[
+  return frames[
     frameSelect.value
-  ] || colors.cream;
+  ] ||
+  frames.cream;
 
 }
 
 
 /* =========================================================
-   DRAW COVERED IMAGE
+   DRAW COVER
 ========================================================= */
 
 function drawCover(
@@ -2508,24 +2427,22 @@ function drawCover(
   img,
   x,
   y,
-  width,
-  height
+  w,
+  h
 ){
 
   const scale =
     Math.max(
-      width / img.width,
-      height / img.height
+      w / img.width,
+      h / img.height
     );
 
 
   const sw =
-    width /
-    scale;
+    w / scale;
 
   const sh =
-    height /
-    scale;
+    h / scale;
 
 
   const sx =
@@ -2545,18 +2462,18 @@ function drawCover(
     sh,
     x,
     y,
-    width,
-    height
+    w,
+    h
   );
 
 }
 
 
 /* =========================================================
-   DRAW TEXT
+   TEXT
 ========================================================= */
 
-function drawCenteredText(
+function centeredText(
   ctx,
   text,
   x,
@@ -2587,23 +2504,22 @@ function drawCenteredText(
 
 
 /* =========================================================
-   COMPOSE TOGETHER
+   TOGETHER PHOTO
 ========================================================= */
 
 async function composeTogether(
-  imageA,
-  imageB,
-  caption
+  aSrc,
+  bSrc
 ){
 
   const a =
     await loadImage(
-      imageA
+      aSrc
     );
 
   const b =
     await loadImage(
-      imageB
+      bSrc
     );
 
 
@@ -2634,7 +2550,7 @@ async function composeTogether(
 
 
   const colors =
-    getFrameColors();
+    frameColors();
 
 
   ctx.fillStyle =
@@ -2648,73 +2564,67 @@ async function composeTogether(
   );
 
 
-  /*
-    Shared-photo frame.
-  */
-
-  const padding =
-    48;
+  const margin =
+    45;
 
   const gap =
     16;
 
-  const imageW =
-    (W -
-      padding * 2 -
-      gap) / 2;
+  const photoWidth =
+    (
+      W -
+      margin * 2 -
+      gap
+    ) / 2;
 
-  const imageH =
+  const photoHeight =
     700;
 
 
   drawCover(
     ctx,
     a,
-    padding,
-    50,
-    imageW,
-    imageH
+    margin,
+    40,
+    photoWidth,
+    photoHeight
   );
 
 
   drawCover(
     ctx,
     b,
-    padding +
-      imageW +
+    margin +
+      photoWidth +
       gap,
-    50,
-    imageW,
-    imageH
+    40,
+    photoWidth,
+    photoHeight
   );
 
 
-  /*
-    Bottom caption.
-  */
-
-  drawCenteredText(
+  centeredText(
     ctx,
-    caption ||
+    captionInput.value.trim() ||
       "us, somehow ♡",
     W / 2,
-    790,
-    "bold 34px system-ui",
+    785,
+    "italic 34px Georgia",
     colors.text
   );
 
 
-  drawCenteredText(
+  centeredText(
     ctx,
     "USBOOTH",
     W / 2,
-    845,
-    "900 17px system-ui",
+    835,
+    "900 16px system-ui",
     colors.text
   );
 
 
-  drawCenteredText(
+  centeredText(
     ctx,
     new Date()
       .toLocaleDateString(
@@ -2725,8 +2635,8 @@ async function composeTogether(
         }
       ),
     W / 2,
-    875,
-    "500 14px system-ui",
+    870,
+    "500 13px system-ui",
     colors.text
   );
 
@@ -2740,23 +2650,22 @@ async function composeTogether(
 
 
 /* =========================================================
-   COMPOSE POLAROID
+   POLAROID
 ========================================================= */
 
 async function composePolaroid(
-  imageA,
-  imageB,
-  caption
+  aSrc,
+  bSrc
 ){
 
   const a =
     await loadImage(
-      imageA
+      aSrc
     );
 
   const b =
     await loadImage(
-      imageB
+      bSrc
     );
 
 
@@ -2786,105 +2695,88 @@ async function composePolaroid(
     );
 
 
-  /*
-    Shadow.
-  */
-
   ctx.fillStyle =
-    "#cfc8bd";
+    "#d1cbc1";
 
   ctx.fillRect(
-    34,
-    34,
-    W - 34,
-    H - 34
+    35,
+    35,
+    W - 35,
+    H - 35
   );
 
 
   ctx.fillStyle =
-    "#ffffff";
+    "#fff";
 
   ctx.fillRect(
     0,
     0,
-    W - 34,
-    H - 34
+    W - 35,
+    H - 35
   );
 
 
-  /*
-    Two people in one
-    Polaroid photograph.
-  */
+  const x =
+    55;
 
-  const photoX =
-    65;
+  const y =
+    55;
 
-  const photoY =
-    65;
+  const w =
+    430;
 
-  const photoW =
-    W - 160;
-
-  const photoH =
-    760;
-
+  const h =
+    720;
 
   const gap =
-    12;
-
-  const half =
-    (photoW - gap) / 2;
+    15;
 
 
   drawCover(
     ctx,
     a,
-    photoX,
-    photoY,
-    half,
-    photoH
+    x,
+    y,
+    w,
+    h
   );
 
 
   drawCover(
     ctx,
     b,
-    photoX +
-      half +
+    x +
+      w +
       gap,
-    photoY,
-    half,
-    photoH
+    y,
+    w,
+    h
   );
 
 
-  /*
-    Polaroid caption.
-  */
-
-  drawCenteredText(
+  centeredText(
     ctx,
-    caption ||
+    captionInput.value.trim() ||
       "us, somehow ♡",
-    (W - 34) / 2,
-    900,
+    480,
+    875,
     "italic 34px Georgia",
     "#252025"
   );
 
 
-  drawCenteredText(
+  centeredText(
     ctx,
     "USBOOTH",
-    (W - 34) / 2,
-    955,
+    480,
+    925,
     "900 16px system-ui",
     "#55505a"
   );
 
 
-  drawCenteredText(
+  centeredText(
     ctx,
     new Date()
       .toLocaleDateString(
@@ -2895,8 +2787,8 @@ async function composePolaroid(
           year:"numeric"
         }
       ),
-    (W - 34) / 2,
-    1000,
+    480,
+    970,
     "500 14px system-ui",
     "#77727a"
   );
@@ -2911,17 +2803,16 @@ async function composePolaroid(
 
 
 /* =========================================================
-   COMPOSE STRIP
+   STRIP
 ========================================================= */
 
 async function composeStrip(
-  shots,
-  caption
+  combinedFrames
 ){
 
   const images =
     await Promise.all(
-      shots.map(
+      combinedFrames.map(
         loadImage
       )
     );
@@ -2930,23 +2821,23 @@ async function composeStrip(
   const W =
     700;
 
-  const photoH =
+  const frameHeight =
     500;
 
   const gap =
-    18;
+    15;
 
   const top =
-    50;
+    35;
 
   const bottom =
-    160;
+    130;
 
 
   const H =
     top +
     images.length *
-      photoH +
+      frameHeight +
     (images.length - 1) *
       gap +
     bottom;
@@ -2972,7 +2863,7 @@ async function composeStrip(
 
 
   const colors =
-    getFrameColors();
+    frameColors();
 
 
   ctx.fillStyle =
@@ -2989,42 +2880,41 @@ async function composeStrip(
   images.forEach(
     (img,index) => {
 
-      const y =
-        top +
-        index *
-          (photoH + gap);
-
-
       drawCover(
         ctx,
         img,
-        40,
-        y,
-        W - 80,
-        photoH
+        35,
+        top +
+          index *
+          (
+            frameHeight +
+            gap
+          ),
+        W - 70,
+        frameHeight
       );
 
     }
   );
 
 
-  drawCenteredText(
+  centeredText(
     ctx,
-    caption ||
+    captionInput.value.trim() ||
       "us, somehow ♡",
     W / 2,
-    H - 90,
-    "italic 29px Georgia",
+    H - 70,
+    "italic 28px Georgia",
     colors.text
   );
 
 
-  drawCenteredText(
+  centeredText(
     ctx,
     "USBOOTH",
     W / 2,
-    H - 45,
-    "900 14px system-ui",
+    H - 30,
+    "900 13px system-ui",
     colors.text
   );
 
@@ -3038,97 +2928,841 @@ async function composeStrip(
 
 
 /* =========================================================
-   COMPOSE FINAL
+   SEND PHOTO CHUNKS
 ========================================================= */
 
-async function composeFinal(
-  session
+const CHUNK_SIZE =
+  32000;
+
+
+async function sendPhoto(
+  dataUrl,
+  sessionId,
+  shotIndex
 ){
 
-  const style =
-    session.style;
+  if(!peer){
+    return;
+  }
 
 
-  const caption =
-    session.caption;
+  const transferId =
+    `${sessionId}-${shotIndex}`;
 
 
-  if(style === "polaroid"){
+  const total =
+    Math.ceil(
+      dataUrl.length /
+      CHUNK_SIZE
+    );
 
-    return composePolaroid(
-      session.localImages[0],
-      session.remoteImages[0],
-      caption
+
+  await peer.send({
+
+    type:
+      "photo-start",
+
+    transferId,
+
+    sessionId,
+
+    shotIndex,
+
+    total
+
+  });
+
+
+  for(
+    let i = 0;
+    i < total;
+    i++
+  ){
+
+    await peer.send({
+
+      type:
+        "photo-chunk",
+
+      transferId,
+
+      index:i,
+
+      chunk:
+        dataUrl.slice(
+          i *
+            CHUNK_SIZE,
+
+          (i + 1) *
+            CHUNK_SIZE
+        )
+
+    });
+
+
+    await sleep(
+      8
     );
 
   }
 
 
-  if(style === "strip"){
+  await peer.send({
 
-    const combinedShots = [];
+    type:
+      "photo-end",
 
+    transferId
 
-    for(
-      let i = 0;
-      i < session.localImages.length;
-      i++
-    ){
-
-      /*
-        Each strip frame itself contains
-        both people.
-      */
-
-      const frame =
-        await composeTogether(
-          session.localImages[i],
-          session.remoteImages[i],
-          ""
-        );
+  });
 
 
-      combinedShots.push(
-        frame
-      );
-
-    }
-
-
-    return composeStrip(
-      combinedShots,
-      caption
-    );
-
-  }
-
-
-  /*
-    Default:
-    Together
-  */
-
-  return composeTogether(
-    session.localImages[0],
-    session.remoteImages[0],
-    caption
+  console.log(
+    "PHOTO SENT:",
+    sessionId,
+    shotIndex
   );
 
 }
 
 
 /* =========================================================
-   PHOTO GALLERY
+   HANDLE DATA
 ========================================================= */
 
-function addFinishedPhoto(
+function handleData(
+  payload
+){
+
+  console.log(
+    "METERED DATA:",
+    payload
+  );
+
+
+  /*
+    Current JS SDK event:
+      { senderPeerId, data }
+  */
+
+  let data =
+    payload &&
+    typeof payload ===
+      "object" &&
+    "data" in payload
+      ? payload.data
+      : payload;
+
+
+  /*
+    If data was serialized as JSON,
+    parse it.
+  */
+
+  if(
+    typeof data ===
+    "string"
+  ){
+
+    try{
+
+      data =
+        JSON.parse(
+          data
+        );
+
+    }
+
+    catch(_){
+
+      return;
+
+    }
+
+  }
+
+
+  if(
+    !data ||
+    typeof data !==
+      "object"
+  ){
+
+    return;
+
+  }
+
+
+  /* -------------------------------------------------------
+     CAPTURE COMMAND
+  ------------------------------------------------------- */
+
+  if(
+    data.type ===
+    "take-photo"
+  ){
+
+    remoteTakePhoto(
+      data
+    );
+
+    return;
+
+  }
+
+
+  /* -------------------------------------------------------
+     PHOTO START
+  ------------------------------------------------------- */
+
+  if(
+    data.type ===
+    "photo-start"
+  ){
+
+    transfers.set(
+      data.transferId,
+      {
+
+        sessionId:
+          data.sessionId,
+
+        shotIndex:
+          data.shotIndex,
+
+        total:
+          data.total,
+
+        chunks:
+          new Array(
+            data.total
+          )
+
+      }
+    );
+
+
+    return;
+
+  }
+
+
+  /* -------------------------------------------------------
+     PHOTO CHUNK
+  ------------------------------------------------------- */
+
+  if(
+    data.type ===
+    "photo-chunk"
+  ){
+
+    const transfer =
+      transfers.get(
+        data.transferId
+      );
+
+
+    if(!transfer){
+      return;
+    }
+
+
+    transfer.chunks[
+      data.index
+    ] =
+      data.chunk;
+
+
+    return;
+
+  }
+
+
+  /* -------------------------------------------------------
+     PHOTO END
+  ------------------------------------------------------- */
+
+  if(
+    data.type ===
+    "photo-end"
+  ){
+
+    const transfer =
+      transfers.get(
+        data.transferId
+      );
+
+
+    if(!transfer){
+      return;
+    }
+
+
+    const complete =
+      transfer.chunks.every(
+        chunk =>
+          typeof chunk ===
+          "string"
+      );
+
+
+    if(!complete){
+
+      console.warn(
+        "Incomplete photo."
+      );
+
+      transfers.delete(
+        data.transferId
+      );
+
+      return;
+
+    }
+
+
+    const image =
+      transfer.chunks.join(
+        ""
+      );
+
+
+    transfers.delete(
+      data.transferId
+    );
+
+
+    receiveRemotePhoto(
+      transfer.sessionId,
+      transfer.shotIndex,
+      image
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   REMOTE TAKE PHOTO
+========================================================= */
+
+async function remoteTakePhoto(
+  data
+){
+
+  /*
+    Create matching session locally.
+  */
+
+  if(
+    !session ||
+    session.id !==
+      data.sessionId
+  ){
+
+    session = {
+
+      id:
+        data.sessionId,
+
+      style:
+        data.style,
+
+      totalShots:
+        data.totalShots,
+
+      shotIndex:
+        data.shotIndex,
+
+      localImages:[],
+
+      remoteImages:[],
+
+      initiator:false
+
+    };
+
+  }
+
+
+  /*
+    Give the remote side a tiny delay so
+    both browsers capture near the same time.
+  */
+
+  await sleep(
+    60
+  );
+
+
+  try{
+
+    const image =
+      captureFrame();
+
+
+    cameraFlash();
+
+
+    session.localImages[
+      data.shotIndex
+    ] =
+      image;
+
+
+    await sendPhoto(
+      image,
+      data.sessionId,
+      data.shotIndex
+    );
+
+
+    tryFinishSession();
+
+  }
+
+  catch(error){
+
+    console.error(
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   RECEIVE REMOTE PHOTO
+========================================================= */
+
+function receiveRemotePhoto(
+  sessionId,
+  shotIndex,
+  image
+){
+
+  if(
+    !session ||
+    session.id !==
+      sessionId
+  ){
+
+    session = {
+
+      id:
+        sessionId,
+
+      style:
+        styleSelect.value,
+
+      totalShots:
+        Number(
+          shotsSelect.value
+        ),
+
+      shotIndex,
+
+      localImages:[],
+
+      remoteImages:[],
+
+      initiator:false
+
+    };
+
+  }
+
+
+  session.remoteImages[
+    shotIndex
+  ] =
+    image;
+
+
+  console.log(
+    "REMOTE PHOTO RECEIVED ✓",
+    shotIndex
+  );
+
+
+  tryFinishSession();
+
+}
+
+
+/* =========================================================
+   FINISH SESSION
+========================================================= */
+
+async function tryFinishSession(){
+
+  if(!session){
+    return;
+  }
+
+
+  const total =
+    session.totalShots;
+
+
+  /*
+    Current shot isn't complete yet.
+  */
+
+  if(
+    !session.localImages[
+      session.shotIndex
+    ] ||
+    !session.remoteImages[
+      session.shotIndex
+    ]
+  ){
+
+    return;
+
+  }
+
+
+  /*
+    More shots required.
+  */
+
+  if(
+    session.shotIndex <
+    total - 1
+  ){
+
+    /*
+      Only initiator advances the session.
+    */
+
+    if(
+      session.initiator &&
+      !session.advancing
+    ){
+
+      session.advancing =
+        true;
+
+
+      await sleep(
+        500
+      );
+
+
+      session.shotIndex++;
+
+
+      session.advancing =
+        false;
+
+
+      await runCountdown(
+        Number(
+          timerSelect.value
+        )
+      );
+
+
+      await triggerShot(
+        false
+      );
+
+    }
+
+
+    return;
+
+  }
+
+
+  /*
+    All frames are present.
+  */
+
+  setStatus(
+    "Creating your shared photo…",
+    "ok"
+  );
+
+
+  try{
+
+    let finalImage;
+
+
+    if(
+      session.style ===
+      "polaroid"
+    ){
+
+      finalImage =
+        await composePolaroid(
+          session.localImages[0],
+          session.remoteImages[0]
+        );
+
+    }
+
+    else if(
+      session.style ===
+      "strip"
+    ){
+
+      const frames = [];
+
+
+      for(
+        let i = 0;
+        i < total;
+        i++
+      ){
+
+        frames.push(
+          await composeTogether(
+            session.localImages[i],
+            session.remoteImages[i]
+          )
+        );
+
+      }
+
+
+      finalImage =
+        await composeStrip(
+          frames
+        );
+
+    }
+
+    else{
+
+      finalImage =
+        await composeTogether(
+          session.localImages[0],
+          session.remoteImages[0]
+        );
+
+    }
+
+
+    addPhoto(
+      finalImage
+    );
+
+
+    setStatus(
+      "Shared photo ready ✓",
+      "ok"
+    );
+
+  }
+
+  catch(error){
+
+    showError(
+      error
+    );
+
+  }
+
+
+  session =
+    null;
+
+  captureBusy =
+    false;
+
+  updateCaptureButton();
+
+}
+
+
+/* =========================================================
+   TRIGGER SHOT
+========================================================= */
+
+async function triggerShot(
+  first = true
+){
+
+  if(!peer){
+    return;
+  }
+
+
+  const currentSession =
+    session;
+
+
+  if(!currentSession){
+    return;
+  }
+
+
+  /*
+    Tell the other phone to capture.
+  */
+
+  await peer.send({
+
+    type:
+      "take-photo",
+
+    sessionId:
+      currentSession.id,
+
+    shotIndex:
+      currentSession.shotIndex,
+
+    style:
+      currentSession.style,
+
+    totalShots:
+      currentSession.totalShots
+
+  });
+
+
+  /*
+    Capture our own image.
+  */
+
+  const image =
+    captureFrame();
+
+
+  cameraFlash();
+
+
+  currentSession.localImages[
+    currentSession.shotIndex
+  ] =
+    image;
+
+
+  /*
+    Send our image.
+  */
+
+  await sendPhoto(
+    image,
+    currentSession.id,
+    currentSession.shotIndex
+  );
+
+
+  tryFinishSession();
+
+}
+
+
+/* =========================================================
+   START SESSION
+========================================================= */
+
+async function startPhotoSession(){
+
+  if(
+    captureBusy ||
+    !localStream ||
+    !remoteReady ||
+    !peer
+  ){
+
+    return;
+
+  }
+
+
+  captureBusy =
+    true;
+
+
+  updateCaptureButton();
+
+
+  clearError();
+
+
+  session = {
+
+    id:
+      `${Date.now()}-${
+        Math.random()
+          .toString(36)
+          .slice(2)
+      }`,
+
+    style:
+      styleSelect.value,
+
+    totalShots:
+      Number(
+        shotsSelect.value
+      ),
+
+    shotIndex:0,
+
+    localImages:[],
+
+    remoteImages:[],
+
+    initiator:true,
+
+    advancing:false
+
+  };
+
+
+  try{
+
+    await runCountdown(
+      Number(
+        timerSelect.value
+      )
+    );
+
+
+    await triggerShot(
+      true
+    );
+
+  }
+
+  catch(error){
+
+    showError(
+      error
+    );
+
+    session =
+      null;
+
+    captureBusy =
+      false;
+
+    updateCaptureButton();
+
+  }
+
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+function addPhoto(
   dataUrl
 ){
 
   photoNumber++;
 
 
-  const photo = {
+  photos.push({
 
     id:
       Date.now() +
@@ -3142,12 +3776,7 @@ function addFinishedPhoto(
 
     dataUrl
 
-  };
-
-
-  photos.push(
-    photo
-  );
+  });
 
 
   renderGallery();
@@ -3162,12 +3791,13 @@ function renderGallery(){
 
 
   if(
-    photos.length === 0
+    photos.length ===
+    0
   ){
 
     photoGrid.innerHTML =
       `
-      <div class="emptyGallery">
+      <div class="empty">
         Your shared photos will appear here.
       </div>
       `;
@@ -3185,7 +3815,7 @@ function renderGallery(){
 
 
       card.className =
-        "photoCard";
+        "photo";
 
 
       const img =
@@ -3196,10 +3826,6 @@ function renderGallery(){
 
       img.src =
         photo.dataUrl;
-
-
-      img.alt =
-        `UsBooth shared photo ${photo.number}`;
 
 
       const number =
@@ -3213,7 +3839,8 @@ function renderGallery(){
 
 
       number.textContent =
-        `#${photo.number}`;
+        "#" +
+        photo.number;
 
 
       const actions =
@@ -3311,29 +3938,29 @@ function downloadPhoto(
   photo
 ){
 
-  const a =
+  const link =
     document.createElement(
       "a"
     );
 
 
-  a.href =
+  link.href =
     photo.dataUrl;
 
 
-  a.download =
+  link.download =
     `usbooth-${photo.number}.jpg`;
 
 
   document.body.appendChild(
-    a
+    link
   );
 
 
-  a.click();
+  link.click();
 
 
-  a.remove();
+  link.remove();
 
 }
 
@@ -3349,7 +3976,7 @@ async function downloadAll(){
     );
 
     await sleep(
-      180
+      150
     );
 
   }
@@ -3368,7 +3995,10 @@ function deletePhoto(
     );
 
 
-  if(index >= 0){
+  if(
+    index !==
+    -1
+  ){
 
     photos.splice(
       index,
@@ -3385,14 +4015,18 @@ function deletePhoto(
 
 function clearGallery(){
 
-  if(!photos.length){
+  if(
+    !photos.length
+  ){
+
     return;
+
   }
 
 
   if(
     !confirm(
-      "Delete all finished photos?"
+      "Delete all photos?"
     )
   ){
 
@@ -3414,1012 +4048,17 @@ function clearGallery(){
 
 
 /* =========================================================
-   IMAGE TRANSFER
-=========================================================
-
-   Default server-routed Metered messages are limited
-   in size, so compressed JPEGs are split into chunks.
-
+   METERED
 ========================================================= */
 
-const CHUNK_SIZE =
-  36000;
-
-
-/* =========================================================
-   SEND IMAGE
-========================================================= */
-
-async function sendImage(
-  dataUrl,
-  captureId,
-  shotIndex
-){
-
-  if(!peer){
-    return;
-  }
-
-
-  const transferId =
-    `${captureId}-${shotIndex}`;
-
-
-  const total =
-    Math.ceil(
-      dataUrl.length /
-      CHUNK_SIZE
-    );
-
-
-  await peer.send({
-
-    type:
-      "image-start",
-
-    transferId,
-
-    captureId,
-
-    shotIndex,
-
-    total
-
-  });
-
-
-  for(
-    let i = 0;
-    i < total;
-    i++
-  ){
-
-    const chunk =
-      dataUrl.slice(
-        i *
-          CHUNK_SIZE,
-
-        (i + 1) *
-          CHUNK_SIZE
-      );
-
-
-    await peer.send({
-
-      type:
-        "image-chunk",
-
-      transferId,
-
-      index:i,
-
-      total,
-
-      chunk
-
-    });
-
-
-    await sleep(
-      10
-    );
-
-  }
-
-
-  await peer.send({
-
-    type:
-      "image-end",
-
-    transferId
-
-  });
-
-}
-
-
-/* =========================================================
-   RECEIVE IMAGE
-========================================================= */
-
-function receiveMessage(payload) {
-
-  console.log("RAW METERED DATA:", payload);
-
-  // Metered's current JS event shape is:
-  // { senderPeerId, data }
-  let message =
-    payload &&
-    typeof payload === "object" &&
-    "data" in payload
-      ? payload.data
-      : payload;
-
-  // Extra protection in case data arrives as JSON text.
-  if (typeof message === "string") {
-    try {
-      message = JSON.parse(message);
-    } catch (error) {
-      console.warn(
-        "Received non-JSON Metered data:",
-        message
-      );
-      return;
-    }
-  }
-
-  if (
-    !message ||
-    typeof message !== "object"
-  ) {
-    return;
-  }
-
-  console.log(
-    "PARSED METERED MESSAGE:",
-    message
-  );
-
-
-  /* =========================================
-     REMOTE CAPTURE REQUEST
-  ========================================= */
-
-  if (
-    message.type ===
-    "capture-session"
-  ) {
-
-    handleRemoteCapture(
-      message
-    );
-
-    return;
-  }
-
-
-  /* =========================================
-     IMAGE START
-  ========================================= */
-
-  if (
-    message.type ===
-    "image-start"
-  ) {
-
-    console.log(
-      "IMAGE START:",
-      message.transferId,
-      message.total
-    );
-
-    transfers.set(
-      message.transferId,
-      {
-        captureId:
-          message.captureId,
-
-        shotIndex:
-          message.shotIndex,
-
-        total:
-          message.total,
-
-        chunks:
-          new Array(
-            message.total
-          )
-      }
-    );
-
-    return;
-  }
-
-
-  /* =========================================
-     IMAGE CHUNK
-  ========================================= */
-
-  if (
-    message.type ===
-    "image-chunk"
-  ) {
-
-    const transfer =
-      transfers.get(
-        message.transferId
-      );
-
-    if (!transfer) {
-      console.warn(
-        "Unknown image transfer:",
-        message.transferId
-      );
-      return;
-    }
-
-    transfer.chunks[
-      message.index
-    ] =
-      message.chunk;
-
-    return;
-  }
-
-
-  /* =========================================
-     IMAGE END
-  ========================================= */
-
-  if (
-    message.type ===
-    "image-end"
-  ) {
-
-    const transfer =
-      transfers.get(
-        message.transferId
-      );
-
-    if (!transfer) {
-      console.warn(
-        "IMAGE END WITHOUT TRANSFER:",
-        message.transferId
-      );
-      return;
-    }
-
-
-    const complete =
-      transfer.chunks.every(
-        chunk =>
-          typeof chunk ===
-          "string"
-      );
-
-
-    if (!complete) {
-
-      console.warn(
-        "IMAGE TRANSFER INCOMPLETE:",
-        message.transferId
-      );
-
-      transfers.delete(
-        message.transferId
-      );
-
-      return;
-    }
-
-
-    const dataUrl =
-      transfer.chunks.join(
-        ""
-      );
-
-
-    console.log(
-      "IMAGE RECEIVED ✓",
-      "shot:",
-      transfer.shotIndex,
-      "size:",
-      dataUrl.length
-    );
-
-
-    transfers.delete(
-      message.transferId
-    );
-
-
-    handleRemoteImage(
-      transfer.captureId,
-      transfer.shotIndex,
-      dataUrl
-    );
-
-    return;
-  }
-
-}
-
-  const message =
-    payload &&
-    payload.data !== undefined
-      ? payload.data
-      : payload;
-
-
-  if(
-    !message ||
-    typeof message !== "object"
-  ){
-
-    return;
-
-  }
-
-
-  /* -------------------------------------------------------
-     REMOTE CAPTURE
-  ------------------------------------------------------- */
-
-  if(
-    message.type ===
-    "capture-session"
-  ){
-
-    handleRemoteCapture(
-      message
-    );
-
-    return;
-
-  }
-
-
-  /* -------------------------------------------------------
-     IMAGE START
-  ------------------------------------------------------- */
-
-  if(
-    message.type ===
-    "image-start"
-  ){
-
-    transfers.set(
-      message.transferId,
-      {
-
-        captureId:
-          message.captureId,
-
-        shotIndex:
-          message.shotIndex,
-
-        total:
-          message.total,
-
-        chunks:
-          new Array(
-            message.total
-          )
-
-      }
-    );
-
-
-    return;
-
-  }
-
-
-  /* -------------------------------------------------------
-     IMAGE CHUNK
-  ------------------------------------------------------- */
-
-  if(
-    message.type ===
-    "image-chunk"
-  ){
-
-    const transfer =
-      transfers.get(
-        message.transferId
-      );
-
-
-    if(!transfer){
-      return;
-    }
-
-
-    transfer.chunks[
-      message.index
-    ] =
-      message.chunk;
-
-
-    return;
-
-  }
-
-
-  /* -------------------------------------------------------
-     IMAGE END
-  ------------------------------------------------------- */
-
-  if(
-    message.type ===
-    "image-end"
-  ){
-
-    const transfer =
-      transfers.get(
-        message.transferId
-      );
-
-
-    if(!transfer){
-      return;
-    }
-
-
-    if(
-      transfer.chunks.some(
-        chunk =>
-          typeof chunk !==
-          "string"
-      )
-    ){
-
-      transfers.delete(
-        message.transferId
-      );
-
-      return;
-
-    }
-
-
-    const dataUrl =
-      transfer.chunks.join(
-        ""
-      );
-
-
-    transfers.delete(
-      message.transferId
-    );
-
-
-    handleRemoteImage(
-      transfer.captureId,
-      transfer.shotIndex,
-      dataUrl
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   REMOTE CAPTURE
-========================================================= */
-
-async function handleRemoteCapture(
-  message
-){
+function createPeer(){
 
   /*
-    The initiator has already handled the
-    countdown. The remote phone captures
-    when it receives this signal.
+    IMPORTANT:
+    Do not reuse a MeteredPeer after close().
+    Metered documents close() as terminal, so a fresh
+    instance is created here.
   */
-
-  const session =
-    message.session;
-
-
-  if(!session){
-    return;
-  }
-
-
-  if(
-    captureSession &&
-    captureSession.id ===
-      session.id
-  ){
-
-    return;
-
-  }
-
-
-  captureSession = {
-
-    id:
-      session.id,
-
-    style:
-      session.style,
-
-    totalShots:
-      session.totalShots,
-
-    shotIndex:
-      session.shotIndex,
-
-    caption:
-      session.caption,
-
-    localImages:[],
-
-    remoteImages:[]
-
-  };
-
-
-  /*
-    Capture immediately.
-  */
-
-  await captureShotForSession(
-    false
-  );
-
-}
-
-
-/* =========================================================
-   CAPTURE ONE SHOT
-========================================================= */
-
-async function captureShotForSession(
-  sendCapture
-){
-
-  if(!captureSession){
-    return;
-  }
-
-
-  const session =
-    captureSession;
-
-
-  const shotIndex =
-    session.shotIndex;
-
-
-  const image =
-    captureRawImage();
-
-
-  if(!image){
-    return;
-  }
-
-
-  triggerFlash();
-
-
-  session.localImages[
-    shotIndex
-  ] =
-    image;
-
-
-  /*
-    Send our image.
-  */
-
-  await sendImage(
-    image,
-    session.id,
-    shotIndex
-  );
-
-
-  /*
-    If this phone is the initiator,
-    tell the remote phone to capture.
-  */
-
-  if(sendCapture){
-
-    await peer.send({
-
-      type:
-        "capture-session",
-
-      session:{
-
-        id:
-          session.id,
-
-        style:
-          session.style,
-
-        totalShots:
-          session.totalShots,
-
-        shotIndex:
-          session.shotIndex,
-
-        caption:
-          session.caption
-
-      }
-
-    });
-
-  }
-
-
-  /*
-    Wait for the other image.
-  */
-
-  tryComposeIfReady();
-
-}
-
-
-/* =========================================================
-   REMOTE IMAGE
-========================================================= */
-
-function handleRemoteImage(
-  captureId,
-  shotIndex,
-  dataUrl
-){
-
-  if(
-    !captureSession ||
-    captureSession.id !==
-      captureId
-  ){
-
-    /*
-      The remote image may arrive before
-      the local session object exists.
-      Create a minimal one.
-    */
-
-    captureSession = {
-
-      id:
-        captureId,
-
-      style:
-        styleSelect.value,
-
-      totalShots:
-        Number(
-          shotsSelect.value
-        ),
-
-      shotIndex,
-
-      caption:
-        captionInput.value.trim(),
-
-      localImages:[],
-
-      remoteImages:[]
-
-    };
-
-  }
-
-
-  captureSession.remoteImages[
-    shotIndex
-  ] =
-    dataUrl;
-
-
-  tryComposeIfReady();
-
-}
-
-
-/* =========================================================
-   COMPOSE WHEN BOTH IMAGES ARRIVE
-========================================================= */
-
-async function tryComposeIfReady(){
-
-  const session =
-    captureSession;
-
-
-  if(!session){
-    return;
-  }
-
-
-  const index =
-    session.shotIndex;
-
-
-  if(
-    !session.localImages[index] ||
-    !session.remoteImages[index]
-  ){
-
-    return;
-
-  }
-
-
-  /*
-    If this is the final shot,
-    build the finished photo.
-
-    For multi-shot strips, we wait until
-    ALL frames have both images.
-  */
-
-  const complete =
-    session.localImages.length >=
-      session.totalShots &&
-    session.remoteImages.length >=
-      session.totalShots &&
-    session.localImages
-      .slice(
-        0,
-        session.totalShots
-      )
-      .every(Boolean) &&
-    session.remoteImages
-      .slice(
-        0,
-        session.totalShots
-      )
-      .every(Boolean);
-
-
-  if(!complete){
-
-    /*
-      If there are more shots,
-      the initiator advances after
-      both images of this shot arrive.
-    */
-
-    if(
-      session.localImages[index] &&
-      session.remoteImages[index] &&
-      index <
-        session.totalShots - 1
-    ){
-
-      /*
-        Only the original initiator
-        should advance.
-
-        We mark it through a property.
-      */
-
-      if(
-        session.initiator &&
-        !session.advancing
-      ){
-
-        session.advancing =
-          true;
-
-
-        await sleep(
-          600
-        );
-
-
-        session.advancing =
-          false;
-
-
-        session.shotIndex =
-          index + 1;
-
-
-        await countdownFor(
-          Number(
-            timerSelect.value
-          )
-        );
-
-
-        await captureShotForSession(
-          true
-        );
-
-      }
-
-    }
-
-    return;
-
-  }
-
-
-  /*
-    All shots complete.
-  */
-
-  setStatus(
-    "Creating your shared photo…",
-    "ok"
-  );
-
-
-  try{
-
-    const finalImage =
-      await composeFinal(
-        session
-      );
-
-
-    addFinishedPhoto(
-      finalImage
-    );
-
-
-    setStatus(
-      "Shared photo ready ✓",
-      "ok"
-    );
-
-  }
-
-  catch(error){
-
-    console.error(
-      error
-    );
-
-    showError(
-      error
-    );
-
-  }
-
-
-  captureSession =
-    null;
-
-
-  captureBusy =
-    false;
-
-
-  updateCaptureButton();
-
-}
-
-
-/* =========================================================
-   START PHOTO SESSION
-========================================================= */
-
-async function startPhotoSession(){
-
-  if(
-    captureBusy ||
-    !localStream ||
-    !remoteVideoReady ||
-    !peer
-  ){
-
-    return;
-
-  }
-
-
-  captureBusy =
-    true;
-
-
-  updateCaptureButton();
-
-
-  clearError();
-
-
-  const totalShots =
-    Number(
-      shotsSelect.value
-    );
-
-
-  const style =
-    styleSelect.value;
-
-
-  const caption =
-    captionInput.value.trim();
-
-
-  const id =
-    `${Date.now()}-${
-      Math.random()
-        .toString(36)
-        .slice(2)
-    }`;
-
-
-  captureSession = {
-
-    id,
-
-    style,
-
-    totalShots,
-
-    shotIndex:0,
-
-    caption,
-
-    localImages:[],
-
-    remoteImages:[],
-
-    initiator:true,
-
-    advancing:false
-
-  };
-
-
-  try{
-
-    /*
-      First countdown.
-    */
-
-    await countdownFor(
-      Number(
-        timerSelect.value
-      )
-    );
-
-
-    /*
-      Capture first frame.
-    */
-
-    await captureShotForSession(
-      true
-    );
-
-  }
-
-  catch(error){
-
-    console.error(
-      error
-    );
-
-
-    captureSession =
-      null;
-
-    captureBusy =
-      false;
-
-
-    updateCaptureButton();
-
-  }
-
-}
-
-
-/* =========================================================
-   METERED SETUP
-========================================================= */
-
-function setupMetered(){
-
-  if(
-    typeof MeteredPeer !==
-    "function"
-  ){
-
-    throw new Error(
-      "MeteredPeer failed to load."
-    );
-
-  }
-
 
   peer =
     new MeteredPeer({
@@ -4430,9 +4069,9 @@ function setupMetered(){
     });
 
 
-  /* -------------------------------------------------------
-     STATE
-  ------------------------------------------------------- */
+  /*
+    State
+  */
 
   peer.on(
     "state-change",
@@ -4489,13 +4128,12 @@ function setupMetered(){
         "closed"
       ){
 
+        resetRemote();
+
         setStatus(
           "Disconnected.",
           "error"
         );
-
-
-        resetRemote();
 
       }
 
@@ -4503,9 +4141,9 @@ function setupMetered(){
   );
 
 
-  /* -------------------------------------------------------
-     REMOTE PEER
-  ------------------------------------------------------- */
+  /*
+    Remote peer.
+  */
 
   peer.on(
     "peer-joined",
@@ -4513,15 +4151,19 @@ function setupMetered(){
       peer:remote
     }) => {
 
+      console.log(
+        "REMOTE PEER JOINED:",
+        remote.id
+      );
+
+
       remotePeer =
         remote;
 
 
-      console.log(
-        "REMOTE PEER JOINED ✓",
-        remote.id
-      );
-
+      /*
+        Metered documented remote stream event.
+      */
 
       remote.on(
         "stream-added",
@@ -4530,9 +4172,14 @@ function setupMetered(){
           metadata
         }) => {
 
-          attachRemoteStream(
-            stream,
+          console.log(
+            "STREAM ADDED:",
             metadata
+          );
+
+
+          attachRemoteStream(
+            stream
           );
 
         }
@@ -4540,8 +4187,7 @@ function setupMetered(){
 
 
       /*
-        Current Metered docs also expose
-        track events on RemotePeer.
+        Track fallback.
       */
 
       remote.on(
@@ -4551,10 +4197,18 @@ function setupMetered(){
           streams
         }) => {
 
+          console.log(
+            "REMOTE TRACK:",
+            track
+          );
+
+
           if(
-            track?.kind ===
-              "video" &&
-            streams?.length
+            track &&
+            track.kind ===
+            "video" &&
+            streams &&
+            streams.length
           ){
 
             attachRemoteStream(
@@ -4580,9 +4234,9 @@ function setupMetered(){
   );
 
 
-  /* -------------------------------------------------------
-     PEER LEFT
-  ------------------------------------------------------- */
+  /*
+    Peer left.
+  */
 
   peer.on(
     "peer-left",
@@ -4591,9 +4245,7 @@ function setupMetered(){
       remotePeer =
         null;
 
-
       resetRemote();
-
 
       setStatus(
         "Your person left the booth."
@@ -4603,36 +4255,25 @@ function setupMetered(){
   );
 
 
-  /* -------------------------------------------------------
-     DATA
-  ------------------------------------------------------- */
+  /*
+    Data messages.
+  */
 
-peer.on(
-  "data",
-  ({ senderPeerId, data }) => {
+  peer.on(
+    "data",
+    payload => {
 
-    console.log(
-      "METERED DATA RECEIVED FROM:",
-      senderPeerId
-    );
+      handleData(
+        payload
+      );
 
-    console.log(
-      "METERED DATA CONTENT:",
-      data
-    );
-
-    receiveMessage({
-      senderPeerId,
-      data
-    });
-
-  }
-);
+    }
+  );
 
 
-  /* -------------------------------------------------------
-     ERROR
-  ------------------------------------------------------- */
+  /*
+    Errors.
+  */
 
   peer.on(
     "error",
@@ -4645,13 +4286,15 @@ peer.on(
         err
       );
 
-
       showError(
         err
       );
 
     }
   );
+
+
+  return peer;
 
 }
 
@@ -4660,38 +4303,43 @@ peer.on(
    CONNECT
 ========================================================= */
 
-async function connect(){
+async function connectToRoom(){
 
   clearError();
 
 
-  try{
+  if(!localStream){
 
-    if(peer){
+    const ready =
+      await startCamera();
 
-      try{
-        peer.close();
-      }catch(_){}
 
-      peer =
-        null;
-
+    if(!ready){
+      return;
     }
 
+  }
 
-    setupMetered();
+
+  try{
+
+    /*
+      Fresh MeteredPeer.
+    */
+
+    createPeer();
 
 
     /*
-      Metered recommends adding the stream
-      before join when possible.
+      Attach camera BEFORE join.
+      This follows Metered's recommended flow.
     */
 
     await peer.addStream(
       localStream,
       {
         role:"camera",
-        label:"front cam"
+        label:"camera"
       }
     );
 
@@ -4707,11 +4355,16 @@ async function connect(){
     );
 
 
+    console.log(
+      "JOINED ROOM:",
+      roomCodeValue
+    );
+
+
     setStatus(
       "Connected — waiting for your person…",
       "ok"
     );
-
 
   }
 
@@ -4730,114 +4383,35 @@ async function connect(){
    CREATE ROOM
 ========================================================= */
 
-async function createRoom(){
-
-  clearError();
-
-
-  if(!localStream){
-
-    const ready =
-      await startCamera();
-
-
-    if(!ready){
-      return;
-    }
-
-  }
-
-
-  roomCodeValue =
-    randomRoom();
-
-
-  roomCode.textContent =
-    roomCodeValue;
-
-
-  roomInfo.style.display =
-    "block";
-
-
-  await connect();
-
-}
-
-
-/* =========================================================
-   JOIN ROOM
-========================================================= */
-
-async function joinRoom(){
-
-  clearError();
-
-
-  const code =
-    roomInput.value
-      .trim()
-      .toUpperCase();
-
-
-  if(
-    code.length !== 6
-  ){
-
-    showError(
-      new Error(
-        "Room code must be 6 characters."
-      )
-    );
-
-    return;
-
-  }
-
-
-  if(!localStream){
-
-    const ready =
-      await startCamera();
-
-
-    if(!ready){
-      return;
-    }
-
-  }
-
-
-  roomCodeValue =
-    code;
-
-
-  roomCode.textContent =
-    code;
-
-
-  roomInfo.style.display =
-    "block";
-
-
-  await connect();
-
-}
-
-
-/* =========================================================
-   EVENTS
-========================================================= */
-
 document
   .getElementById(
     "createRoom"
   )
   .addEventListener(
     "click",
-    createRoom
+    async () => {
+
+      roomCodeValue =
+        createRoomCode();
+
+
+      roomCode.textContent =
+        roomCodeValue;
+
+
+      roomInfo.style.display =
+        "block";
+
+
+      await connectToRoom();
+
+    }
   );
 
+
+/* =========================================================
+   JOIN ROOM
+========================================================= */
 
 document
   .getElementById(
@@ -4845,70 +4419,112 @@ document
   )
   .addEventListener(
     "click",
-    joinRoom
-  );
+    async () => {
 
+      const code =
+        roomInput.value
+          .trim()
+          .toUpperCase();
 
-startCameraButton
-  .addEventListener(
-    "click",
-    startCamera
-  );
-
-
-flipCameraButton
-  .addEventListener(
-    "click",
-    flipCamera
-  );
-
-
-captureButton
-  .addEventListener(
-    "click",
-    startPhotoSession
-  );
-
-
-downloadAllButton
-  .addEventListener(
-    "click",
-    downloadAll
-  );
-
-
-clearAllButton
-  .addEventListener(
-    "click",
-    clearGallery
-  );
-
-
-roomInput
-  .addEventListener(
-    "keydown",
-    event => {
 
       if(
-        event.key ===
-        "Enter"
+        code.length !==
+        6
       ){
 
-        joinRoom();
+        showError(
+          new Error(
+            "Room code must be exactly 6 characters."
+          )
+        );
+
+        return;
 
       }
+
+
+      roomCodeValue =
+        code;
+
+
+      roomCode.textContent =
+        code;
+
+
+      roomInfo.style.display =
+        "block";
+
+
+      await connectToRoom();
 
     }
   );
 
 
 /* =========================================================
-   INITIAL
+   START CAMERA BUTTON
 ========================================================= */
 
-window.usboothFacingMode =
-  "user";
+startCameraButton.addEventListener(
+  "click",
+  startCamera
+);
 
+
+/* =========================================================
+   SHUTTER
+========================================================= */
+
+captureButton.addEventListener(
+  "click",
+  startPhotoSession
+);
+
+
+/* =========================================================
+   GALLERY BUTTONS
+========================================================= */
+
+downloadAllButton.addEventListener(
+  "click",
+  downloadAll
+);
+
+
+clearAllButton.addEventListener(
+  "click",
+  clearGallery
+);
+
+
+/* =========================================================
+   ENTER ROOM
+========================================================= */
+
+roomInput.addEventListener(
+  "keydown",
+  event => {
+
+    if(
+      event.key ===
+      "Enter"
+    ){
+
+      document
+        .getElementById(
+          "joinRoom"
+        )
+        .click();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
 
 renderGallery();
 
@@ -4920,11 +4536,11 @@ updateCaptureButton();
 
 
 console.log(
-  "================================"
+  "======================================"
 );
 
 console.log(
-  "♡ USBOOTH PHOTO COMPOSER READY"
+  "♡ USBOOTH LOADED"
 );
 
 console.log(
@@ -4933,12 +4549,12 @@ console.log(
 );
 
 console.log(
-  "Secure:",
+  "Secure context:",
   window.isSecureContext
 );
 
 console.log(
-  "================================"
+  "======================================"
 );
 
 </script>
