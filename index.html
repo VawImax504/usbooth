@@ -1,41 +1,63 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#090910">
+
 <title>UsBooth ♡</title>
 
 <style>
+
 :root{
-  --bg:#090910;
+  --bg:#09090f;
   --card:#151520;
   --card2:#101018;
   --line:#302f3d;
   --pink:#ff719f;
-  --soft:#ffc0d4;
+  --soft:#ffc1d5;
   --muted:#aaa7b4;
   --green:#8ff0ba;
-  --red:#ff9cb8;
+  --red:#ff8da9;
   --white:#fff;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
-html{scroll-behavior:smooth}
+html{
+  scroll-behavior:smooth;
+}
 
 body{
   margin:0;
   min-height:100vh;
   background:
-    radial-gradient(circle at 15% -5%,#501d3c 0,transparent 38%),
-    radial-gradient(circle at 100% 40%,#21152c 0,transparent 35%),
+    radial-gradient(
+      circle at 15% -5%,
+      #531d3e 0,
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 100% 50%,
+      #24152f 0,
+      transparent 35%
+    ),
     var(--bg);
   color:#fff7fb;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 }
 
-button,input{font:inherit}
+button,
+input{
+  font:inherit;
+}
 
 button{
   cursor:pointer;
@@ -47,27 +69,30 @@ button:disabled{
   cursor:not-allowed;
 }
 
-main{
-  width:min(1100px,100%);
+.wrap{
+  width:min(1150px,100%);
   margin:auto;
-  padding:20px 16px 70px;
+  padding:25px 17px 70px;
 }
 
 nav{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:45px;
+  margin-bottom:55px;
 }
 
 .logo{
-  font-size:18px;
   font-weight:950;
+  font-size:18px;
+  letter-spacing:.5px;
 }
 
-.pink{color:var(--pink)}
+.heart{
+  color:var(--pink);
+}
 
-.navRight{
+.navText{
   color:#777484;
   font-size:12px;
 }
@@ -79,98 +104,78 @@ nav{
 }
 
 .eyebrow{
-  color:var(--soft);
   text-transform:uppercase;
   letter-spacing:4px;
+  color:#ff9dbb;
   font-size:11px;
   font-weight:900;
 }
 
 h1{
-  font-size:clamp(45px,9vw,85px);
-  line-height:.94;
-  margin:14px 0 20px;
+  font-size:clamp(44px,8vw,82px);
+  line-height:.95;
   letter-spacing:-3px;
+  margin:15px 0 20px;
 }
 
-.heroText{
+.hero p{
   color:var(--muted);
   font-size:17px;
   line-height:1.6;
 }
 
-.heroButtons,
-.optionRow,
-.controlBar,
-.resultButtons{
+.actions{
   display:flex;
+  gap:10px;
   justify-content:center;
-  gap:9px;
   flex-wrap:wrap;
-}
-
-.heroButtons{margin-top:25px}
-
-.btn,
-.secondary,
-.pill{
-  border-radius:999px;
-  font-weight:850;
+  margin:28px 0;
 }
 
 .btn{
-  padding:13px 20px;
+  border-radius:999px;
+  padding:14px 22px;
   background:var(--pink);
   color:#210812;
+  font-weight:900;
 }
 
-.secondary{
-  padding:13px 20px;
-  background:#242431;
-  color:white;
-  border:1px solid #3d3b4d;
+.btn.alt{
+  background:#242432;
+  color:#fff;
+  border:1px solid #3b3a4c;
 }
 
-.pill{
-  padding:9px 13px;
-  background:#20202c;
-  color:white;
-  border:1px solid #393847;
-  font-size:12px;
-}
-
-.pill.active{
-  background:var(--pink);
-  color:#210812;
-  border-color:var(--pink);
-}
-
-.joinBox{
+.join{
   display:none;
   justify-content:center;
   gap:8px;
-  margin-top:15px;
   flex-wrap:wrap;
+  margin-top:12px;
 }
 
 input{
   background:#0d0d14;
-  border:1px solid #3d3b4d;
+  border:1px solid #3a3948;
   color:white;
-  border-radius:999px;
-  padding:13px 18px;
+  padding:13px 16px;
+  border-radius:14px;
   outline:none;
+}
+
+.roomInput{
   text-transform:uppercase;
 }
 
-.booth{
+.card{
   display:none;
-  margin-top:35px;
-  background:#151520ed;
-  border:1px solid var(--line);
+  margin-top:40px;
+  background:#151521e8;
+  border:1px solid #2b2a39;
   border-radius:30px;
   padding:18px;
   box-shadow:0 30px 100px #0009;
+  backdrop-filter:blur(15px);
 }
 
 .boothTop{
@@ -181,10 +186,13 @@ input{
   flex-wrap:wrap;
 }
 
-.roomCode{
+.room{
   color:var(--soft);
-  font-weight:950;
-  letter-spacing:4px;
+}
+
+.room b{
+  font-size:20px;
+  letter-spacing:3px;
 }
 
 .connection{
@@ -192,14 +200,19 @@ input{
   font-size:13px;
 }
 
-.connection.ok{color:var(--green)}
-.connection.bad{color:var(--red)}
+.connection.ok{
+  color:var(--green);
+}
 
-.errorBox{
+.connection.bad{
+  color:var(--red);
+}
+
+.error{
   display:none;
-  margin:15px 0 0;
+  margin-top:14px;
   padding:13px;
-  border-radius:16px;
+  border-radius:15px;
   background:#351924;
   border:1px solid #71364d;
   color:#ffc1d0;
@@ -207,27 +220,42 @@ input{
   word-break:break-word;
 }
 
+
+/* =====================================================
+   MAIN BOOTH
+===================================================== */
+
+.boothLayout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 300px;
+  gap:18px;
+  margin-top:18px;
+}
+
+.cameraArea{
+  min-width:0;
+}
+
 .cameras{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:14px;
-  margin-top:18px;
 }
 
 .camera{
   position:relative;
   aspect-ratio:4/3;
-  overflow:hidden;
-  border-radius:23px;
   background:#050509;
+  border-radius:23px;
+  overflow:hidden;
   border:1px solid #373544;
 }
 
 .camera video{
   width:100%;
   height:100%;
-  display:block;
   object-fit:cover;
+  display:block;
 }
 
 .mirrored{
@@ -243,6 +271,20 @@ input{
   background:#000b;
   font-size:10px;
   font-weight:900;
+  z-index:3;
+}
+
+.liveTag{
+  position:absolute;
+  right:11px;
+  top:11px;
+  padding:7px 10px;
+  border-radius:999px;
+  background:var(--pink);
+  color:#210812;
+  font-size:10px;
+  font-weight:900;
+  z-index:3;
 }
 
 .waiting{
@@ -251,132 +293,265 @@ input{
   place-items:center;
   color:#777484;
   text-align:center;
-  font-size:14px;
+  padding:25px;
 }
 
-#flash{
-  position:fixed;
-  inset:0;
-  z-index:100;
-  background:white;
-  opacity:0;
-  pointer-events:none;
+.waitingHeart{
+  font-size:38px;
+  color:#ffabc5;
+  margin-bottom:8px;
 }
 
-.flashNow{
-  animation:flashAnimation .35s ease-out;
-}
 
-@keyframes flashAnimation{
-  0%{opacity:0}
-  25%{opacity:.95}
-  100%{opacity:0}
-}
+/* =====================================================
+   CONTROLS
+===================================================== */
 
-.notice{
-  color:var(--muted);
-  font-size:13px;
-  text-align:center;
-  margin:14px;
-}
-
-.ok{color:var(--green)}
-.bad{color:var(--red)}
-
-.settingsPanel{
-  margin-top:20px;
+.controls{
+  background:#101018;
+  border:1px solid #302f3d;
+  border-radius:24px;
   padding:16px;
-  border:1px solid var(--line);
-  border-radius:22px;
-  background:linear-gradient(180deg,#15151f,#101018);
+  height:max-content;
+  position:sticky;
+  top:15px;
 }
 
-.settingSection{
-  margin-bottom:18px;
-}
-
-.settingSection:last-child{
-  margin-bottom:0;
-}
-
-.settingTitle{
-  margin-bottom:9px;
-  color:#9996a4;
-  font-size:11px;
+.controlTitle{
+  font-size:12px;
   text-transform:uppercase;
   letter-spacing:2px;
+  color:#888592;
   font-weight:900;
+  margin-bottom:9px;
+}
+
+.controlSection{
+  padding-bottom:17px;
+  margin-bottom:17px;
+  border-bottom:1px solid #292835;
+}
+
+.controlSection:last-child{
+  border-bottom:0;
+  margin-bottom:0;
+  padding-bottom:0;
+}
+
+.optionGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.pill{
+  padding:9px 10px;
+  border-radius:12px;
+  background:#20202c;
+  color:white;
+  border:1px solid #393847;
+  font-size:12px;
+  font-weight:800;
+}
+
+.pill.active{
+  background:var(--pink);
+  color:#210812;
+  border-color:var(--pink);
+}
+
+.smallInput{
+  width:100%;
+  text-transform:none;
+}
+
+.shutterArea{
+  text-align:center;
+  padding:7px 0 5px;
 }
 
 .countdown{
-  height:65px;
+  height:55px;
   display:flex;
-  align-items:center;
   justify-content:center;
-  font-size:50px;
+  align-items:center;
+  font-size:43px;
   font-weight:950;
 }
 
 .progress{
-  text-align:center;
-  margin-top:5px;
   color:var(--soft);
+  font-size:12px;
   font-weight:900;
-  font-size:13px;
+  margin-bottom:10px;
 }
 
 .shutter{
-  width:84px;
-  height:84px;
+  width:76px;
+  height:76px;
   border-radius:50%;
   background:white;
   border:7px solid var(--pink);
-  box-shadow:0 0 0 5px #ffffff22;
-  transition:transform .15s;
+  box-shadow:
+    0 0 0 5px #ffffff20,
+    0 8px 25px #0008;
 }
 
 .shutter:active{
-  transform:scale(.9);
+  transform:scale(.92);
 }
 
-.editor{
+.flipButton{
+  width:100%;
+}
+
+
+/* =====================================================
+   FLASH
+===================================================== */
+
+#flash{
+  position:fixed;
+  inset:0;
+  background:white;
+  opacity:0;
+  pointer-events:none;
+  z-index:999;
+}
+
+.flash{
+  animation:flash .32s ease-out;
+}
+
+@keyframes flash{
+  0%{opacity:0}
+  20%{opacity:.95}
+  100%{opacity:0}
+}
+
+
+/* =====================================================
+   PHOTO PREVIEW
+===================================================== */
+
+.previewSection{
   display:none;
-  margin-top:30px;
+  margin-top:25px;
   padding-top:25px;
   border-top:1px solid var(--line);
 }
 
-.editorTitle,
-.resultTitle{
+.sectionTitle{
   text-align:center;
   color:var(--soft);
   font-weight:950;
+  font-size:16px;
 }
 
-.preview,
-.resultImage{
-  max-width:520px;
+.shotGrid{
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fit,minmax(145px,1fr));
+  gap:10px;
+  margin-top:17px;
+}
+
+.shotCard{
+  background:#0e0e15;
+  border:1px solid #302f3d;
+  border-radius:16px;
+  overflow:hidden;
+}
+
+.shotNumber{
+  padding:8px 10px;
+  font-size:11px;
+  color:#aaa7b4;
+  font-weight:900;
+}
+
+.shotImages{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2px;
+}
+
+.shotImages img{
+  width:100%;
+  aspect-ratio:1;
+  object-fit:cover;
+  display:block;
+}
+
+.shotButtons{
+  display:flex;
+  gap:5px;
+  padding:7px;
+}
+
+.shotButtons button{
+  flex:1;
+  padding:7px 5px;
+  border-radius:9px;
+  background:#22212d;
+  color:#fff;
+  font-size:10px;
+  font-weight:800;
+}
+
+
+/* =====================================================
+   FILM PREVIEW
+===================================================== */
+
+.result{
+  display:none;
+  margin-top:25px;
+  padding-top:25px;
+  border-top:1px solid var(--line);
+}
+
+.resultCanvasWrap{
+  width:min(650px,100%);
   margin:18px auto;
   padding:12px;
-  background:#0b0b11;
-  border-radius:18px;
+  background:#08080d;
   border:1px solid #33313f;
+  border-radius:18px;
 }
 
-.preview img,
-.resultImage img{
+#resultImage{
   width:100%;
   display:block;
   border-radius:10px;
 }
 
+.resultButtons{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+
+/* =====================================================
+   EDITING
+===================================================== */
+
+.editor{
+  display:none;
+  margin-top:25px;
+  padding-top:25px;
+  border-top:1px solid var(--line);
+}
+
 .sliderRow{
-  max-width:650px;
-  margin:10px auto;
+  max-width:600px;
+  margin:12px auto;
   display:grid;
-  grid-template-columns:90px 1fr 50px;
-  align-items:center;
+  grid-template-columns:90px 1fr 40px;
   gap:10px;
+  align-items:center;
   color:#aaa7b4;
   font-size:12px;
 }
@@ -385,96 +560,156 @@ input{
   width:100%;
 }
 
-.sliderRow output{
+.sliderValue{
+  color:#fff;
   text-align:right;
-  color:white;
 }
 
-.result{
-  display:none;
-  margin-top:30px;
-  padding-top:25px;
-  border-top:1px solid var(--line);
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+  text-align:center;
+  color:#676575;
+  font-size:11px;
+  margin-top:50px;
 }
 
-.photoHistory{
-  display:flex;
-  gap:7px;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin:15px auto;
-}
 
-.photoHistory img{
-  width:80px;
-  height:60px;
-  object-fit:cover;
-  border-radius:8px;
-  border:2px solid transparent;
-}
+/* =====================================================
+   MOBILE
+===================================================== */
 
-.photoHistory img.selected{
-  border-color:var(--pink);
+@media(max-width:850px){
+
+  .boothLayout{
+    grid-template-columns:1fr;
+  }
+
+  .controls{
+    position:static;
+    order:2;
+  }
+
 }
 
 @media(max-width:700px){
-  main{padding:15px 11px 50px}
-  nav{margin-bottom:35px}
-  .navRight{display:none}
-  .booth{padding:12px;border-radius:23px}
-  .cameras{grid-template-columns:1fr}
-  h1{letter-spacing:-2px}
+
+  .wrap{
+    padding:18px 11px 50px;
+  }
+
+  nav{
+    margin-bottom:35px;
+  }
+
+  .navText{
+    display:none;
+  }
+
+  .card{
+    padding:12px;
+  }
+
+  .cameras{
+    grid-template-columns:1fr;
+  }
+
+  h1{
+    letter-spacing:-2px;
+  }
+
+  .shotGrid{
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
 }
+
 </style>
 </head>
+
 
 <body>
 
 <div id="flash"></div>
 
-<main>
+<div class="wrap">
 
 <nav>
-  <div class="logo">♡ <span class="pink">US</span>BOOTH</div>
-  <div class="navRight">two phones · one frame</div>
+
+  <div class="logo">
+    ♡ <span class="heart">US</span>BOOTH
+  </div>
+
+  <div class="navText">
+    two cameras · one memory
+  </div>
+
 </nav>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
 
 <section class="hero">
 
-  <div class="eyebrow">long-distance photobooth</div>
+  <div class="eyebrow">
+    long distance photobooth
+  </div>
 
   <h1>
     Us, even from<br>
-    <span class="pink">miles away.</span>
+    <span style="color:#ff7fa8">
+      miles away.
+    </span>
   </h1>
 
-  <p class="heroText">
+  <p>
     Two phones. One booth.
-    Take photos together, wherever you are.
+    One little memory to keep.
   </p>
 
-  <div class="heroButtons">
 
-    <button class="btn" id="createBtn">
+  <div class="actions">
+
+    <button
+      class="btn"
+      id="createBtn"
+    >
       Create a booth →
     </button>
 
-    <button class="secondary" id="showJoinBtn">
+    <button
+      class="btn alt"
+      id="showJoinBtn"
+    >
       Join a booth
     </button>
 
   </div>
 
-  <div class="joinBox" id="joinBox">
+
+  <div
+    class="join"
+    id="join"
+  >
 
     <input
       id="roomInput"
+      class="roomInput"
       maxlength="6"
       placeholder="ROOM CODE"
     >
 
-    <button class="btn" id="joinBtn">
-      Join
+    <button
+      class="btn alt"
+      id="joinBtn"
+    >
+      Join room
     </button>
 
   </div>
@@ -482,409 +717,692 @@ input{
 </section>
 
 
-<section class="booth" id="booth">
+<!-- =====================================================
+     BOOTH
+===================================================== -->
+
+<section
+  id="booth"
+  class="card"
+>
 
   <div class="boothTop">
 
     <div>
-      Room
-      <span class="roomCode" id="roomCode">------</span>
+
+      Photobooth
+
+      <span class="room">
+        ROOM
+        <b id="roomCode">
+          ------
+        </b>
+      </span>
+
     </div>
 
-    <div class="connection" id="connection">
+    <div
+      id="connection"
+      class="connection"
+    >
       Starting…
     </div>
 
   </div>
 
-  <div class="errorBox" id="errorBox"></div>
+
+  <div
+    id="errorBox"
+    class="error"
+  ></div>
 
 
-  <div class="cameras">
-
-    <div class="camera">
-
-      <video
-        id="localVideo"
-        autoplay
-        muted
-        playsinline
-      ></video>
-
-      <div class="cameraTag">
-        YOU · LIVE
-      </div>
-
-    </div>
+  <div class="boothLayout">
 
 
-    <div class="camera">
+    <!-- =================================================
+         CAMERAS
+    ================================================= -->
 
-      <div class="waiting" id="waiting">
-        ♡<br>
-        Waiting for your person…
-      </div>
+    <div class="cameraArea">
 
-      <video
-        id="remoteVideo"
-        autoplay
-        playsinline
-        style="display:none"
-      ></video>
-
-      <div class="cameraTag">
-        THEM · LIVE
-      </div>
-
-    </div>
-
-  </div>
+      <div class="cameras">
 
 
-  <div class="notice" id="permission">
-    Camera permission will be requested.
-  </div>
+        <!-- YOUR CAMERA -->
+
+        <div class="camera">
+
+          <video
+            id="video"
+            autoplay
+            muted
+            playsinline
+          ></video>
+
+          <div class="cameraTag">
+            YOU
+          </div>
+
+          <div class="liveTag">
+            LIVE
+          </div>
+
+        </div>
 
 
-  <!-- CAMERA -->
+        <!-- PARTNER CAMERA -->
 
-  <div class="controlBar">
+        <div class="camera">
 
-    <button class="pill active" id="mirrorBtn">
-      🪞 Mirror
-    </button>
+          <div
+            class="waiting"
+            id="partnerWaiting"
+          >
 
-    <button class="pill" id="flipBtn">
-      🔄 Flip camera
-    </button>
+            <div>
 
-  </div>
+              <div class="waitingHeart">
+                ♡
+              </div>
 
+              <div>
+                Waiting for your person…
+              </div>
 
-  <!-- COUNTDOWN -->
+            </div>
 
-  <div class="controlBar" style="margin-top:15px">
-
-    <div style="width:100%;text-align:center"
-         class="settingTitle">
-      Countdown
-    </div>
-
-    <button class="pill active" data-delay="3">
-      3 sec
-    </button>
-
-    <button class="pill" data-delay="5">
-      5 sec
-    </button>
-
-    <button class="pill" data-delay="10">
-      10 sec
-    </button>
-
-  </div>
+          </div>
 
 
-  <!-- NUMBER OF PHOTOS -->
-
-  <div class="controlBar" style="margin-top:15px">
-
-    <div style="width:100%;text-align:center"
-         class="settingTitle">
-      Photos
-    </div>
-
-    <button class="pill" data-photos="1">
-      1
-    </button>
-
-    <button class="pill active" data-photos="3">
-      3
-    </button>
-
-    <button class="pill" data-photos="4">
-      4
-    </button>
-
-    <button class="pill" data-photos="6">
-      6
-    </button>
-
-  </div>
+          <video
+            id="remoteVideo"
+            autoplay
+            playsinline
+            style="display:none"
+          ></video>
 
 
-  <!-- FILM OPTIONS -->
+          <div class="cameraTag">
+            THEM
+          </div>
 
-  <div class="settingsPanel">
+          <div
+            class="liveTag"
+            id="remoteLive"
+            style="display:none"
+          >
+            LIVE
+          </div>
 
-    <div class="settingSection">
-
-      <div class="settingTitle">
-        🎞 Film
-      </div>
-
-      <div class="optionRow">
-
-        <button class="pill active" data-film="classic">
-          Classic
-        </button>
-
-        <button class="pill" data-film="pink">
-          Pink
-        </button>
-
-        <button class="pill" data-film="bw">
-          B&W
-        </button>
-
-        <button class="pill" data-film="vintage">
-          Vintage
-        </button>
-
-        <button class="pill" data-film="polaroid">
-          Polaroid
-        </button>
-
-        <button class="pill" data-film="dark">
-          Dark
-        </button>
+        </div>
 
       </div>
 
-    </div>
 
+      <!-- CAMERA STATUS -->
 
-    <div class="settingSection">
-
-      <div class="settingTitle">
-        🖼 Layout
+      <div
+        id="cameraState"
+        style="
+          text-align:center;
+          color:#777484;
+          font-size:12px;
+          margin-top:10px;
+        "
+      >
+        Camera not started
       </div>
 
-      <div class="optionRow">
 
-        <button class="pill active" data-layout="vertical">
-          Vertical
-        </button>
+      <!-- =================================================
+           PHOTO PREVIEW
+      ================================================= -->
 
-        <button class="pill" data-layout="horizontal">
-          Horizontal
-        </button>
-
-        <button class="pill" data-layout="grid">
-          2 × 2
-        </button>
-
-        <button class="pill" data-layout="film">
-          Film Roll
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div class="settingSection">
-
-      <div class="settingTitle">
-        ✨ Decoration
-      </div>
-
-      <div class="optionRow">
-
-        <button class="pill active" data-decoration="none">
-          None
-        </button>
-
-        <button class="pill" data-decoration="hearts">
-          ♡ Hearts
-        </button>
-
-        <button class="pill" data-decoration="stars">
-          ✦ Stars
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div class="settingSection">
-
-      <div class="settingTitle">
-        📅 Date
-      </div>
-
-      <div class="optionRow">
-
-        <button class="pill active" id="dateOn">
-          Date on
-        </button>
-
-        <button class="pill" id="dateOff">
-          Date off
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div class="settingSection">
-
-      <div class="settingTitle">
-        💬 Caption
-      </div>
-
-      <input
-        id="caption"
-        maxlength="50"
-        placeholder="miles apart ♡ still together"
-        style="width:100%;text-transform:none"
+      <section
+        class="previewSection"
+        id="previewSection"
       >
 
+        <div class="sectionTitle">
+          📸 Your photos
+        </div>
+
+        <div
+          class="shotGrid"
+          id="shotGrid"
+        ></div>
+
+      </section>
+
+
+      <!-- =================================================
+           FINAL RESULT
+      ================================================= -->
+
+      <section
+        class="result"
+        id="result"
+      >
+
+        <div class="sectionTitle">
+          🎞 Your finished film
+        </div>
+
+        <div class="resultCanvasWrap">
+
+          <img
+            id="resultImage"
+            alt="Your UsBooth photo"
+          >
+
+        </div>
+
+
+        <div class="resultButtons">
+
+          <button
+            class="btn"
+            id="downloadFilm"
+          >
+            ⬇ Download film
+          </button>
+
+          <button
+            class="btn alt"
+            id="downloadJpg"
+          >
+            Download JPG
+          </button>
+
+          <button
+            class="btn alt"
+            id="shareBtn"
+          >
+            Share
+          </button>
+
+          <button
+            class="btn alt"
+            id="retakeBtn"
+          >
+            Retake
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           EDITOR
+      ================================================= -->
+
+      <section
+        class="editor"
+        id="editor"
+      >
+
+        <div class="sectionTitle">
+          ✨ Fine tune
+        </div>
+
+
+        <div class="sliderRow">
+
+          <span>
+            Brightness
+          </span>
+
+          <input
+            id="brightness"
+            class="slider"
+            type="range"
+            min="-100"
+            max="100"
+            value="0"
+          >
+
+          <span
+            id="brightnessValue"
+            class="sliderValue"
+          >
+            0
+          </span>
+
+        </div>
+
+
+        <div class="sliderRow">
+
+          <span>
+            Contrast
+          </span>
+
+          <input
+            id="contrast"
+            class="slider"
+            type="range"
+            min="-100"
+            max="100"
+            value="0"
+          >
+
+          <span
+            id="contrastValue"
+            class="sliderValue"
+          >
+            0
+          </span>
+
+        </div>
+
+
+        <div class="sliderRow">
+
+          <span>
+            Saturation
+          </span>
+
+          <input
+            id="saturation"
+            class="slider"
+            type="range"
+            min="-100"
+            max="100"
+            value="0"
+          >
+
+          <span
+            id="saturationValue"
+            class="sliderValue"
+          >
+            0
+          </span>
+
+        </div>
+
+
+        <div class="sliderRow">
+
+          <span>
+            Grain
+          </span>
+
+          <input
+            id="grain"
+            class="slider"
+            type="range"
+            min="0"
+            max="100"
+            value="0"
+          >
+
+          <span
+            id="grainValue"
+            class="sliderValue"
+          >
+            0
+          </span>
+
+        </div>
+
+
+        <div style="text-align:center;margin-top:12px">
+
+          <button
+            class="pill"
+            id="resetEdits"
+          >
+            Reset edits
+          </button>
+
+        </div>
+
+      </section>
+
     </div>
+
+
+    <!-- =================================================
+         ONE-SIDED CONTROLS
+    ================================================= -->
+
+    <aside class="controls">
+
+
+      <!-- CAMERA -->
+
+      <div class="controlSection">
+
+        <div class="controlTitle">
+          Camera
+        </div>
+
+        <div class="optionGrid">
+
+          <button
+            class="pill active"
+            id="mirrorBtn"
+          >
+            🪞 Mirror
+          </button>
+
+          <button
+            class="pill"
+            id="flipBtn"
+          >
+            🔄 Flip
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- COUNTDOWN -->
+
+      <div class="controlSection">
+
+        <div class="controlTitle">
+          Countdown
+        </div>
+
+        <div class="optionGrid">
+
+          <button
+            class="pill active"
+            data-delay="3"
+          >
+            3 sec
+          </button>
+
+          <button
+            class="pill"
+            data-delay="5"
+          >
+            5 sec
+          </button>
+
+          <button
+            class="pill"
+            data-delay="10"
+          >
+            10 sec
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- PHOTO COUNT -->
+
+      <div class="controlSection">
+
+        <div class="controlTitle">
+          Number of photos
+        </div>
+
+        <div class="optionGrid">
+
+          <button
+            class="pill"
+            data-count="1"
+          >
+            1
+          </button>
+
+          <button
+            class="pill active"
+            data-count="3"
+          >
+            3
+          </button>
+
+          <button
+            class="pill"
+            data-count="4"
+          >
+            4
+          </button>
+
+          <button
+            class="pill"
+            data-count="6"
+          >
+            6
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- FILM -->
+
+      <div class="controlSection">
+
+        <div class="controlTitle">
+          Film
+        </div>
+
+        <div class="optionGrid">
+
+          <button
+            class="pill active"
+            data-film="classic"
+          >
+            Classic
+          </button>
+
+          <button
+            class="pill"
+            data-film="pink"
+          >
+            Pink
+          </button>
+
+          <button
+            class="pill"
+            data-film="bw"
+          >
+            B&W
+          </button>
+
+          <button
+            class="pill"
+            data-film="vintage"
+          >
+            Vintage
+          </button>
+
+          <button
+            class="pill"
+            data-film="polaroid"
+          >
+            Polaroid
+          </button>
+
+          <button
+            class="pill"
+            data-film="dark"
+          >
+            Dark
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- LAYOUT -->
+
+      <div class="controlSection">
+
+        <div class="controlTitle">
+          Layout
+        </div>
+
+        <div class="optionGrid">
+
+          <button
+            class="pill active"
+            data-layout="vertical"
+          >
+            Vertical
+          </button>
+
+          <button
+            class="pill"
+            data-layout="horizontal"
+          >
+            Horizontal
+          </button>
+
+          <button
+            class="pill"
+            data-layout="grid"
+          >
+            2 × 2
+          </button>
+
+          <button
+            class="pill"
+            data-layout="film"
+          >
+            Film
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- DECORATION -->
+
+      <div class="controlSection">
+
+        <div class="controlTitle">
+          Decoration
+        </div>
+
+        <div class="optionGrid">
+
+          <button
+            class="pill active"
+            data-decoration="none"
+          >
+            None
+          </button>
+
+          <button
+            class="pill"
+            data-decoration="hearts"
+          >
+            ♡ Hearts
+          </button>
+
+          <button
+            class="pill"
+            data-decoration="stars"
+          >
+            ✦ Stars
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- DATE -->
+
+      <div class="controlSection">
+
+        <div class="controlTitle">
+          Date
+        </div>
+
+        <div class="optionGrid">
+
+          <button
+            class="pill active"
+            id="dateOn"
+          >
+            Date on
+          </button>
+
+          <button
+            class="pill"
+            id="dateOff"
+          >
+            Date off
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- CAPTION -->
+
+      <div class="controlSection">
+
+        <div class="controlTitle">
+          Caption
+        </div>
+
+        <input
+          id="caption"
+          class="smallInput"
+          maxlength="45"
+          placeholder="miles apart ♡ still together"
+        >
+
+      </div>
+
+
+      <!-- SHUTTER -->
+
+      <div class="shutterArea">
+
+        <div
+          id="countdown"
+          class="countdown"
+        ></div>
+
+        <div
+          id="progress"
+          class="progress"
+        >
+          Ready
+        </div>
+
+        <button
+          id="shutter"
+          class="shutter"
+          aria-label="Take photo"
+        ></button>
+
+      </div>
+
+    </aside>
 
   </div>
-
-
-  <!-- SHUTTER -->
-
-  <div class="countdown" id="countdown"></div>
-
-  <div class="progress" id="progress">
-    Ready
-  </div>
-
-  <div class="controlBar" style="margin-top:10px">
-
-    <button
-      class="shutter"
-      id="shutter"
-      aria-label="Take synchronized photo"
-    ></button>
-
-  </div>
-
-
-  <!-- EDITOR -->
-
-  <section class="editor" id="editor">
-
-    <div class="editorTitle">
-      ✨ Edit your film
-    </div>
-
-    <div class="preview">
-      <img id="previewImage">
-    </div>
-
-    <div class="photoHistory" id="photoHistory"></div>
-
-    <div class="sliderRow">
-      <span>Brightness</span>
-      <input
-        class="slider"
-        id="brightness"
-        type="range"
-        min="-100"
-        max="100"
-        value="0"
-      >
-      <output id="brightnessOut">0</output>
-    </div>
-
-    <div class="sliderRow">
-      <span>Contrast</span>
-      <input
-        class="slider"
-        id="contrast"
-        type="range"
-        min="-100"
-        max="100"
-        value="0"
-      >
-      <output id="contrastOut">0</output>
-    </div>
-
-    <div class="sliderRow">
-      <span>Saturation</span>
-      <input
-        class="slider"
-        id="saturation"
-        type="range"
-        min="-100"
-        max="100"
-        value="0"
-      >
-      <output id="saturationOut">0</output>
-    </div>
-
-    <div class="sliderRow">
-      <span>Grain</span>
-      <input
-        class="slider"
-        id="grain"
-        type="range"
-        min="0"
-        max="100"
-        value="0"
-      >
-      <output id="grainOut">0</output>
-    </div>
-
-    <div class="controlBar">
-
-      <button class="secondary" id="resetEdit">
-        Reset edits
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- RESULT -->
-
-  <section class="result" id="result">
-
-    <div class="resultTitle">
-      OUR PHOTO FILM ♡
-    </div>
-
-    <div class="resultImage">
-      <img id="resultImage">
-    </div>
-
-    <div class="resultButtons">
-
-      <button class="btn" id="pngBtn">
-        Save PNG
-      </button>
-
-      <button class="secondary" id="jpgBtn">
-        Save JPG
-      </button>
-
-      <button class="secondary" id="shareBtn">
-        Share
-      </button>
-
-      <button class="secondary" id="retakeBtn">
-        Take another
-      </button>
-
-    </div>
-
-  </section>
 
 </section>
 
-</main>
+
+<footer>
+  UsBooth · two phones · one memory ♡
+</footer>
+
+</div>
 
 
 <!-- =====================================================
-     METERED SDK
-     ===================================================== -->
+     METERED
+===================================================== -->
 
 <script src="https://unpkg.com/@metered-ca/realtime@1/dist/index.umd.js"></script>
 
@@ -893,29 +1411,33 @@ input{
 
 /* =====================================================
    METERED KEY
-   ===================================================== */
+   =====================================================
+
+   PUT YOUR EXISTING pk_live_... KEY HERE.
+*/
 
 const METERED_PUBLISHABLE_KEY =
   "pk_live_782e36762825a38641834f99647209f4c8716774";
 
 
 /* =====================================================
-   METERED PEER
-   ===================================================== */
+   METERED
+===================================================== */
 
-const { MeteredPeer } =
-  window.MeteredPeer;
+const {
+  MeteredPeer
+} = window.MeteredPeer;
 
 let peer = null;
 
 
 /* =====================================================
    STATE
-   ===================================================== */
+===================================================== */
 
 let room = "";
 
-let localStream = null;
+let stream = null;
 
 let remoteStream = null;
 
@@ -927,13 +1449,13 @@ let facingMode = "user";
 
 let countdownSeconds = 3;
 
-let photoCount = 3;
+let numberOfPhotos = 3;
 
-let currentFilm = "classic";
+let filmType = "classic";
 
-let currentLayout = "vertical";
+let layoutType = "vertical";
 
-let decoration = "none";
+let decorationType = "none";
 
 let showDate = true;
 
@@ -942,20 +1464,23 @@ let caption =
 
 let photos = [];
 
-let currentResult = null;
-
-let countdownTimer = null;
-
 let shooting = false;
+
+let finalImage = null;
 
 
 /* =====================================================
    ELEMENTS
-   ===================================================== */
+===================================================== */
 
-const localVideo =
+const booth =
   document.getElementById(
-    "localVideo"
+    "booth"
+  );
+
+const video =
+  document.getElementById(
+    "video"
   );
 
 const remoteVideo =
@@ -963,19 +1488,19 @@ const remoteVideo =
     "remoteVideo"
   );
 
+const partnerWaiting =
+  document.getElementById(
+    "partnerWaiting"
+  );
+
 const connection =
   document.getElementById(
     "connection"
   );
 
-const waiting =
+const cameraState =
   document.getElementById(
-    "waiting"
-  );
-
-const permission =
-  document.getElementById(
-    "permission"
+    "cameraState"
   );
 
 const errorBox =
@@ -983,7 +1508,7 @@ const errorBox =
     "errorBox"
   );
 
-const countdownDisplay =
+const countdown =
   document.getElementById(
     "countdown"
   );
@@ -993,20 +1518,40 @@ const progress =
     "progress"
   );
 
-const flash =
-  document.getElementById(
-    "flash"
-  );
-
 const shutter =
   document.getElementById(
     "shutter"
   );
 
+const flash =
+  document.getElementById(
+    "flash"
+  );
+
+const shotGrid =
+  document.getElementById(
+    "shotGrid"
+  );
+
+const previewSection =
+  document.getElementById(
+    "previewSection"
+  );
+
+const result =
+  document.getElementById(
+    "result"
+  );
+
+const resultImage =
+  document.getElementById(
+    "resultImage"
+  );
+
 
 /* =====================================================
    STATUS
-   ===================================================== */
+===================================================== */
 
 function setStatus(
   text,
@@ -1017,22 +1562,21 @@ function setStatus(
     text;
 
   connection.className =
-    "connection " +
-    type;
+    "connection " + type;
 
 }
 
 
 /* =====================================================
    ERROR
-   ===================================================== */
+===================================================== */
 
 function showError(
   error
 ){
 
   console.error(
-    "USBOOTH ERROR:",
+    "USBOOTH:",
     error
   );
 
@@ -1053,14 +1597,14 @@ function showError(
 
 /* =====================================================
    ROOM CODE
-   ===================================================== */
+===================================================== */
 
 function makeRoom(){
 
   const chars =
     "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
-  let code = "";
+  let result = "";
 
   for(
     let i=0;
@@ -1068,7 +1612,7 @@ function makeRoom(){
     i++
   ){
 
-    code +=
+    result +=
       chars[
         Math.floor(
           Math.random() *
@@ -1078,22 +1622,20 @@ function makeRoom(){
 
   }
 
-  return code;
+  return result;
 
 }
 
 
 /* =====================================================
    CAMERA
-   ===================================================== */
+===================================================== */
 
 async function startCamera(){
 
-  if(
-    localStream
-  ){
+  if(stream){
 
-    localStream
+    stream
       .getTracks()
       .forEach(
         track =>
@@ -1105,13 +1647,13 @@ async function startCamera(){
 
   try{
 
-    localStream =
+    stream =
       await navigator
         .mediaDevices
         .getUserMedia({
 
           video:{
-            facingMode,
+            facingMode:facingMode,
             width:{
               ideal:1280
             },
@@ -1125,10 +1667,11 @@ async function startCamera(){
         });
 
 
-    localVideo.srcObject =
-      localStream;
+    video.srcObject =
+      stream;
 
-    await localVideo
+
+    await video
       .play()
       .catch(
         ()=>{}
@@ -1137,21 +1680,23 @@ async function startCamera(){
 
     updateMirror();
 
-    permission.textContent =
+
+    cameraState.textContent =
       "Camera ready ✓";
 
-    permission.className =
-      "notice ok";
+    cameraState.style.color =
+      "#8ff0ba";
+
 
     return true;
 
   }catch(error){
 
-    permission.textContent =
-      "Camera permission failed.";
+    cameraState.textContent =
+      "Camera permission needed";
 
-    permission.className =
-      "notice bad";
+    cameraState.style.color =
+      "#ff8da9";
 
     showError(error);
 
@@ -1163,10 +1708,10 @@ async function startCamera(){
 
 
 /* =====================================================
-   SETUP METERED
-   ===================================================== */
+   METERED SETUP
+===================================================== */
 
-function setupMetered(){
+function setupPeer(){
 
   if(
     typeof MeteredPeer !==
@@ -1174,7 +1719,7 @@ function setupMetered(){
   ){
 
     throw new Error(
-      "MeteredPeer SDK did not load."
+      "MeteredPeer did not load."
     );
 
   }
@@ -1182,26 +1727,21 @@ function setupMetered(){
 
   peer =
     new MeteredPeer({
+
       apiKey:
         METERED_PUBLISHABLE_KEY
+
     });
 
-
-  /* -------------------------------
-     STATE
-     ------------------------------- */
 
   peer.on(
     "state-change",
     ({
-      from,
       to
     })=>{
 
       console.log(
-        "Metered:",
-        from,
-        "→",
+        "Metered state:",
         to
       );
 
@@ -1216,6 +1756,7 @@ function setupMetered(){
 
       }
 
+
       if(
         to === "joined"
       ){
@@ -1225,6 +1766,7 @@ function setupMetered(){
         );
 
       }
+
 
       if(
         to === "reconnecting"
@@ -1236,6 +1778,7 @@ function setupMetered(){
         );
 
       }
+
 
       if(
         to === "closed"
@@ -1252,10 +1795,6 @@ function setupMetered(){
   );
 
 
-  /* -------------------------------
-     REMOTE PEER
-     ------------------------------- */
-
   peer.on(
     "peer-joined",
     ({
@@ -1263,8 +1802,8 @@ function setupMetered(){
     })=>{
 
       console.log(
-        "Peer joined:",
-        remote.id
+        "Remote peer joined",
+        remote
       );
 
 
@@ -1281,39 +1820,9 @@ function setupMetered(){
         }
       );
 
-
-      remote.on(
-        "stream-removed",
-        ()=>{
-
-          remoteReady =
-            false;
-
-        }
-      );
-
-
-      remote.on(
-        "state-change",
-        ({
-          to
-        })=>{
-
-          console.log(
-            "Remote state:",
-            to
-          );
-
-        }
-      );
-
     }
   );
 
-
-  /* -------------------------------
-     PEER LEFT
-     ------------------------------- */
 
   peer.on(
     "peer-left",
@@ -1331,7 +1840,7 @@ function setupMetered(){
       remoteVideo.style.display =
         "none";
 
-      waiting.style.display =
+      partnerWaiting.style.display =
         "grid";
 
       setStatus(
@@ -1342,65 +1851,6 @@ function setupMetered(){
     }
   );
 
-
-  /* -------------------------------
-     DATA
-     ------------------------------- */
-
-  peer.on(
-    "data",
-    ({
-      senderPeerId,
-      data
-    })=>{
-
-      console.log(
-        "DATA:",
-        senderPeerId,
-        data
-      );
-
-
-      if(
-        !data ||
-        !data.type
-      ){
-
-        return;
-
-      }
-
-
-      if(
-        data.type ===
-        "shoot"
-      ){
-
-        runRemoteShot(
-          data
-        );
-
-      }
-
-
-      if(
-        data.type ===
-        "reset"
-      ){
-
-        resetSession(
-          false
-        );
-
-      }
-
-    }
-  );
-
-
-  /* -------------------------------
-     ERRORS
-     ------------------------------- */
 
   peer.on(
     "error",
@@ -1419,31 +1869,42 @@ function setupMetered(){
 
 
 /* =====================================================
-   REMOTE CAMERA
-   ===================================================== */
+   REMOTE VIDEO
+===================================================== */
 
 function attachRemote(
-  stream
+  remote
 ){
 
-  if(!stream){
+  if(!remote){
     return;
   }
 
+
   remoteStream =
-    stream;
+    remote;
+
 
   remoteVideo.srcObject =
-    stream;
+    remote;
+
 
   remoteVideo.style.display =
     "block";
 
-  waiting.style.display =
+  partnerWaiting.style.display =
     "none";
+
+
+  document.getElementById(
+    "remoteLive"
+  ).style.display =
+    "block";
+
 
   remoteReady =
     true;
+
 
   remoteVideo
     .play()
@@ -1451,10 +1912,12 @@ function attachRemote(
       ()=>{}
     );
 
+
   setStatus(
     "Both cameras connected ✓",
     "ok"
   );
+
 
   progress.textContent =
     "Ready to take photos";
@@ -1463,37 +1926,24 @@ function attachRemote(
 
 
 /* =====================================================
-   CREATE BOOTH
-   ===================================================== */
+   CREATE
+===================================================== */
 
-async function createBooth(){
+async function createRoom(){
 
-  try{
+  room =
+    makeRoom();
 
-    errorBox.style.display =
-      "none";
-
-    room =
-      makeRoom();
-
-    await openBooth();
-
-  }catch(error){
-
-    showError(
-      error
-    );
-
-  }
+  await openBooth();
 
 }
 
 
 /* =====================================================
-   JOIN BOOTH
-   ===================================================== */
+   JOIN
+===================================================== */
 
-async function joinBooth(){
+async function joinRoom(){
 
   room =
     document
@@ -1510,7 +1960,7 @@ async function joinBooth(){
   ){
 
     alert(
-      "Enter the 6-character room code."
+      "Enter a valid 6-character room code."
     );
 
     return;
@@ -1518,12 +1968,86 @@ async function joinBooth(){
   }
 
 
+  await openBooth();
+
+}
+
+
+/* =====================================================
+   OPEN BOOTH
+===================================================== */
+
+async function openBooth(){
+
   try{
 
     errorBox.style.display =
       "none";
 
-    await openBooth();
+
+    document.querySelector(
+      ".hero"
+    ).style.display =
+      "none";
+
+
+    booth.style.display =
+      "block";
+
+
+    document.getElementById(
+      "roomCode"
+    ).textContent =
+      room;
+
+
+    booth.scrollIntoView({
+      behavior:"smooth"
+    });
+
+
+    setStatus(
+      "Starting camera…"
+    );
+
+
+    const cameraOK =
+      await startCamera();
+
+
+    if(!cameraOK){
+      return;
+    }
+
+
+    setupPeer();
+
+
+    /*
+      Keep this sequence unchanged
+      because this is the connection
+      version that is currently working.
+    */
+
+    peer.addStream(
+      stream
+    );
+
+
+    setStatus(
+      "Joining booth…"
+    );
+
+
+    await peer.join(
+      "usbooth-" +
+      room
+    );
+
+
+    setStatus(
+      "Waiting for your person…"
+    );
 
   }catch(error){
 
@@ -1537,87 +2061,12 @@ async function joinBooth(){
 
 
 /* =====================================================
-   OPEN BOOTH
-   ===================================================== */
-
-async function openBooth(){
-
-  document.querySelector(
-    ".hero"
-  ).style.display =
-    "none";
-
-  document.getElementById(
-    "booth"
-  ).style.display =
-    "block";
-
-  document.getElementById(
-    "roomCode"
-  ).textContent =
-    room;
-
-  document.getElementById(
-    "booth"
-  ).scrollIntoView({
-    behavior:"smooth"
-  });
-
-
-  setStatus(
-    "Starting camera…"
-  );
-
-
-  const cameraOK =
-    await startCamera();
-
-
-  if(!cameraOK){
-    return;
-  }
-
-
-  setupMetered();
-
-
-  /*
-    IMPORTANT:
-    Add the camera BEFORE joining,
-    matching Metered's documented
-    WebRTC setup.
-  */
-
-  peer.addStream(
-    localStream
-  );
-
-
-  setStatus(
-    "Joining booth…"
-  );
-
-
-  await peer.join(
-    "usbooth-" +
-    room
-  );
-
-
-  setStatus(
-    "Waiting for your person…"
-  );
-
-}
-
-
-/* =====================================================
    MIRROR
-   ===================================================== */
+===================================================== */
 
 function updateMirror(){
 
-  localVideo.classList.toggle(
+  video.classList.toggle(
     "mirrored",
     mirror
   );
@@ -1635,6 +2084,7 @@ document.getElementById(
 
     updateMirror();
 
+
     document.getElementById(
       "mirrorBtn"
     ).classList.toggle(
@@ -1646,8 +2096,8 @@ document.getElementById(
 
 
 /* =====================================================
-   FLIP CAMERA
-   ===================================================== */
+   FLIP
+===================================================== */
 
 document.getElementById(
   "flipBtn"
@@ -1663,26 +2113,21 @@ document.getElementById(
     await startCamera();
 
 
-    /*
-      Re-add the new stream.
-      Metered handles renegotiation.
-    */
-
     if(
       peer &&
-      localStream
+      stream
     ){
 
       try{
 
         await peer.addStream(
-          localStream
+          stream
         );
 
       }catch(error){
 
         console.warn(
-          "Could not replace camera:",
+          "Camera replacement failed",
           error
         );
 
@@ -1694,12 +2139,12 @@ document.getElementById(
 
 
 /* =====================================================
-   OPTION HELPERS
-   ===================================================== */
+   ACTIVATE BUTTON
+===================================================== */
 
-function activateGroup(
+function activate(
   selector,
-  clicked
+  button
 ){
 
   document
@@ -1707,13 +2152,14 @@ function activateGroup(
       selector
     )
     .forEach(
-      button =>
-        button.classList.remove(
+      element =>
+        element.classList.remove(
           "active"
         )
     );
 
-  clicked.classList.add(
+
+  button.classList.add(
     "active"
   );
 
@@ -1721,8 +2167,8 @@ function activateGroup(
 
 
 /* =====================================================
-   COUNTDOWN OPTIONS
-   ===================================================== */
+   COUNTDOWN
+===================================================== */
 
 document
   .querySelectorAll(
@@ -1739,7 +2185,8 @@ document
               button.dataset.delay
             );
 
-          activateGroup(
+
+          activate(
             "[data-delay]",
             button
           );
@@ -1752,11 +2199,11 @@ document
 
 /* =====================================================
    PHOTO COUNT
-   ===================================================== */
+===================================================== */
 
 document
   .querySelectorAll(
-    "[data-photos]"
+    "[data-count]"
   )
   .forEach(
     button=>{
@@ -1764,13 +2211,14 @@ document
       button.onclick =
         ()=>{
 
-          photoCount =
+          numberOfPhotos =
             Number(
-              button.dataset.photos
+              button.dataset.count
             );
 
-          activateGroup(
-            "[data-photos]",
+
+          activate(
+            "[data-count]",
             button
           );
 
@@ -1781,8 +2229,8 @@ document
 
 
 /* =====================================================
-   FILM
-   ===================================================== */
+   FILM TYPE
+===================================================== */
 
 document
   .querySelectorAll(
@@ -1794,13 +2242,23 @@ document
       button.onclick =
         ()=>{
 
-          currentFilm =
+          filmType =
             button.dataset.film;
 
-          activateGroup(
+
+          activate(
             "[data-film]",
             button
           );
+
+
+          if(
+            photos.length
+          ){
+
+            buildFilm();
+
+          }
 
         };
 
@@ -1810,7 +2268,7 @@ document
 
 /* =====================================================
    LAYOUT
-   ===================================================== */
+===================================================== */
 
 document
   .querySelectorAll(
@@ -1822,13 +2280,23 @@ document
       button.onclick =
         ()=>{
 
-          currentLayout =
+          layoutType =
             button.dataset.layout;
 
-          activateGroup(
+
+          activate(
             "[data-layout]",
             button
           );
+
+
+          if(
+            photos.length
+          ){
+
+            buildFilm();
+
+          }
 
         };
 
@@ -1838,7 +2306,7 @@ document
 
 /* =====================================================
    DECORATION
-   ===================================================== */
+===================================================== */
 
 document
   .querySelectorAll(
@@ -1850,13 +2318,23 @@ document
       button.onclick =
         ()=>{
 
-          decoration =
+          decorationType =
             button.dataset.decoration;
 
-          activateGroup(
+
+          activate(
             "[data-decoration]",
             button
           );
+
+
+          if(
+            photos.length
+          ){
+
+            buildFilm();
+
+          }
 
         };
 
@@ -1866,13 +2344,15 @@ document
 
 /* =====================================================
    DATE
-   ===================================================== */
+===================================================== */
 
 document.getElementById(
   "dateOn"
 ).onclick =
   ()=>{
-    showDate = true;
+
+    showDate =
+      true;
 
     document.getElementById(
       "dateOn"
@@ -1885,6 +2365,16 @@ document.getElementById(
     ).classList.remove(
       "active"
     );
+
+
+    if(
+      photos.length
+    ){
+
+      buildFilm();
+
+    }
+
   };
 
 
@@ -1892,7 +2382,9 @@ document.getElementById(
   "dateOff"
 ).onclick =
   ()=>{
-    showDate = false;
+
+    showDate =
+      false;
 
     document.getElementById(
       "dateOff"
@@ -1905,12 +2397,22 @@ document.getElementById(
     ).classList.remove(
       "active"
     );
+
+
+    if(
+      photos.length
+    ){
+
+      buildFilm();
+
+    }
+
   };
 
 
 /* =====================================================
    CAPTION
-   ===================================================== */
+===================================================== */
 
 document.getElementById(
   "caption"
@@ -1922,23 +2424,41 @@ document.getElementById(
       event.target.value.trim() ||
       "miles apart ♡ still together";
 
+
+    if(
+      photos.length
+    ){
+
+      buildFilm();
+
+    }
+
   }
 );
 
 
 /* =====================================================
    SHUTTER
-   ===================================================== */
+===================================================== */
 
 shutter.onclick =
   async ()=>{
 
     if(
-      !remoteReady
+      shooting
+    ){
+
+      return;
+
+    }
+
+
+    if(
+      !stream
     ){
 
       alert(
-        "Wait until both cameras are connected."
+        "Camera isn't ready yet."
       );
 
       return;
@@ -1947,8 +2467,12 @@ shutter.onclick =
 
 
     if(
-      shooting
+      !remoteReady
     ){
+
+      alert(
+        "Wait until both cameras are connected."
+      );
 
       return;
 
@@ -1964,110 +2488,59 @@ shutter.onclick =
     photos =
       [];
 
+
+    previewSection.style.display =
+      "none";
+
+    result.style.display =
+      "none";
+
+    document.getElementById(
+      "editor"
+    ).style.display =
+      "none";
+
+
     progress.textContent =
-      `Photo 1 / ${photoCount}`;
+      `Photo 1 / ${numberOfPhotos}`;
 
 
-    try{
-
-      /*
-        Send the future target time
-        so both phones count down
-        to approximately the same
-        instant.
-      */
-
-      const shootAt =
-        Date.now() +
-        1500;
-
-
-      await peer.send({
-
-        type:"shoot",
-
-        shootAt,
-
-        shot:1,
-
-        delay:
-          countdownSeconds
-
-      });
-
-
-      runRemoteShot({
-
-        shootAt,
-
-        shot:1,
-
-        delay:
-          countdownSeconds
-
-      });
-
-
-    }catch(error){
-
-      shooting =
-        false;
-
-      shutter.disabled =
-        false;
-
-      showError(
-        error
-      );
-
-    }
+    takeNextPhoto(
+      1
+    );
 
   };
 
 
 /* =====================================================
-   REMOTE / LOCAL SHOT
-   ===================================================== */
+   TAKE NEXT PHOTO
+===================================================== */
 
-function runRemoteShot(
-  data
+function takeNextPhoto(
+  number
 ){
 
-  const target =
-    data.shootAt ||
-    (
-      Date.now() +
-      countdownSeconds *
-      1000
-    );
+  let remaining =
+    countdownSeconds;
 
 
-  const shot =
-    Number(
-      data.shot || 1
-    );
+  countdown.textContent =
+    remaining;
 
 
-  const interval =
+  const timer =
     setInterval(
       ()=>{
-        const remaining =
-          target -
-          Date.now();
 
-        const seconds =
-          Math.ceil(
-            remaining /
-            1000
-          );
+        remaining--;
 
 
         if(
-          seconds > 0
+          remaining > 0
         ){
 
-          countdownDisplay.textContent =
-            seconds;
+          countdown.textContent =
+            remaining;
 
         }
 
@@ -2077,146 +2550,130 @@ function runRemoteShot(
         ){
 
           clearInterval(
-            interval
+            timer
           );
 
-          countdownDisplay.textContent =
+
+          countdown.textContent =
             "📸";
 
-          captureShot(
-            shot
+
+          capturePhoto(
+            number
           );
 
         }
 
       },
-      50
+      1000
     );
 
 }
 
 
 /* =====================================================
-   CAPTURE
-   ===================================================== */
+   CAPTURE PHOTO
+===================================================== */
 
-function captureShot(
-  shotNumber
+function capturePhoto(
+  number
 ){
 
-  if(
-    !localVideo.videoWidth ||
-    !remoteVideo.videoWidth
-  ){
-
-    return;
-
-  }
-
-
   flash.classList.remove(
-    "flashNow"
+    "flash"
   );
 
   void flash.offsetWidth;
 
   flash.classList.add(
-    "flashNow"
+    "flash"
   );
 
 
-  const local =
+  const localCanvas =
     captureVideo(
-      localVideo
-    );
-
-  const remote =
-    captureVideo(
-      remoteVideo
+      video
     );
 
 
-  photos[
-    shotNumber - 1
-  ] = {
-    local,
-    remote
-  };
+  let remoteCanvas = null;
 
 
-  progress.textContent =
-    `Photo ${shotNumber} / ${photoCount}`;
+  /*
+    If the remote camera isn't available
+    for some reason, we still keep the
+    local photo instead of crashing.
+  */
+
+  if(
+    remoteVideo.readyState >= 2 &&
+    remoteVideo.videoWidth
+  ){
+
+    remoteCanvas =
+      captureVideo(
+        remoteVideo
+      );
+
+  }
+
+
+  photos.push({
+
+    local:
+      localCanvas.toDataURL(
+        "image/jpeg",
+        .95
+      ),
+
+    remote:
+      remoteCanvas
+        ? remoteCanvas.toDataURL(
+            "image/jpeg",
+            .95
+          )
+        : null
+
+  });
+
+
+  renderPhotoPreviews();
 
 
   if(
-    shotNumber <
-    photoCount
+    number <
+    numberOfPhotos
   ){
 
+    progress.textContent =
+      `Photo ${number+1} / ${numberOfPhotos}`;
+
+
     setTimeout(
-      async ()=>{
-
-        const next =
-          shotNumber + 1;
-
-
-        const shootAt =
-          Date.now() +
-          1500;
-
-
-        try{
-
-          await peer.send({
-
-            type:"shoot",
-
-            shootAt,
-
-            shot:next,
-
-            delay:
-              countdownSeconds
-
-          });
-
-
-          runRemoteShot({
-
-            shootAt,
-
-            shot:next,
-
-            delay:
-              countdownSeconds
-
-          });
-
-        }catch(error){
-
-          console.error(
-            error
-          );
-
-        }
-
+      ()=>{
+        takeNextPhoto(
+          number+1
+        );
       },
       700
     );
 
+
   }else{
 
-    countdownDisplay.textContent =
+    countdown.textContent =
       "";
 
     progress.textContent =
-      "Film ready ♡";
+      "All photos captured ✓";
+
 
     shooting =
       false;
 
     shutter.disabled =
       false;
+
 
     buildFilm();
 
@@ -2227,10 +2684,10 @@ function captureShot(
 
 /* =====================================================
    CAPTURE VIDEO
-   ===================================================== */
+===================================================== */
 
 function captureVideo(
-  video
+  videoElement
 ){
 
   const canvas =
@@ -2240,11 +2697,11 @@ function captureVideo(
 
 
   const width =
-    video.videoWidth ||
+    videoElement.videoWidth ||
     900;
 
   const height =
-    video.videoHeight ||
+    videoElement.videoHeight ||
     675;
 
 
@@ -2255,15 +2712,25 @@ function captureVideo(
     height;
 
 
-  canvas
-    .getContext("2d")
-    .drawImage(
-      video,
-      0,
-      0,
-      width,
-      height
+  const ctx =
+    canvas.getContext(
+      "2d"
     );
+
+
+  /*
+    The preview is mirrored for the
+    user's comfort, but the saved photo
+    is intentionally NOT mirrored.
+  */
+
+  ctx.drawImage(
+    videoElement,
+    0,
+    0,
+    width,
+    height
+  );
 
 
   return canvas;
@@ -2272,72 +2739,214 @@ function captureVideo(
 
 
 /* =====================================================
-   LOAD IMAGE
-   ===================================================== */
+   PHOTO PREVIEWS
+===================================================== */
 
-function loadImage(
-  src
-){
+function renderPhotoPreviews(){
 
-  return new Promise(
-    (resolve,reject)=>{
+  shotGrid.innerHTML =
+    "";
 
-      const image =
-        new Image();
 
-      image.onload =
-        ()=>resolve(image);
+  photos.forEach(
+    (photo,index)=>{
 
-      image.onerror =
-        reject;
+      const card =
+        document.createElement(
+          "div"
+        );
 
-      image.src =
-        src;
+      card.className =
+        "shotCard";
+
+
+      const number =
+        document.createElement(
+          "div"
+        );
+
+      number.className =
+        "shotNumber";
+
+      number.textContent =
+        `SHOT ${index+1}`;
+
+
+      const images =
+        document.createElement(
+          "div"
+        );
+
+      images.className =
+        "shotImages";
+
+
+      const local =
+        document.createElement(
+          "img"
+        );
+
+      local.src =
+        photo.local;
+
+
+      images.appendChild(
+        local
+      );
+
+
+      if(
+        photo.remote
+      ){
+
+        const remote =
+          document.createElement(
+            "img"
+          );
+
+        remote.src =
+          photo.remote;
+
+        images.appendChild(
+          remote
+        );
+
+      }
+
+
+      const buttons =
+        document.createElement(
+          "div"
+        );
+
+      buttons.className =
+        "shotButtons";
+
+
+      const localButton =
+        document.createElement(
+          "button"
+        );
+
+      localButton.textContent =
+        "⬇ You";
+
+      localButton.onclick =
+        ()=>{
+          downloadData(
+            photo.local,
+            `usbooth-shot-${index+1}-you.jpg`
+          );
+        };
+
+
+      buttons.appendChild(
+        localButton
+      );
+
+
+      if(
+        photo.remote
+      ){
+
+        const remoteButton =
+          document.createElement(
+            "button"
+          );
+
+        remoteButton.textContent =
+          "⬇ Them";
+
+        remoteButton.onclick =
+          ()=>{
+            downloadData(
+              photo.remote,
+              `usbooth-shot-${index+1}-them.jpg`
+            );
+          };
+
+
+        buttons.appendChild(
+          remoteButton
+        );
+
+      }
+
+
+      card.appendChild(
+        number
+      );
+
+      card.appendChild(
+        images
+      );
+
+      card.appendChild(
+        buttons
+      );
+
+
+      shotGrid.appendChild(
+        card
+      );
 
     }
   );
+
+
+  previewSection.style.display =
+    "block";
 
 }
 
 
 /* =====================================================
    BUILD FILM
-   ===================================================== */
+===================================================== */
 
 async function buildFilm(){
 
-  const valid =
-    photos.filter(
-      Boolean
-    );
-
-
   if(
-    !valid.length
+    !photos.length
   ){
+
     return;
+
   }
 
 
-  const images = [];
+  const pairImages = [];
 
 
   for(
-    const photo
-    of valid
+    const photo of photos
   ){
 
-    images.push({
+    const local =
+      await loadImage(
+        photo.local
+      );
 
-      local:
-        await loadImage(
-          photo.local
-        ),
 
-      remote:
+    let remote = null;
+
+
+    if(
+      photo.remote
+    ){
+
+      remote =
         await loadImage(
           photo.remote
-        )
+        );
+
+    }
+
+
+    pairImages.push({
+
+      local,
+      remote
 
     });
 
@@ -2348,25 +2957,26 @@ async function buildFilm(){
     500;
 
   const photoH =
-    340;
+    350;
 
   const margin =
     25;
 
 
-  let columns = 1;
+  let columns =
+    1;
 
   let rows =
-    images.length;
+    pairImages.length;
 
 
   if(
-    currentLayout ===
+    layoutType ===
     "horizontal"
   ){
 
     columns =
-      images.length;
+      pairImages.length;
 
     rows = 1;
 
@@ -2374,38 +2984,51 @@ async function buildFilm(){
 
 
   if(
-    currentLayout ===
+    layoutType ===
     "grid"
   ){
 
     columns =
       Math.min(
         2,
-        images.length
+        pairImages.length
       );
 
     rows =
       Math.ceil(
-        images.length /
+        pairImages.length /
         columns
       );
 
   }
 
 
+  if(
+    layoutType ===
+    "film"
+  ){
+
+    columns = 1;
+
+    rows =
+      pairImages.length;
+
+  }
+
+
   const width =
-    columns *
-      photoW +
-    (columns + 1) *
-      margin;
+    columns * photoW +
+    (columns+1)*margin;
+
+
+  const footerHeight =
+    110;
 
 
   const height =
-    rows *
-      photoH +
-    (rows + 1) *
-      margin +
-    120;
+    rows * photoH +
+    (rows+1)*margin +
+    footerHeight;
 
 
   const canvas =
@@ -2429,42 +3052,54 @@ async function buildFilm(){
 
   /* BACKGROUND */
 
-  if(
-    currentFilm ===
-    "pink"
+  switch(
+    filmType
   ){
 
-    ctx.fillStyle =
-      "#ffd7e4";
+    case "pink":
 
-  }else if(
-    currentFilm ===
-    "dark"
-  ){
+      ctx.fillStyle =
+        "#ffd9e6";
 
-    ctx.fillStyle =
-      "#15151d";
+      break;
 
-  }else if(
-    currentFilm ===
-    "vintage"
-  ){
 
-    ctx.fillStyle =
-      "#e8d5af";
+    case "bw":
 
-  }else if(
-    currentFilm ===
-    "polaroid"
-  ){
+      ctx.fillStyle =
+        "#eeeeee";
 
-    ctx.fillStyle =
-      "#f7f2e9";
+      break;
 
-  }else{
 
-    ctx.fillStyle =
-      "#ffffff";
+    case "vintage":
+
+      ctx.fillStyle =
+        "#ead7ad";
+
+      break;
+
+
+    case "polaroid":
+
+      ctx.fillStyle =
+        "#faf7ef";
+
+      break;
+
+
+    case "dark":
+
+      ctx.fillStyle =
+        "#171720";
+
+      break;
+
+
+    default:
+
+      ctx.fillStyle =
+        "#ffffff";
 
   }
 
@@ -2479,7 +3114,7 @@ async function buildFilm(){
 
   /* PHOTOS */
 
-  images.forEach(
+  pairImages.forEach(
     (
       pair,
       index
@@ -2499,93 +3134,118 @@ async function buildFilm(){
       const x =
         margin +
         col *
-        (photoW + margin);
+        (photoW+margin);
+
 
       const y =
         margin +
         row *
-        (photoH + margin);
+        (photoH+margin);
+
+
+      let filter =
+        "none";
 
 
       if(
-        currentFilm ===
+        filmType ===
         "bw"
       ){
 
-        ctx.filter =
+        filter =
           "grayscale(1)";
 
-      }else if(
-        currentFilm ===
+      }
+
+
+      if(
+        filmType ===
         "vintage"
       ){
 
-        ctx.filter =
-          "sepia(.35) saturate(.8)";
+        filter =
+          "sepia(.4) saturate(.8)";
 
-      }else if(
-        currentFilm ===
+      }
+
+
+      if(
+        filmType ===
         "pink"
       ){
 
-        ctx.filter =
+        filter =
           "saturate(1.15)";
 
+      }
+
+
+      ctx.filter =
+        filter;
+
+
+      if(
+        pair.remote
+      ){
+
+        ctx.drawImage(
+          pair.local,
+          x,
+          y,
+          photoW/2,
+          photoH
+        );
+
+
+        ctx.drawImage(
+          pair.remote,
+          x+photoW/2,
+          y,
+          photoW/2,
+          photoH
+        );
+
+
+        ctx.filter =
+          "none";
+
+
+        ctx.strokeStyle =
+          "#ffffffaa";
+
+        ctx.lineWidth =
+          3;
+
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+          x+photoW/2,
+          y
+        );
+
+        ctx.lineTo(
+          x+photoW/2,
+          y+photoH
+        );
+
+        ctx.stroke();
+
       }else{
+
+        ctx.drawImage(
+          pair.local,
+          x,
+          y,
+          photoW,
+          photoH
+        );
 
         ctx.filter =
           "none";
 
       }
 
-
-      ctx.drawImage(
-        pair.local,
-        x,
-        y,
-        photoW/2,
-        photoH
-      );
-
-
-      ctx.drawImage(
-        pair.remote,
-        x +
-          photoW/2,
-        y,
-        photoW/2,
-        photoH
-      );
-
-
-      ctx.filter =
-        "none";
-
-
-      /* Divider */
-
-      ctx.strokeStyle =
-        "#ffffff99";
-
-      ctx.lineWidth =
-        3;
-
-      ctx.beginPath();
-
-      ctx.moveTo(
-        x + photoW/2,
-        y
-      );
-
-      ctx.lineTo(
-        x + photoW/2,
-        y + photoH
-      );
-
-      ctx.stroke();
-
-
-      /* Decoration */
 
       drawDecoration(
         ctx,
@@ -2599,17 +3259,16 @@ async function buildFilm(){
   );
 
 
-  /* CAPTION */
+  /* FOOTER */
 
   ctx.textAlign =
     "center";
 
 
   ctx.fillStyle =
-    currentFilm ===
-    "dark"
+    filmType === "dark"
       ? "#ffffff"
-      : "#151520";
+      : "#171720";
 
 
   ctx.font =
@@ -2619,7 +3278,7 @@ async function buildFilm(){
   ctx.fillText(
     caption,
     width/2,
-    height - 65
+    height-65
   );
 
 
@@ -2630,37 +3289,35 @@ async function buildFilm(){
     ctx.font =
       "13px system-ui";
 
+
     ctx.fillStyle =
-      currentFilm ===
-      "dark"
+      filmType === "dark"
         ? "#aaaaaa"
         : "#666666";
+
 
     ctx.fillText(
       new Date()
         .toLocaleString(),
       width/2,
-      height - 32
+      height-32
     );
 
   }
 
 
-  currentResult =
+  finalImage =
     canvas.toDataURL(
       "image/png"
     );
 
 
-  document.getElementById(
-    "previewImage"
-  ).src =
-    currentResult;
+  resultImage.src =
+    finalImage;
 
-  document.getElementById(
-    "resultImage"
-  ).src =
-    currentResult;
+
+  result.style.display =
+    "block";
 
 
   document.getElementById(
@@ -2668,15 +3325,8 @@ async function buildFilm(){
   ).style.display =
     "block";
 
-  document.getElementById(
-    "result"
-  ).style.display =
-    "block";
 
-
-  document.getElementById(
-    "result"
-  ).scrollIntoView({
+  result.scrollIntoView({
     behavior:"smooth"
   });
 
@@ -2685,7 +3335,7 @@ async function buildFilm(){
 
 /* =====================================================
    DECORATION
-   ===================================================== */
+===================================================== */
 
 function drawDecoration(
   ctx,
@@ -2696,52 +3346,57 @@ function drawDecoration(
 ){
 
   if(
-    decoration ===
+    decorationType ===
+    "none"
+  ){
+
+    return;
+
+  }
+
+
+  ctx.font =
+    "34px serif";
+
+  ctx.fillStyle =
+    "#ff719f";
+
+
+  if(
+    decorationType ===
     "hearts"
   ){
 
-    ctx.font =
-      "34px serif";
-
-    ctx.fillStyle =
-      "#ff719f";
-
     ctx.fillText(
       "♡",
-      x + 35,
-      y + 45
+      x+25,
+      y+40
     );
 
     ctx.fillText(
       "♡",
-      x + width - 35,
-      y + height - 15
+      x+width-50,
+      y+height-12
     );
 
   }
 
 
   if(
-    decoration ===
+    decorationType ===
     "stars"
   ){
 
-    ctx.font =
-      "30px serif";
-
-    ctx.fillStyle =
-      "#ff719f";
-
     ctx.fillText(
       "✦",
-      x + 35,
-      y + 45
+      x+25,
+      y+40
     );
 
     ctx.fillText(
       "✦",
-      x + width - 35,
-      y + height - 15
+      x+width-50,
+      y+height-12
     );
 
   }
@@ -2750,21 +3405,352 @@ function drawDecoration(
 
 
 /* =====================================================
+   LOAD IMAGE
+===================================================== */
+
+function loadImage(
+  source
+){
+
+  return new Promise(
+    (
+      resolve,
+      reject
+    )=>{
+
+      const img =
+        new Image();
+
+
+      img.onload =
+        ()=>resolve(img);
+
+      img.onerror =
+        reject;
+
+
+      img.src =
+        source;
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   DOWNLOAD
+===================================================== */
+
+function downloadData(
+  data,
+  filename
+){
+
+  if(!data){
+    return;
+  }
+
+
+  const link =
+    document.createElement(
+      "a"
+    );
+
+
+  link.href =
+    data;
+
+  link.download =
+    filename;
+
+
+  document.body.appendChild(
+    link
+  );
+
+
+  link.click();
+
+
+  link.remove();
+
+}
+
+
+/* =====================================================
+   DOWNLOAD COMPLETE FILM
+===================================================== */
+
+document.getElementById(
+  "downloadFilm"
+).onclick =
+  ()=>{
+
+    downloadData(
+      finalImage,
+      "usbooth-film.png"
+    );
+
+  };
+
+
+/* =====================================================
+   DOWNLOAD JPG
+===================================================== */
+
+document.getElementById(
+  "downloadJpg"
+).onclick =
+  async ()=>{
+
+    if(!finalImage){
+      return;
+    }
+
+
+    const image =
+      await loadImage(
+        finalImage
+      );
+
+
+    const canvas =
+      document.createElement(
+        "canvas"
+      );
+
+
+    canvas.width =
+      image.width;
+
+    canvas.height =
+      image.height;
+
+
+    const ctx =
+      canvas.getContext(
+        "2d"
+      );
+
+
+    ctx.fillStyle =
+      "#ffffff";
+
+
+    ctx.fillRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+
+    ctx.drawImage(
+      image,
+      0,
+      0
+    );
+
+
+    downloadData(
+      canvas.toDataURL(
+        "image/jpeg",
+        .95
+      ),
+      "usbooth-film.jpg"
+    );
+
+  };
+
+
+/* =====================================================
+   SHARE
+===================================================== */
+
+document.getElementById(
+  "shareBtn"
+).onclick =
+  async ()=>{
+
+    if(!finalImage){
+      return;
+    }
+
+
+    try{
+
+      const response =
+        await fetch(
+          finalImage
+        );
+
+
+      const blob =
+        await response.blob();
+
+
+      const file =
+        new File(
+          [blob],
+          "usbooth-film.png",
+          {
+            type:"image/png"
+          }
+        );
+
+
+      if(
+        navigator.canShare &&
+        navigator.canShare({
+          files:[file]
+        })
+      ){
+
+        await navigator.share({
+
+          files:[file],
+
+          title:
+            "Our UsBooth photo",
+
+          text:
+            "♡ UsBooth"
+
+        });
+
+      }else{
+
+        alert(
+          "Sharing isn't supported here. Use Download instead."
+        );
+
+      }
+
+    }catch(error){
+
+      console.log(
+        "Share cancelled",
+        error
+      );
+
+    }
+
+  };
+
+
+/* =====================================================
+   RETAKE
+===================================================== */
+
+document.getElementById(
+  "retakeBtn"
+).onclick =
+  ()=>{
+
+    photos =
+      [];
+
+    finalImage =
+      null;
+
+    shooting =
+      false;
+
+    shutter.disabled =
+      false;
+
+
+    countdown.textContent =
+      "";
+
+    progress.textContent =
+      "Ready";
+
+
+    shotGrid.innerHTML =
+      "";
+
+
+    previewSection.style.display =
+      "none";
+
+    result.style.display =
+      "none";
+
+    document.getElementById(
+      "editor"
+    ).style.display =
+      "none";
+
+
+    window.scrollTo({
+      top:
+        booth.offsetTop,
+      behavior:"smooth"
+    });
+
+  };
+
+
+/* =====================================================
    EDITING
-   ===================================================== */
+===================================================== */
+
+const editIds = [
+  "brightness",
+  "contrast",
+  "saturation",
+  "grain"
+];
+
+
+editIds.forEach(
+  id=>{
+
+    const slider =
+      document.getElementById(
+        id
+      );
+
+
+    const output =
+      document.getElementById(
+        id+"Value"
+      );
+
+
+    slider.addEventListener(
+      "input",
+      ()=>{
+
+        output.textContent =
+          slider.value;
+
+        applyEdits();
+
+      }
+
+    );
+
+  }
+);
+
+
+/* =====================================================
+   APPLY EDITS
+===================================================== */
 
 async function applyEdits(){
 
-  if(
-    !currentResult
-  ){
+  if(!finalImage){
     return;
   }
 
 
   const image =
     await loadImage(
-      currentResult
+      finalImage
     );
 
 
@@ -2821,9 +3807,9 @@ async function applyEdits(){
 
   ctx.filter =
     `
-    brightness(${100+brightness}%)
-    contrast(${100+contrast}%)
-    saturate(${100+saturation}%)
+      brightness(${100+brightness}%)
+      contrast(${100+contrast}%)
+      saturate(${100+saturation}%)
     `;
 
 
@@ -2853,54 +3839,53 @@ async function applyEdits(){
       );
 
 
-    const data =
+    const pixels =
       imageData.data;
 
 
     const amount =
-      grain * .7;
+      grain * .8;
 
 
     for(
       let i=0;
-      i<data.length;
+      i<pixels.length;
       i+=4
     ){
 
       const noise =
         (
-          Math.random() -
-          .5
+          Math.random()-.5
         ) *
         amount;
 
 
-      data[i] =
+      pixels[i] =
         Math.max(
           0,
           Math.min(
             255,
-            data[i]+noise
+            pixels[i]+noise
           )
         );
 
 
-      data[i+1] =
+      pixels[i+1] =
         Math.max(
           0,
           Math.min(
             255,
-            data[i+1]+noise
+            pixels[i+1]+noise
           )
         );
 
 
-      data[i+2] =
+      pixels[i+2] =
         Math.max(
           0,
           Math.min(
             255,
-            data[i+2]+noise
+            pixels[i+2]+noise
           )
         );
 
@@ -2916,92 +3901,38 @@ async function applyEdits(){
   }
 
 
-  const edited =
+  finalImage =
     canvas.toDataURL(
       "image/png"
     );
 
 
-  document.getElementById(
-    "previewImage"
-  ).src =
-    edited;
-
-  document.getElementById(
-    "resultImage"
-  ).src =
-    edited;
-
-  currentResult =
-    edited;
+  resultImage.src =
+    finalImage;
 
 }
 
 
 /* =====================================================
-   SLIDERS
-   ===================================================== */
-
-[
-  "brightness",
-  "contrast",
-  "saturation",
-  "grain"
-]
-.forEach(
-  id=>{
-
-    const slider =
-      document.getElementById(
-        id
-      );
-
-    const output =
-      document.getElementById(
-        id+"Out"
-      );
-
-
-    slider.addEventListener(
-      "input",
-      ()=>{
-
-        output.textContent =
-          slider.value;
-
-        applyEdits();
-
-      }
-    );
-
-  }
-);
-
-
-/* =====================================================
-   RESET EDIT
-   ===================================================== */
+   RESET EDITS
+===================================================== */
 
 document.getElementById(
-  "resetEdit"
+  "resetEdits"
 ).onclick =
   ()=>{
 
-    [
-      "brightness",
-      "contrast",
-      "saturation",
-      "grain"
-    ]
-    .forEach(
+    editIds.forEach(
       id=>{
 
         document.getElementById(
           id
-        ).value = 0;
+        ).value =
+          0;
+
 
         document.getElementById(
-          id+"Out"
+          id+"Value"
         ).textContent =
           "0";
 
@@ -3009,304 +3940,23 @@ document.getElementById(
     );
 
 
-    document.getElementById(
-      "previewImage"
-    ).src =
-      currentResult;
+    /*
+      Rebuild the original film.
+    */
 
-    document.getElementById(
-      "resultImage"
-    ).src =
-      currentResult;
+    buildFilm();
 
   };
 
 
 /* =====================================================
-   SAVE
-   ===================================================== */
-
-function download(
-  data,
-  filename
-){
-
-  if(!data){
-    return;
-  }
-
-
-  const a =
-    document.createElement(
-      "a"
-    );
-
-  a.href =
-    data;
-
-  a.download =
-    filename;
-
-  document.body.appendChild(
-    a
-  );
-
-  a.click();
-
-  a.remove();
-
-}
-
-
-document.getElementById(
-  "pngBtn"
-).onclick =
-  ()=>{
-    download(
-      currentResult,
-      "usbooth.png"
-    );
-  };
-
-
-/* =====================================================
-   JPG
-   ===================================================== */
-
-document.getElementById(
-  "jpgBtn"
-).onclick =
-  async ()=>{
-
-    if(!currentResult){
-      return;
-    }
-
-
-    const image =
-      await loadImage(
-        currentResult
-      );
-
-
-    const canvas =
-      document.createElement(
-        "canvas"
-      );
-
-
-    canvas.width =
-      image.width;
-
-    canvas.height =
-      image.height;
-
-
-    const ctx =
-      canvas.getContext(
-        "2d"
-      );
-
-
-    ctx.fillStyle =
-      "#ffffff";
-
-    ctx.fillRect(
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
-
-
-    ctx.drawImage(
-      image,
-      0,
-      0
-    );
-
-
-    download(
-      canvas.toDataURL(
-        "image/jpeg",
-        .95
-      ),
-      "usbooth.jpg"
-    );
-
-  };
-
-
-/* =====================================================
-   SHARE
-   ===================================================== */
-
-document.getElementById(
-  "shareBtn"
-).onclick =
-  async ()=>{
-
-    if(
-      !currentResult
-    ){
-      return;
-    }
-
-
-    try{
-
-      const response =
-        await fetch(
-          currentResult
-        );
-
-      const blob =
-        await response.blob();
-
-
-      const file =
-        new File(
-          [blob],
-          "usbooth.png",
-          {
-            type:
-              "image/png"
-          }
-        );
-
-
-      if(
-        navigator.canShare &&
-        navigator.canShare({
-          files:[file]
-        })
-      ){
-
-        await navigator.share({
-
-          files:[file],
-
-          title:
-            "Our UsBooth photo",
-
-          text:
-            "♡ UsBooth"
-
-        });
-
-      }else if(
-        navigator.share
-      ){
-
-        await navigator.share({
-
-          title:
-            "Our UsBooth photo",
-
-          text:
-            "♡ UsBooth"
-
-        });
-
-      }else{
-
-        alert(
-          "Native sharing isn't supported on this browser. Use Save PNG."
-        );
-
-      }
-
-    }catch(error){
-
-      console.log(
-        "Share cancelled:",
-        error
-      );
-
-    }
-
-  };
-
-
-/* =====================================================
-   RETAKE
-   ===================================================== */
-
-document.getElementById(
-  "retakeBtn"
-).onclick =
-  async ()=>{
-
-    resetSession(
-      true
-    );
-
-  };
-
-
-function resetSession(
-  tellOther
-){
-
-  clearInterval(
-    countdownTimer
-  );
-
-
-  photos =
-    [];
-
-  shooting =
-    false;
-
-
-  countdownDisplay.textContent =
-    "";
-
-  progress.textContent =
-    "Ready";
-
-
-  document.getElementById(
-    "editor"
-  ).style.display =
-    "none";
-
-  document.getElementById(
-    "result"
-  ).style.display =
-    "none";
-
-
-  shutter.disabled =
-    false;
-
-
-  if(
-    tellOther &&
-    peer
-  ){
-
-    peer.send({
-      type:"reset"
-    })
-    .catch(
-      console.warn
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   HOME
-   ===================================================== */
+   HOME BUTTONS
+===================================================== */
 
 document.getElementById(
   "createBtn"
 ).onclick =
-  createBooth;
+  createRoom;
 
 
 document.getElementById(
@@ -3314,10 +3964,19 @@ document.getElementById(
 ).onclick =
   ()=>{
 
-    document.getElementById(
-      "joinBox"
-    ).style.display =
+    const join =
+      document.getElementById(
+        "join"
+      );
+
+
+    join.style.display =
       "flex";
+
+
+    document.getElementById(
+      "roomInput"
+    ).focus();
 
   };
 
@@ -3325,7 +3984,7 @@ document.getElementById(
 document.getElementById(
   "joinBtn"
 ).onclick =
-  joinBooth;
+  joinRoom;
 
 
 document.getElementById(
@@ -3339,7 +3998,7 @@ document.getElementById(
       "Enter"
     ){
 
-      joinBooth();
+      joinRoom();
 
     }
 
@@ -3348,10 +4007,25 @@ document.getElementById(
 
 
 /* =====================================================
-   INITIAL
-   ===================================================== */
+   HASH ROOM
+===================================================== */
 
-updateMirror();
+if(
+  location.hash &&
+  location.hash.length > 1
+){
+
+  room =
+    location.hash
+      .slice(1)
+      .toUpperCase();
+
+}
+
+
+/* =====================================================
+   DEBUG
+===================================================== */
 
 console.log(
   "UsBooth loaded."
