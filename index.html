@@ -43,7 +43,7 @@ body{
 }
 
 .app{
-  width:min(1000px,100%);
+  width:min(1100px,100%);
   padding:30px 18px 60px;
 }
 
@@ -197,7 +197,25 @@ button:disabled{
   margin-top:4px;
 }
 
+
+/* ==================================================
+   CAMERAS
+================================================== */
+
+.cameras{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:14px;
+
+}
+
+
 .cameraWrapper{
+
   position:relative;
 
   width:100%;
@@ -206,13 +224,23 @@ button:disabled{
 
   background:#030305;
 
-  border-radius:18px;
+  border-radius:20px;
 
   overflow:hidden;
+
+  border:1px solid #373544;
+
 }
 
-#camera{
+
+.cameraWrapper video{
+
+  position:absolute;
+
+  inset:0;
+
   width:100%;
+
   height:100%;
 
   object-fit:cover;
@@ -220,12 +248,16 @@ button:disabled{
   display:block;
 
   background:#030305;
+
 }
 
+
 .cameraLabel{
+
   position:absolute;
 
   top:12px;
+
   left:12px;
 
   padding:7px 11px;
@@ -237,9 +269,104 @@ button:disabled{
   font-size:11px;
 
   font-weight:900;
+
+  z-index:10;
+
 }
 
+
+.liveLabel{
+
+  position:absolute;
+
+  top:12px;
+
+  right:12px;
+
+  padding:7px 11px;
+
+  background:#ff719f;
+
+  color:#210812;
+
+  border-radius:999px;
+
+  font-size:10px;
+
+  font-weight:900;
+
+  z-index:10;
+
+}
+
+
+.waiting{
+
+  position:absolute;
+
+  inset:0;
+
+  display:grid;
+
+  place-items:center;
+
+  text-align:center;
+
+  color:#777484;
+
+  background:#030305;
+
+  z-index:5;
+
+}
+
+
+.waitingHeart{
+
+  font-size:42px;
+
+  color:#ff9fbd;
+
+  margin-bottom:8px;
+
+}
+
+
+.remoteDebug{
+
+  position:absolute;
+
+  bottom:10px;
+
+  left:10px;
+
+  right:10px;
+
+  z-index:20;
+
+  padding:7px 9px;
+
+  border-radius:9px;
+
+  background:#000b;
+
+  color:#aaa7b4;
+
+  font-size:10px;
+
+  text-align:center;
+
+  pointer-events:none;
+
+}
+
+
+/* ==================================================
+   CAMERA CONTROLS
+================================================== */
+
 .cameraStatus{
+
   text-align:center;
 
   margin-top:12px;
@@ -247,9 +374,12 @@ button:disabled{
   color:#888592;
 
   font-size:13px;
+
 }
 
+
 .controls{
+
   display:flex;
 
   justify-content:center;
@@ -259,9 +389,12 @@ button:disabled{
   flex-wrap:wrap;
 
   margin-top:18px;
+
 }
 
+
 .error{
+
   display:none;
 
   margin-top:15px;
@@ -279,9 +412,12 @@ button:disabled{
   font-size:13px;
 
   word-break:break-word;
+
 }
 
+
 .info{
+
   margin-top:18px;
 
   padding:14px;
@@ -299,9 +435,12 @@ button:disabled{
   line-height:1.5;
 
   text-align:center;
+
 }
 
+
 footer{
+
   text-align:center;
 
   margin-top:40px;
@@ -309,21 +448,35 @@ footer{
   color:#656371;
 
   font-size:11px;
+
 }
 
-@media(max-width:600px){
+
+@media(max-width:700px){
 
   .app{
+
     padding:
       20px
       10px
       40px;
+
   }
 
+
   .card{
+
     padding:10px;
 
     border-radius:20px;
+
+  }
+
+
+  .cameras{
+
+    grid-template-columns:1fr;
+
   }
 
 }
@@ -353,7 +506,8 @@ footer{
   </h1>
 
   <div class="subtitle">
-    Phase 3 · Room connection
+    Two phones. One booth.
+    One little memory to keep.
   </div>
 
 </header>
@@ -362,58 +516,77 @@ footer{
 <section class="card">
 
 
-  <!-- ROOM CONTROLS -->
+<!-- ==================================================
+     ROOM CONTROLS
+================================================== -->
 
-  <div class="roomArea">
+<div class="roomArea">
 
-    <button id="createRoom">
-      Create booth
-    </button>
-
-    <input
-      id="roomInput"
-      maxlength="6"
-      placeholder="ROOM"
-    >
-
-    <button
-      id="joinRoom"
-      class="secondary"
-    >
-      Join booth
-    </button>
-
-  </div>
+  <button
+    id="createRoom"
+  >
+    Create booth
+  </button>
 
 
-  <!-- ROOM -->
-
-  <div
-    id="roomDisplay"
-    class="roomDisplay"
-    style="display:none"
+  <input
+    id="roomInput"
+    maxlength="6"
+    placeholder="ROOM"
   >
 
-    Your room:
 
-    <strong id="roomCode">
-      ------
-    </strong>
-
-  </div>
-
-
-  <!-- CONNECTION -->
-
-  <div
-    id="connectionStatus"
-    class="status"
+  <button
+    id="joinRoom"
+    class="secondary"
   >
-    Not connected
-  </div>
+    Join booth
+  </button>
+
+</div>
 
 
-  <!-- CAMERA -->
+<!-- ==================================================
+     ROOM CODE
+================================================== -->
+
+<div
+  id="roomDisplay"
+  class="roomDisplay"
+  style="display:none"
+>
+
+  Your room:
+
+  <strong id="roomCode">
+    ------
+  </strong>
+
+</div>
+
+
+<!-- ==================================================
+     CONNECTION STATUS
+================================================== -->
+
+<div
+  id="connectionStatus"
+  class="status"
+>
+
+  Not connected
+
+</div>
+
+
+<!-- ==================================================
+     CAMERAS
+================================================== -->
+
+<div class="cameras">
+
+
+  <!-- LOCAL -->
 
   <div class="cameraWrapper">
 
@@ -424,86 +597,161 @@ footer{
       playsinline
     ></video>
 
+
     <div class="cameraLabel">
-      YOU · LIVE
+      YOU
+    </div>
+
+
+    <div class="liveLabel">
+      LIVE
     </div>
 
   </div>
 
 
-  <div
-    id="cameraStatus"
-    class="cameraStatus"
+  <!-- REMOTE -->
+
+  <div class="cameraWrapper">
+
+    <video
+      id="remoteCamera"
+      autoplay
+      playsinline
+      muted
+    ></video>
+
+
+    <div
+      id="remoteWaiting"
+      class="waiting"
+    >
+
+      <div>
+
+        <div class="waitingHeart">
+          ♡
+        </div>
+
+        <div>
+          Waiting for your person…
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="cameraLabel">
+      THEM
+    </div>
+
+
+    <div
+      id="remoteLive"
+      class="liveLabel"
+      style="display:none"
+    >
+      LIVE
+    </div>
+
+
+    <div
+      id="remoteDebug"
+      class="remoteDebug"
+    >
+      Remote camera not connected
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ==================================================
+     CAMERA STATUS
+================================================== -->
+
+<div
+  id="cameraStatus"
+  class="cameraStatus"
+>
+
+  Camera not started
+
+</div>
+
+
+<!-- ==================================================
+     CONTROLS
+================================================== -->
+
+<div class="controls">
+
+  <button
+    id="startCamera"
   >
-    Camera not started
-  </div>
+    Start camera
+  </button>
 
 
-  <!-- CONTROLS -->
-
-  <div class="controls">
-
-    <button
-      id="startCamera"
-    >
-      Start camera
-    </button>
-
-    <button
-      id="flipCamera"
-      class="secondary"
-      disabled
-    >
-      🔄 Flip camera
-    </button>
-
-    <button
-      id="mirrorCamera"
-      class="secondary"
-      disabled
-    >
-      🪞 Mirror
-    </button>
-
-  </div>
+  <button
+    id="flipCamera"
+    class="secondary"
+    disabled
+  >
+    🔄 Flip camera
+  </button>
 
 
-  <div
-    id="error"
-    class="error"
-  ></div>
+  <button
+    id="mirrorCamera"
+    class="secondary"
+    disabled
+  >
+    🪞 Mirror
+  </button>
+
+</div>
 
 
-  <div class="info">
+<!-- ==================================================
+     ERROR
+================================================== -->
 
-    <strong>Phase 3</strong>
+<div
+  id="error"
+  class="error"
+></div>
 
-    <br><br>
 
-    Create a room on one phone.
+<!-- ==================================================
+     INFO
+================================================== -->
 
-    <br>
+<div class="info">
 
-    Enter the same room code on
-    the second phone.
+  <strong>Phase 4 · Remote camera</strong>
 
-    <br><br>
+  <br><br>
 
-    This phase only tests the
-    <strong>Metered connection.</strong>
+  When both phones join the same room,
+  each phone should see the other's
+  live camera.
 
-    <br>
+  <br><br>
 
-    Remote camera comes in Phase 4.
+  Photos are intentionally
+  <strong>not enabled yet.</strong>
 
-  </div>
+</div>
 
 
 </section>
 
 
 <footer>
-  UsBooth · Phase 3
+  UsBooth · Phase 4
 </footer>
 
 
@@ -521,16 +769,12 @@ footer{
 
 
 /* ==================================================
-   METERED KEY
+   METERED
 ================================================== */
 
 const METERED_PUBLISHABLE_KEY =
   "pk_live_782e36762825a38641834f99647209f4c8716774";
 
-
-/* ==================================================
-   METERED SDK
-================================================== */
 
 const {
   MeteredPeer
@@ -547,6 +791,12 @@ let room = "";
 
 let localStream = null;
 
+let remoteStream = null;
+
+let remotePeer = null;
+
+let remoteConnected = false;
+
 let facingMode = "user";
 
 let mirrored = false;
@@ -561,45 +811,78 @@ const camera =
     "camera"
   );
 
+
+const remoteCamera =
+  document.getElementById(
+    "remoteCamera"
+  );
+
+
+const remoteWaiting =
+  document.getElementById(
+    "remoteWaiting"
+  );
+
+
+const remoteLive =
+  document.getElementById(
+    "remoteLive"
+  );
+
+
+const remoteDebug =
+  document.getElementById(
+    "remoteDebug"
+  );
+
+
 const startCameraButton =
   document.getElementById(
     "startCamera"
   );
+
 
 const flipCameraButton =
   document.getElementById(
     "flipCamera"
   );
 
+
 const mirrorCameraButton =
   document.getElementById(
     "mirrorCamera"
   );
+
 
 const cameraStatus =
   document.getElementById(
     "cameraStatus"
   );
 
+
 const errorBox =
   document.getElementById(
     "error"
   );
+
 
 const connectionStatus =
   document.getElementById(
     "connectionStatus"
   );
 
+
 const roomDisplay =
   document.getElementById(
     "roomDisplay"
   );
 
+
 const roomCode =
   document.getElementById(
     "roomCode"
   );
+
 
 const roomInput =
   document.getElementById(
@@ -608,7 +891,7 @@ const roomInput =
 
 
 /* ==================================================
-   STATUS
+   CONNECTION STATUS
 ================================================== */
 
 function setConnectionStatus(
@@ -638,12 +921,15 @@ function showError(
     error
   );
 
+
   errorBox.textContent =
     error?.message ||
     String(error);
 
+
   errorBox.style.display =
     "block";
+
 
   setConnectionStatus(
     "Connection error",
@@ -662,7 +948,9 @@ function generateRoomCode(){
   const characters =
     "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
+
   let result = "";
+
 
   for(
     let i = 0;
@@ -680,13 +968,14 @@ function generateRoomCode(){
 
   }
 
+
   return result;
 
 }
 
 
 /* ==================================================
-   CAMERA
+   LOCAL CAMERA
 ================================================== */
 
 async function startCamera(){
@@ -735,6 +1024,7 @@ async function startCamera(){
         .getUserMedia({
 
           video:{
+
             facingMode,
 
             width:{
@@ -759,8 +1049,10 @@ async function startCamera(){
     camera.muted =
       true;
 
+
     camera.autoplay =
       true;
+
 
     camera.playsInline =
       true;
@@ -775,6 +1067,7 @@ async function startCamera(){
     cameraStatus.textContent =
       "Camera working ✓";
 
+
     cameraStatus.style.color =
       "#8ff0ba";
 
@@ -786,6 +1079,7 @@ async function startCamera(){
     flipCameraButton.disabled =
       false;
 
+
     mirrorCameraButton.disabled =
       false;
 
@@ -793,6 +1087,42 @@ async function startCamera(){
     console.log(
       "LOCAL CAMERA READY ✓"
     );
+
+
+    /*
+      If we're already connected,
+      add the new local stream again.
+    */
+
+    if(
+      peer
+    ){
+
+      try{
+
+        await peer.addStream(
+          localStream,
+          {
+            role:"camera",
+            label:"front cam"
+          }
+        );
+
+
+        console.log(
+          "NEW LOCAL STREAM ADDED ✓"
+        );
+
+      }catch(error){
+
+        console.warn(
+          "Could not update Metered stream:",
+          error
+        );
+
+      }
+
+    }
 
 
     return true;
@@ -804,6 +1134,7 @@ async function startCamera(){
     showError(
       error
     );
+
 
     return false;
 
@@ -833,7 +1164,7 @@ function updateMirror(){
 
 
 /* ==================================================
-   FLIP
+   FLIP CAMERA
 ================================================== */
 
 async function flipCamera(){
@@ -850,7 +1181,348 @@ async function flipCamera(){
 
 
 /* ==================================================
-   METERED SETUP
+   RESET REMOTE
+================================================== */
+
+function resetRemote(){
+
+  remoteConnected =
+    false;
+
+
+  remoteStream =
+    null;
+
+
+  remoteCamera.pause();
+
+
+  remoteCamera.srcObject =
+    null;
+
+
+  remoteWaiting.style.display =
+    "grid";
+
+
+  remoteLive.style.display =
+    "none";
+
+
+  remoteDebug.textContent =
+    "Remote camera not connected";
+
+}
+
+
+/* ==================================================
+   ATTACH REMOTE STREAM
+================================================== */
+
+async function attachRemoteStream(
+  incomingStream
+){
+
+  console.log(
+    "================================"
+  );
+
+
+  console.log(
+    "REMOTE STREAM RECEIVED ✓"
+  );
+
+
+  console.log(
+    "STREAM:",
+    incomingStream
+  );
+
+
+  console.log(
+    "VIDEO TRACKS:",
+    incomingStream
+      ?.getVideoTracks?.()
+  );
+
+
+  console.log(
+    "================================"
+  );
+
+
+  if(!incomingStream){
+
+    console.error(
+      "No remote stream."
+    );
+
+    return;
+
+  }
+
+
+  const videoTracks =
+    incomingStream
+      .getVideoTracks();
+
+
+  if(
+    !videoTracks ||
+    videoTracks.length === 0
+  ){
+
+    console.error(
+      "REMOTE STREAM HAS NO VIDEO TRACK"
+    );
+
+
+    remoteDebug.textContent =
+      "Remote stream has no video";
+
+
+    return;
+
+  }
+
+
+  remoteStream =
+    incomingStream;
+
+
+  /*
+    Attach stream.
+  */
+
+  remoteCamera.srcObject =
+    null;
+
+
+  remoteCamera.srcObject =
+    incomingStream;
+
+
+  remoteCamera.autoplay =
+    true;
+
+
+  remoteCamera.playsInline =
+    true;
+
+
+  remoteCamera.muted =
+    true;
+
+
+  /*
+    Make absolutely sure
+    the video is visible.
+  */
+
+  remoteCamera.style.display =
+    "block";
+
+
+  remoteCamera.style.visibility =
+    "visible";
+
+
+  remoteCamera.style.opacity =
+    "1";
+
+
+  /*
+    Hide waiting screen.
+  */
+
+  remoteWaiting.style.display =
+    "none";
+
+
+  remoteLive.style.display =
+    "block";
+
+
+  remoteDebug.textContent =
+    "Remote stream received";
+
+
+  remoteConnected =
+    true;
+
+
+  const videoTrack =
+    videoTracks[0];
+
+
+  console.log(
+    "REMOTE TRACK:",
+    videoTrack
+  );
+
+
+  console.log(
+    "REMOTE TRACK STATE:",
+    videoTrack.readyState
+  );
+
+
+  console.log(
+    "REMOTE TRACK ENABLED:",
+    videoTrack.enabled
+  );
+
+
+  /*
+    Track events.
+  */
+
+  videoTrack.onended =
+    ()=>{
+
+      console.warn(
+        "REMOTE VIDEO TRACK ENDED"
+      );
+
+
+      remoteDebug.textContent =
+        "Remote video ended";
+
+    };
+
+
+  videoTrack.onmute =
+    ()=>{
+
+      console.warn(
+        "REMOTE VIDEO TRACK MUTED"
+      );
+
+    };
+
+
+  videoTrack.onunmute =
+    ()=>{
+
+      console.log(
+        "REMOTE VIDEO TRACK UNMUTED ✓"
+      );
+
+    };
+
+
+  /*
+    Video metadata.
+  */
+
+  remoteCamera.onloadedmetadata =
+    async ()=>{
+
+      console.log(
+        "REMOTE VIDEO METADATA:",
+        remoteCamera.videoWidth,
+        "x",
+        remoteCamera.videoHeight
+      );
+
+
+      remoteDebug.textContent =
+        `Remote video: ${
+          remoteCamera.videoWidth
+        } × ${
+          remoteCamera.videoHeight
+        }`;
+
+
+      try{
+
+        await remoteCamera.play();
+
+
+        console.log(
+          "REMOTE VIDEO PLAYING ✓"
+        );
+
+
+        setConnectionStatus(
+          "Both cameras connected ✓",
+          "connected"
+        );
+
+
+        remoteDebug.textContent =
+          `LIVE · ${
+            remoteCamera.videoWidth
+          } × ${
+            remoteCamera.videoHeight
+          }`;
+
+      }
+
+      catch(error){
+
+        console.error(
+          "REMOTE VIDEO PLAY ERROR:",
+          error
+        );
+
+
+        remoteDebug.textContent =
+          "Remote video received — play failed";
+
+      }
+
+    };
+
+
+  remoteCamera.onplaying =
+    ()=>{
+
+      console.log(
+        "REMOTE VIDEO ONPLAYING ✓"
+      );
+
+
+      remoteDebug.textContent =
+        "LIVE";
+
+    };
+
+
+  remoteCamera.oncanplay =
+    ()=>{
+
+      console.log(
+        "REMOTE VIDEO CANPLAY ✓"
+      );
+
+    };
+
+
+  /*
+    Try immediately too.
+  */
+
+  try{
+
+    await remoteCamera.play();
+
+  }
+
+  catch(error){
+
+    console.log(
+      "Remote play waiting for metadata:",
+      error
+    );
+
+  }
+
+}
+
+
+/* ==================================================
+   METERED
 ================================================== */
 
 function setupMetered(){
@@ -881,9 +1553,9 @@ function setupMetered(){
     });
 
 
-  /* ----------------------------------------------
-     CONNECTION STATE
-  ---------------------------------------------- */
+  /* =================================================
+     PEER STATE
+  ================================================= */
 
   peer.on(
     "state-change",
@@ -940,15 +1612,18 @@ function setupMetered(){
           "error"
         );
 
+
+        resetRemote();
+
       }
 
     }
   );
 
 
-  /* ----------------------------------------------
+  /* =================================================
      PEER JOINED
-  ---------------------------------------------- */
+  ================================================= */
 
   peer.on(
     "peer-joined",
@@ -960,43 +1635,210 @@ function setupMetered(){
         "================================"
       );
 
+
       console.log(
         "REMOTE PEER JOINED ✓"
       );
+
 
       console.log(
         "REMOTE PEER ID:",
         remote.id
       );
 
+
+      console.log(
+        "REMOTE PEER OBJECT:",
+        remote
+      );
+
+
       console.log(
         "================================"
       );
 
 
+      remotePeer =
+        remote;
+
+
       setConnectionStatus(
-        "Both phones connected ✓",
+        "Other phone connected — starting video…",
         "connected"
+      );
+
+
+      /*
+        STREAM ADDED
+      */
+
+      remote.on(
+        "stream-added",
+        ({
+          stream,
+          metadata
+        })=>{
+
+          console.log(
+            "REMOTE stream-added EVENT ✓"
+          );
+
+
+          console.log(
+            "REMOTE STREAM:",
+            stream
+          );
+
+
+          console.log(
+            "REMOTE METADATA:",
+            metadata
+          );
+
+
+          attachRemoteStream(
+            stream
+          );
+
+        }
+      );
+
+
+      /*
+        TRACK FALLBACK
+      */
+
+      remote.on(
+        "track",
+        ({
+          track,
+          streams,
+          metadata
+        })=>{
+
+          console.log(
+            "REMOTE track EVENT:",
+            track
+          );
+
+
+          console.log(
+            "REMOTE TRACK STREAMS:",
+            streams
+          );
+
+
+          console.log(
+            "REMOTE TRACK METADATA:",
+            metadata
+          );
+
+
+          if(
+            track &&
+            track.kind === "video"
+          ){
+
+            if(
+              streams &&
+              streams.length
+            ){
+
+              attachRemoteStream(
+                streams[0]
+              );
+
+            }
+
+            else{
+
+              /*
+                If Metered gives us a track
+                but no stream, create one.
+              */
+
+              const generatedStream =
+                new MediaStream();
+
+              generatedStream.addTrack(
+                track
+              );
+
+
+              attachRemoteStream(
+                generatedStream
+              );
+
+            }
+
+          }
+
+        }
+      );
+
+
+      /*
+        Remote stream removed.
+      */
+
+      remote.on(
+        "stream-removed",
+        ({
+          stream
+        })=>{
+
+          console.log(
+            "REMOTE STREAM REMOVED:",
+            stream
+          );
+
+        }
+      );
+
+
+      /*
+        Remote state.
+      */
+
+      remote.on(
+        "state-change",
+        ({
+          to
+        })=>{
+
+          console.log(
+            "REMOTE PEER STATE:",
+            to
+          );
+
+        }
       );
 
     }
   );
 
 
-  /* ----------------------------------------------
+  /* =================================================
      PEER LEFT
-  ---------------------------------------------- */
+  ================================================= */
 
   peer.on(
     "peer-left",
     ({
       peer:remote
-    })=>{
+    }={})=>{
 
       console.log(
         "REMOTE PEER LEFT:",
         remote?.id
       );
+
+
+      remotePeer =
+        null;
+
+
+      resetRemote();
 
 
       setConnectionStatus(
@@ -1007,9 +1849,9 @@ function setupMetered(){
   );
 
 
-  /* ----------------------------------------------
-     ERROR
-  ---------------------------------------------- */
+  /* =================================================
+     ERRORS
+  ================================================= */
 
   peer.on(
     "error",
@@ -1022,6 +1864,7 @@ function setupMetered(){
         err
       );
 
+
       showError(
         err
       );
@@ -1033,7 +1876,7 @@ function setupMetered(){
 
 
 /* ==================================================
-   JOIN ROOM
+   CONNECT
 ================================================== */
 
 async function connectToRoom(){
@@ -1045,7 +1888,7 @@ async function connectToRoom(){
 
 
     /*
-      Camera must be ready first.
+      Camera first.
     */
 
     if(!localStream){
@@ -1064,20 +1907,18 @@ async function connectToRoom(){
 
 
     /*
-      Create MeteredPeer.
+      Metered.
     */
 
     setupMetered();
 
 
     /*
-      Add local stream BEFORE join.
-
-      We are intentionally NOT
-      handling remote video yet.
+      Add local stream
+      BEFORE joining.
     */
 
-    peer.addStream(
+    await peer.addStream(
       localStream,
       {
         role:"camera",
@@ -1097,7 +1938,7 @@ async function connectToRoom(){
 
 
     /*
-      Join same channel on both phones.
+      Join.
     */
 
     await peer.join(
@@ -1159,7 +2000,7 @@ async function createRoom(){
 
 
 /* ==================================================
-   JOIN EXISTING ROOM
+   JOIN ROOM
 ================================================== */
 
 async function joinRoom(){
@@ -1209,7 +2050,7 @@ async function joinRoom(){
 
 
 /* ==================================================
-   BUTTON EVENTS
+   BUTTONS
 ================================================== */
 
 document
@@ -1250,10 +2091,12 @@ mirrorCameraButton
   .addEventListener(
     "click",
     ()=>{
+
       mirrored =
         !mirrored;
 
       updateMirror();
+
     }
   );
 
@@ -1277,17 +2120,27 @@ roomInput
 
 
 /* ==================================================
-   DIAGNOSTICS
+   INITIAL
 ================================================== */
 
+resetRemote();
+
+
 console.log(
-  "UsBooth Phase 3 loaded ✓"
+  "================================"
 );
+
+
+console.log(
+  "UsBooth Phase 4 loaded ✓"
+);
+
 
 console.log(
   "MeteredPeer:",
   typeof MeteredPeer
 );
+
 
 console.log(
   "Secure context:",
@@ -1295,8 +2148,13 @@ console.log(
 );
 
 
+console.log(
+  "================================"
+);
+
 </script>
 
 
 </body>
+
 </html>
