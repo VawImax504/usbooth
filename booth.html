@@ -1031,12 +1031,50 @@ body::before{
 .editorHint{color:#686572;font-size:8px;line-height:1.45;margin-top:7px}
 @media(max-width:850px){.editorBody{grid-template-columns:1fr}.editorSide{border-left:0;border-top:1px solid #292835;max-height:40vh}.editorCanvasArea{min-height:42vh}.editorPanel{height:96vh}.editorButtons{grid-template-columns:repeat(3,1fr)}}
 
+
+.boothNav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.backHome{color:#aaa6b2;text-decoration:none;font-size:10px;font-weight:1000}
+.backHome span{color:#ff719f;letter-spacing:1px}
+.boothNavRight{display:flex;gap:6px}
+.navAction,.miniAction{border:1px solid #373542;background:#15141d;color:#c9c5cf;border-radius:999px;padding:8px 11px;font-size:8px;font-weight:1000}
+.connectionHub{margin:10px 0;padding:13px;border:1px solid #302e3a;border-radius:15px;background:#101018}
+.hubMain,.hubRoom,.readyRow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hubLabel{display:block;color:#777481;font-size:7px;letter-spacing:2px;font-weight:1000;margin-bottom:4px}
+.hubMain strong{font-size:12px}
+.hubDot{width:9px;height:9px;border-radius:50%;background:#ffb75c;box-shadow:0 0 12px #ffb75c}
+.hubRoom{margin-top:11px;padding-top:11px;border-top:1px solid #292732}
+.hubRoom small{display:block;color:#66636f;font-size:7px}.hubRoom b{display:block;color:#ff9fbd;letter-spacing:4px;font-size:17px;margin-top:2px}
+.hubActions{display:flex;gap:5px}.readyRow{margin-top:10px;padding-top:10px;border-top:1px solid #292732}
+.readyButton{border:0;border-radius:999px;background:#ff719f;color:#210812;padding:10px 14px;font-size:9px;font-weight:1000}
+#partnerReadyText{color:#777481;font-size:9px}
+.templatePanel{margin:15px 0 0;padding:14px;border:1px solid #292835;border-radius:16px;background:#101018}
+.templateHeader{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.templateHeader b{font-size:12px}
+.templateRow{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.templateCard{min-height:80px;border:1px solid #302e39;border-radius:12px;background:#15141d;color:#aaa6b2;text-align:left;padding:10px;transition:.18s}
+.templateCard span{display:block;font-size:22px;margin-bottom:6px;color:#ff9fbd}
+.templateCard b{display:block;font-size:9px;color:#eee}
+.templateCard small{font-size:7px;color:#696672}
+.templateCard.active{border-color:#ff719f;background:#221722;box-shadow:inset 0 0 0 1px rgba(255,113,159,.2)}
+@media(max-width:700px){
+ .boothNavRight .navAction{padding:8px 9px}
+ .templateRow{grid-template-columns:repeat(2,1fr)}
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="app">
+
+<div class="boothNav">
+  <a href="index.html" class="backHome">← <span>UsBooth</span></a>
+  <div class="boothNavRight">
+    <button id="shareBoothButton" class="navAction" type="button">↗ Share</button>
+    <button id="fullscreenButton" class="navAction" type="button">⛶ Fullscreen</button>
+  </div>
+</div>
 
 <div class="topbar">
   <div class="brandMini"><span class="brandDot"></span>USBOOTH</div>
@@ -1269,6 +1307,20 @@ body::before{
 <!-- =====================================================
      PHOTOBOOTH SETTINGS
 ===================================================== -->
+
+
+<div class="templatePanel">
+  <div class="templateHeader">
+    <div><span class="hubLabel">QUICK STYLES</span><b>Choose a look</b></div>
+    <button id="randomTemplate" class="miniAction" type="button">✦ Surprise me</button>
+  </div>
+  <div class="templateRow">
+    <button class="templateCard active" data-template="classic" type="button"><span>▣</span><b>Classic</b><small>Clean frame</small></button>
+    <button class="templateCard" data-template="polaroid" type="button"><span>▤</span><b>Polaroid</b><small>Instant film</small></button>
+    <button class="templateCard" data-template="strip" type="button"><span>▥</span><b>Film Strip</b><small>Photo booth</small></button>
+    <button class="templateCard" data-template="love" type="button"><span>♡</span><b>Love</b><small>Soft & cute</small></button>
+  </div>
+</div>
 
 <div class="settings">
 
@@ -3451,6 +3503,37 @@ function handleData(
 
 
   /* -------------------------------------------------------
+     PHASE E: READY HANDSHAKE
+  ------------------------------------------------------- */
+
+  if(
+    data.type ===
+    "usbooth-ready"
+  ){
+
+    window.__USBOOTH_REMOTE_READY__ =
+      !!data.ready;
+
+    const readyText =
+      document.getElementById(
+        "partnerReadyText"
+      );
+
+    if(readyText){
+
+      readyText.textContent =
+        data.ready
+          ? "Your person is ready ♡"
+          : "Waiting for your person…";
+
+    }
+
+    return;
+
+  }
+
+
+  /* -------------------------------------------------------
      CAPTURE COMMAND
   ------------------------------------------------------- */
 
@@ -4462,6 +4545,15 @@ function createPeer(){
 
 
   /*
+    Expose the active peer to the Phase-D/E UI.
+    This does NOT replace the existing connection logic.
+  */
+
+  window.peer =
+    peer;
+
+
+  /*
     State
   */
 
@@ -5468,6 +5560,184 @@ console.log(
       setMode(single);
     }
   });
+})();
+</script>
+
+
+<script>
+/* =========================================================
+   PHASE D + E: PRODUCT POLISH / TWO-PHONE EXPERIENCE
+========================================================= */
+(() => {
+  const $ = id => document.getElementById(id);
+  const params = new URLSearchParams(location.search);
+  const isTwo = params.get("mode") !== "single";
+
+  const hub = $("connectionHub");
+  const hubState = $("hubState");
+  const hubDot = $("hubDot");
+  const hubCode = $("hubRoomCode");
+  const readyRow = $("readyRow");
+  const readyButton = $("readyButton");
+  const partnerReadyText = $("partnerReadyText");
+
+  if (hub && isTwo) hub.style.display = "block";
+
+  function setHub(state, kind="wait") {
+    if (!hubState) return;
+    hubState.textContent = state;
+    if (hubDot) {
+      hubDot.style.background =
+        kind === "ok" ? "#79e6aa" :
+        kind === "error" ? "#ff7f9f" : "#ffb75c";
+      hubDot.style.boxShadow =
+        `0 0 12px ${
+          kind === "ok" ? "#79e6aa" :
+          kind === "error" ? "#ff7f9f" : "#ffb75c"
+        }`;
+    }
+  }
+
+  function syncRoomCode() {
+    if (hubCode && $("roomCode")) {
+      hubCode.textContent = $("roomCode").textContent || "------";
+    }
+  }
+
+  const observer = new MutationObserver(syncRoomCode);
+  if ($("roomCode")) observer.observe($("roomCode"), {childList:true,subtree:true,characterData:true});
+  syncRoomCode();
+
+  $("copyRoomButton")?.addEventListener("click", async () => {
+    const code = $("roomCode")?.textContent?.trim();
+    if (!code || code === "------") return;
+    try {
+      await navigator.clipboard.writeText(code);
+      $("copyRoomButton").textContent = "Copied ✓";
+      setTimeout(() => $("copyRoomButton").textContent = "Copy", 1400);
+    } catch {
+      alert("Room code: " + code);
+    }
+  });
+
+  async function shareRoom() {
+    const code = $("roomCode")?.textContent?.trim();
+    if (!code || code === "------") return;
+    const url = location.href;
+    const text = `Join my UsBooth ♡ Room ${code}`;
+    if (navigator.share) {
+      try { await navigator.share({title:"UsBooth ♡", text, url}); } catch {}
+    } else {
+      try {
+        await navigator.clipboard.writeText(url);
+        alert("Booth link copied!");
+      } catch {
+        prompt("Copy this booth link:", url);
+      }
+    }
+  }
+
+  $("shareRoomButton")?.addEventListener("click", shareRoom);
+  $("shareBoothButton")?.addEventListener("click", shareRoom);
+
+  $("fullscreenButton")?.addEventListener("click", async () => {
+    try {
+      if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+      else await document.exitFullscreen();
+    } catch {}
+  });
+
+  // Ready handshake. This uses the existing peer data channel when available.
+  let localReady = false;
+  let remoteReady = false;
+
+  function updateReadyUI() {
+    if (!readyRow || !isTwo) return;
+    readyRow.style.display = "flex";
+    readyButton.textContent = localReady ? "✓ I'm Ready" : "♡ I'm Ready";
+    partnerReadyText.textContent =
+      remoteReady ? "Your person is ready ♡" :
+      "Waiting for your person…";
+    if (localReady && remoteReady) {
+      setHub("Both ready — take the shot!", "ok");
+    }
+  }
+
+  readyButton?.addEventListener("click", async () => {
+    localReady = !localReady;
+    updateReadyUI();
+    try {
+      if (window.peer && typeof window.peer.send === "function") {
+        await window.peer.send({type:"usbooth-ready", ready:localReady});
+      }
+    } catch {}
+  });
+
+  // Expose a safe handler for the existing data path if it is available.
+  const originalHandleData = window.handleData;
+  if (typeof originalHandleData === "function") {
+    window.handleData = function(payload) {
+      let data = payload?.data ?? payload;
+      if (typeof data === "string") {
+        try { data = JSON.parse(data); } catch {}
+      }
+      if (data?.type === "usbooth-ready") {
+        remoteReady = !!data.ready;
+        updateReadyUI();
+      }
+      return originalHandleData(payload);
+    };
+  }
+
+  // Template shortcuts use the existing style/frame selectors.
+  const cards = [...document.querySelectorAll(".templateCard")];
+  const style = $("styleSelect");
+  const frame = $("frameSelect");
+  const caption = $("captionInput");
+
+  const templates = {
+    classic: {style:"together", frame:"cream", caption:"us, somehow ♡"},
+    polaroid: {style:"polaroid", frame:"white", caption:"a little memory ♡"},
+    strip: {style:"strip", frame:"white", caption:"our photo strip ♡"},
+    love: {style:"together", frame:"pink", caption:"together, always ♡"}
+  };
+
+  function applyTemplate(name) {
+    const t = templates[name];
+    if (!t) return;
+    if (style) style.value = t.style;
+    if (frame) frame.value = t.frame;
+    if (caption && !caption.value.trim()) caption.value = t.caption;
+    cards.forEach(c => c.classList.toggle("active", c.dataset.template === name));
+  }
+
+  cards.forEach(card => {
+    card.addEventListener("click", () => applyTemplate(card.dataset.template));
+  });
+
+  $("randomTemplate")?.addEventListener("click", () => {
+    const names = Object.keys(templates);
+    applyTemplate(names[Math.floor(Math.random() * names.length)]);
+  });
+
+  // Connection state refresh without touching the core connection implementation.
+  const refreshState = () => {
+    if (!isTwo) return;
+    const txt = $("status")?.textContent || "";
+    if (/both cameras connected/i.test(txt)) {
+      setHub("Both cameras connected", "ok");
+      if (readyRow) readyRow.style.display = "flex";
+    } else if (/connected|joining|connecting/i.test(txt)) {
+      setHub(txt, "wait");
+      if (readyRow) readyRow.style.display = "flex";
+    } else if (/error|disconnected/i.test(txt)) {
+      setHub(txt, "error");
+    }
+  };
+  if ($("status")) {
+    new MutationObserver(refreshState).observe($("status"), {childList:true,subtree:true,characterData:true});
+    refreshState();
+  }
 })();
 </script>
 
