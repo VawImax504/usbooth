@@ -276,12 +276,15 @@ input{
 }
 
 .waiting{
-  height:100%;
+  position:absolute;
+  inset:0;
   display:grid;
   place-items:center;
   color:#777484;
   text-align:center;
   padding:25px;
+  z-index:2;
+  background:#050509;
 }
 
 .waitingHeart{
@@ -1603,28 +1606,61 @@ function setupPeer(){
   );
 
 
-  peer.on(
-    "peer-joined",
-    ({
-      peer:remote
-    })=>{
+  peer.on("peer-joined", ({ peer: remote }) => {
 
-      console.log(
-        "Remote peer joined",
-        remote
-      );
+  console.log("REMOTE PEER JOINED:", remote.id);
 
+  // Primary remote-stream event
+  remote.on("stream-added", ({ stream, metadata }) => {
 
-remote.on("stream-added", ({ stream, metadata }) => {
+    console.log("REMOTE STREAM ADDED:", stream);
+    console.log("REMOTE STREAM METADATA:", metadata);
 
-  console.log("REMOTE STREAM RECEIVED:", stream);
-  console.log("REMOTE STREAM METADATA:", metadata);
+    attachRemote(stream);
 
-  attachRemote(stream);
+  });
+
+  // Fallback / lower-level WebRTC event
+  remote.on("track", ({ streams, track }) => {
+
+    console.log(
+      "REMOTE TRACK:",
+      track?.kind,
+      streams
+    );
+
+    if (
+      track &&
+      track.kind === "video" &&
+      streams &&
+      streams.length
+    ) {
+
+      attachRemote(streams[0]);
+
+    }
+
+  });
+
+  remote.on("stream-removed", ({ stream }) => {
+
+    console.log(
+      "REMOTE STREAM REMOVED:",
+      stream
+    );
+
+  });
+
+  remote.on("state-change", ({ to }) => {
+
+    console.log(
+      "REMOTE PEER STATE:",
+      to
+    );
+
+  });
 
 });
-
-
   /* ===================================================
      PHOTO TRANSFER
   =================================================== */
@@ -1769,34 +1805,51 @@ remote.on("stream-added", ({ stream, metadata }) => {
 
 function attachRemote(stream){
 
-  console.log("REMOTE STREAM:", stream);
+  console.log("========== REMOTE VIDEO ==========");
+  console.log("Stream:", stream);
 
   if(!stream){
-    console.error("No remote stream received");
+    console.error("NO REMOTE STREAM");
+    return;
+  }
+
+  const tracks = stream.getVideoTracks();
+
+  console.log(
+    "Remote video tracks:",
+    tracks
+  );
+
+  if(!tracks.length){
+
+    console.error(
+      "REMOTE STREAM HAS NO VIDEO TRACK"
+    );
+
     return;
   }
 
   remoteStream = stream;
 
-  // Make absolutely sure the video element is visible
+  remoteVideo.srcObject = null;
+  remoteVideo.srcObject = stream;
+
   remoteVideo.style.display = "block";
   remoteVideo.style.visibility = "visible";
   remoteVideo.style.opacity = "1";
 
-  // Attach stream
-  remoteVideo.srcObject = stream;
-
   partnerWaiting.style.display = "none";
 
-  document.getElementById("remoteLive").style.display = "block";
+  document.getElementById(
+    "remoteLive"
+  ).style.display = "block";
 
   remoteReady = true;
 
-  // Wait until browser knows the video dimensions
   remoteVideo.onloadedmetadata = async () => {
 
     console.log(
-      "REMOTE VIDEO METADATA:",
+      "REMOTE VIDEO SIZE:",
       remoteVideo.videoWidth,
       "x",
       remoteVideo.videoHeight
@@ -1806,7 +1859,9 @@ function attachRemote(stream){
 
       await remoteVideo.play();
 
-      console.log("REMOTE VIDEO PLAYING");
+      console.log(
+        "REMOTE VIDEO PLAYING ✓"
+      );
 
       setStatus(
         "Both cameras connected ✓",
@@ -1823,13 +1878,15 @@ function attachRemote(stream){
         error
       );
 
-      showError(
-        new Error(
-          "Remote camera connected, but browser could not play the video."
-        )
-      );
-
     }
+
+  };
+
+  remoteVideo.onplaying = () => {
+
+    console.log(
+      "REMOTE VIDEO ONPLAYING ✓"
+    );
 
   };
 
