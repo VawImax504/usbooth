@@ -3,28 +3,102 @@ import http from "http";
 import path from "path";
 import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename =
+  fileURLToPath(import.meta.url);
 
-const app = express();
-const server = http.createServer(app);
+const __dirname =
+  path.dirname(__filename);
 
-app.use(express.static(__dirname));
+const app =
+  express();
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
-});
+const server =
+  http.createServer(app);
 
-app.get("/health", (req, res) => {
-  res.json({
-    ok: true,
-    service: "usbooth",
-    version: "1.0.0"
-  });
-});
 
-const PORT = process.env.PORT || 3000;
+/* =====================================================
+   STATIC FILES
+===================================================== */
 
-server.listen(PORT, "0.0.0.0", () => {
-  console.log(`UsBooth running on port ${PORT}`);
-});
+app.use(
+  express.static(
+    __dirname
+  )
+);
+
+
+/* =====================================================
+   MAIN PAGE
+===================================================== */
+
+app.get(
+  "/",
+  (req, res) => {
+
+    res.sendFile(
+      path.join(
+        __dirname,
+        "index.html"
+      )
+    );
+
+  }
+);
+
+
+/* =====================================================
+   HEALTH CHECK
+===================================================== */
+
+app.get(
+  "/health",
+  (req, res) => {
+
+    res.json({
+
+      ok:true,
+
+      service:"usbooth",
+
+      version:"2.0.0",
+
+      timestamp:
+        new Date().toISOString()
+
+    });
+
+  }
+);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+const PORT =
+  process.env.PORT ||
+  3000;
+
+server.listen(
+  PORT,
+  "0.0.0.0",
+  () => {
+
+    console.log(
+      "================================"
+    );
+
+    console.log(
+      "♡ UsBooth server started"
+    );
+
+    console.log(
+      `Port: ${PORT}`
+    );
+
+    console.log(
+      "================================"
+    );
+
+  }
+);
