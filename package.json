@@ -1,7 +1,7 @@
 {
   "name": "usbooth",
-  "version": "2.0.0",
-  "description": "UsBooth - remote two-phone photo booth",
+  "version": "3.0.0",
+  "description": "UsBooth - remote shared photo booth",
   "type": "module",
   "main": "server.js",
   "scripts": {
