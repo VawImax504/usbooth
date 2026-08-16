@@ -1001,6 +1001,34 @@ body::before{
 
 /* PHASE B REVIEW */
 .captureProgress{display:none;margin:12px 0;padding:10px 12px;border:1px solid #292835;border-radius:12px;background:#101018}.captureProgress.visible{display:block}.captureProgressTop{display:flex;justify-content:space-between;font-size:9px;font-weight:900;color:#aaa7b4}.captureProgressBar{height:5px;margin-top:7px;border-radius:99px;background:#252431;overflow:hidden}.captureProgressFill{height:100%;width:0;background:#ff719f;border-radius:99px;transition:width .25s ease}.reviewOverlay{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(3,3,7,.82);backdrop-filter:blur(18px)}.reviewOverlay.open{display:flex}.reviewPanel{width:min(960px,100%);max-height:94vh;overflow:auto;padding:16px;border:1px solid #3a3847;border-radius:24px;background:#111119;box-shadow:0 30px 120px rgba(0,0,0,.7)}.reviewHead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.reviewTitle{font-size:18px;font-weight:1000}.reviewSub{margin-top:3px;color:#777482;font-size:9px}.reviewClose{border:1px solid #3b3948;border-radius:999px;background:#252531;color:#fff;padding:8px 12px}.reviewCanvasWrap{display:grid;place-items:center;min-height:260px;padding:10px;border-radius:18px;background:#07070b}.reviewCanvasWrap img{display:block;max-width:100%;max-height:62vh;object-fit:contain;border-radius:10px}.reviewActions{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:12px}.reviewShots{display:flex;gap:7px;overflow:auto;margin-top:10px}.reviewShot{width:74px;height:74px;flex:0 0 auto;object-fit:cover;border-radius:9px;border:2px solid transparent;cursor:pointer}.reviewShot.active{border-color:#ff719f}.sessionBadge{display:inline-flex;padding:6px 9px;border-radius:999px;background:#241621;color:#ffb1c8;font-size:8px;font-weight:1000}
+
+/* =========================================================
+   PHASE C — EDITOR STUDIO
+========================================================= */
+.editorOverlay{position:fixed;inset:0;z-index:2600;display:none;align-items:center;justify-content:center;padding:14px;background:rgba(2,2,7,.88);backdrop-filter:blur(20px)}
+.editorOverlay.open{display:flex}
+.editorPanel{width:min(1180px,100%);height:min(94vh,900px);overflow:hidden;display:flex;flex-direction:column;border:1px solid #3b3949;border-radius:24px;background:#101018;box-shadow:0 30px 140px rgba(0,0,0,.75)}
+.editorHeader{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;border-bottom:1px solid #292835}
+.editorTitle{font-size:15px;font-weight:1000}.editorSub{color:#777482;font-size:9px;margin-top:3px}
+.editorClose{border:1px solid #3b3948;border-radius:999px;background:#252531;color:#fff;padding:8px 12px}
+.editorBody{display:grid;grid-template-columns:minmax(0,1fr) 320px;min-height:0;flex:1}
+.editorCanvasArea{min-width:0;display:grid;place-items:center;padding:20px;background:#07070b;position:relative;overflow:auto}
+#editorCanvas{display:block;max-width:100%;max-height:100%;object-fit:contain;border-radius:12px;box-shadow:0 15px 55px rgba(0,0,0,.55)}
+.editorSide{overflow:auto;padding:14px;border-left:1px solid #292835;background:#111119}
+.editorSection{padding-bottom:15px;margin-bottom:15px;border-bottom:1px solid #292835}.editorSection:last-child{border-bottom:0}
+.editorSectionTitle{font-size:9px;font-weight:1000;letter-spacing:1px;color:#aaa7b4;margin-bottom:9px}
+.editorButtons{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.editorButtons.two{grid-template-columns:repeat(2,1fr)}
+.editorBtn{border:1px solid #383643;border-radius:9px;padding:9px 7px;background:#191923;color:#fff;font-size:9px;font-weight:900}.editorBtn.active{border-color:#ff719f;background:#2b1722;color:#ffb7cb}
+.editorRange{display:grid;grid-template-columns:75px 1fr 38px;align-items:center;gap:8px;margin:8px 0}.editorRange label{font-size:8px;color:#777482;font-weight:900}.editorRange output{font-size:8px;color:#aaa7b4;text-align:right}
+.editorInput{width:100%;padding:9px;border:1px solid #383643;border-radius:9px;background:#09090f;color:#fff;outline:none;font-size:10px}
+.editorSelect{width:100%;padding:9px;border:1px solid #383643;border-radius:9px;background:#09090f;color:#fff;outline:none;font-size:10px}
+.editorFooter{display:flex;justify-content:flex-end;gap:7px;padding:12px 16px;border-top:1px solid #292835}
+.editorPrimary{border:0;border-radius:999px;padding:10px 17px;background:#ff719f;color:#210812;font-size:10px;font-weight:1000}.editorSecondary{border:1px solid #3b3948;border-radius:999px;padding:10px 15px;background:#252531;color:#fff;font-size:10px;font-weight:900}
+.editorStickerGrid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}.stickerBtn{border:1px solid #383643;border-radius:8px;background:#191923;padding:8px 2px;font-size:17px}.stickerBtn.active{border-color:#ff719f;background:#2b1722}
+.editorPosition{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:8px}.posBtn{border:1px solid #383643;background:#191923;color:#aaa7b4;border-radius:7px;padding:6px;font-size:9px}.posBtn.active{border-color:#ff719f;color:#ff9fbd}
+.editorHint{color:#686572;font-size:8px;line-height:1.45;margin-top:7px}
+@media(max-width:850px){.editorBody{grid-template-columns:1fr}.editorSide{border-left:0;border-top:1px solid #292835;max-height:40vh}.editorCanvasArea{min-height:42vh}.editorPanel{height:96vh}.editorButtons{grid-template-columns:repeat(3,1fr)}}
+
 </style>
 </head>
 
@@ -1560,7 +1588,80 @@ body::before{
 
 
 <!-- PHASE B REVIEW -->
-<div id="reviewOverlay" class="reviewOverlay" aria-hidden="true"><div class="reviewPanel"><div class="reviewHead"><div><div class="sessionBadge">♡ MEMORY READY</div><div class="reviewTitle">Your photo is ready</div><div id="reviewSub" class="reviewSub">Check it before saving.</div></div><button id="reviewClose" class="reviewClose" type="button">× Close</button></div><div class="reviewCanvasWrap"><img id="reviewImage" alt="UsBooth preview"></div><div id="reviewShots" class="reviewShots"></div><div class="reviewActions"><button id="reviewRetake" class="btn secondary" type="button">↻ Retake</button><button id="reviewDownload" class="btn" type="button">↓ Download</button><button id="reviewKeep" class="btn" type="button">♡ Save to Memories</button></div></div></div>
+<div id="reviewOverlay" class="reviewOverlay" aria-hidden="true"><div class="reviewPanel"><div class="reviewHead"><div><div class="sessionBadge">♡ MEMORY READY</div><div class="reviewTitle">Your photo is ready</div><div id="reviewSub" class="reviewSub">Check it before saving.</div></div><button id="reviewClose" class="reviewClose" type="button">× Close</button></div><div class="reviewCanvasWrap"><img id="reviewImage" alt="UsBooth preview"></div><div id="reviewShots" class="reviewShots"></div><div class="reviewActions"><button id="reviewRetake" class="btn secondary" type="button">↻ Retake</button><button id="reviewEdit" class="btn secondary" type="button">✨ Edit</button><button id="reviewDownload" class="btn" type="button">↓ Download</button><button id="reviewKeep" class="btn" type="button">♡ Save to Memories</button></div></div></div>
+
+
+<!-- =====================================================
+     PHASE C EDITOR
+===================================================== -->
+<div id="editorOverlay" class="editorOverlay" aria-hidden="true">
+  <div class="editorPanel">
+    <div class="editorHeader">
+      <div><div class="editorTitle">✨ Edit your memory</div><div class="editorSub">Crop, tune, style and personalize before saving.</div></div>
+      <button id="editorClose" class="editorClose" type="button">✕ Close</button>
+    </div>
+    <div class="editorBody">
+      <div class="editorCanvasArea"><canvas id="editorCanvas"></canvas></div>
+      <aside class="editorSide">
+        <div class="editorSection">
+          <div class="editorSectionTitle">TRANSFORM</div>
+          <div class="editorButtons">
+            <button class="editorBtn" id="editorRotateLeft" type="button">↶ Rotate</button>
+            <button class="editorBtn" id="editorRotateRight" type="button">↷ Rotate</button>
+            <button class="editorBtn" id="editorFlip" type="button">↔ Flip</button>
+          </div>
+          <select id="editorCrop" class="editorSelect" style="margin-top:7px">
+            <option value="original">Original crop</option><option value="square">1 : 1</option><option value="portrait">4 : 5</option><option value="classic">4 : 3</option><option value="story">9 : 16</option>
+          </select>
+        </div>
+        <div class="editorSection">
+          <div class="editorSectionTitle">LOOKS</div>
+          <div class="editorButtons">
+            <button class="editorBtn active" data-edit-filter="none" type="button">Original</button>
+            <button class="editorBtn" data-edit-filter="bw" type="button">B&W</button>
+            <button class="editorBtn" data-edit-filter="vintage" type="button">Vintage</button>
+            <button class="editorBtn" data-edit-filter="warm" type="button">Warm</button>
+            <button class="editorBtn" data-edit-filter="cool" type="button">Cool</button>
+            <button class="editorBtn" data-edit-filter="dreamy" type="button">Dreamy</button>
+          </div>
+        </div>
+        <div class="editorSection">
+          <div class="editorSectionTitle">ADJUST</div>
+          <div class="editorRange"><label>Brightness</label><input id="editBrightness" type="range" min="70" max="130" value="100"><output id="editBrightnessOut">100</output></div>
+          <div class="editorRange"><label>Contrast</label><input id="editContrast" type="range" min="70" max="140" value="100"><output id="editContrastOut">100</output></div>
+          <div class="editorRange"><label>Saturation</label><input id="editSaturation" type="range" min="0" max="180" value="100"><output id="editSaturationOut">100</output></div>
+          <div class="editorRange"><label>Warmth</label><input id="editWarmth" type="range" min="-40" max="40" value="0"><output id="editWarmthOut">0</output></div>
+          <div class="editorRange"><label>Vignette</label><input id="editVignette" type="range" min="0" max="80" value="0"><output id="editVignetteOut">0</output></div>
+          <button id="editReset" class="editorBtn" style="width:100%;margin-top:5px" type="button">↺ Reset adjustments</button>
+        </div>
+        <div class="editorSection">
+          <div class="editorSectionTitle">FRAME & BORDER</div>
+          <select id="editFrame" class="editorSelect"><option value="none">No extra frame</option><option value="cream">Cream</option><option value="white">White</option><option value="pink">Pink</option><option value="black">Black</option></select>
+        </div>
+        <div class="editorSection">
+          <div class="editorSectionTitle">TEXT</div>
+          <input id="editText" class="editorInput" maxlength="45" placeholder="Write something ♡">
+          <select id="editTextPosition" class="editorSelect" style="margin-top:7px"><option value="bottom">Bottom</option><option value="top">Top</option><option value="center">Center</option></select>
+          <div class="editorRange"><label>Size</label><input id="editTextSize" type="range" min="16" max="72" value="34"><output id="editTextSizeOut">34</output></div>
+        </div>
+        <div class="editorSection">
+          <div class="editorSectionTitle">STICKERS</div>
+          <div id="editorStickerGrid" class="editorStickerGrid"></div>
+          <div class="editorPosition">
+            <button class="posBtn active" data-sticker-pos="tl" type="button">↖</button><button class="posBtn" data-sticker-pos="tc" type="button">↑</button><button class="posBtn" data-sticker-pos="tr" type="button">↗</button>
+            <button class="posBtn" data-sticker-pos="ml" type="button">←</button><button class="posBtn" data-sticker-pos="mc" type="button">•</button><button class="posBtn" data-sticker-pos="mr" type="button">→</button>
+            <button class="posBtn" data-sticker-pos="bl" type="button">↙</button><button class="posBtn" data-sticker-pos="bc" type="button">↓</button><button class="posBtn" data-sticker-pos="br" type="button">↘</button>
+          </div>
+          <div class="editorHint">Choose a sticker, then choose where it should sit. Use “None” to remove it.</div>
+        </div>
+      </aside>
+    </div>
+    <div class="editorFooter">
+      <button id="editorCancel" class="editorSecondary" type="button">Cancel</button>
+      <button id="editorApply" class="editorPrimary" type="button">✓ Apply Changes</button>
+    </div>
+  </div>
+</div>
 
 <!-- COUNTDOWN -->
 
@@ -4895,6 +4996,50 @@ console.log(
 
 </script>
 
+
+
+<script>
+/* =========================================================
+   USBOOTH PHASE C — EDITOR STUDIO
+========================================================= */
+(() => {
+  const $ = id => document.getElementById(id);
+  const overlay=$('editorOverlay'), canvas=$('editorCanvas'), ctx=canvas.getContext('2d');
+  const reviewEdit=$('reviewEdit');
+  let sourceImage=null, originalImage=null, appliedPhoto=null;
+  const state={rotate:0,flip:false,crop:'original',filter:'none',brightness:100,contrast:100,saturation:100,warmth:0,vignette:0,frame:'none',text:'',textPosition:'bottom',textSize:34,sticker:'',stickerPos:'br'};
+  const stickers=['None','❤️','💕','✨','⭐','🌸','🎀','🦋','🌙','☁️','🥰','🎉','🎂','💌','♡','✦','☀️'];
+  const stickerGrid=$('editorStickerGrid');
+  stickers.forEach((x,i)=>{const b=document.createElement('button');b.type='button';b.className='stickerBtn'+(i===0?' active':'');b.textContent=x;b.dataset.sticker=x==='None'?'':x;b.onclick=()=>{state.sticker=b.dataset.sticker;[...stickerGrid.children].forEach(n=>n.classList.remove('active'));b.classList.add('active');renderEditor()};stickerGrid.appendChild(b)});
+  const bindRange=(id,key,out)=>{$(id).addEventListener('input',e=>{state[key]=Number(e.target.value);$(out).textContent=e.target.value;renderEditor()})};
+  bindRange('editBrightness','brightness','editBrightnessOut');bindRange('editContrast','contrast','editContrastOut');bindRange('editSaturation','saturation','editSaturationOut');bindRange('editWarmth','warmth','editWarmthOut');bindRange('editVignette','vignette','editVignetteOut');bindRange('editTextSize','textSize','editTextSizeOut');
+  function resetState(){Object.assign(state,{rotate:0,flip:false,crop:'original',filter:'none',brightness:100,contrast:100,saturation:100,warmth:0,vignette:0,frame:'none',text:'',textPosition:'bottom',textSize:34,sticker:'',stickerPos:'br'});$('editorBrightness').value=100;$('editContrast').value=100;$('editSaturation').value=100;$('editWarmth').value=0;$('editVignette').value=0;$('editTextSize').value=34;$('editBrightnessOut').textContent='100';$('editContrastOut').textContent='100';$('editSaturationOut').textContent='100';$('editWarmthOut').textContent='0';$('editVignetteOut').textContent='0';$('editTextSizeOut').textContent='34';$('editText').value='';$('editCrop').value='original';$('editFrame').value='none';$('editTextPosition').value='bottom';document.querySelectorAll('[data-edit-filter]').forEach((b,i)=>b.classList.toggle('active',i===0));document.querySelectorAll('[data-sticker-pos]').forEach((b,i)=>b.classList.toggle('active',i===8));document.querySelectorAll('.stickerBtn').forEach((b,i)=>b.classList.toggle('active',i===0));}
+  function openEditor(src){if(!src)return;sourceImage=src;originalImage=src;resetState();overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');loadEditorImage(src).then(renderEditor)}
+  function closeEditor(){overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');sourceImage=null;}
+  function loadEditorImage(src){return new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>{originalImage=im;resolve(im)};im.onerror=reject;im.src=src})}
+  function filterCSS(){switch(state.filter){case'bw':return'grayscale(1)';case'vintage':return'sepia(.35) saturate(1.15) contrast(1.05)';case'warm':return'sepia(.18) saturate(1.2) brightness(1.03)';case'cool':return'saturate(.95) hue-rotate(10deg) contrast(1.04)';case'dreamy':return'brightness(1.08) saturate(.85) contrast(.92)';default:return'none'}}
+  function cropRect(w,h){let target=state.crop==='square'?1:state.crop==='portrait'?.8:state.crop==='classic'?4/3:state.crop==='story'?9/16:null;if(!target)return[0,0,w,h];let r=w/h;if(r>target){const nw=h*target;return[(w-nw)/2,0,nw,h]}const nh=w/target;return[0,(h-nh)/2,w,nh]}
+  function frameColor(){return state.frame==='cream'?'#f4ecdf':state.frame==='pink'?'#ffdce8':state.frame==='black'?'#111111':state.frame==='white'?'#ffffff':'transparent'}
+  function drawEditor(){if(!originalImage)return;const im=originalImage;const rotated=state.rotate%180!==0;const baseW=im.width,baseH=im.height;const cw=rotated?baseH:baseW,ch=rotated?baseW:baseH;const [sx,sy,sw,sh]=cropRect(cw,ch);const max=1100,scale=Math.min(1,max/Math.max(sw,sh));canvas.width=Math.max(1,Math.round(sw*scale));canvas.height=Math.max(1,Math.round(sh*scale));ctx.save();ctx.clearRect(0,0,canvas.width,canvas.height);ctx.translate(canvas.width/2,canvas.height/2);ctx.rotate(state.rotate*Math.PI/180);ctx.scale(state.flip?-1:1,1);const fscale=canvas.width/sw;ctx.filter=`${filterCSS()} brightness(${state.brightness/100}) contrast(${state.contrast/100}) saturate(${state.saturation/100})`;let dw=sw*fscale,dh=sh*fscale;ctx.drawImage(im,-dw/2,-dh/2,dw,dh);ctx.filter='none';ctx.restore();
+    // Warmth overlay
+    if(state.warmth!==0){ctx.save();ctx.globalAlpha=Math.abs(state.warmth)/100;ctx.fillStyle=state.warmth>0?'#ff9b5e':'#6fa8ff';ctx.globalCompositeOperation='soft-light';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.restore()}
+    if(state.vignette>0){const g=ctx.createRadialGradient(canvas.width/2,canvas.height/2,Math.min(canvas.width,canvas.height)*.2,canvas.width/2,canvas.height/2,Math.max(canvas.width,canvas.height)*.72);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,`rgba(0,0,0,${state.vignette/100})`);ctx.fillStyle=g;ctx.fillRect(0,0,canvas.width,canvas.height)}
+    const pad=Math.max(18,canvas.width*.035);if(state.frame!=='none'){ctx.strokeStyle=frameColor();ctx.lineWidth=pad*2;ctx.strokeRect(pad,pad,canvas.width-pad*2,canvas.height-pad*2)}
+    if(state.text){ctx.save();ctx.fillStyle=state.frame==='black'?'#fff':'#fff';ctx.shadowColor='rgba(0,0,0,.55)';ctx.shadowBlur=8;ctx.font=`700 ${state.textSize*scale}px system-ui`;ctx.textAlign='center';ctx.textBaseline='middle';let y=state.textPosition==='top'?pad+state.textSize:state.textPosition==='center'?canvas.height/2:canvas.height-pad-state.textSize;ctx.fillText(state.text,canvas.width/2,y);ctx.restore()}
+    if(state.sticker){ctx.save();ctx.font=`${Math.max(28,canvas.width*.07)}px sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';const m=canvas.width*.1;const xs={tl:m,tc:canvas.width/2,tr:canvas.width-m,ml:m,mc:canvas.width/2,mr:canvas.width-m,bl:m,bc:canvas.width/2,br:canvas.width-m};const ys={tl:m,tc:m,tr:m,ml:canvas.height/2,mc:canvas.height/2,mr:canvas.height/2,bl:canvas.height-m,bc:canvas.height-m,br:canvas.height-m};ctx.shadowColor='rgba(0,0,0,.35)';ctx.shadowBlur=8;ctx.fillText(state.sticker,xs[state.stickerPos],ys[state.stickerPos]);ctx.restore()}
+  }
+  function renderEditor(){drawEditor()}
+  $('editCrop').addEventListener('change',e=>{state.crop=e.target.value;renderEditor()});$('editFrame').addEventListener('change',e=>{state.frame=e.target.value;renderEditor()});$('editText').addEventListener('input',e=>{state.text=e.target.value;renderEditor()});$('editTextPosition').addEventListener('change',e=>{state.textPosition=e.target.value;renderEditor()});
+  $('editorRotateLeft').onclick=()=>{state.rotate=(state.rotate-90)%360;renderEditor()};$('editorRotateRight').onclick=()=>{state.rotate=(state.rotate+90)%360;renderEditor()};$('editorFlip').onclick=()=>{state.flip=!state.flip;renderEditor()};
+  $('editReset').onclick=()=>{const keepText=state.text;resetState();state.text=keepText;$('editText').value=keepText;renderEditor()};
+  document.querySelectorAll('[data-edit-filter]').forEach(b=>b.onclick=()=>{state.filter=b.dataset.editFilter;document.querySelectorAll('[data-edit-filter]').forEach(x=>x.classList.toggle('active',x===b));renderEditor()});
+  document.querySelectorAll('[data-sticker-pos]').forEach(b=>b.onclick=()=>{state.stickerPos=b.dataset.stickerPos;document.querySelectorAll('[data-sticker-pos]').forEach(x=>x.classList.toggle('active',x===b));renderEditor()});
+  reviewEdit?.addEventListener('click',()=>openEditor(typeof reviewPhoto!=='undefined'?reviewPhoto:null));
+  $('editorClose').onclick=closeEditor;$('editorCancel').onclick=closeEditor;overlay.addEventListener('click',e=>{if(e.target===overlay)closeEditor()});
+  $('editorApply').onclick=()=>{if(!canvas.width)return;const edited=canvas.toDataURL('image/jpeg',.95);if(typeof reviewPhoto!=='undefined'){reviewPhoto=edited;reviewImage.src=edited;reviewSub.textContent='Edited memory · ready to save'}closeEditor();setStatus('Edits applied ✓','ok')};
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))closeEditor()});
+})();
+</script>
 
 <script>
 /* =========================================================
