@@ -3523,9 +3523,207 @@ async function sendImage(
    RECEIVE IMAGE
 ========================================================= */
 
-function receiveMessage(
-  payload
-){
+function receiveMessage(payload) {
+
+  console.log("RAW METERED DATA:", payload);
+
+  // Metered's current JS event shape is:
+  // { senderPeerId, data }
+  let message =
+    payload &&
+    typeof payload === "object" &&
+    "data" in payload
+      ? payload.data
+      : payload;
+
+  // Extra protection in case data arrives as JSON text.
+  if (typeof message === "string") {
+    try {
+      message = JSON.parse(message);
+    } catch (error) {
+      console.warn(
+        "Received non-JSON Metered data:",
+        message
+      );
+      return;
+    }
+  }
+
+  if (
+    !message ||
+    typeof message !== "object"
+  ) {
+    return;
+  }
+
+  console.log(
+    "PARSED METERED MESSAGE:",
+    message
+  );
+
+
+  /* =========================================
+     REMOTE CAPTURE REQUEST
+  ========================================= */
+
+  if (
+    message.type ===
+    "capture-session"
+  ) {
+
+    handleRemoteCapture(
+      message
+    );
+
+    return;
+  }
+
+
+  /* =========================================
+     IMAGE START
+  ========================================= */
+
+  if (
+    message.type ===
+    "image-start"
+  ) {
+
+    console.log(
+      "IMAGE START:",
+      message.transferId,
+      message.total
+    );
+
+    transfers.set(
+      message.transferId,
+      {
+        captureId:
+          message.captureId,
+
+        shotIndex:
+          message.shotIndex,
+
+        total:
+          message.total,
+
+        chunks:
+          new Array(
+            message.total
+          )
+      }
+    );
+
+    return;
+  }
+
+
+  /* =========================================
+     IMAGE CHUNK
+  ========================================= */
+
+  if (
+    message.type ===
+    "image-chunk"
+  ) {
+
+    const transfer =
+      transfers.get(
+        message.transferId
+      );
+
+    if (!transfer) {
+      console.warn(
+        "Unknown image transfer:",
+        message.transferId
+      );
+      return;
+    }
+
+    transfer.chunks[
+      message.index
+    ] =
+      message.chunk;
+
+    return;
+  }
+
+
+  /* =========================================
+     IMAGE END
+  ========================================= */
+
+  if (
+    message.type ===
+    "image-end"
+  ) {
+
+    const transfer =
+      transfers.get(
+        message.transferId
+      );
+
+    if (!transfer) {
+      console.warn(
+        "IMAGE END WITHOUT TRANSFER:",
+        message.transferId
+      );
+      return;
+    }
+
+
+    const complete =
+      transfer.chunks.every(
+        chunk =>
+          typeof chunk ===
+          "string"
+      );
+
+
+    if (!complete) {
+
+      console.warn(
+        "IMAGE TRANSFER INCOMPLETE:",
+        message.transferId
+      );
+
+      transfers.delete(
+        message.transferId
+      );
+
+      return;
+    }
+
+
+    const dataUrl =
+      transfer.chunks.join(
+        ""
+      );
+
+
+    console.log(
+      "IMAGE RECEIVED ✓",
+      "shot:",
+      transfer.shotIndex,
+      "size:",
+      dataUrl.length
+    );
+
+
+    transfers.delete(
+      message.transferId
+    );
+
+
+    handleRemoteImage(
+      transfer.captureId,
+      transfer.shotIndex,
+      dataUrl
+    );
+
+    return;
+  }
+
+}
 
   const message =
     payload &&
@@ -4409,22 +4607,27 @@ function setupMetered(){
      DATA
   ------------------------------------------------------- */
 
-  peer.on(
-    "data",
-    payload => {
+peer.on(
+  "data",
+  ({ senderPeerId, data }) => {
 
-      console.log(
-        "METERED DATA:",
-        payload
-      );
+    console.log(
+      "METERED DATA RECEIVED FROM:",
+      senderPeerId
+    );
 
+    console.log(
+      "METERED DATA CONTENT:",
+      data
+    );
 
-      receiveMessage(
-        payload
-      );
+    receiveMessage({
+      senderPeerId,
+      data
+    });
 
-    }
-  );
+  }
+);
 
 
   /* -------------------------------------------------------
