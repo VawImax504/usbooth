@@ -12,22 +12,16 @@ const server = http.createServer(app);
 
 
 /* =====================================================
-   USBOOTH — TEMPORARY MEMORY STORAGE
-   Photos are automatically deleted after 10 minutes.
-   
-   IMPORTANT:
-   - Photos are stored only in server memory.
-   - A server restart clears all temporary memories.
-   - Nothing is permanently stored.
+   USBOOTH — TEMPORARY CLOUD MEMORIES
+   Memories automatically expire after 10 minutes.
 ===================================================== */
 
 const ephemeralMemories = new Map();
 
-const MEMORY_TTL_MS =
-  10 * 60 * 1000; // 10 minutes
+const MEMORY_TTL_MS = 10 * 60 * 1000;
 
-const MAX_IMAGE_CHARS =
-  8 * 1024 * 1024; // ~8 MB
+// Maximum request/image size
+const MAX_IMAGE_CHARS = 8 * 1024 * 1024;
 
 
 /* =====================================================
@@ -36,25 +30,21 @@ const MAX_IMAGE_CHARS =
 
 function cleanupExpiredMemories() {
 
-  const now =
-    Date.now();
+  const now = Date.now();
 
   for (
-    const [id, item]
+    const [id, memory]
     of ephemeralMemories
   ) {
 
     if (
-      item.expiresAt <=
-      now
+      memory.expiresAt <= now
     ) {
 
-      ephemeralMemories.delete(
-        id
-      );
+      ephemeralMemories.delete(id);
 
       console.log(
-        `Temporary memory expired: ${id}`
+        `♡ Memory expired: ${id}`
       );
 
     }
@@ -65,8 +55,7 @@ function cleanupExpiredMemories() {
 
 
 /*
-   Check for expired memories
-   every minute.
+   Check every minute.
 */
 
 setInterval(
@@ -79,11 +68,6 @@ setInterval(
    MIDDLEWARE
 ===================================================== */
 
-/*
-   JSON is required for the temporary
-   memory upload endpoint.
-*/
-
 app.use(
   express.json({
     limit: "10mb"
@@ -92,8 +76,8 @@ app.use(
 
 
 /*
-   Serve everything inside the
-   UsBooth project directory.
+   Serve index.html, booth.html,
+   CSS, JS, images, etc.
 */
 
 app.use(
@@ -104,7 +88,7 @@ app.use(
 
 
 /* =====================================================
-   TEMPORARY MEMORY — CREATE
+   CREATE TEMPORARY MEMORY
 ===================================================== */
 
 app.post(
@@ -129,13 +113,28 @@ app.post(
 
 
     /*
-       Only accept image data URLs.
+       Validate image.
     */
 
     if (
-      typeof image !==
-        "string" ||
+      typeof image !== "string"
+    ) {
 
+      return res
+        .status(400)
+        .json({
+          error:
+            "No image received."
+        });
+
+    }
+
+
+    /*
+       Only allow image data URLs.
+    */
+
+    if (
       !/^data:image\/(?:png|jpeg|jpg|webp);base64,/i.test(
         image
       )
@@ -145,14 +144,14 @@ app.post(
         .status(400)
         .json({
           error:
-            "Invalid image."
+            "Invalid image format."
         });
 
     }
 
 
     /*
-       Prevent extremely large uploads.
+       Prevent oversized uploads.
     */
 
     if (
@@ -171,27 +170,30 @@ app.post(
 
 
     /*
-       Generate a random,
-       hard-to-guess memory ID.
+       Generate secure random ID.
     */
 
     const id =
-      crypto.randomBytes(
-        18
-      ).toString(
-        "hex"
-      );
+      crypto
+        .randomBytes(18)
+        .toString("hex");
 
 
     /*
-       Memory automatically
-       expires after 10 minutes.
+       Expiration time:
+       exactly 10 minutes
+       from creation.
     */
 
     const expiresAt =
       Date.now() +
       MEMORY_TTL_MS;
 
+
+    /*
+       Store temporarily
+       in server memory.
+    */
 
     ephemeralMemories.set(
       id,
@@ -204,13 +206,12 @@ app.post(
 
 
     console.log(
-      `Temporary memory created: ${id}`
+      `♡ Temporary memory created: ${id}`
     );
 
 
     /*
-       Return the temporary
-       shareable URL.
+       Return shareable URL.
     */
 
     res.json({
@@ -231,7 +232,7 @@ app.post(
 
 
 /* =====================================================
-   TEMPORARY MEMORY — VIEW
+   VIEW TEMPORARY MEMORY
 ===================================================== */
 
 app.get(
@@ -241,7 +242,7 @@ app.get(
     cleanupExpiredMemories();
 
 
-    const item =
+    const memory =
       ephemeralMemories.get(
         req.params.id
       );
@@ -252,13 +253,13 @@ app.get(
        or has expired.
     */
 
-    if (!item) {
+    if (!memory) {
 
       return res
         .status(404)
         .send(`
 
-<!doctype html>
+<!DOCTYPE html>
 
 <html>
 
@@ -270,32 +271,30 @@ app.get(
 >
 
 <title>
-UsBooth Memory Expired
+UsBooth Memory Expired ♡
 </title>
 
 <style>
 
-*{
-  box-sizing:border-box;
+* {
+  box-sizing: border-box;
 }
 
-body{
+body {
 
-  margin:0;
+  margin: 0;
 
-  min-height:100vh;
+  min-height: 100vh;
 
-  display:flex;
+  display: flex;
 
-  align-items:center;
+  align-items: center;
 
-  justify-content:center;
+  justify-content: center;
 
-  text-align:center;
+  padding: 25px;
 
-  padding:30px;
-
-  color:white;
+  text-align: center;
 
   font-family:
     system-ui,
@@ -304,71 +303,98 @@ body{
     "Segoe UI",
     sans-serif;
 
+  color: white;
+
   background:
 
     radial-gradient(
-      circle at 20% 10%,
-      rgba(255,91,143,.22),
+      circle at 15% 5%,
+      rgba(255,91,143,.25),
       transparent 30%
     ),
 
     radial-gradient(
-      circle at 80% 80%,
-      rgba(142,93,255,.18),
+      circle at 85% 80%,
+      rgba(145,90,255,.20),
       transparent 30%
     ),
 
-    #0b080d;
+    #09070d;
 
 }
 
-.card{
+.card {
 
-  max-width:500px;
+  width: 100%;
 
-  padding:45px 30px;
+  max-width: 500px;
+
+  padding: 50px 30px;
 
   border:
-
     1px solid
-    rgba(255,255,255,.1);
+    rgba(255,255,255,.10);
 
-  border-radius:28px;
+  border-radius: 28px;
 
   background:
-    rgba(20,15,22,.85);
+    rgba(20,15,22,.90);
 
   box-shadow:
     0 30px 100px
-    rgba(0,0,0,.5);
+    rgba(0,0,0,.55);
 
 }
 
-.icon{
+.heart {
 
-  font-size:55px;
+  font-size: 60px;
 
-  margin-bottom:15px;
-
-}
-
-h1{
-
-  margin:0 0 12px;
-
-  font-size:28px;
+  margin-bottom: 15px;
 
 }
 
-p{
+h1 {
 
-  margin:0;
+  margin:
+    0 0 12px;
 
-  color:#aaa6b2;
+  font-size: 28px;
 
-  line-height:1.7;
+}
 
-  font-size:14px;
+p {
+
+  margin: 0;
+
+  color: #aaa6b2;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+
+}
+
+a {
+
+  display: inline-block;
+
+  margin-top: 25px;
+
+  padding:
+    12px 18px;
+
+  border-radius: 999px;
+
+  background: #ff719f;
+
+  color: #210812;
+
+  text-decoration: none;
+
+  font-size: 11px;
+
+  font-weight: 900;
 
 }
 
@@ -380,7 +406,7 @@ p{
 
 <div class="card">
 
-<div class="icon">
+<div class="heart">
 ♡
 </div>
 
@@ -394,6 +420,10 @@ automatically deleted after
 10 minutes.
 </p>
 
+<a href="/">
+Create another memory
+</a>
+
 </div>
 
 </body>
@@ -406,12 +436,11 @@ automatically deleted after
 
 
     /*
-       Extract image MIME type
-       and base64 data.
+       Extract MIME type + base64.
     */
 
     const match =
-      item.image.match(
+      memory.image.match(
         /^data:(image\/(?:png|jpeg|jpg|webp));base64,(.+)$/i
       );
 
@@ -446,6 +475,11 @@ automatically deleted after
     }
 
 
+    /*
+       Convert base64
+       into actual image bytes.
+    */
+
     const buffer =
       Buffer.from(
         match[2],
@@ -454,8 +488,7 @@ automatically deleted after
 
 
     /*
-       Don't let browsers/cache
-       keep the temporary image.
+       Prevent browser caching.
     */
 
     res.setHeader(
@@ -465,7 +498,7 @@ automatically deleted after
 
     res.setHeader(
       "Cache-Control",
-      "no-store, max-age=0"
+      "no-store, no-cache, must-revalidate, max-age=0"
     );
 
     res.setHeader(
@@ -474,9 +507,14 @@ automatically deleted after
     );
 
     res.setHeader(
+      "Expires",
+      "0"
+    );
+
+    res.setHeader(
       "X-UsBooth-Expires-At",
       String(
-        item.expiresAt
+        memory.expiresAt
       )
     );
 
@@ -490,7 +528,7 @@ automatically deleted after
 
 
 /* =====================================================
-   TEMPORARY MEMORY — INFORMATION
+   MEMORY INFORMATION API
 ===================================================== */
 
 app.get(
@@ -500,19 +538,23 @@ app.get(
     cleanupExpiredMemories();
 
 
-    const item =
+    const memory =
       ephemeralMemories.get(
         req.params.id
       );
 
 
-    if (!item) {
+    if (!memory) {
 
       return res
         .status(404)
         .json({
+
+          ok: false,
+
           error:
             "Memory expired or not found."
+
         });
 
     }
@@ -523,10 +565,21 @@ app.get(
       ok: true,
 
       title:
-        item.title,
+        memory.title,
 
       expiresAt:
-        item.expiresAt,
+        memory.expiresAt,
+
+      remainingSeconds:
+        Math.max(
+          0,
+          Math.floor(
+            (
+              memory.expiresAt -
+              Date.now()
+            ) / 1000
+          )
+        ),
 
       url:
         `/memory/${req.params.id}`
@@ -572,7 +625,7 @@ app.get(
         "usbooth",
 
       version:
-        "4.0.0",
+        "4.1.0",
 
       temporaryMemory:
         true,
@@ -605,7 +658,7 @@ server.listen(
     );
 
     console.log(
-      `Temporary memories expire after 10 minutes.`
+      `☁ Temporary memories expire after 10 minutes.`
     );
 
   }
