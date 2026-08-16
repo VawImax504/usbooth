@@ -3,79 +3,55 @@ import http from "http";
 import path from "path";
 import { fileURLToPath } from "url";
 
-
-/* =========================================================
-   PATH
-   ========================================================= */
-
 const __filename =
-  fileURLToPath(
-    import.meta.url
-  );
+  fileURLToPath(import.meta.url);
 
 const __dirname =
-  path.dirname(
-    __filename
-  );
-
-
-/* =========================================================
-   EXPRESS
-   ========================================================= */
+  path.dirname(__filename);
 
 const app =
   express();
 
 const server =
-  http.createServer(
-    app
+  http.createServer(app);
+
+
+/* =====================================================
+   SERVE USBOOTH
+   ===================================================== */
+
+app.get("/", (req, res) => {
+
+  res.sendFile(
+    path.join(
+      __dirname,
+      "index.html"
+    )
   );
 
-
-/* =========================================================
-   SERVE INDEX.HTML
-   ========================================================= */
-
-app.get(
-  "/",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "index.html"
-      )
-    );
-
-  }
-);
+});
 
 
-/* =========================================================
-   HEALTH CHECK
-   ========================================================= */
+/* =====================================================
+   HEALTH
+   ===================================================== */
 
-app.get(
-  "/health",
-  (req, res) => {
+app.get("/health", (req, res) => {
 
-    res.json({
-      ok:true,
-      service:"usbooth"
-    });
+  res.json({
+    ok: true,
+    service: "usbooth"
+  });
 
-  }
-);
+});
 
 
-/* =========================================================
+/* =====================================================
    START
-   ========================================================= */
+   ===================================================== */
 
 const port =
-  process.env.PORT ||
-  3000;
-
+  process.env.PORT || 3000;
 
 server.listen(
   port,
