@@ -1615,21 +1615,14 @@ function setupPeer(){
       );
 
 
-      remote.on(
-        "stream-added",
-        ({
-          stream
-        })=>{
+remote.on("stream-added", ({ stream, metadata }) => {
 
-          attachRemote(
-            stream
-          );
+  console.log("REMOTE STREAM RECEIVED:", stream);
+  console.log("REMOTE STREAM METADATA:", metadata);
 
-        }
-      );
+  attachRemote(stream);
 
-    }
-  );
+});
 
 
   /* ===================================================
@@ -1933,41 +1926,25 @@ async function openBooth(){
 
     setupPeer();
 
-
-    /*
-      Keep the working Metered
-      connection sequence.
-    */
-
-    peer.addStream(
-      stream
-    );
-
-
-    setStatus(
-      "Joining booth…"
-    );
-
-
-    await peer.join(
-      "usbooth-" +
-      room
-    );
-
-
-    setStatus(
-      "Waiting for your person…"
-    );
-
-  }catch(error){
-
-    showError(
-      error
-    );
-
+await peer.addStream(
+  stream,
+  {
+    role: "camera",
+    label: "front cam"
   }
+);
 
-}
+setStatus(
+  "Joining booth…"
+);
+
+await peer.join(
+  "usbooth-" + room
+);
+
+setStatus(
+  "Waiting for your person…"
+);
 
 
 /* =====================================================
