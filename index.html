@@ -7,34 +7,37 @@
 
 <style>
 :root{
+  --pink:#ff719f;
+  --soft:#ffc0d4;
   --bg:#090910;
   --card:#151520;
   --line:#2d2c3a;
-  --pink:#ff719f;
-  --soft:#ffc0d4;
   --muted:#aaa7b4;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
-  background:radial-gradient(circle at 20% 0,#421b34,#090910 40%);
+  background:
+    radial-gradient(circle at 20% 0,#421b34,#090910 42%);
   color:#fff7fb;
   font-family:system-ui,-apple-system,Segoe UI,sans-serif;
 }
 
 main{
-  max-width:1050px;
+  max-width:1100px;
   margin:auto;
-  padding:22px 16px 60px;
+  padding:22px 16px 70px;
 }
 
 nav{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:50px;
+  margin-bottom:45px;
 }
 
 .logo{
@@ -42,9 +45,13 @@ nav{
   letter-spacing:.5px;
 }
 
-.pink{color:var(--pink)}
+.pink{
+  color:var(--pink);
+}
 
-.hero{text-align:center}
+.hero{
+  text-align:center;
+}
 
 .eyebrow{
   text-transform:uppercase;
@@ -66,8 +73,8 @@ h1{
 }
 
 .card{
-  margin-top:32px;
-  background:#151520e8;
+  margin-top:30px;
+  background:#151520ed;
   border:1px solid var(--line);
   border-radius:28px;
   padding:20px;
@@ -81,9 +88,8 @@ h1{
   flex-wrap:wrap;
 }
 
-.btn,input{
-  border-radius:999px;
-  padding:13px 18px;
+button,
+input{
   font:inherit;
 }
 
@@ -96,35 +102,49 @@ button{
 .btn{
   background:var(--pink);
   color:#210812;
+  border-radius:999px;
+  padding:13px 19px;
 }
 
 .secondary{
   background:#252532;
   color:white;
   border:1px solid #3d3b4d;
+  border-radius:999px;
+  padding:13px 19px;
 }
 
 input{
+  border-radius:999px;
+  padding:13px 18px;
   background:#0d0d14;
   border:1px solid #3d3b4d;
   color:white;
-  outline:0;
+  outline:none;
   text-transform:uppercase;
 }
 
-#roomUI{display:none}
+#roomUI{
+  display:none;
+}
 
 .top{
   display:flex;
   justify-content:space-between;
-  gap:12px;
   align-items:center;
+  gap:12px;
   flex-wrap:wrap;
 }
 
-.room{color:var(--soft)}
+.room{
+  color:var(--soft);
+}
 
-.room b{letter-spacing:3px}
+.room b{
+  letter-spacing:3px;
+}
+
+/* CAMERA */
 
 .cams{
   display:grid;
@@ -168,51 +188,77 @@ input{
   padding:25px;
 }
 
+/* OPTIONS */
+
+#options{
+  margin-top:25px;
+}
+
+.optionTitle{
+  font-size:13px;
+  font-weight:900;
+  color:var(--soft);
+  margin:20px 0 10px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+}
+
+.optionGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.option{
+  background:#20202c;
+  border:1px solid #383747;
+  border-radius:17px;
+  padding:12px 8px;
+  color:white;
+  text-align:center;
+  transition:.15s;
+}
+
+.option:hover{
+  transform:translateY(-2px);
+}
+
+.option.selected{
+  border:2px solid var(--pink);
+  background:#382331;
+  box-shadow:0 0 20px #ff719f22;
+}
+
+.option .icon{
+  font-size:27px;
+  display:block;
+  margin-bottom:5px;
+}
+
+.option small{
+  color:#aaa7b4;
+}
+
+/* CONTROLS */
+
 .controls{
   text-align:center;
-  margin:20px;
+  margin:25px 0 10px;
 }
 
 .count{
-  height:70px;
-  font-size:52px;
+  height:75px;
+  font-size:55px;
   font-weight:900;
 }
 
 .shutter{
-  width:72px;
-  height:72px;
+  width:76px;
+  height:76px;
   border-radius:50%;
   background:#fff;
   border:7px solid var(--pink);
   box-shadow:0 0 0 5px #fff2;
-}
-
-#result{display:none}
-
-.strip{
-  background:#fff;
-  color:#161620;
-  max-width:450px;
-  margin:18px auto;
-  padding:18px;
-  text-align:center;
-}
-
-.strip img{
-  width:100%;
-  display:block;
-}
-
-.caption{
-  font-weight:900;
-  font-size:20px;
-  margin:12px;
-}
-
-.small{
-  font-size:12px;
-  color:#666;
 }
 
 .notice{
@@ -222,13 +268,142 @@ input{
   margin:14px;
 }
 
-.ok{color:#8ff0ba}
-.bad{color:#ff9cb8}
+.ok{
+  color:#8ff0ba;
+}
+
+.bad{
+  color:#ff9cb8;
+}
+
+/* RESULT */
+
+#result{
+  display:none;
+  margin-top:30px;
+}
+
+.resultTitle{
+  text-align:center;
+  color:var(--soft);
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.stripWrap{
+  display:flex;
+  justify-content:center;
+  margin:18px auto;
+}
+
+.strip{
+  max-width:500px;
+  background:#fff;
+  color:#151520;
+  padding:18px;
+  text-align:center;
+  box-shadow:0 15px 50px #0007;
+}
+
+.strip img{
+  display:block;
+  width:100%;
+}
+
+.caption{
+  font-weight:900;
+  font-size:19px;
+  margin:12px;
+}
+
+.small{
+  font-size:12px;
+  color:#666;
+}
+
+/* STYLE PREVIEW */
+
+.preview{
+  margin:15px auto 5px;
+  width:150px;
+  height:190px;
+  padding:8px;
+  background:white;
+  border-radius:5px;
+  color:#222;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.previewBox{
+  flex:1;
+  background:#ddd;
+  display:grid;
+  place-items:center;
+  color:#777;
+  font-size:10px;
+}
+
+.previewText{
+  font-size:9px;
+  font-weight:900;
+  text-align:center;
+}
+
+/* STYLE THEMES */
+
+.preview.classic{
+  background:#fff;
+}
+
+.preview.polaroid{
+  background:#f7f4ed;
+  padding:10px;
+}
+
+.preview.retro{
+  background:#ead9bb;
+  border:4px solid #8c6948;
+}
+
+.preview.midnight{
+  background:#111;
+  color:white;
+}
+
+.preview.love{
+  background:#ffdce8;
+  border:2px solid #e45c86;
+}
+
+.preview.kawaii{
+  background:#e7f4ff;
+  border:2px solid #9ec8e8;
+}
+
+.preview.film35{
+  background:#111;
+  border:5px solid #222;
+}
 
 @media(max-width:700px){
-  .cams{grid-template-columns:1fr}
-  .card{padding:14px}
-  nav{margin-bottom:35px}
+
+  .cams{
+    grid-template-columns:1fr;
+  }
+
+  .optionGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .card{
+    padding:14px;
+  }
+
+  nav{
+    margin-bottom:35px;
+  }
 }
 </style>
 </head>
@@ -247,6 +422,7 @@ input{
   </div>
 </nav>
 
+
 <section class="hero">
 
 <div class="eyebrow">
@@ -260,8 +436,9 @@ input{
 
 <p>
   Open this on two phones, join the same room,
-  and take a synchronized photo together.
+  and make a little film together.
 </p>
+
 
 <div id="home" class="row">
 
@@ -275,23 +452,25 @@ input{
 
 </div>
 
-<div id="joinBox"
-     class="row"
-     style="display:none;margin-top:14px">
+
+<div
+id="joinBox"
+class="row"
+style="display:none;margin-top:14px">
 
 <input
-  id="roomInput"
-  maxlength="6"
-  placeholder="ROOM CODE"
->
+id="roomInput"
+maxlength="6"
+placeholder="ROOM CODE">
 
 <button class="btn" id="join">
-  Join room
+Join room
 </button>
 
 </div>
 
 </section>
+
 
 
 <section id="roomUI" class="card">
@@ -311,6 +490,8 @@ Starting…
 
 </div>
 
+
+<!-- CAMERAS -->
 
 <div class="cams">
 
@@ -369,6 +550,175 @@ Your browser will ask for camera permission.
 </div>
 
 
+
+<!-- OPTIONS -->
+
+<div id="options">
+
+<div class="optionTitle">
+Choose your film
+</div>
+
+<div class="optionGrid">
+
+<button
+class="option selected"
+data-film="classic">
+
+<span class="icon">🎞️</span>
+Classic
+<small>Clean</small>
+
+</button>
+
+
+<button
+class="option"
+data-film="polaroid">
+
+<span class="icon">📷</span>
+Polaroid
+<small>Soft</small>
+
+</button>
+
+
+<button
+class="option"
+data-film="film35">
+
+<span class="icon">🎬</span>
+35mm
+<small>Film</small>
+
+</button>
+
+
+<button
+class="option"
+data-film="retro">
+
+<span class="icon">🕰️</span>
+Retro
+<small>Vintage</small>
+
+</button>
+
+
+<button
+class="option"
+data-film="love">
+
+<span class="icon">💌</span>
+Love Letter
+<small>Sweet</small>
+
+</button>
+
+
+<button
+class="option"
+data-film="midnight">
+
+<span class="icon">🌙</span>
+Midnight
+<small>Dark</small>
+
+</button>
+
+
+<button
+class="option"
+data-film="kawaii">
+
+<span class="icon">✨</span>
+Kawaii
+<small>Cute</small>
+
+</button>
+
+</div>
+
+
+
+<div class="optionTitle">
+Choose layout
+</div>
+
+<div class="optionGrid">
+
+<button
+class="option selected"
+data-layout="3vertical">
+
+<span class="icon">▤</span>
+3 Shot
+<small>Vertical</small>
+
+</button>
+
+
+<button
+class="option"
+data-layout="2vertical">
+
+<span class="icon">▥</span>
+2 Shot
+<small>Vertical</small>
+
+</button>
+
+
+<button
+class="option"
+data-layout="4vertical">
+
+<span class="icon">▥</span>
+4 Shot
+<small>Classic</small>
+
+</button>
+
+
+<button
+class="option"
+data-layout="2x2">
+
+<span class="icon">▦</span>
+2 × 2
+<small>Square</small>
+
+</button>
+
+</div>
+
+
+<div class="preview classic" id="preview">
+
+<div class="previewBox">
+PHOTO
+</div>
+
+<div class="previewBox">
+PHOTO
+</div>
+
+<div class="previewBox">
+PHOTO
+</div>
+
+<div class="previewText">
+miles apart ♡ still together
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- SHOOT -->
+
 <div class="controls">
 
 <div
@@ -389,11 +739,17 @@ Tap the shutter when both cameras are ready.
 </div>
 
 
+
+<!-- RESULT -->
+
 <div id="result">
 
-<div style="text-align:center;color:var(--soft);font-weight:900">
-OUR PHOTO STRIP
+<div class="resultTitle">
+OUR PHOTO FILM
 </div>
+
+
+<div class="stripWrap">
 
 <div class="strip">
 
@@ -410,12 +766,15 @@ id="stamp">
 
 </div>
 
+</div>
+
+
 <div class="row">
 
 <button
 class="btn"
 id="save">
-Save photo strip
+Save film
 </button>
 
 <button
@@ -433,28 +792,44 @@ Take another
 </main>
 
 
+
 <script src="/socket.io/socket.io.js"></script>
 
 <script>
+
+/* ==========================================
+   CONNECTION
+========================================== */
 
 const socket = io();
 
 let room = "";
 let isCaller = false;
+
 let localStream = null;
 let pc = null;
+
 let remoteReady = false;
 let shootTimer = null;
 
-/*
- IMPORTANT:
- ICE candidates can arrive before
- the remote description.
- We temporarily store them.
-*/
-
 let pendingCandidates = [];
 
+
+/* ==========================================
+   PHOTO SETTINGS
+========================================== */
+
+let selectedFilm = "classic";
+let selectedLayout = "3vertical";
+
+let capturedPhotos = [];
+
+let shooting = false;
+
+
+/* ==========================================
+   ELEMENTS
+========================================== */
 
 const local =
 document.querySelector("#local");
@@ -472,6 +847,10 @@ const canvas =
 document.createElement("canvas");
 
 
+/* ==========================================
+   STATUS
+========================================== */
+
 function status(text, cls = ""){
 
   state.textContent = text;
@@ -480,22 +859,13 @@ function status(text, cls = ""){
 }
 
 
-/* CAMERA */
+/* ==========================================
+   CAMERA
+========================================== */
 
 async function camera(){
 
   try{
-
-    if(
-      !navigator.mediaDevices ||
-      !navigator.mediaDevices.getUserMedia
-    ){
-
-      throw new Error(
-        "Camera API unavailable"
-      );
-
-    }
 
     localStream =
     await navigator.mediaDevices.getUserMedia({
@@ -534,6 +904,7 @@ async function camera(){
       error
     );
 
+
     document.querySelector("#permission")
       .textContent =
       "Camera blocked. Allow camera access and reload.";
@@ -543,6 +914,7 @@ async function camera(){
       "bad"
     );
 
+
     return false;
 
   }
@@ -550,7 +922,9 @@ async function camera(){
 }
 
 
-/* WEBRTC */
+/* ==========================================
+   WEBRTC
+========================================== */
 
 async function setupPeer(){
 
@@ -584,27 +958,30 @@ async function setupPeer(){
     });
 
 
-  pc.ontrack = event =>{
+  pc.ontrack = event=>{
 
-    console.log(
-      "Remote track received"
-    );
-
-    if(event.streams && event.streams[0]){
+    if(
+      event.streams &&
+      event.streams[0]
+    ){
 
       remote.srcObject =
       event.streams[0];
 
     }
 
+
     remote.style.display =
     "block";
+
 
     document.querySelector("#waiting")
       .style.display =
       "none";
 
+
     remoteReady = true;
+
 
     status(
       "Both cameras connected",
@@ -614,7 +991,7 @@ async function setupPeer(){
   };
 
 
-  pc.onicecandidate = event =>{
+  pc.onicecandidate = event=>{
 
     if(event.candidate){
 
@@ -634,9 +1011,10 @@ async function setupPeer(){
   pc.oniceconnectionstatechange = ()=>{
 
     console.log(
-      "ICE state:",
+      "ICE:",
       pc.iceConnectionState
     );
+
 
     if(
       pc.iceConnectionState === "checking"
@@ -647,6 +1025,7 @@ async function setupPeer(){
       );
 
     }
+
 
     if(
       pc.iceConnectionState === "connected" ||
@@ -660,40 +1039,9 @@ async function setupPeer(){
 
     }
 
+
     if(
       pc.iceConnectionState === "failed"
-    ){
-
-      status(
-        "Direct connection failed",
-        "bad"
-      );
-
-    }
-
-  };
-
-
-  pc.onconnectionstatechange = ()=>{
-
-    console.log(
-      "Connection state:",
-      pc.connectionState
-    );
-
-    if(
-      pc.connectionState === "connected"
-    ){
-
-      status(
-        "Both cameras connected",
-        "ok"
-      );
-
-    }
-
-    if(
-      pc.connectionState === "failed"
     ){
 
       status(
@@ -708,29 +1056,22 @@ async function setupPeer(){
 }
 
 
-/* CREATE */
+/* ==========================================
+   CREATE
+========================================== */
 
 async function create(){
 
   isCaller = true;
 
+
   socket.emit(
     "create-room",
     async response=>{
 
-      if(!response.ok){
-
-        alert(
-          response.error ||
-          "Could not create room."
-        );
-
-        return;
-
-      }
-
       room =
       response.room;
+
 
       showRoom();
 
@@ -753,7 +1094,9 @@ async function create(){
 }
 
 
-/* JOIN */
+/* ==========================================
+   JOIN
+========================================== */
 
 async function join(){
 
@@ -784,8 +1127,7 @@ async function join(){
       if(!response.ok){
 
         alert(
-          response.error ||
-          "Could not join room."
+          response.error
         );
 
         return;
@@ -797,6 +1139,7 @@ async function join(){
 
       room =
       response.room;
+
 
       showRoom();
 
@@ -819,7 +1162,9 @@ async function join(){
 }
 
 
-/* SHOW ROOM */
+/* ==========================================
+   SHOW ROOM
+========================================== */
 
 function showRoom(){
 
@@ -827,9 +1172,11 @@ function showRoom(){
     .style.display =
     "block";
 
+
   document.querySelector("#code")
     .textContent =
     room;
+
 
   document.querySelector("#roomUI")
     .scrollIntoView({
@@ -839,33 +1186,15 @@ function showRoom(){
 }
 
 
-/*
- ==========================
- WEBRTC SIGNALING
- ==========================
- */
-
-
-/* PARTNER JOINED */
+/* ==========================================
+   SIGNALING
+========================================== */
 
 socket.on(
 "peer-joined",
 async ()=>{
 
-  console.log(
-    "Partner joined"
-  );
-
-
-  if(!pc){
-
-    console.warn(
-      "Peer connection not ready"
-    );
-
-    return;
-
-  }
+  if(!pc) return;
 
 
   try{
@@ -892,7 +1221,6 @@ async ()=>{
   catch(error){
 
     console.error(
-      "Offer error:",
       error
     );
 
@@ -901,26 +1229,11 @@ async ()=>{
 });
 
 
-/* RECEIVE OFFER */
-
 socket.on(
 "offer",
 async offer=>{
 
-  console.log(
-    "Offer received"
-  );
-
-
-  if(!pc){
-
-    console.warn(
-      "No peer connection"
-    );
-
-    return;
-
-  }
+  if(!pc) return;
 
 
   try{
@@ -929,11 +1242,6 @@ async offer=>{
       offer
     );
 
-
-    /*
-      Add candidates that arrived
-      before the offer.
-    */
 
     for(
       const candidate
@@ -951,7 +1259,6 @@ async offer=>{
       catch(error){
 
         console.warn(
-          "Pending ICE error:",
           error
         );
 
@@ -985,7 +1292,7 @@ async offer=>{
   catch(error){
 
     console.error(
-      "Offer handling error:",
+      "Offer error:",
       error
     );
 
@@ -994,22 +1301,11 @@ async offer=>{
 });
 
 
-/* RECEIVE ANSWER */
-
 socket.on(
 "answer",
 async answer=>{
 
-  console.log(
-    "Answer received"
-  );
-
-
-  if(!pc){
-
-    return;
-
-  }
+  if(!pc) return;
 
 
   try{
@@ -1035,7 +1331,6 @@ async answer=>{
       catch(error){
 
         console.warn(
-          "Pending ICE error:",
           error
         );
 
@@ -1051,7 +1346,7 @@ async answer=>{
   catch(error){
 
     console.error(
-      "Answer handling error:",
+      "Answer error:",
       error
     );
 
@@ -1060,24 +1355,17 @@ async answer=>{
 });
 
 
-/* ICE CANDIDATE */
-
 socket.on(
 "ice-candidate",
 async candidate=>{
 
-  if(!pc){
-
-    return;
-
-  }
+  if(!pc) return;
 
 
   try{
 
     if(
-      pc.remoteDescription &&
-      pc.remoteDescription.type
+      pc.remoteDescription
     ){
 
       await pc.addIceCandidate(
@@ -1087,11 +1375,6 @@ async candidate=>{
     }
 
     else{
-
-      /*
-        Remote description hasn't
-        arrived yet.
-      */
 
       pendingCandidates.push(
         candidate
@@ -1104,7 +1387,7 @@ async candidate=>{
   catch(error){
 
     console.error(
-      "ICE candidate error:",
+      "ICE error:",
       error
     );
 
@@ -1113,16 +1396,11 @@ async candidate=>{
 });
 
 
-/* PARTNER LEFT */
-
 socket.on(
 "peer-left",
 ()=>{
 
-  status(
-    "Your person left the room",
-    "bad"
-  );
+  remoteReady = false;
 
   remote.style.display =
   "none";
@@ -1131,73 +1409,271 @@ socket.on(
     .style.display =
     "grid";
 
-  remoteReady = false;
+  status(
+    "Your person left the room",
+    "bad"
+  );
 
 });
 
 
-/*
- ==========================
- SYNCHRONIZED PHOTO
- ==========================
- */
+/* ==========================================
+   FILM SELECTION
+========================================== */
+
+document.querySelectorAll(
+  "[data-film]"
+)
+.forEach(button=>{
+
+  button.onclick = ()=>{
+
+    document.querySelectorAll(
+      "[data-film]"
+    )
+    .forEach(b=>{
+      b.classList.remove(
+        "selected"
+      );
+    });
 
 
-function countdownAndShoot(){
-
-  let number = 3;
-
-  count.textContent =
-  number;
+    button.classList.add(
+      "selected"
+    );
 
 
-  clearInterval(
-    shootTimer
+    selectedFilm =
+    button.dataset.film;
+
+
+    updatePreview();
+
+  };
+
+});
+
+
+/* ==========================================
+   LAYOUT SELECTION
+========================================== */
+
+document.querySelectorAll(
+  "[data-layout]"
+)
+.forEach(button=>{
+
+  button.onclick = ()=>{
+
+    document.querySelectorAll(
+      "[data-layout]"
+    )
+    .forEach(b=>{
+      b.classList.remove(
+        "selected"
+      );
+    });
+
+
+    button.classList.add(
+      "selected"
+    );
+
+
+    selectedLayout =
+    button.dataset.layout;
+
+
+    updatePreview();
+
+  };
+
+});
+
+
+/* ==========================================
+   PREVIEW
+========================================== */
+
+function updatePreview(){
+
+  const preview =
+  document.querySelector(
+    "#preview"
   );
 
 
-  shootTimer =
-  setInterval(()=>{
-
-    number--;
-
-    count.textContent =
-    number > 0
-      ? number
-      : "📸";
+  preview.className =
+  "preview " +
+  selectedFilm;
 
 
-    if(number <= 0){
-
-      clearInterval(
-        shootTimer
-      );
+  let number = 3;
 
 
-      captureLocal();
+  if(
+    selectedLayout === "2vertical"
+  ){
+
+    number = 2;
+
+  }
 
 
-      setTimeout(()=>{
+  if(
+    selectedLayout === "4vertical"
+  ){
 
-        count.textContent =
-        "";
+    number = 4;
 
-      },350);
+  }
 
-    }
 
-  },700);
+  if(
+    selectedLayout === "2x2"
+  ){
+
+    number = 4;
+
+  }
+
+
+  preview.innerHTML = "";
+
+
+  for(
+    let i=0;
+    i<number;
+    i++
+  ){
+
+    const box =
+    document.createElement(
+      "div"
+    );
+
+
+    box.className =
+    "previewBox";
+
+
+    box.textContent =
+    "PHOTO";
+
+
+    preview.appendChild(
+      box
+    );
+
+  }
+
+
+  const text =
+  document.createElement(
+    "div"
+  );
+
+
+  text.className =
+  "previewText";
+
+
+  text.textContent =
+  "miles apart ♡ still together";
+
+
+  preview.appendChild(
+    text
+  );
 
 }
 
 
-/* CAPTURE */
+/* ==========================================
+   NUMBER OF SHOTS
+========================================== */
 
-function captureLocal(){
+function getShotCount(){
 
-  const video =
-  local;
+  if(
+    selectedLayout === "2vertical"
+  ){
 
+    return 2;
+
+  }
+
+
+  if(
+    selectedLayout === "4vertical"
+  ){
+
+    return 4;
+
+  }
+
+
+  return 3;
+
+}
+
+
+/* ==========================================
+   COUNTDOWN
+========================================== */
+
+function countdownSingleShot(){
+
+  return new Promise(resolve=>{
+
+    let number = 3;
+
+
+    count.textContent =
+    number;
+
+
+    const timer =
+    setInterval(()=>{
+
+      number--;
+
+
+      count.textContent =
+      number > 0
+        ? number
+        : "📸";
+
+
+      if(number <= 0){
+
+        clearInterval(
+          timer
+        );
+
+
+        setTimeout(
+          ()=>{
+            count.textContent="";
+            resolve();
+          },
+          250
+        );
+
+      }
+
+    },700);
+
+  });
+
+}
+
+
+/* ==========================================
+   CAPTURE CURRENT CAMERA FRAME
+========================================== */
+
+function captureFrame(video){
 
   const width =
   video.videoWidth || 900;
@@ -1206,22 +1682,24 @@ function captureLocal(){
   video.videoHeight || 675;
 
 
-  /*
-    LOCAL PHOTO
-  */
+  const c =
+  document.createElement(
+    "canvas"
+  );
 
-  canvas.width =
+
+  c.width =
   width;
 
-  canvas.height =
+  c.height =
   height;
 
 
-  const context =
-  canvas.getContext("2d");
+  const ctx =
+  c.getContext("2d");
 
 
-  context.drawImage(
+  ctx.drawImage(
     video,
     0,
     0,
@@ -1230,277 +1708,19 @@ function captureLocal(){
   );
 
 
-  const mine =
-  canvas.toDataURL(
+  return c.toDataURL(
     "image/jpeg",
-    0.9
-  );
-
-
-  /*
-    REMOTE PHOTO
-  */
-
-  const remoteWidth =
-  remote.videoWidth ||
-  width;
-
-  const remoteHeight =
-  remote.videoHeight ||
-  height;
-
-
-  canvas.width =
-  remoteWidth;
-
-  canvas.height =
-  remoteHeight;
-
-
-  context.drawImage(
-    remote,
-    0,
-    0,
-    remoteWidth,
-    remoteHeight
-  );
-
-
-  const theirs =
-  canvas.toDataURL(
-    "image/jpeg",
-    0.9
-  );
-
-
-  buildStrip(
-    mine,
-    theirs
-  )
-  .catch(error=>{
-
-    console.error(
-      "Strip error:",
-      error
-    );
-
-    alert(
-      "Couldn't create the photo strip."
-    );
-
-  });
-
-}
-
-
-/* LOAD IMAGE */
-
-function loadImage(source){
-
-  return new Promise(
-    (resolve,reject)=>{
-
-      const image =
-      new Image();
-
-
-      image.onload = ()=>{
-        resolve(image);
-      };
-
-
-      image.onerror = ()=>{
-        reject(
-          new Error(
-            "Image failed to load"
-          )
-        );
-      };
-
-
-      image.src =
-      source;
-
-    }
+    .92
   );
 
 }
 
 
-/* BUILD STRIP */
+/* ==========================================
+   MULTI-SHOT
+========================================== */
 
-async function buildStrip(
-  firstPhoto,
-  secondPhoto
-){
-
-  const strip =
-  document.createElement(
-    "canvas"
-  );
-
-
-  const width = 1000;
-  const height = 930;
-
-
-  strip.width =
-  width;
-
-  strip.height =
-  height;
-
-
-  const context =
-  strip.getContext("2d");
-
-
-  /*
-    WAIT FOR PHOTOS
-  */
-
-  const first =
-  await loadImage(
-    firstPhoto
-  );
-
-  const second =
-  await loadImage(
-    secondPhoto
-  );
-
-
-  /*
-    BACKGROUND
-  */
-
-  context.fillStyle =
-  "#ffffff";
-
-  context.fillRect(
-    0,
-    0,
-    width,
-    height
-  );
-
-
-  /*
-    FIRST PHOTO
-  */
-
-  context.drawImage(
-    first,
-    35,
-    35,
-    455,
-    760
-  );
-
-
-  /*
-    SECOND PHOTO
-  */
-
-  context.drawImage(
-    second,
-    510,
-    35,
-    455,
-    760
-  );
-
-
-  /*
-    TEXT
-  */
-
-  context.fillStyle =
-  "#151520";
-
-  context.textAlign =
-  "center";
-
-  context.font =
-  "900 34px system-ui";
-
-
-  context.fillText(
-    "miles apart ♡ still together",
-    width / 2,
-    850
-  );
-
-
-  const timestamp =
-  new Date()
-    .toLocaleString();
-
-
-  context.font =
-  "16px system-ui";
-
-  context.fillStyle =
-  "#666";
-
-
-  context.fillText(
-    timestamp,
-    width / 2,
-    885
-  );
-
-
-  /*
-    FINAL PNG
-  */
-
-  const finalImage =
-  strip.toDataURL(
-    "image/png"
-  );
-
-
-  /*
-    DISPLAY
-  */
-
-  document.querySelector("#combined")
-    .src =
-    finalImage;
-
-
-  document.querySelector("#stamp")
-    .textContent =
-    timestamp;
-
-
-  document.querySelector("#result")
-    .style.display =
-    "block";
-
-
-  /*
-    SAVE FOR DOWNLOAD
-  */
-
-  window.currentStrip =
-  finalImage;
-
-}
-
-
-/*
- ==========================
- BUTTONS
- ==========================
- */
-
-
-/* SHOOT */
-
-document.querySelector("#shoot")
-.onclick = ()=>{
+async function takeFilm(){
 
   if(!remoteReady){
 
@@ -1513,36 +1733,663 @@ document.querySelector("#shoot")
   }
 
 
-  socket.emit(
-    "shoot-now",
-    room
-  );
+  if(shooting){
+
+    return;
+
+  }
 
 
-  countdownAndShoot();
+  shooting = true;
 
-};
+  capturedPhotos = [];
 
 
-/* RECEIVE SHOOT */
+  const total =
+  getShotCount();
+
+
+  for(
+    let i=0;
+    i<total;
+    i++
+  ){
+
+    status(
+      `Shot ${i+1} of ${total}`
+    );
+
+
+    /*
+      Tell the other phone
+      to start this shot.
+    */
+
+    if(i === 0){
+
+      socket.emit(
+        "shoot-now",
+        room
+      );
+
+    }
+
+
+    await countdownSingleShot();
+
+
+    const mine =
+    captureFrame(
+      local
+    );
+
+
+    const theirs =
+    captureFrame(
+      remote
+    );
+
+
+    capturedPhotos.push({
+      mine,
+      theirs
+    });
+
+
+    /*
+      Small pause between shots.
+    */
+
+    if(
+      i < total - 1
+    ){
+
+      await new Promise(
+        resolve =>
+        setTimeout(
+          resolve,
+          500
+        )
+      );
+
+    }
+
+  }
+
+
+  buildFilm()
+  .catch(error=>{
+
+    console.error(
+      error
+    );
+
+    alert(
+      "Couldn't create the film."
+    );
+
+  });
+
+
+  shooting = false;
+
+}
+
+
+/* ==========================================
+   REMOTE SHOOT
+========================================== */
 
 socket.on(
 "shoot-now",
-()=>{
+async ()=>{
 
-  countdownAndShoot();
+  if(shooting){
+
+    return;
+
+  }
+
+
+  /*
+    Remote phone also runs
+    the complete multi-shot sequence.
+  */
+
+  shooting = true;
+
+  capturedPhotos = [];
+
+
+  const total =
+  getShotCount();
+
+
+  for(
+    let i=0;
+    i<total;
+    i++
+  ){
+
+    status(
+      `Shot ${i+1} of ${total}`
+    );
+
+
+    await countdownSingleShot();
+
+
+    const mine =
+    captureFrame(
+      local
+    );
+
+
+    const theirs =
+    captureFrame(
+      remote
+    );
+
+
+    capturedPhotos.push({
+      mine,
+      theirs
+    });
+
+
+    if(
+      i < total - 1
+    ){
+
+      await new Promise(
+        resolve =>
+        setTimeout(
+          resolve,
+          500
+        )
+      );
+
+    }
+
+  }
+
+
+  /*
+    Each phone builds its own
+    final film locally.
+  */
+
+  buildFilm()
+  .catch(error=>{
+
+    console.error(
+      error
+    );
+
+    alert(
+      "Couldn't create the film."
+    );
+
+  });
+
+
+  shooting = false;
 
 });
 
 
-/* CREATE */
+/* ==========================================
+   LOAD IMAGE
+========================================== */
+
+function loadImage(src){
+
+  return new Promise(
+    (resolve,reject)=>{
+
+      const image =
+      new Image();
+
+
+      image.onload =
+      ()=>resolve(image);
+
+
+      image.onerror =
+      ()=>reject(
+        new Error(
+          "Image failed to load"
+        )
+      );
+
+
+      image.src =
+      src;
+
+    }
+  );
+
+}
+
+
+/* ==========================================
+   FILM BACKGROUND
+========================================== */
+
+function filmColors(){
+
+  switch(
+    selectedFilm
+  ){
+
+    case "midnight":
+      return {
+        bg:"#111116",
+        photoBg:"#1c1c24",
+        text:"#ffffff",
+        sub:"#aaa"
+      };
+
+
+    case "love":
+      return {
+        bg:"#ffdce8",
+        photoBg:"#fff4f8",
+        text:"#7d2347",
+        sub:"#9d5b72"
+      };
+
+
+    case "retro":
+      return {
+        bg:"#ead9bb",
+        photoBg:"#f4ead8",
+        text:"#5d4631",
+        sub:"#80684f"
+      };
+
+
+    case "kawaii":
+      return {
+        bg:"#e7f4ff",
+        photoBg:"#ffffff",
+        text:"#476681",
+        sub:"#7896ad"
+      };
+
+
+    case "film35":
+      return {
+        bg:"#111111",
+        photoBg:"#eeeeee",
+        text:"#ffffff",
+        sub:"#999999"
+      };
+
+
+    case "polaroid":
+      return {
+        bg:"#f7f4ed",
+        photoBg:"#ffffff",
+        text:"#333333",
+        sub:"#777777"
+      };
+
+
+    default:
+      return {
+        bg:"#ffffff",
+        photoBg:"#ffffff",
+        text:"#151520",
+        sub:"#666666"
+      };
+
+  }
+
+}
+
+
+/* ==========================================
+   BUILD FINAL FILM
+========================================== */
+
+async function buildFilm(){
+
+  if(
+    capturedPhotos.length === 0
+  ){
+
+    return;
+
+  }
+
+
+  const colors =
+  filmColors();
+
+
+  const images = [];
+
+
+  /*
+    We create one final photo
+    for every synchronized shot.
+
+    Each shot combines:
+    YOU + THEM
+  */
+
+  for(
+    const shot
+    of capturedPhotos
+  ){
+
+    const mine =
+    await loadImage(
+      shot.mine
+    );
+
+
+    const theirs =
+    await loadImage(
+      shot.theirs
+    );
+
+
+    const shotCanvas =
+    document.createElement(
+      "canvas"
+    );
+
+
+    shotCanvas.width =
+    900;
+
+    shotCanvas.height =
+    560;
+
+
+    const ctx =
+    shotCanvas.getContext(
+      "2d"
+    );
+
+
+    ctx.fillStyle =
+    colors.photoBg;
+
+
+    ctx.fillRect(
+      0,
+      0,
+      900,
+      560
+    );
+
+
+    /*
+      YOU
+    */
+
+    ctx.drawImage(
+      mine,
+      15,
+      15,
+      425,
+      530
+    );
+
+
+    /*
+      THEM
+    */
+
+    ctx.drawImage(
+      theirs,
+      460,
+      15,
+      425,
+      530
+    );
+
+
+    images.push(
+      shotCanvas
+    );
+
+  }
+
+
+  /* ========================================
+     FINAL CANVAS
+  ======================================== */
+
+  let W = 900;
+  let H;
+
+
+  if(
+    selectedLayout === "2x2"
+  ){
+
+    W = 1000;
+    H = 1050;
+
+  }
+
+  else{
+
+    H =
+    images.length * 570 + 100;
+
+  }
+
+
+  const finalCanvas =
+  document.createElement(
+    "canvas"
+  );
+
+
+  finalCanvas.width =
+  W;
+
+  finalCanvas.height =
+  H;
+
+
+  const ctx =
+  finalCanvas.getContext(
+    "2d"
+  );
+
+
+  /*
+    Background
+  */
+
+  ctx.fillStyle =
+  colors.bg;
+
+
+  ctx.fillRect(
+    0,
+    0,
+    W,
+    H
+  );
+
+
+  /* ========================================
+     35MM FILM EFFECT
+  ======================================== */
+
+  if(
+    selectedFilm === "film35"
+  ){
+
+    ctx.fillStyle =
+    "#050505";
+
+
+    ctx.fillRect(
+      0,
+      0,
+      W,
+      H
+    );
+
+  }
+
+
+  /* ========================================
+     DRAW LAYOUT
+  ======================================== */
+
+  if(
+    selectedLayout === "2x2"
+  ){
+
+    images.forEach(
+      (image,index)=>{
+
+        const column =
+        index % 2;
+
+        const row =
+        Math.floor(
+          index / 2
+        );
+
+
+        ctx.drawImage(
+          image,
+          column * 500 + 20,
+          row * 480 + 20,
+          460,
+          450
+        );
+
+      }
+    );
+
+  }
+
+  else{
+
+    images.forEach(
+      (image,index)=>{
+
+        ctx.drawImage(
+          image,
+          0,
+          index * 570,
+          900,
+          560
+        );
+
+      }
+    );
+
+  }
+
+
+  /* ========================================
+     CAPTION
+  ======================================== */
+
+  const captionY =
+  H - 55;
+
+
+  ctx.textAlign =
+  "center";
+
+
+  ctx.fillStyle =
+  colors.text;
+
+
+  ctx.font =
+  "900 28px system-ui";
+
+
+  ctx.fillText(
+    "miles apart ♡ still together",
+    W / 2,
+    captionY
+  );
+
+
+  ctx.font =
+  "14px system-ui";
+
+
+  ctx.fillStyle =
+  colors.sub;
+
+
+  ctx.fillText(
+    new Date().toLocaleString(),
+    W / 2,
+    H - 25
+  );
+
+
+  /* ========================================
+     FINAL IMAGE
+  ======================================== */
+
+  const data =
+  finalCanvas.toDataURL(
+    "image/png"
+  );
+
+
+  document.querySelector("#combined")
+    .src =
+    data;
+
+
+  document.querySelector("#stamp")
+    .textContent =
+    new Date().toLocaleString();
+
+
+  document.querySelector("#result")
+    .style.display =
+    "block";
+
+
+  window.currentStrip =
+  data;
+
+
+  status(
+    "Film ready ✓",
+    "ok"
+  );
+
+}
+
+
+/* ==========================================
+   MAIN SHOOT BUTTON
+========================================== */
+
+document.querySelector("#shoot")
+.onclick =
+takeFilm;
+
+
+/* ==========================================
+   CREATE / JOIN BUTTONS
+========================================== */
 
 document.querySelector("#create")
 .onclick =
 create;
 
-
-/* SHOW JOIN */
 
 document.querySelector("#showJoin")
 .onclick =
@@ -1555,14 +2402,14 @@ document.querySelector("#showJoin")
 };
 
 
-/* JOIN */
-
 document.querySelector("#join")
 .onclick =
 join;
 
 
-/* AGAIN */
+/* ==========================================
+   AGAIN
+========================================== */
 
 document.querySelector("#again")
 .onclick =
@@ -1572,22 +2419,28 @@ document.querySelector("#again")
     .style.display =
     "none";
 
+  capturedPhotos = [];
+
   window.currentStrip =
   null;
 
 };
 
 
-/* SAVE */
+/* ==========================================
+   SAVE
+========================================== */
 
 document.querySelector("#save")
 .onclick =
 ()=>{
 
-  if(!window.currentStrip){
+  if(
+    !window.currentStrip
+  ){
 
     alert(
-      "No photo available yet."
+      "No film available yet."
     );
 
     return;
@@ -1613,8 +2466,8 @@ document.querySelector("#save")
 
 
     for(
-      let i = 0;
-      i < binary.length;
+      let i=0;
+      i<binary.length;
       i++
     ){
 
@@ -1640,14 +2493,17 @@ document.querySelector("#save")
 
 
     const link =
-    document.createElement("a");
+    document.createElement(
+      "a"
+    );
 
 
     link.href =
     url;
 
+
     link.download =
-    "our-photobooth.png";
+    "usbooth-film.png";
 
 
     document.body.appendChild(
@@ -1656,6 +2512,7 @@ document.querySelector("#save")
 
 
     link.click();
+
 
     link.remove();
 
@@ -1674,15 +2531,9 @@ document.querySelector("#save")
   catch(error){
 
     console.error(
-      "Save error:",
       error
     );
 
-
-    /*
-      Mobile-browser fallback:
-      open the image directly.
-    */
 
     window.open(
       window.currentStrip,
@@ -1691,7 +2542,14 @@ document.querySelector("#save")
 
   }
 
-};
+}
+
+
+/* ==========================================
+   INITIAL PREVIEW
+========================================== */
+
+updatePreview();
 
 </script>
 
