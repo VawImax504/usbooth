@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>UsBooth — two phones</title>
+<title>UsBooth — Two Phones</title>
 
 <style>
 :root{
@@ -13,63 +12,57 @@
   --line:#2d2c3a;
   --pink:#ff719f;
   --soft:#ffc0d4;
-  --muted:#aaa7b4
+  --muted:#aaa7b4;
 }
 
-*{
-  box-sizing:border-box
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
   background:radial-gradient(circle at 20% 0,#421b34,#090910 40%);
   color:#fff7fb;
-  font-family:system-ui,-apple-system,Segoe UI,sans-serif
+  font-family:system-ui,-apple-system,Segoe UI,sans-serif;
 }
 
 main{
   max-width:1050px;
   margin:auto;
-  padding:22px 16px 60px
+  padding:22px 16px 60px;
 }
 
 nav{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:50px
+  margin-bottom:50px;
 }
 
 .logo{
   font-weight:900;
-  letter-spacing:.5px
+  letter-spacing:.5px;
 }
 
-.pink{
-  color:var(--pink)
-}
+.pink{color:var(--pink)}
 
-.hero{
-  text-align:center
-}
+.hero{text-align:center}
 
 .eyebrow{
   text-transform:uppercase;
   letter-spacing:4px;
   color:var(--soft);
   font-size:11px;
-  font-weight:800
+  font-weight:800;
 }
 
 h1{
   font-size:clamp(42px,8vw,76px);
   line-height:.98;
-  margin:14px 0
+  margin:14px 0;
 }
 
 .hero p{
   color:var(--muted);
-  font-size:17px
+  font-size:17px;
 }
 
 .card{
@@ -78,38 +71,37 @@ h1{
   border:1px solid var(--line);
   border-radius:28px;
   padding:20px;
-  box-shadow:0 25px 80px #0008
+  box-shadow:0 25px 80px #0008;
 }
 
 .row{
   display:flex;
   gap:10px;
   justify-content:center;
-  flex-wrap:wrap
+  flex-wrap:wrap;
 }
 
-.btn,
-input{
+.btn,input{
   border-radius:999px;
   padding:13px 18px;
-  font:inherit
+  font:inherit;
 }
 
 button{
   border:0;
   cursor:pointer;
-  font-weight:800
+  font-weight:800;
 }
 
 .btn{
   background:var(--pink);
-  color:#210812
+  color:#210812;
 }
 
 .secondary{
   background:#252532;
   color:white;
-  border:1px solid #3d3b4d
+  border:1px solid #3d3b4d;
 }
 
 input{
@@ -117,34 +109,28 @@ input{
   border:1px solid #3d3b4d;
   color:white;
   outline:0;
-  text-transform:uppercase
+  text-transform:uppercase;
 }
 
-#roomUI{
-  display:none
-}
+#roomUI{display:none}
 
 .top{
   display:flex;
   justify-content:space-between;
   gap:12px;
   align-items:center;
-  flex-wrap:wrap
+  flex-wrap:wrap;
 }
 
-.room{
-  color:var(--soft)
-}
+.room{color:var(--soft)}
 
-.room b{
-  letter-spacing:3px
-}
+.room b{letter-spacing:3px}
 
 .cams{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:14px;
-  margin-top:18px
+  margin-top:18px;
 }
 
 .cam{
@@ -153,14 +139,14 @@ input{
   border-radius:20px;
   overflow:hidden;
   position:relative;
-  border:1px solid #363544
+  border:1px solid #363544;
 }
 
 .cam video{
   width:100%;
   height:100%;
   object-fit:cover;
-  display:block
+  display:block;
 }
 
 .tag{
@@ -170,7 +156,7 @@ input{
   background:#000a;
   padding:7px 10px;
   border-radius:99px;
-  font-size:11px
+  font-size:11px;
 }
 
 .waiting{
@@ -179,18 +165,18 @@ input{
   place-items:center;
   color:#777484;
   text-align:center;
-  padding:25px
+  padding:25px;
 }
 
 .controls{
   text-align:center;
-  margin:20px
+  margin:20px;
 }
 
 .count{
   height:70px;
   font-size:52px;
-  font-weight:900
+  font-weight:900;
 }
 
 .shutter{
@@ -199,12 +185,10 @@ input{
   border-radius:50%;
   background:#fff;
   border:7px solid var(--pink);
-  box-shadow:0 0 0 5px #fff2
+  box-shadow:0 0 0 5px #fff2;
 }
 
-#result{
-  display:none
-}
+#result{display:none}
 
 .strip{
   background:#fff;
@@ -212,52 +196,39 @@ input{
   max-width:450px;
   margin:18px auto;
   padding:18px;
-  text-align:center
+  text-align:center;
 }
 
 .strip img{
   width:100%;
-  display:block
+  display:block;
 }
 
 .caption{
   font-weight:900;
   font-size:20px;
-  margin:12px
+  margin:12px;
 }
 
 .small{
   font-size:12px;
-  color:#666
+  color:#666;
 }
 
 .notice{
   color:var(--muted);
   font-size:13px;
   text-align:center;
-  margin:14px
+  margin:14px;
 }
 
-.ok{
-  color:#8ff0ba
-}
-
-.bad{
-  color:#ff9cb8
-}
+.ok{color:#8ff0ba}
+.bad{color:#ff9cb8}
 
 @media(max-width:700px){
-  .cams{
-    grid-template-columns:1fr
-  }
-
-  .card{
-    padding:14px
-  }
-
-  nav{
-    margin-bottom:35px
-  }
+  .cams{grid-template-columns:1fr}
+  .card{padding:14px}
+  nav{margin-bottom:35px}
 }
 </style>
 </head>
@@ -276,179 +247,190 @@ input{
   </div>
 </nav>
 
-
 <section class="hero">
 
-  <div class="eyebrow">
-    long-distance photobooth
-  </div>
+<div class="eyebrow">
+  long-distance photobooth
+</div>
 
-  <h1>
-    Us, even from<br>
-    <span class="pink">miles away.</span>
-  </h1>
+<h1>
+  Us, even from<br>
+  <span class="pink">miles away.</span>
+</h1>
 
-  <p>
-    Open this on two phones, join the same room,
-    and take a synchronized photo together.
-  </p>
+<p>
+  Open this on two phones, join the same room,
+  and take a synchronized photo together.
+</p>
 
+<div id="home" class="row">
 
-  <div id="home" class="row">
+<button class="btn" id="create">
+  Create a booth →
+</button>
 
-    <button class="btn" id="create">
-      Create a booth →
-    </button>
+<button class="secondary" id="showJoin">
+  Join a booth
+</button>
 
-    <button class="secondary" id="showJoin">
-      Join a booth
-    </button>
+</div>
 
-  </div>
+<div id="joinBox"
+     class="row"
+     style="display:none;margin-top:14px">
 
+<input
+  id="roomInput"
+  maxlength="6"
+  placeholder="ROOM CODE"
+>
 
-  <div id="joinBox" class="row" style="display:none;margin-top:14px">
+<button class="btn" id="join">
+  Join room
+</button>
 
-    <input
-      id="roomInput"
-      maxlength="6"
-      placeholder="ROOM CODE"
-    >
-
-    <button class="btn" id="join">
-      Join room
-    </button>
-
-  </div>
+</div>
 
 </section>
-
 
 
 <section id="roomUI" class="card">
 
-  <div class="top">
+<div class="top">
 
-    <div>
-      Room
-      <span class="room">
-        <b id="code">------</b>
-      </span>
-    </div>
+<div>
+Room
+<span class="room">
+<b id="code">------</b>
+</span>
+</div>
 
-    <div id="state">
-      Starting…
-    </div>
+<div id="state">
+Starting…
+</div>
 
-  </div>
-
-
-  <div class="cams">
-
-    <div class="cam">
-
-      <video
-        id="local"
-        autoplay
-        muted
-        playsinline
-      ></video>
-
-      <div class="tag">
-        YOU · LIVE
-      </div>
-
-    </div>
+</div>
 
 
-    <div class="cam" id="remoteBox">
+<div class="cams">
 
-      <div class="waiting" id="waiting">
+<div class="cam">
 
-        ♡<br>
+<video
+id="local"
+autoplay
+muted
+playsinline>
+</video>
 
-        <span>
-          Waiting for your person…
-        </span>
+<div class="tag">
+YOU · LIVE
+</div>
 
-      </div>
-
-      <video
-        id="remote"
-        autoplay
-        playsinline
-        style="display:none"
-      ></video>
-
-      <div class="tag">
-        THEM · LIVE
-      </div>
-
-    </div>
-
-  </div>
+</div>
 
 
-  <div class="notice" id="permission">
-    Your browser will ask for camera permission.
-  </div>
+<div class="cam">
+
+<div
+class="waiting"
+id="waiting">
+
+♡<br>
+
+<span>
+Waiting for your person…
+</span>
+
+</div>
+
+<video
+id="remote"
+autoplay
+playsinline
+style="display:none">
+</video>
+
+<div class="tag">
+THEM · LIVE
+</div>
+
+</div>
+
+</div>
 
 
-  <div class="controls">
+<div
+class="notice"
+id="permission">
 
-    <div class="count" id="count"></div>
+Your browser will ask for camera permission.
 
-    <button
-      class="shutter"
-      id="shoot"
-      aria-label="Take synchronized photo"
-    ></button>
-
-    <div class="notice">
-      Tap the shutter when both cameras are ready.
-    </div>
-
-  </div>
+</div>
 
 
-  <div id="result">
+<div class="controls">
 
-    <div style="text-align:center;color:var(--soft);font-weight:900">
-      OUR PHOTO STRIP
-    </div>
+<div
+class="count"
+id="count">
+</div>
+
+<button
+class="shutter"
+id="shoot"
+aria-label="Take synchronized photo">
+</button>
+
+<div class="notice">
+Tap the shutter when both cameras are ready.
+</div>
+
+</div>
 
 
-    <div class="strip">
+<div id="result">
 
-      <img id="combined">
+<div style="text-align:center;color:var(--soft);font-weight:900">
+OUR PHOTO STRIP
+</div>
 
-      <div class="caption">
-        miles apart ♡ still together
-      </div>
+<div class="strip">
 
-      <div class="small" id="stamp"></div>
+<img id="combined">
 
-    </div>
+<div class="caption">
+miles apart ♡ still together
+</div>
 
+<div
+class="small"
+id="stamp">
+</div>
 
-    <div class="row">
+</div>
 
-      <button class="btn" id="save">
-        Save photo strip
-      </button>
+<div class="row">
 
-      <button class="secondary" id="again">
-        Take another
-      </button>
+<button
+class="btn"
+id="save">
+Save photo strip
+</button>
 
-    </div>
+<button
+class="secondary"
+id="again">
+Take another
+</button>
 
-  </div>
+</div>
+
+</div>
 
 </section>
 
 </main>
-
 
 
 <script src="/socket.io/socket.io.js"></script>
@@ -464,22 +446,35 @@ let pc = null;
 let remoteReady = false;
 let shootTimer = null;
 
+/*
+ IMPORTANT:
+ ICE candidates can arrive before
+ the remote description.
+ We temporarily store them.
+*/
 
-/* ELEMENTS */
-
-const local = document.querySelector("#local");
-const remote = document.querySelector("#remote");
-const state = document.querySelector("#state");
-const count = document.querySelector("#count");
-
-const canvas = document.createElement("canvas");
+let pendingCandidates = [];
 
 
-/* STATUS */
+const local =
+document.querySelector("#local");
 
-function status(t, cls = "") {
+const remote =
+document.querySelector("#remote");
 
-  state.textContent = t;
+const state =
+document.querySelector("#state");
+
+const count =
+document.querySelector("#count");
+
+const canvas =
+document.createElement("canvas");
+
+
+function status(text, cls = ""){
+
+  state.textContent = text;
   state.className = cls;
 
 }
@@ -487,32 +482,44 @@ function status(t, cls = "") {
 
 /* CAMERA */
 
-async function camera() {
+async function camera(){
 
-  try {
+  try{
+
+    if(
+      !navigator.mediaDevices ||
+      !navigator.mediaDevices.getUserMedia
+    ){
+
+      throw new Error(
+        "Camera API unavailable"
+      );
+
+    }
 
     localStream =
-      await navigator.mediaDevices.getUserMedia({
+    await navigator.mediaDevices.getUserMedia({
 
-        video: {
-          facingMode: "user",
-          width: {
-            ideal: 1280
-          },
-          height: {
-            ideal: 960
-          }
-        },
+      video:{
+        facingMode:"user",
+        width:{ideal:1280},
+        height:{ideal:960}
+      },
 
-        audio: false
+      audio:false
 
-      });
+    });
 
 
-    local.srcObject = localStream;
+    local.srcObject =
+    localStream;
 
 
-    document.querySelector("#permission").textContent =
+    await local.play().catch(()=>{});
+
+
+    document.querySelector("#permission")
+      .textContent =
       "Camera ready ✓";
 
 
@@ -520,20 +527,21 @@ async function camera() {
 
   }
 
-  catch(e) {
+  catch(error){
 
-    console.error("Camera error:", e);
+    console.error(
+      "Camera error:",
+      error
+    );
 
-
-    document.querySelector("#permission").textContent =
-      "Camera blocked. Allow camera access in your browser settings, then reload.";
-
+    document.querySelector("#permission")
+      .textContent =
+      "Camera blocked. Allow camera access and reload.";
 
     status(
       "Camera permission needed",
       "bad"
     );
-
 
     return false;
 
@@ -544,11 +552,12 @@ async function camera() {
 
 /* WEBRTC */
 
-async function setupPeer() {
+async function setupPeer(){
 
-  pc = new RTCPeerConnection({
+  pc =
+  new RTCPeerConnection({
 
-    iceServers: [
+    iceServers:[
 
       {
         urls:"stun:stun.l.google.com:19302"
@@ -563,11 +572,9 @@ async function setupPeer() {
   });
 
 
-  /* Add local camera */
-
   localStream
     .getTracks()
-    .forEach(track => {
+    .forEach(track=>{
 
       pc.addTrack(
         track,
@@ -577,15 +584,24 @@ async function setupPeer() {
     });
 
 
-  /* Receive partner camera */
+  pc.ontrack = event =>{
 
-  pc.ontrack = e => {
+    console.log(
+      "Remote track received"
+    );
 
-    remote.srcObject = e.streams[0];
+    if(event.streams && event.streams[0]){
 
-    remote.style.display = "block";
+      remote.srcObject =
+      event.streams[0];
 
-    document.querySelector("#waiting").style.display =
+    }
+
+    remote.style.display =
+    "block";
+
+    document.querySelector("#waiting")
+      .style.display =
       "none";
 
     remoteReady = true;
@@ -598,17 +614,15 @@ async function setupPeer() {
   };
 
 
-  /* ICE */
+  pc.onicecandidate = event =>{
 
-  pc.onicecandidate = e => {
-
-    if(e.candidate) {
+    if(event.candidate){
 
       socket.emit(
         "ice-candidate",
         {
           room,
-          candidate:e.candidate
+          candidate:event.candidate
         }
       );
 
@@ -617,15 +631,73 @@ async function setupPeer() {
   };
 
 
-  pc.onconnectionstatechange = () => {
+  pc.oniceconnectionstatechange = ()=>{
+
+    console.log(
+      "ICE state:",
+      pc.iceConnectionState
+    );
 
     if(
-      ["failed","disconnected"]
-      .includes(pc.connectionState)
-    ) {
+      pc.iceConnectionState === "checking"
+    ){
 
       status(
-        "Connection interrupted",
+        "Connecting cameras…"
+      );
+
+    }
+
+    if(
+      pc.iceConnectionState === "connected" ||
+      pc.iceConnectionState === "completed"
+    ){
+
+      status(
+        "Both cameras connected",
+        "ok"
+      );
+
+    }
+
+    if(
+      pc.iceConnectionState === "failed"
+    ){
+
+      status(
+        "Direct connection failed",
+        "bad"
+      );
+
+    }
+
+  };
+
+
+  pc.onconnectionstatechange = ()=>{
+
+    console.log(
+      "Connection state:",
+      pc.connectionState
+    );
+
+    if(
+      pc.connectionState === "connected"
+    ){
+
+      status(
+        "Both cameras connected",
+        "ok"
+      );
+
+    }
+
+    if(
+      pc.connectionState === "failed"
+    ){
+
+      status(
+        "Connection failed",
         "bad"
       );
 
@@ -636,23 +708,36 @@ async function setupPeer() {
 }
 
 
-/* CREATE ROOM */
+/* CREATE */
 
-async function create() {
+async function create(){
 
   isCaller = true;
 
-
   socket.emit(
     "create-room",
-    async r => {
+    async response=>{
 
-      room = r.room;
+      if(!response.ok){
+
+        alert(
+          response.error ||
+          "Could not create room."
+        );
+
+        return;
+
+      }
+
+      room =
+      response.room;
 
       showRoom();
 
 
-      if(await camera()) {
+      if(
+        await camera()
+      ){
 
         await setupPeer();
 
@@ -668,21 +753,23 @@ async function create() {
 }
 
 
-/* JOIN ROOM */
+/* JOIN */
 
-async function join() {
+async function join(){
 
-  const val =
-    document
-      .querySelector("#roomInput")
-      .value
-      .trim()
-      .toUpperCase();
+  const value =
+  document
+    .querySelector("#roomInput")
+    .value
+    .trim()
+    .toUpperCase();
 
 
-  if(!val) {
+  if(!value){
 
-    alert("Enter the room code first.");
+    alert(
+      "Enter the room code first."
+    );
 
     return;
 
@@ -691,12 +778,15 @@ async function join() {
 
   socket.emit(
     "join-room",
-    val,
-    async r => {
+    value,
+    async response=>{
 
-      if(!r.ok) {
+      if(!response.ok){
 
-        alert(r.error);
+        alert(
+          response.error ||
+          "Could not join room."
+        );
 
         return;
 
@@ -705,23 +795,20 @@ async function join() {
 
       isCaller = false;
 
-      room = r.room;
+      room =
+      response.room;
 
       showRoom();
 
 
-      if(await camera()) {
+      if(
+        await camera()
+      ){
 
         await setupPeer();
 
         status(
           "Joining camera…"
-        );
-
-
-        socket.emit(
-          "ready-to-shoot",
-          room
         );
 
       }
@@ -734,20 +821,17 @@ async function join() {
 
 /* SHOW ROOM */
 
-function showRoom() {
+function showRoom(){
 
-  document
-    .querySelector("#roomUI")
-    .style.display = "block";
+  document.querySelector("#roomUI")
+    .style.display =
+    "block";
 
+  document.querySelector("#code")
+    .textContent =
+    room;
 
-  document
-    .querySelector("#code")
-    .textContent = room;
-
-
-  document
-    .querySelector("#roomUI")
+  document.querySelector("#roomUI")
     .scrollIntoView({
       behavior:"smooth"
     });
@@ -755,20 +839,39 @@ function showRoom() {
 }
 
 
-/* WEBRTC SIGNALING */
+/*
+ ==========================
+ WEBRTC SIGNALING
+ ==========================
+ */
 
 
-/* Partner joined */
+/* PARTNER JOINED */
 
 socket.on(
-  "peer-joined",
-  async () => {
+"peer-joined",
+async ()=>{
 
-    if(!pc) return;
+  console.log(
+    "Partner joined"
+  );
 
+
+  if(!pc){
+
+    console.warn(
+      "Peer connection not ready"
+    );
+
+    return;
+
+  }
+
+
+  try{
 
     const offer =
-      await pc.createOffer();
+    await pc.createOffer();
 
 
     await pc.setLocalDescription(
@@ -785,25 +888,83 @@ socket.on(
     );
 
   }
-);
+
+  catch(error){
+
+    console.error(
+      "Offer error:",
+      error
+    );
+
+  }
+
+});
 
 
-/* Receive offer */
+/* RECEIVE OFFER */
 
 socket.on(
-  "offer",
-  async offer => {
+"offer",
+async offer=>{
 
-    if(!pc) return;
+  console.log(
+    "Offer received"
+  );
 
+
+  if(!pc){
+
+    console.warn(
+      "No peer connection"
+    );
+
+    return;
+
+  }
+
+
+  try{
 
     await pc.setRemoteDescription(
       offer
     );
 
 
+    /*
+      Add candidates that arrived
+      before the offer.
+    */
+
+    for(
+      const candidate
+      of pendingCandidates
+    ){
+
+      try{
+
+        await pc.addIceCandidate(
+          candidate
+        );
+
+      }
+
+      catch(error){
+
+        console.warn(
+          "Pending ICE error:",
+          error
+        );
+
+      }
+
+    }
+
+
+    pendingCandidates = [];
+
+
     const answer =
-      await pc.createAnswer();
+    await pc.createAnswer();
 
 
     await pc.setLocalDescription(
@@ -820,214 +981,311 @@ socket.on(
     );
 
   }
-);
 
+  catch(error){
 
-/* Receive answer */
-
-socket.on(
-  "answer",
-  async answer => {
-
-    if(pc) {
-
-      await pc.setRemoteDescription(
-        answer
-      );
-
-    }
+    console.error(
+      "Offer handling error:",
+      error
+    );
 
   }
-);
+
+});
 
 
-/* ICE candidate */
+/* RECEIVE ANSWER */
 
 socket.on(
-  "ice-candidate",
-  async c => {
+"answer",
+async answer=>{
 
-    try {
+  console.log(
+    "Answer received"
+  );
 
-      if(pc) {
 
-        await pc.addIceCandidate(c);
+  if(!pc){
 
-      }
-
-    }
-
-    catch(e) {
-
-      console.warn(
-        "ICE candidate error:",
-        e
-      );
-
-    }
+    return;
 
   }
-);
 
 
-/* Partner left */
+  try{
 
-socket.on(
-  "peer-left",
-  () => {
-
-    status(
-      "Your person left the room",
-      "bad"
+    await pc.setRemoteDescription(
+      answer
     );
 
 
-    remote.style.display = "none";
+    for(
+      const candidate
+      of pendingCandidates
+    ){
 
+      try{
 
-    document
-      .querySelector("#waiting")
-      .style.display = "grid";
-
-
-    remoteReady = false;
-
-  }
-);
-
-
-/* COUNTDOWN */
-
-function countdownAndShoot() {
-
-  let n = 3;
-
-  count.textContent = n;
-
-  clearInterval(shootTimer);
-
-
-  shootTimer =
-    setInterval(() => {
-
-      n--;
-
-      count.textContent =
-        n > 0 ? n : "📸";
-
-
-      if(n <= 0) {
-
-        clearInterval(shootTimer);
-
-
-        captureLocal();
-
-
-        setTimeout(() => {
-
-          count.textContent = "";
-
-        },350);
+        await pc.addIceCandidate(
+          candidate
+        );
 
       }
 
-    },700);
+      catch(error){
+
+        console.warn(
+          "Pending ICE error:",
+          error
+        );
+
+      }
+
+    }
+
+
+    pendingCandidates = [];
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Answer handling error:",
+      error
+    );
+
+  }
+
+});
+
+
+/* ICE CANDIDATE */
+
+socket.on(
+"ice-candidate",
+async candidate=>{
+
+  if(!pc){
+
+    return;
+
+  }
+
+
+  try{
+
+    if(
+      pc.remoteDescription &&
+      pc.remoteDescription.type
+    ){
+
+      await pc.addIceCandidate(
+        candidate
+      );
+
+    }
+
+    else{
+
+      /*
+        Remote description hasn't
+        arrived yet.
+      */
+
+      pendingCandidates.push(
+        candidate
+      );
+
+    }
+
+  }
+
+  catch(error){
+
+    console.error(
+      "ICE candidate error:",
+      error
+    );
+
+  }
+
+});
+
+
+/* PARTNER LEFT */
+
+socket.on(
+"peer-left",
+()=>{
+
+  status(
+    "Your person left the room",
+    "bad"
+  );
+
+  remote.style.display =
+  "none";
+
+  document.querySelector("#waiting")
+    .style.display =
+    "grid";
+
+  remoteReady = false;
+
+});
+
+
+/*
+ ==========================
+ SYNCHRONIZED PHOTO
+ ==========================
+ */
+
+
+function countdownAndShoot(){
+
+  let number = 3;
+
+  count.textContent =
+  number;
+
+
+  clearInterval(
+    shootTimer
+  );
+
+
+  shootTimer =
+  setInterval(()=>{
+
+    number--;
+
+    count.textContent =
+    number > 0
+      ? number
+      : "📸";
+
+
+    if(number <= 0){
+
+      clearInterval(
+        shootTimer
+      );
+
+
+      captureLocal();
+
+
+      setTimeout(()=>{
+
+        count.textContent =
+        "";
+
+      },350);
+
+    }
+
+  },700);
 
 }
 
 
-/* CAPTURE PHOTOS */
+/* CAPTURE */
 
-function captureLocal() {
+function captureLocal(){
 
-  const v = local;
+  const video =
+  local;
 
 
-  const w =
-    v.videoWidth || 900;
+  const width =
+  video.videoWidth || 900;
 
-  const h =
-    v.videoHeight || 675;
+  const height =
+  video.videoHeight || 675;
 
 
   /*
-    Capture OUR camera
+    LOCAL PHOTO
   */
 
-  canvas.width = w;
-  canvas.height = h;
+  canvas.width =
+  width;
+
+  canvas.height =
+  height;
 
 
-  const ctx =
-    canvas.getContext("2d");
+  const context =
+  canvas.getContext("2d");
 
 
-  ctx.drawImage(
-    v,
+  context.drawImage(
+    video,
     0,
     0,
-    w,
-    h
+    width,
+    height
   );
 
 
   const mine =
-    canvas.toDataURL(
-      "image/jpeg",
-      0.9
-    );
+  canvas.toDataURL(
+    "image/jpeg",
+    0.9
+  );
 
 
   /*
-    Capture PARTNER camera
+    REMOTE PHOTO
   */
 
-  const rw =
-    remote.videoWidth || w;
+  const remoteWidth =
+  remote.videoWidth ||
+  width;
 
-  const rh =
-    remote.videoHeight || h;
-
-
-  canvas.width = rw;
-  canvas.height = rh;
+  const remoteHeight =
+  remote.videoHeight ||
+  height;
 
 
-  ctx.drawImage(
+  canvas.width =
+  remoteWidth;
+
+  canvas.height =
+  remoteHeight;
+
+
+  context.drawImage(
     remote,
     0,
     0,
-    rw,
-    rh
+    remoteWidth,
+    remoteHeight
   );
 
 
   const theirs =
-    canvas.toDataURL(
-      "image/jpeg",
-      0.9
-    );
+  canvas.toDataURL(
+    "image/jpeg",
+    0.9
+  );
 
-
-  /*
-    Build photo strip
-  */
 
   buildStrip(
     mine,
     theirs
   )
-  .catch(err => {
+  .catch(error=>{
 
     console.error(
-      "Photo strip error:",
-      err
+      "Strip error:",
+      error
     );
 
-
     alert(
-      "Couldn't create the photo strip. Please try again."
+      "Couldn't create the photo strip."
     );
 
   });
@@ -1035,36 +1293,33 @@ function captureLocal() {
 }
 
 
-/* LOAD IMAGE PROPERLY */
+/* LOAD IMAGE */
 
-function loadImage(src) {
+function loadImage(source){
 
   return new Promise(
-    (resolve,reject) => {
+    (resolve,reject)=>{
 
       const image =
-        new Image();
+      new Image();
 
 
-      image.onload = () => {
-
+      image.onload = ()=>{
         resolve(image);
-
       };
 
 
-      image.onerror = () => {
-
+      image.onerror = ()=>{
         reject(
           new Error(
             "Image failed to load"
           )
         );
-
       };
 
 
-      image.src = src;
+      image.src =
+      source;
 
     }
   );
@@ -1072,59 +1327,70 @@ function loadImage(src) {
 }
 
 
-/* BUILD PHOTO STRIP */
+/* BUILD STRIP */
 
-async function buildStrip(a,b) {
+async function buildStrip(
+  firstPhoto,
+  secondPhoto
+){
 
-  const c =
-    document.createElement("canvas");
-
-
-  const W = 1000;
-  const H = 930;
-
-
-  c.width = W;
-  c.height = H;
+  const strip =
+  document.createElement(
+    "canvas"
+  );
 
 
-  const x =
-    c.getContext("2d");
+  const width = 1000;
+  const height = 930;
 
 
-  /*
-    IMPORTANT:
-    Wait for both images to load
-    before drawing them.
-  */
+  strip.width =
+  width;
 
-  const mine =
-    await loadImage(a);
+  strip.height =
+  height;
 
-  const theirs =
-    await loadImage(b);
+
+  const context =
+  strip.getContext("2d");
 
 
   /*
-    White background
+    WAIT FOR PHOTOS
   */
 
-  x.fillStyle = "#fff";
+  const first =
+  await loadImage(
+    firstPhoto
+  );
 
-  x.fillRect(
-    0,
-    0,
-    W,
-    H
+  const second =
+  await loadImage(
+    secondPhoto
   );
 
 
   /*
-    Draw first photo
+    BACKGROUND
   */
 
-  x.drawImage(
-    mine,
+  context.fillStyle =
+  "#ffffff";
+
+  context.fillRect(
+    0,
+    0,
+    width,
+    height
+  );
+
+
+  /*
+    FIRST PHOTO
+  */
+
+  context.drawImage(
+    first,
     35,
     35,
     455,
@@ -1133,11 +1399,11 @@ async function buildStrip(a,b) {
 
 
   /*
-    Draw second photo
+    SECOND PHOTO
   */
 
-  x.drawImage(
-    theirs,
+  context.drawImage(
+    second,
     510,
     35,
     455,
@@ -1146,266 +1412,286 @@ async function buildStrip(a,b) {
 
 
   /*
-    Caption
+    TEXT
   */
 
-  x.fillStyle = "#151520";
+  context.fillStyle =
+  "#151520";
 
-  x.textAlign = "center";
+  context.textAlign =
+  "center";
 
-  x.font =
-    "900 34px system-ui";
+  context.font =
+  "900 34px system-ui";
 
 
-  x.fillText(
+  context.fillText(
     "miles apart ♡ still together",
-    W / 2,
+    width / 2,
     850
   );
 
 
-  /*
-    Timestamp
-  */
-
-  x.font =
-    "16px system-ui";
-
-  x.fillStyle =
-    "#666";
-
-
   const timestamp =
-    new Date().toLocaleString();
+  new Date()
+    .toLocaleString();
 
 
-  x.fillText(
+  context.font =
+  "16px system-ui";
+
+  context.fillStyle =
+  "#666";
+
+
+  context.fillText(
     timestamp,
-    W / 2,
+    width / 2,
     885
   );
 
 
   /*
-    Convert final canvas
-    into PNG
+    FINAL PNG
   */
 
-  const data =
-    c.toDataURL(
-      "image/png"
-    );
+  const finalImage =
+  strip.toDataURL(
+    "image/png"
+  );
 
 
   /*
-    Display image
+    DISPLAY
   */
 
-  document
-    .querySelector("#combined")
-    .src = data;
+  document.querySelector("#combined")
+    .src =
+    finalImage;
 
 
-  document
-    .querySelector("#stamp")
-    .textContent = timestamp;
+  document.querySelector("#stamp")
+    .textContent =
+    timestamp;
 
 
-  document
-    .querySelector("#result")
-    .style.display = "block";
+  document.querySelector("#result")
+    .style.display =
+    "block";
 
 
   /*
-    Store it for Save button
+    SAVE FOR DOWNLOAD
   */
 
-  window.currentStrip = data;
+  window.currentStrip =
+  finalImage;
 
 }
 
 
-/* TAKE PHOTO */
-
-document
-  .querySelector("#shoot")
-  .onclick = () => {
-
-    if(!remoteReady) {
-
-      alert(
-        "Wait until the other phone is connected."
-      );
-
-      return;
-
-    }
+/*
+ ==========================
+ BUTTONS
+ ==========================
+ */
 
 
-    socket.emit(
-      "shoot-now",
-      room
+/* SHOOT */
+
+document.querySelector("#shoot")
+.onclick = ()=>{
+
+  if(!remoteReady){
+
+    alert(
+      "Wait until both cameras are connected."
     );
 
-
-    countdownAndShoot();
-
-  };
-
-
-/* RECEIVE PHOTO COMMAND */
-
-socket.on(
-  "shoot-now",
-  () => {
-
-    countdownAndShoot();
+    return;
 
   }
-);
+
+
+  socket.emit(
+    "shoot-now",
+    room
+  );
+
+
+  countdownAndShoot();
+
+};
+
+
+/* RECEIVE SHOOT */
+
+socket.on(
+"shoot-now",
+()=>{
+
+  countdownAndShoot();
+
+});
 
 
 /* CREATE */
 
-document
-  .querySelector("#create")
-  .onclick = create;
+document.querySelector("#create")
+.onclick =
+create;
 
 
 /* SHOW JOIN */
 
-document
-  .querySelector("#showJoin")
-  .onclick = () => {
+document.querySelector("#showJoin")
+.onclick =
+()=>{
 
-    document
-      .querySelector("#joinBox")
-      .style.display = "flex";
+  document.querySelector("#joinBox")
+    .style.display =
+    "flex";
 
-  };
+};
 
 
 /* JOIN */
 
-document
-  .querySelector("#join")
-  .onclick = join;
+document.querySelector("#join")
+.onclick =
+join;
 
 
-/* TAKE ANOTHER */
+/* AGAIN */
 
-document
-  .querySelector("#again")
-  .onclick = () => {
+document.querySelector("#again")
+.onclick =
+()=>{
 
-    document
-      .querySelector("#result")
-      .style.display = "none";
+  document.querySelector("#result")
+    .style.display =
+    "none";
 
-    window.currentStrip = null;
+  window.currentStrip =
+  null;
 
-  };
-
-
-/* SAVE PHOTO */
-
-document
-  .querySelector("#save")
-  .onclick = () => {
-
-    if(!window.currentStrip) {
-
-      alert(
-        "No photo available yet."
-      );
-
-      return;
-
-    }
+};
 
 
-    /*
-      Convert Base64 PNG
-      into a real Blob.
-    */
+/* SAVE */
+
+document.querySelector("#save")
+.onclick =
+()=>{
+
+  if(!window.currentStrip){
+
+    alert(
+      "No photo available yet."
+    );
+
+    return;
+
+  }
+
+
+  try{
 
     const base64 =
-      window.currentStrip
-        .split(",")[1];
+    window.currentStrip
+      .split(",")[1];
 
 
     const binary =
-      atob(base64);
+    atob(base64);
 
 
     const bytes =
-      new Uint8Array(
-        binary.length
-      );
+    new Uint8Array(
+      binary.length
+    );
 
 
     for(
       let i = 0;
       i < binary.length;
       i++
-    ) {
+    ){
 
       bytes[i] =
-        binary.charCodeAt(i);
+      binary.charCodeAt(i);
 
     }
 
 
     const blob =
-      new Blob(
-        [bytes],
-        {
-          type:"image/png"
-        }
-      );
+    new Blob(
+      [bytes],
+      {
+        type:"image/png"
+      }
+    );
 
 
     const url =
-      URL.createObjectURL(blob);
+    URL.createObjectURL(
+      blob
+    );
 
 
-    /*
-      Download
-    */
-
-    const a =
-      document.createElement("a");
+    const link =
+    document.createElement("a");
 
 
-    a.href = url;
+    link.href =
+    url;
 
-    a.download =
-      "our-photobooth.png";
-
-
-    document
-      .body
-      .appendChild(a);
+    link.download =
+    "our-photobooth.png";
 
 
-    a.click();
+    document.body.appendChild(
+      link
+    );
 
 
-    a.remove();
+    link.click();
 
+    link.remove();
 
-    /*
-      Clean up
-    */
 
     setTimeout(
-      () => {
-        URL.revokeObjectURL(url);
+      ()=>{
+        URL.revokeObjectURL(
+          url
+        );
       },
       1000
     );
 
-  };
+  }
+
+  catch(error){
+
+    console.error(
+      "Save error:",
+      error
+    );
+
+
+    /*
+      Mobile-browser fallback:
+      open the image directly.
+    */
+
+    window.open(
+      window.currentStrip,
+      "_blank"
+    );
+
+  }
+
+};
 
 </script>
 
