@@ -778,159 +778,105 @@ function generateRoomCode(){
    LOCAL CAMERA
 ===================================================== */
 
-async function startCamera(){
+async function attachRemoteStream(stream) {
 
-  errorBox.style.display =
-    "none";
+    console.log("REMOTE STREAM RECEIVED:", stream);
 
-
-  if(localStream){
-
-    localStream
-      .getTracks()
-      .forEach(
-        track =>
-          track.stop()
-      );
-
-  }
-
-
-  if(
-    !navigator.mediaDevices ||
-    !navigator.mediaDevices.getUserMedia
-  ){
-
-    showError(
-      new Error(
-        "Camera API unavailable. HTTPS is required."
-      )
-    );
-
-    return false;
-
-  }
-
-
-  try{
-
-    cameraStatus.textContent =
-      "Requesting camera…";
-
-
-    localStream =
-      await navigator
-        .mediaDevices
-        .getUserMedia({
-
-          video:{
-            facingMode,
-
-            width:{
-              ideal:1280
-            },
-
-            height:{
-              ideal:960
-            }
-          },
-
-          audio:false
-
-        });
-
-
-    camera.srcObject =
-      localStream;
-
-
-    camera.muted =
-      true;
-
-    camera.autoplay =
-      true;
-
-    camera.playsInline =
-      true;
-
-
-    await camera.play();
-
-
-    updateMirror();
-
-
-    cameraStatus.textContent =
-      "Camera working ✓";
-
-    cameraStatus.style.color =
-      "#8ff0ba";
-
-
-    startCameraButton.textContent =
-      "Camera running ✓";
-
-
-    flipCameraButton.disabled =
-      false;
-
-    mirrorCameraButton.disabled =
-      false;
-
-
-    console.log(
-      "LOCAL CAMERA READY ✓"
-    );
-
-
-    /*
-      If Metered is already connected,
-      re-add the new stream.
-    */
-
-    if(peer){
-
-      try{
-
-        await peer.addStream(
-          localStream,
-          {
-            role:"camera",
-            label:"front cam"
-          }
-        );
-
-
-        console.log(
-          "LOCAL STREAM UPDATED ✓"
-        );
-
-      }catch(error){
-
-        console.warn(
-          "Could not update local stream:",
-          error
-        );
-
-      }
-
+    if (!stream) {
+        console.error("No remote stream received");
+        return;
     }
 
-
-    return true;
-
-  }
-
-  catch(error){
-
-    showError(
-      error
+    console.log(
+        "Remote tracks:",
+        stream.getTracks()
     );
 
-    return false;
+    console.log(
+        "Remote video tracks:",
+        stream.getVideoTracks()
+    );
 
-  }
+    remoteStream = stream;
 
+    // Directly use Metered's MediaStream.
+    remoteCamera.srcObject = stream;
+
+    remoteCamera.autoplay = true;
+    remoteCamera.playsInline = true;
+
+    // Don't rely on muted for the video rendering itself.
+    remoteCamera.muted = true;
+
+    remoteWaiting.style.display = "none";
+    remoteLive.style.display = "block";
+
+    remoteCamera.style.display = "block";
+    remoteCamera.style.visibility = "visible";
+    remoteCamera.style.opacity = "1";
+
+    remoteCamera.onloadedmetadata = async () => {
+
+        console.log(
+            "REMOTE VIDEO METADATA:",
+            remoteCamera.videoWidth,
+            "x",
+            remoteCamera.videoHeight
+        );
+
+        try {
+
+            await remoteCamera.play();
+
+            console.log(
+                "REMOTE VIDEO PLAYING ✓"
+            );
+
+            remoteDebug.textContent = "LIVE";
+
+            setConnectionStatus(
+                "Both cameras connected ✓",
+                "connected"
+            );
+
+        } catch (error) {
+
+            console.error(
+                "REMOTE VIDEO PLAY ERROR:",
+                error
+            );
+
+            remoteDebug.textContent =
+                "Remote stream received, playback failed";
+        }
+    };
+
+    remoteCamera.onplaying = () => {
+
+        console.log(
+            "REMOTE VIDEO PLAYING EVENT ✓"
+        );
+
+        remoteDebug.textContent = "LIVE";
+
+    };
+
+    remoteCamera.oncanplay = () => {
+
+        console.log(
+            "REMOTE VIDEO CANPLAY ✓"
+        );
+
+    };
+
+    // Try immediately as well.
+    try {
+        await remoteCamera.play();
+    } catch (error) {
+        console.log(
+            "Waiting for remote metadata before play..."
+        );
+    }
 }
 
 
