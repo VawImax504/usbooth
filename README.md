@@ -1,18 +1,55 @@
-# UsBooth — Two Phone Edition
+# ♡ UsBooth
 
-A real two-phone photobooth using WebRTC for camera-to-camera video and Socket.IO for room/signaling.
+> Two phones. One booth. One little memory to keep.
 
-## Run locally
-1. Install Node.js 18+.
-2. Run `npm install`.
-3. Run `npm start`.
-4. Open the site over HTTPS when testing camera access on phones. `localhost` is okay for local desktop development.
-5. For two phones on the same network, use an HTTPS tunnel such as Cloudflare Tunnel or deploy the app to an HTTPS host.
+UsBooth is a browser-based remote photo booth.
 
-## Production
-Deploy this Node app to a host that supports WebSockets. Set the `PORT` environment variable if required.
+Two people can open the same booth on different phones, see each other's cameras, and capture synchronized photos.
 
-## Notes
-- Camera permissions require HTTPS (or localhost).
-- WebRTC may need a TURN server on restrictive mobile networks. The demo uses public STUN servers and will work on many networks, but a production app should add TURN.
-- No photos are uploaded by this app; each phone captures locally and the remote preview is sent peer-to-peer.
+---
+
+## Features
+
+### Camera
+
+- Front camera
+- Rear camera
+- Camera switching
+- Mirror mode
+- Microphone toggle
+- Local camera preview
+- Remote camera preview
+
+### Booth
+
+- Create a six-character booth code
+- Join an existing booth
+- Live connection status
+- Remote peer detection
+- Reconnection status
+
+### Photos
+
+- Synchronized shutter
+- Countdown
+- Camera flash effect
+- Local photo capture
+- Remote photo transfer
+- Photo gallery
+- Photo numbering
+- Individual photo download
+- Download all photos
+- Delete individual photos
+- Clear gallery
+
+---
+
+# Project Structure
+
+```text
+UsBooth/
+│
+├── index.html
+├── server.js
+├── package.json
+└── README.md
