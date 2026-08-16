@@ -11,14 +11,12 @@
 :root{
   --bg:#09090f;
   --card:#151520;
-  --card2:#101018;
   --line:#302f3d;
   --pink:#ff719f;
   --soft:#ffc1d5;
   --muted:#aaa7b4;
   --green:#8ff0ba;
   --red:#ff8da9;
-  --white:#fff;
 }
 
 *{
@@ -33,16 +31,8 @@ body{
   margin:0;
   min-height:100vh;
   background:
-    radial-gradient(
-      circle at 15% -5%,
-      #531d3e 0,
-      transparent 38%
-    ),
-    radial-gradient(
-      circle at 100% 50%,
-      #24152f 0,
-      transparent 35%
-    ),
+    radial-gradient(circle at 15% -5%,#531d3e 0,transparent 38%),
+    radial-gradient(circle at 100% 50%,#24152f 0,transparent 35%),
     var(--bg);
   color:#fff7fb;
   font-family:
@@ -220,11 +210,6 @@ input{
   word-break:break-word;
 }
 
-
-/* =====================================================
-   MAIN BOOTH
-===================================================== */
-
 .boothLayout{
   display:grid;
   grid-template-columns:minmax(0,1fr) 300px;
@@ -302,11 +287,6 @@ input{
   margin-bottom:8px;
 }
 
-
-/* =====================================================
-   CONTROLS
-===================================================== */
-
 .controls{
   background:#101018;
   border:1px solid #302f3d;
@@ -362,7 +342,6 @@ input{
 
 .smallInput{
   width:100%;
-  text-transform:none;
 }
 
 .shutterArea{
@@ -392,23 +371,12 @@ input{
   border-radius:50%;
   background:white;
   border:7px solid var(--pink);
-  box-shadow:
-    0 0 0 5px #ffffff20,
-    0 8px 25px #0008;
+  box-shadow:0 0 0 5px #ffffff20,0 8px 25px #0008;
 }
 
 .shutter:active{
   transform:scale(.92);
 }
-
-.flipButton{
-  width:100%;
-}
-
-
-/* =====================================================
-   FLASH
-===================================================== */
 
 #flash{
   position:fixed;
@@ -428,11 +396,6 @@ input{
   20%{opacity:.95}
   100%{opacity:0}
 }
-
-
-/* =====================================================
-   PHOTO PREVIEW
-===================================================== */
 
 .previewSection{
   display:none;
@@ -499,11 +462,6 @@ input{
   font-weight:800;
 }
 
-
-/* =====================================================
-   FILM PREVIEW
-===================================================== */
-
 .result{
   display:none;
   margin-top:25px;
@@ -533,11 +491,6 @@ input{
   flex-wrap:wrap;
 }
 
-
-/* =====================================================
-   EDITING
-===================================================== */
-
 .editor{
   display:none;
   margin-top:25px;
@@ -565,22 +518,12 @@ input{
   text-align:right;
 }
 
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
 footer{
   text-align:center;
   color:#676575;
   font-size:11px;
   margin-top:50px;
 }
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
 
 @media(max-width:850px){
 
@@ -622,15 +565,13 @@ footer{
   }
 
   .shotGrid{
-    grid-template-columns:
-      repeat(2,1fr);
+    grid-template-columns:repeat(2,1fr);
   }
 
 }
 
 </style>
 </head>
-
 
 <body>
 
@@ -651,10 +592,6 @@ footer{
 </nav>
 
 
-<!-- =====================================================
-     HOME
-===================================================== -->
-
 <section class="hero">
 
   <div class="eyebrow">
@@ -673,7 +610,6 @@ footer{
     One little memory to keep.
   </p>
 
-
   <div class="actions">
 
     <button
@@ -691,7 +627,6 @@ footer{
     </button>
 
   </div>
-
 
   <div
     class="join"
@@ -717,10 +652,6 @@ footer{
 </section>
 
 
-<!-- =====================================================
-     BOOTH
-===================================================== -->
-
 <section
   id="booth"
   class="card"
@@ -734,9 +665,7 @@ footer{
 
       <span class="room">
         ROOM
-        <b id="roomCode">
-          ------
-        </b>
+        <b id="roomCode">------</b>
       </span>
 
     </div>
@@ -760,16 +689,9 @@ footer{
   <div class="boothLayout">
 
 
-    <!-- =================================================
-         CAMERAS
-    ================================================= -->
-
     <div class="cameraArea">
 
       <div class="cameras">
-
-
-        <!-- YOUR CAMERA -->
 
         <div class="camera">
 
@@ -790,8 +712,6 @@ footer{
 
         </div>
 
-
-        <!-- PARTNER CAMERA -->
 
         <div class="camera">
 
@@ -840,8 +760,6 @@ footer{
       </div>
 
 
-      <!-- CAMERA STATUS -->
-
       <div
         id="cameraState"
         style="
@@ -854,10 +772,6 @@ footer{
         Camera not started
       </div>
 
-
-      <!-- =================================================
-           PHOTO PREVIEW
-      ================================================= -->
 
       <section
         class="previewSection"
@@ -876,10 +790,6 @@ footer{
       </section>
 
 
-      <!-- =================================================
-           FINAL RESULT
-      ================================================= -->
-
       <section
         class="result"
         id="result"
@@ -897,7 +807,6 @@ footer{
           >
 
         </div>
-
 
         <div class="resultButtons">
 
@@ -934,10 +843,6 @@ footer{
       </section>
 
 
-      <!-- =================================================
-           EDITOR
-      ================================================= -->
-
       <section
         class="editor"
         id="editor"
@@ -950,9 +855,7 @@ footer{
 
         <div class="sliderRow">
 
-          <span>
-            Brightness
-          </span>
+          <span>Brightness</span>
 
           <input
             id="brightness"
@@ -975,9 +878,7 @@ footer{
 
         <div class="sliderRow">
 
-          <span>
-            Contrast
-          </span>
+          <span>Contrast</span>
 
           <input
             id="contrast"
@@ -1000,9 +901,7 @@ footer{
 
         <div class="sliderRow">
 
-          <span>
-            Saturation
-          </span>
+          <span>Saturation</span>
 
           <input
             id="saturation"
@@ -1025,9 +924,7 @@ footer{
 
         <div class="sliderRow">
 
-          <span>
-            Grain
-          </span>
+          <span>Grain</span>
 
           <input
             id="grain"
@@ -1064,14 +961,8 @@ footer{
     </div>
 
 
-    <!-- =================================================
-         ONE-SIDED CONTROLS
-    ================================================= -->
-
     <aside class="controls">
 
-
-      <!-- CAMERA -->
 
       <div class="controlSection">
 
@@ -1099,8 +990,6 @@ footer{
 
       </div>
 
-
-      <!-- COUNTDOWN -->
 
       <div class="controlSection">
 
@@ -1135,8 +1024,6 @@ footer{
 
       </div>
 
-
-      <!-- PHOTO COUNT -->
 
       <div class="controlSection">
 
@@ -1178,8 +1065,6 @@ footer{
 
       </div>
 
-
-      <!-- FILM -->
 
       <div class="controlSection">
 
@@ -1236,8 +1121,6 @@ footer{
       </div>
 
 
-      <!-- LAYOUT -->
-
       <div class="controlSection">
 
         <div class="controlTitle">
@@ -1279,8 +1162,6 @@ footer{
       </div>
 
 
-      <!-- DECORATION -->
-
       <div class="controlSection">
 
         <div class="controlTitle">
@@ -1315,8 +1196,6 @@ footer{
       </div>
 
 
-      <!-- DATE -->
-
       <div class="controlSection">
 
         <div class="controlTitle">
@@ -1344,8 +1223,6 @@ footer{
       </div>
 
 
-      <!-- CAPTION -->
-
       <div class="controlSection">
 
         <div class="controlTitle">
@@ -1361,8 +1238,6 @@ footer{
 
       </div>
 
-
-      <!-- SHUTTER -->
 
       <div class="shutterArea">
 
@@ -1401,25 +1276,21 @@ footer{
 
 
 <!-- =====================================================
-     METERED
+     METERED LIBRARY
 ===================================================== -->
 
 <script src="https://unpkg.com/@metered-ca/realtime@1/dist/index.umd.js"></script>
 
-/* =====================================================
-   METERED KEY
-   =====================================================
 
-   PUT YOUR EXISTING pk_live_... KEY HERE.
-*/
+<!-- =====================================================
+     USBOOTH JAVASCRIPT
+===================================================== -->
+
+<script>
 
 const METERED_PUBLISHABLE_KEY =
   "pk_live_782e36762825a38641834f99647209f4c8716774";
 
-
-/* =====================================================
-   METERED
-===================================================== */
 
 const {
   MeteredPeer
@@ -1427,31 +1298,19 @@ const {
 
 let peer = null;
 
-
-/* =====================================================
-   STATE
-===================================================== */
-
 let room = "";
-
 let stream = null;
-
 let remoteStream = null;
-
 let remoteReady = false;
 
 let mirror = true;
-
 let facingMode = "user";
 
 let countdownSeconds = 3;
-
 let numberOfPhotos = 3;
 
 let filmType = "classic";
-
 let layoutType = "vertical";
-
 let decorationType = "none";
 
 let showDate = true;
@@ -1461,98 +1320,62 @@ let caption =
 
 let photos = [];
 
-let shooting = false;
+let incomingPhotos =
+  new Map();
 
+let shooting = false;
 let finalImage = null;
 
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
 const booth =
-  document.getElementById(
-    "booth"
-  );
+  document.getElementById("booth");
 
 const video =
-  document.getElementById(
-    "video"
-  );
+  document.getElementById("video");
 
 const remoteVideo =
-  document.getElementById(
-    "remoteVideo"
-  );
+  document.getElementById("remoteVideo");
 
 const partnerWaiting =
-  document.getElementById(
-    "partnerWaiting"
-  );
+  document.getElementById("partnerWaiting");
 
 const connection =
-  document.getElementById(
-    "connection"
-  );
+  document.getElementById("connection");
 
 const cameraState =
-  document.getElementById(
-    "cameraState"
-  );
+  document.getElementById("cameraState");
 
 const errorBox =
-  document.getElementById(
-    "errorBox"
-  );
+  document.getElementById("errorBox");
 
 const countdown =
-  document.getElementById(
-    "countdown"
-  );
+  document.getElementById("countdown");
 
 const progress =
-  document.getElementById(
-    "progress"
-  );
+  document.getElementById("progress");
 
 const shutter =
-  document.getElementById(
-    "shutter"
-  );
+  document.getElementById("shutter");
 
 const flash =
-  document.getElementById(
-    "flash"
-  );
+  document.getElementById("flash");
 
 const shotGrid =
-  document.getElementById(
-    "shotGrid"
-  );
+  document.getElementById("shotGrid");
 
 const previewSection =
-  document.getElementById(
-    "previewSection"
-  );
+  document.getElementById("previewSection");
 
 const result =
-  document.getElementById(
-    "result"
-  );
+  document.getElementById("result");
 
 const resultImage =
-  document.getElementById(
-    "resultImage"
-  );
+  document.getElementById("resultImage");
 
-
-/* =====================================================
-   STATUS
-===================================================== */
 
 function setStatus(
   text,
-  type=""
+  type = ""
 ){
 
   connection.textContent =
@@ -1563,10 +1386,6 @@ function setStatus(
 
 }
 
-
-/* =====================================================
-   ERROR
-===================================================== */
 
 function showError(
   error
@@ -1592,10 +1411,6 @@ function showError(
 }
 
 
-/* =====================================================
-   ROOM CODE
-===================================================== */
-
 function makeRoom(){
 
   const chars =
@@ -1604,8 +1419,8 @@ function makeRoom(){
   let result = "";
 
   for(
-    let i=0;
-    i<6;
+    let i = 0;
+    i < 6;
     i++
   ){
 
@@ -1623,10 +1438,6 @@ function makeRoom(){
 
 }
 
-
-/* =====================================================
-   CAMERA
-===================================================== */
 
 async function startCamera(){
 
@@ -1667,23 +1478,19 @@ async function startCamera(){
     video.srcObject =
       stream;
 
-
     await video
       .play()
       .catch(
         ()=>{}
       );
 
-
     updateMirror();
-
 
     cameraState.textContent =
       "Camera ready ✓";
 
     cameraState.style.color =
       "#8ff0ba";
-
 
     return true;
 
@@ -1705,7 +1512,7 @@ async function startCamera(){
 
 
 /* =====================================================
-   METERED SETUP
+   METERED
 ===================================================== */
 
 function setupPeer(){
@@ -1821,6 +1628,93 @@ function setupPeer(){
   );
 
 
+  /* ===================================================
+     PHOTO TRANSFER
+  =================================================== */
+
+  peer.on(
+    "data",
+    ({
+      senderPeerId,
+      data
+    })=>{
+
+      console.log(
+        "Received data:",
+        data
+      );
+
+
+      if(
+        !data ||
+        data.type !== "photo"
+      ){
+
+        return;
+
+      }
+
+
+      const shot =
+        Number(
+          data.shot
+        );
+
+
+      if(
+        !Number.isInteger(shot) ||
+        shot < 1 ||
+        !data.image
+      ){
+
+        return;
+
+      }
+
+
+      console.log(
+        "Received partner photo:",
+        shot,
+        "from",
+        senderPeerId
+      );
+
+
+      incomingPhotos.set(
+        shot,
+        data.image
+      );
+
+
+      const index =
+        shot - 1;
+
+
+      if(
+        photos[index]
+      ){
+
+        photos[index].remote =
+          data.image;
+
+
+        renderPhotoPreviews();
+
+
+        if(
+          !shooting
+        ){
+
+          buildFilm();
+
+        }
+
+      }
+
+    }
+  );
+
+
   peer.on(
     "peer-left",
     ()=>{
@@ -1839,6 +1733,13 @@ function setupPeer(){
 
       partnerWaiting.style.display =
         "grid";
+
+
+      document.getElementById(
+        "remoteLive"
+      ).style.display =
+        "none";
+
 
       setStatus(
         "Your person left",
@@ -1874,17 +1775,17 @@ function attachRemote(
 ){
 
   if(!remote){
+
     return;
+
   }
 
 
   remoteStream =
     remote;
 
-
   remoteVideo.srcObject =
     remote;
-
 
   remoteVideo.style.display =
     "block";
@@ -1923,7 +1824,7 @@ function attachRemote(
 
 
 /* =====================================================
-   CREATE
+   ROOM
 ===================================================== */
 
 async function createRoom(){
@@ -1935,10 +1836,6 @@ async function createRoom(){
 
 }
 
-
-/* =====================================================
-   JOIN
-===================================================== */
 
 async function joinRoom(){
 
@@ -1969,10 +1866,6 @@ async function joinRoom(){
 
 }
 
-
-/* =====================================================
-   OPEN BOOTH
-===================================================== */
 
 async function openBooth(){
 
@@ -2013,7 +1906,9 @@ async function openBooth(){
 
 
     if(!cameraOK){
+
       return;
+
     }
 
 
@@ -2021,9 +1916,8 @@ async function openBooth(){
 
 
     /*
-      Keep this sequence unchanged
-      because this is the connection
-      version that is currently working.
+      Keep the working Metered
+      connection sequence.
     */
 
     peer.addStream(
@@ -2124,7 +2018,7 @@ document.getElementById(
       }catch(error){
 
         console.warn(
-          "Camera replacement failed",
+          "Camera replacement failed:",
           error
         );
 
@@ -2136,7 +2030,7 @@ document.getElementById(
 
 
 /* =====================================================
-   ACTIVATE BUTTON
+   OPTIONS
 ===================================================== */
 
 function activate(
@@ -2162,10 +2056,6 @@ function activate(
 
 }
 
-
-/* =====================================================
-   COUNTDOWN
-===================================================== */
 
 document
   .querySelectorAll(
@@ -2194,10 +2084,6 @@ document
   );
 
 
-/* =====================================================
-   PHOTO COUNT
-===================================================== */
-
 document
   .querySelectorAll(
     "[data-count]"
@@ -2224,10 +2110,6 @@ document
     }
   );
 
-
-/* =====================================================
-   FILM TYPE
-===================================================== */
 
 document
   .querySelectorAll(
@@ -2263,10 +2145,6 @@ document
   );
 
 
-/* =====================================================
-   LAYOUT
-===================================================== */
-
 document
   .querySelectorAll(
     "[data-layout]"
@@ -2300,10 +2178,6 @@ document
     }
   );
 
-
-/* =====================================================
-   DECORATION
-===================================================== */
 
 document
   .querySelectorAll(
@@ -2351,11 +2225,13 @@ document.getElementById(
     showDate =
       true;
 
+
     document.getElementById(
       "dateOn"
     ).classList.add(
       "active"
     );
+
 
     document.getElementById(
       "dateOff"
@@ -2383,11 +2259,13 @@ document.getElementById(
     showDate =
       false;
 
+
     document.getElementById(
       "dateOff"
     ).classList.add(
       "active"
     );
+
 
     document.getElementById(
       "dateOn"
@@ -2485,6 +2363,8 @@ shutter.onclick =
     photos =
       [];
 
+    incomingPhotos.clear();
+
 
     previewSection.style.display =
       "none";
@@ -2510,7 +2390,7 @@ shutter.onclick =
 
 
 /* =====================================================
-   TAKE NEXT PHOTO
+   COUNTDOWN
 ===================================================== */
 
 function takeNextPhoto(
@@ -2569,10 +2449,10 @@ function takeNextPhoto(
 
 
 /* =====================================================
-   CAPTURE PHOTO
+   CAPTURE + SEND
 ===================================================== */
 
-function capturePhoto(
+async function capturePhoto(
   number
 ){
 
@@ -2587,54 +2467,106 @@ function capturePhoto(
   );
 
 
+  /*
+    Capture only our camera.
+    The partner's actual captured
+    photo comes through data.
+  */
+
   const localCanvas =
     captureVideo(
       video
     );
 
 
-  let remoteCanvas = null;
+  /*
+    Compress before transfer.
+  */
+
+  const localImage =
+    localCanvas.toDataURL(
+      "image/jpeg",
+      0.55
+    );
+
+
+  photos[number - 1] = {
+
+    local:
+      localImage,
+
+    remote:
+      incomingPhotos.get(
+        number
+      ) || null
+
+  };
+
+
+  renderPhotoPreviews();
 
 
   /*
-    If the remote camera isn't available
-    for some reason, we still keep the
-    local photo instead of crashing.
+    Send our actual captured photo.
   */
 
-  if(
-    remoteVideo.readyState >= 2 &&
-    remoteVideo.videoWidth
-  ){
+  if(peer){
 
-    remoteCanvas =
-      captureVideo(
-        remoteVideo
+    try{
+
+      await Promise.resolve(
+        peer.send({
+
+          type:
+            "photo",
+
+          shot:
+            number,
+
+          image:
+            localImage
+
+        })
       );
+
+
+      console.log(
+        "Photo sent:",
+        number
+      );
+
+    }catch(error){
+
+      console.error(
+        "Could not send photo:",
+        error
+      );
+
+    }
 
   }
 
 
-  photos.push({
+  /*
+    Partner may have arrived
+    while we were capturing.
+  */
 
-    local:
-      localCanvas.toDataURL(
-        "image/jpeg",
-        .95
-      ),
+  if(
+    incomingPhotos.has(
+      number
+    )
+  ){
 
-    remote:
-      remoteCanvas
-        ? remoteCanvas.toDataURL(
-            "image/jpeg",
-            .95
-          )
-        : null
-
-  });
+    photos[number - 1].remote =
+      incomingPhotos.get(
+        number
+      );
 
 
-  renderPhotoPreviews();
+    renderPhotoPreviews();
+
+  }
 
 
   if(
@@ -2643,18 +2575,17 @@ function capturePhoto(
   ){
 
     progress.textContent =
-      `Photo ${number+1} / ${numberOfPhotos}`;
+      `Photo ${number + 1} / ${numberOfPhotos}`;
 
 
     setTimeout(
       ()=>{
         takeNextPhoto(
-          number+1
+          number + 1
         );
       },
       700
     );
-
 
   }else{
 
@@ -2668,11 +2599,22 @@ function capturePhoto(
     shooting =
       false;
 
+
     shutter.disabled =
       false;
 
 
-    buildFilm();
+    /*
+      Give final partner image time
+      to arrive.
+    */
+
+    setTimeout(
+      ()=>{
+        buildFilm();
+      },
+      1500
+    );
 
   }
 
@@ -2697,6 +2639,7 @@ function captureVideo(
     videoElement.videoWidth ||
     900;
 
+
   const height =
     videoElement.videoHeight ||
     675;
@@ -2704,6 +2647,7 @@ function captureVideo(
 
   canvas.width =
     width;
+
 
   canvas.height =
     height;
@@ -2714,12 +2658,6 @@ function captureVideo(
       "2d"
     );
 
-
-  /*
-    The preview is mirrored for the
-    user's comfort, but the saved photo
-    is intentionally NOT mirrored.
-  */
 
   ctx.drawImage(
     videoElement,
@@ -2736,7 +2674,7 @@ function captureVideo(
 
 
 /* =====================================================
-   PHOTO PREVIEWS
+   PREVIEWS
 ===================================================== */
 
 function renderPhotoPreviews(){
@@ -2748,10 +2686,18 @@ function renderPhotoPreviews(){
   photos.forEach(
     (photo,index)=>{
 
+      if(!photo){
+
+        return;
+
+      }
+
+
       const card =
         document.createElement(
           "div"
         );
+
 
       card.className =
         "shotCard";
@@ -2762,17 +2708,20 @@ function renderPhotoPreviews(){
           "div"
         );
 
+
       number.className =
         "shotNumber";
 
+
       number.textContent =
-        `SHOT ${index+1}`;
+        `SHOT ${index + 1}`;
 
 
       const images =
         document.createElement(
           "div"
         );
+
 
       images.className =
         "shotImages";
@@ -2782,6 +2731,7 @@ function renderPhotoPreviews(){
         document.createElement(
           "img"
         );
+
 
       local.src =
         photo.local;
@@ -2801,11 +2751,39 @@ function renderPhotoPreviews(){
             "img"
           );
 
+
         remote.src =
           photo.remote;
 
+
         images.appendChild(
           remote
+        );
+
+      }else{
+
+        const waiting =
+          document.createElement(
+            "div"
+          );
+
+
+        waiting.style.cssText = `
+          display:grid;
+          place-items:center;
+          aspect-ratio:1;
+          background:#171720;
+          color:#777484;
+          font-size:11px;
+        `;
+
+
+        waiting.textContent =
+          "Waiting…";
+
+
+        images.appendChild(
+          waiting
         );
 
       }
@@ -2816,6 +2794,7 @@ function renderPhotoPreviews(){
           "div"
         );
 
+
       buttons.className =
         "shotButtons";
 
@@ -2825,14 +2804,16 @@ function renderPhotoPreviews(){
           "button"
         );
 
+
       localButton.textContent =
         "⬇ You";
+
 
       localButton.onclick =
         ()=>{
           downloadData(
             photo.local,
-            `usbooth-shot-${index+1}-you.jpg`
+            `usbooth-shot-${index + 1}-you.jpg`
           );
         };
 
@@ -2851,14 +2832,16 @@ function renderPhotoPreviews(){
             "button"
           );
 
+
         remoteButton.textContent =
           "⬇ Them";
+
 
         remoteButton.onclick =
           ()=>{
             downloadData(
               photo.remote,
-              `usbooth-shot-${index+1}-them.jpg`
+              `usbooth-shot-${index + 1}-them.jpg`
             );
           };
 
@@ -2874,9 +2857,11 @@ function renderPhotoPreviews(){
         number
       );
 
+
       card.appendChild(
         images
       );
+
 
       card.appendChild(
         buttons
@@ -2891,14 +2876,20 @@ function renderPhotoPreviews(){
   );
 
 
-  previewSection.style.display =
-    "block";
+  if(
+    photos.length
+  ){
+
+    previewSection.style.display =
+      "block";
+
+  }
 
 }
 
 
 /* =====================================================
-   BUILD FILM
+   FILM
 ===================================================== */
 
 async function buildFilm(){
@@ -2919,13 +2910,21 @@ async function buildFilm(){
     const photo of photos
   ){
 
+    if(!photo){
+
+      continue;
+
+    }
+
+
     const local =
       await loadImage(
         photo.local
       );
 
 
-    let remote = null;
+    let remote =
+      null;
 
 
     if(
@@ -2946,6 +2945,15 @@ async function buildFilm(){
       remote
 
     });
+
+  }
+
+
+  if(
+    !pairImages.length
+  ){
+
+    return;
 
   }
 
@@ -2975,7 +2983,8 @@ async function buildFilm(){
     columns =
       pairImages.length;
 
-    rows = 1;
+    rows =
+      1;
 
   }
 
@@ -3005,7 +3014,8 @@ async function buildFilm(){
     "film"
   ){
 
-    columns = 1;
+    columns =
+      1;
 
     rows =
       pairImages.length;
@@ -3015,7 +3025,7 @@ async function buildFilm(){
 
   const width =
     columns * photoW +
-    (columns+1)*margin;
+    (columns + 1) * margin;
 
 
   const footerHeight =
@@ -3024,7 +3034,7 @@ async function buildFilm(){
 
   const height =
     rows * photoH +
-    (rows+1)*margin +
+    (rows + 1) * margin +
     footerHeight;
 
 
@@ -3046,8 +3056,6 @@ async function buildFilm(){
       "2d"
     );
 
-
-  /* BACKGROUND */
 
   switch(
     filmType
@@ -3109,8 +3117,6 @@ async function buildFilm(){
   );
 
 
-  /* PHOTOS */
-
   pairImages.forEach(
     (
       pair,
@@ -3120,6 +3126,7 @@ async function buildFilm(){
       const col =
         index %
         columns;
+
 
       const row =
         Math.floor(
@@ -3131,13 +3138,13 @@ async function buildFilm(){
       const x =
         margin +
         col *
-        (photoW+margin);
+        (photoW + margin);
 
 
       const y =
         margin +
         row *
-        (photoH+margin);
+        (photoH + margin);
 
 
       let filter =
@@ -3189,16 +3196,16 @@ async function buildFilm(){
           pair.local,
           x,
           y,
-          photoW/2,
+          photoW / 2,
           photoH
         );
 
 
         ctx.drawImage(
           pair.remote,
-          x+photoW/2,
+          x + photoW / 2,
           y,
-          photoW/2,
+          photoW / 2,
           photoH
         );
 
@@ -3210,21 +3217,25 @@ async function buildFilm(){
         ctx.strokeStyle =
           "#ffffffaa";
 
+
         ctx.lineWidth =
           3;
 
 
         ctx.beginPath();
 
+
         ctx.moveTo(
-          x+photoW/2,
+          x + photoW / 2,
           y
         );
 
+
         ctx.lineTo(
-          x+photoW/2,
-          y+photoH
+          x + photoW / 2,
+          y + photoH
         );
+
 
         ctx.stroke();
 
@@ -3237,6 +3248,7 @@ async function buildFilm(){
           photoW,
           photoH
         );
+
 
         ctx.filter =
           "none";
@@ -3256,8 +3268,6 @@ async function buildFilm(){
   );
 
 
-  /* FOOTER */
-
   ctx.textAlign =
     "center";
 
@@ -3274,8 +3284,8 @@ async function buildFilm(){
 
   ctx.fillText(
     caption,
-    width/2,
-    height-65
+    width / 2,
+    height - 65
   );
 
 
@@ -3294,10 +3304,9 @@ async function buildFilm(){
 
 
     ctx.fillText(
-      new Date()
-        .toLocaleString(),
-      width/2,
-      height-32
+      new Date().toLocaleString(),
+      width / 2,
+      height - 32
     );
 
   }
@@ -3322,16 +3331,11 @@ async function buildFilm(){
   ).style.display =
     "block";
 
-
-  result.scrollIntoView({
-    behavior:"smooth"
-  });
-
 }
 
 
 /* =====================================================
-   DECORATION
+   DECORATIONS
 ===================================================== */
 
 function drawDecoration(
@@ -3355,6 +3359,7 @@ function drawDecoration(
   ctx.font =
     "34px serif";
 
+
   ctx.fillStyle =
     "#ff719f";
 
@@ -3366,14 +3371,15 @@ function drawDecoration(
 
     ctx.fillText(
       "♡",
-      x+25,
-      y+40
+      x + 25,
+      y + 40
     );
+
 
     ctx.fillText(
       "♡",
-      x+width-50,
-      y+height-12
+      x + width - 50,
+      y + height - 12
     );
 
   }
@@ -3386,14 +3392,15 @@ function drawDecoration(
 
     ctx.fillText(
       "✦",
-      x+25,
-      y+40
+      x + 25,
+      y + 40
     );
+
 
     ctx.fillText(
       "✦",
-      x+width-50,
-      y+height-12
+      x + width - 50,
+      y + height - 12
     );
 
   }
@@ -3402,7 +3409,7 @@ function drawDecoration(
 
 
 /* =====================================================
-   LOAD IMAGE
+   IMAGE
 ===================================================== */
 
 function loadImage(
@@ -3421,6 +3428,7 @@ function loadImage(
 
       img.onload =
         ()=>resolve(img);
+
 
       img.onerror =
         reject;
@@ -3445,7 +3453,9 @@ function downloadData(
 ){
 
   if(!data){
+
     return;
+
   }
 
 
@@ -3457,6 +3467,7 @@ function downloadData(
 
   link.href =
     data;
+
 
   link.download =
     filename;
@@ -3475,26 +3486,16 @@ function downloadData(
 }
 
 
-/* =====================================================
-   DOWNLOAD COMPLETE FILM
-===================================================== */
-
 document.getElementById(
   "downloadFilm"
 ).onclick =
   ()=>{
-
     downloadData(
       finalImage,
       "usbooth-film.png"
     );
-
   };
 
-
-/* =====================================================
-   DOWNLOAD JPG
-===================================================== */
 
 document.getElementById(
   "downloadJpg"
@@ -3502,7 +3503,9 @@ document.getElementById(
   async ()=>{
 
     if(!finalImage){
+
       return;
+
     }
 
 
@@ -3520,6 +3523,7 @@ document.getElementById(
 
     canvas.width =
       image.width;
+
 
     canvas.height =
       image.height;
@@ -3571,7 +3575,9 @@ document.getElementById(
   async ()=>{
 
     if(!finalImage){
+
       return;
+
     }
 
 
@@ -3627,7 +3633,7 @@ document.getElementById(
     }catch(error){
 
       console.log(
-        "Share cancelled",
+        "Share cancelled:",
         error
       );
 
@@ -3648,6 +3654,8 @@ document.getElementById(
     photos =
       [];
 
+    incomingPhotos.clear();
+
     finalImage =
       null;
 
@@ -3657,17 +3665,14 @@ document.getElementById(
     shutter.disabled =
       false;
 
-
     countdown.textContent =
       "";
 
     progress.textContent =
       "Ready";
 
-
     shotGrid.innerHTML =
       "";
-
 
     previewSection.style.display =
       "none";
@@ -3679,13 +3684,6 @@ document.getElementById(
       "editor"
     ).style.display =
       "none";
-
-
-    window.scrollTo({
-      top:
-        booth.offsetTop,
-      behavior:"smooth"
-    });
 
   };
 
@@ -3713,7 +3711,7 @@ editIds.forEach(
 
     const output =
       document.getElementById(
-        id+"Value"
+        id + "Value"
       );
 
 
@@ -3723,6 +3721,7 @@ editIds.forEach(
 
         output.textContent =
           slider.value;
+
 
         applyEdits();
 
@@ -3734,14 +3733,12 @@ editIds.forEach(
 );
 
 
-/* =====================================================
-   APPLY EDITS
-===================================================== */
-
 async function applyEdits(){
 
   if(!finalImage){
+
     return;
+
   }
 
 
@@ -3759,6 +3756,7 @@ async function applyEdits(){
 
   canvas.width =
     image.width;
+
 
   canvas.height =
     image.height;
@@ -3802,12 +3800,11 @@ async function applyEdits(){
     );
 
 
-  ctx.filter =
-    `
-      brightness(${100+brightness}%)
-      contrast(${100+contrast}%)
-      saturate(${100+saturation}%)
-    `;
+  ctx.filter = `
+    brightness(${100 + brightness}%)
+    contrast(${100 + contrast}%)
+    saturate(${100 + saturation}%)
+  `;
 
 
   ctx.drawImage(
@@ -3820,8 +3817,6 @@ async function applyEdits(){
   ctx.filter =
     "none";
 
-
-  /* GRAIN */
 
   if(
     grain > 0
@@ -3845,14 +3840,14 @@ async function applyEdits(){
 
 
     for(
-      let i=0;
-      i<pixels.length;
-      i+=4
+      let i = 0;
+      i < pixels.length;
+      i += 4
     ){
 
       const noise =
         (
-          Math.random()-.5
+          Math.random() - .5
         ) *
         amount;
 
@@ -3862,27 +3857,27 @@ async function applyEdits(){
           0,
           Math.min(
             255,
-            pixels[i]+noise
+            pixels[i] + noise
           )
         );
 
 
-      pixels[i+1] =
+      pixels[i + 1] =
         Math.max(
           0,
           Math.min(
             255,
-            pixels[i+1]+noise
+            pixels[i + 1] + noise
           )
         );
 
 
-      pixels[i+2] =
+      pixels[i + 2] =
         Math.max(
           0,
           Math.min(
             255,
-            pixels[i+2]+noise
+            pixels[i + 2] + noise
           )
         );
 
@@ -3910,10 +3905,6 @@ async function applyEdits(){
 }
 
 
-/* =====================================================
-   RESET EDITS
-===================================================== */
-
 document.getElementById(
   "resetEdits"
 ).onclick =
@@ -3929,7 +3920,7 @@ document.getElementById(
 
 
         document.getElementById(
-          id+"Value"
+          id + "Value"
         ).textContent =
           "0";
 
@@ -3937,17 +3928,13 @@ document.getElementById(
     );
 
 
-    /*
-      Rebuild the original film.
-    */
-
     buildFilm();
 
   };
 
 
 /* =====================================================
-   HOME BUTTONS
+   HOME
 ===================================================== */
 
 document.getElementById(
@@ -4004,29 +3991,16 @@ document.getElementById(
 
 
 /* =====================================================
-   HASH ROOM
+   INITIAL
 ===================================================== */
 
-if(
-  location.hash &&
-  location.hash.length > 1
-){
+updateMirror();
 
-  room =
-    location.hash
-      .slice(1)
-      .toUpperCase();
-
-}
-
-
-/* =====================================================
-   DEBUG
-===================================================== */
 
 console.log(
   "UsBooth loaded."
 );
+
 
 console.log(
   "MeteredPeer:",
