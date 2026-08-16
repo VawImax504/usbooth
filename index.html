@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UsBooth — two phones</title>
+<style>
+:root{--bg:#090910;--card:#151520;--line:#2d2c3a;--pink:#ff719f;--soft:#ffc0d4;--muted:#aaa7b4}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0,#421b34,#090910 40%);color:#fff7fb;font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1050px;margin:auto;padding:22px 16px 60px}nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:50px}.logo{font-weight:900;letter-spacing:.5px}.pink{color:var(--pink)}
+.hero{text-align:center}.eyebrow{text-transform:uppercase;letter-spacing:4px;color:var(--soft);font-size:11px;font-weight:800}h1{font-size:clamp(42px,8vw,76px);line-height:.98;margin:14px 0}.hero p{color:var(--muted);font-size:17px}
+.card{margin-top:32px;background:#151520e8;border:1px solid var(--line);border-radius:28px;padding:20px;box-shadow:0 25px 80px #0008}
+.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.btn,input{border-radius:999px;padding:13px 18px;font:inherit}button{border:0;cursor:pointer;font-weight:800}.btn{background:var(--pink);color:#210812}.secondary{background:#252532;color:white;border:1px solid #3d3b4d}input{background:#0d0d14;border:1px solid #3d3b4d;color:white;outline:0;text-transform:uppercase}
+#roomUI{display:none}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.room{color:var(--soft)}.room b{letter-spacing:3px}
+.cams{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.cam{aspect-ratio:4/3;background:#07070b;border-radius:20px;overflow:hidden;position:relative;border:1px solid #363544}.cam video{width:100%;height:100%;object-fit:cover;display:block}.tag{position:absolute;top:10px;left:10px;background:#000a;padding:7px 10px;border-radius:99px;font-size:11px}.waiting{height:100%;display:grid;place-items:center;color:#777484;text-align:center;padding:25px}
+.controls{text-align:center;margin:20px}.count{height:70px;font-size:52px;font-weight:900}.shutter{width:72px;height:72px;border-radius:50%;background:#fff;border:7px solid var(--pink);box-shadow:0 0 0 5px #fff2}
+#result{display:none}.strip{background:#fff;color:#161620;max-width:450px;margin:18px auto;padding:18px;text-align:center}.strip img{width:100%;display:block}.caption{font-weight:900;font-size:20px;margin:12px}.small{font-size:12px;color:#666}
+.notice{color:var(--muted);font-size:13px;text-align:center;margin:14px}.ok{color:#8ff0ba}.bad{color:#ff9cb8}
+@media(max-width:700px){.cams{grid-template-columns:1fr}.card{padding:14px}nav{margin-bottom:35px}}
+</style>
+</head>
+<body>
+<main>
+<nav><div class="logo">♡ <span class="pink">US</span>BOOTH</div><div style="color:#777484;font-size:12px">two phones · one frame</div></nav>
+<section class="hero">
+<div class="eyebrow">long-distance photobooth</div>
+<h1>Us, even from<br><span class="pink">miles away.</span></h1>
+<p>Open this on two phones, join the same room, and take a synchronized photo together.</p>
+<div id="home" class="row">
+<button class="btn" id="create">Create a booth →</button>
+<button class="secondary" id="showJoin">Join a booth</button>
+</div>
+<div id="joinBox" class="row" style="display:none;margin-top:14px">
+<input id="roomInput" maxlength="6" placeholder="ROOM CODE"><button class="btn" id="join">Join room</button>
+</div>
+</section>
+
+<section id="roomUI" class="card">
+<div class="top"><div>Room <span class="room"><b id="code">------</b></span></div><div id="state">Starting…</div></div>
+<div class="cams">
+<div class="cam"><video id="local" autoplay muted playsinline></video><div class="tag">YOU · LIVE</div></div>
+<div class="cam" id="remoteBox"><div class="waiting" id="waiting">♡<br><span>Waiting for your person…</span></div><video id="remote" autoplay playsinline style="display:none"></video><div class="tag">THEM · LIVE</div></div>
+</div>
+<div class="notice" id="permission">Your browser will ask for camera permission.</div>
+<div class="controls"><div class="count" id="count"></div><button class="shutter" id="shoot" aria-label="Take synchronized photo"></button><div class="notice">Tap the shutter when both cameras are ready.</div></div>
+<div id="result">
+<div style="text-align:center;color:var(--soft);font-weight:900">OUR PHOTO STRIP</div>
+<div class="strip"><img id="combined"><div class="caption">miles apart ♡ still together</div><div class="small" id="stamp"></div></div>
+<div class="row"><button class="btn" id="save">Save photo strip</button><button class="secondary" id="again">Take another</button></div>
+</div>
+</section>
+</main>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+const socket=io();
+let room="",isCaller=false,localStream=null,pc=null,remoteReady=false,shootTimer=null;
+const local=document.querySelector("#local"),remote=document.querySelector("#remote"),state=document.querySelector("#state"),count=document.querySelector("#count");
+const canvas=document.createElement("canvas");
+
+function status(t,cls=""){state.textContent=t;state.className=cls}
+async function camera(){
+ try{
+  localStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user",width:{ideal:1280},height:{ideal:960}},audio:false});
+  local.srcObject=localStream; document.querySelector("#permission").textContent="Camera ready ✓";
+  return true;
+ }catch(e){document.querySelector("#permission").textContent="Camera blocked. Allow camera access in your browser settings, then reload.";status("Camera permission needed","bad");return false}
+}
+async function setupPeer(){
+ pc=new RTCPeerConnection({iceServers:[{urls:"stun:stun.l.google.com:19302"},{urls:"stun:stun.cloudflare.com:3478"}]});
+ localStream.getTracks().forEach(t=>pc.addTrack(t,localStream));
+ pc.ontrack=e=>{remote.srcObject=e.streams[0];remote.style.display="block";document.querySelector("#waiting").style.display="none";remoteReady=true;status("Both cameras connected","ok")};
+ pc.onicecandidate=e=>{if(e.candidate)socket.emit("ice-candidate",{room,candidate:e.candidate})};
+ pc.onconnectionstatechange=()=>{if(["failed","disconnected"].includes(pc.connectionState))status("Connection interrupted","bad")};
+}
+async function create(){
+ isCaller=true; socket.emit("create-room",async r=>{room=r.room;showRoom();if(await camera()){await setupPeer();status("Waiting for your person…");}});
+}
+async function join(){
+ const val=document.querySelector("#roomInput").value.trim().toUpperCase();
+ socket.emit("join-room",val,async r=>{
+  if(!r.ok){alert(r.error);return}
+  isCaller=false;room=r.room;showRoom();if(await camera()){await setupPeer();status("Joining camera…");socket.emit("ready-to-shoot",room);}
+ });
+}
+function showRoom(){document.querySelector("#roomUI").style.display="block";document.querySelector("#code").textContent=room;document.querySelector("#roomUI").scrollIntoView({behavior:"smooth"})}
+socket.on("peer-joined",async()=>{if(!pc)return;const offer=await pc.createOffer();await pc.setLocalDescription(offer);socket.emit("offer",{room,offer})});
+socket.on("offer",async offer=>{if(!pc)return;await pc.setRemoteDescription(offer);const answer=await pc.createAnswer();await pc.setLocalDescription(answer);socket.emit("answer",{room,answer})});
+socket.on("answer",async answer=>{if(pc)await pc.setRemoteDescription(answer)});
+socket.on("ice-candidate",async c=>{try{if(pc)await pc.addIceCandidate(c)}catch{}});
+socket.on("peer-left",()=>{status("Your person left the room","bad");remote.style.display="none";document.querySelector("#waiting").style.display="grid"});
+
+function countdownAndShoot(){
+ let n=3;count.textContent=n;clearInterval(shootTimer);
+ shootTimer=setInterval(()=>{n--;count.textContent=n>0?n:"📸";if(n<=0){clearInterval(shootTimer);captureLocal();setTimeout(()=>count.textContent="",350)}},700);
+}
+function captureLocal(){
+ const v=local, w=v.videoWidth||900,h=v.videoHeight||675;canvas.width=w;canvas.height=h;canvas.getContext("2d").drawImage(v,0,0,w,h);
+ const mine=canvas.toDataURL("image/jpeg",.9);
+ // The partner's current video frame is captured locally from the received WebRTC stream.
+ let rw=remote.videoWidth||w,rh=remote.videoHeight||h;canvas.width=rw;canvas.height=rh;canvas.getContext("2d").drawImage(remote,0,0,rw,rh);const theirs=canvas.toDataURL("image/jpeg",.9);
+ buildStrip(mine,theirs);
+}
+function buildStrip(a,b){
+ const c=document.createElement("canvas"),W=1000,H=930;c.width=W;c.height=H;const x=c.getContext("2d");
+ x.fillStyle="#fff";x.fillRect(0,0,W,H);x.drawImage(img(a),35,35,455,760);x.drawImage(img(b),510,35,455,760);
+ x.fillStyle="#151520";x.textAlign="center";x.font="900 34px system-ui";x.fillText("miles apart ♡ still together",W/2,850);x.font="16px system-ui";x.fillStyle="#666";x.fillText(new Date().toLocaleString(),W/2,885);
+ document.querySelector("#combined").src=c.toDataURL("image/png");document.querySelector("#stamp").textContent=new Date().toLocaleString();document.querySelector("#result").style.display="block";
+ window.currentStrip=c.toDataURL("image/png");
+}
+function img(src){const i=new Image();i.src=src;return i}
+document.querySelector("#shoot").onclick=()=>{if(!remoteReady){alert("Wait until the other phone is connected.");return}socket.emit("shoot-now",room);countdownAndShoot()};
+socket.on("shoot-now",()=>countdownAndShoot());
+document.querySelector("#create").onclick=create;
+document.querySelector("#showJoin").onclick=()=>document.querySelector("#joinBox").style.display="flex";
+document.querySelector("#join").onclick=join;
+document.querySelector("#again").onclick=()=>document.querySelector("#result").style.display="none";
+document.querySelector("#save").onclick=()=>{const a=document.createElement("a");a.download="our-photobooth.png";a.href=window.currentStrip;a.click()};
+</script>
+</body></html>
