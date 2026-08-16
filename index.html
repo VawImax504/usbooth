@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 
 <meta charset="utf-8">
@@ -10,7 +11,6 @@
 >
 
 <title>UsBooth — Two Phones</title>
-
 
 <style>
 
@@ -29,14 +29,14 @@
 
 body{
   margin:0;
+  min-height:100vh;
 
   background:
     radial-gradient(
       circle at 15% 0,
       #421b34 0,
       #090910 42%
-    ),
-    var(--bg);
+    );
 
   color:#fff7fb;
 
@@ -380,6 +380,26 @@ input{
   color:#ff9cb8;
 }
 
+.error-box{
+  display:none;
+
+  margin:15px auto;
+
+  padding:12px;
+
+  border-radius:14px;
+
+  background:#321722;
+
+  border:1px solid #73364b;
+
+  color:#ffb5c8;
+
+  font-size:13px;
+
+  text-align:center;
+}
+
 @media(max-width:700px){
 
   .cams{
@@ -482,7 +502,6 @@ input{
       placeholder="ROOM CODE"
     >
 
-
     <button
       class="btn"
       id="join"
@@ -504,7 +523,6 @@ input{
 
   <div class="top">
 
-
     <div>
 
       Room
@@ -522,8 +540,13 @@ input{
       Starting…
     </div>
 
-
   </div>
+
+
+  <div
+    id="errorBox"
+    class="error-box"
+  ></div>
 
 
   <!-- CAMERAS -->
@@ -533,7 +556,6 @@ input{
 
     <div class="cam">
 
-
       <video
         id="local"
         autoplay
@@ -541,17 +563,14 @@ input{
         playsinline
       ></video>
 
-
       <div class="tag">
         YOU · LIVE
       </div>
-
 
     </div>
 
 
     <div class="cam">
-
 
       <div
         class="waiting"
@@ -578,7 +597,6 @@ input{
       <div class="tag">
         THEM · LIVE
       </div>
-
 
     </div>
 
@@ -608,7 +626,7 @@ input{
   </div>
 
 
-  <!-- FILM SETTINGS -->
+  <!-- FILM OPTIONS -->
 
   <div class="film-controls">
 
@@ -819,16 +837,18 @@ input{
 
 <!-- =====================================================
      METERED REALTIME SDK
+
+     IMPORTANT:
+     This is the official UMD bundle.
      ===================================================== -->
 
-<script src="https://unpkg.com/@metered-ca/realtime/dist/index.umd.js"></script>
+<script src="https://unpkg.com/@metered-ca/realtime@1/dist/index.umd.js"></script>
 
 
 <script>
 
-
 /* =========================================================
-   METERED CONFIG
+   METERED
    ========================================================= */
 
 const METERED_PUBLISHABLE_KEY =
@@ -836,12 +856,28 @@ const METERED_PUBLISHABLE_KEY =
 
 
 /*
-  The UMD bundle exposes MeteredPeer
-  through window.MeteredPeer.
+  IMPORTANT:
+  Metered's UMD bundle exposes an object on window.
 */
 
-const MeteredPeer =
-  window.MeteredPeer;
+let MeteredPeerClass = null;
+
+if (window.MeteredPeer) {
+
+  const exported =
+    window.MeteredPeer;
+
+  if (
+    typeof exported.MeteredPeer ===
+    "function"
+  ) {
+
+    MeteredPeerClass =
+      exported.MeteredPeer;
+
+  }
+
+}
 
 
 /* =========================================================
@@ -901,6 +937,9 @@ const result =
 const combined =
   document.querySelector("#combined");
 
+const errorBox =
+  document.querySelector("#errorBox");
+
 
 /* =========================================================
    STATUS
@@ -909,7 +948,7 @@ const combined =
 function status(
   text,
   className = ""
-){
+) {
 
   state.textContent =
     text;
@@ -921,21 +960,53 @@ function status(
 
 
 /* =========================================================
+   ERROR
+   ========================================================= */
+
+function showError(error) {
+
+  console.error(
+    "USBOOTH ERROR:",
+    error
+  );
+
+  const message =
+    error?.message ||
+    String(error);
+
+
+  errorBox.textContent =
+    message;
+
+
+  errorBox.style.display =
+    "block";
+
+
+  status(
+    "Connection error",
+    "bad"
+  );
+
+}
+
+
+/* =========================================================
    ROOM CODE
    ========================================================= */
 
-function generateRoomCode(){
+function generateRoomCode() {
 
   const chars =
     "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
   let code = "";
 
-  for(
+  for (
     let i = 0;
     i < 6;
     i++
-  ){
+  ) {
 
     code +=
       chars[
@@ -956,28 +1027,28 @@ function generateRoomCode(){
    CAMERA
    ========================================================= */
 
-async function startCamera(){
+async function startCamera() {
 
-  try{
+  try {
 
     localStream =
       await navigator.mediaDevices
         .getUserMedia({
 
-          video:{
-            facingMode:"user",
+          video: {
+            facingMode: "user",
 
-            width:{
-              ideal:1280
+            width: {
+              ideal: 1280
             },
 
-            height:{
-              ideal:960
+            height: {
+              ideal: 960
             }
 
           },
 
-          audio:false
+          audio: false
 
         });
 
@@ -996,6 +1067,7 @@ async function startCamera(){
     permission.textContent =
       "Camera ready ✓";
 
+
     permission.className =
       "notice ok";
 
@@ -1006,16 +1078,11 @@ async function startCamera(){
     return true;
 
 
-  }catch(error){
-
-    console.error(
-      "CAMERA ERROR:",
-      error
-    );
-
+  } catch (error) {
 
     permission.textContent =
       "Camera blocked. Allow camera access and reload.";
+
 
     permission.className =
       "notice bad";
@@ -1025,6 +1092,9 @@ async function startCamera(){
       "Camera permission needed",
       "bad"
     );
+
+
+    showError(error);
 
 
     return false;
@@ -1038,22 +1108,27 @@ async function startCamera(){
    METERED SETUP
    ========================================================= */
 
-async function setupMetered(){
+async function setupMetered() {
 
-  if(
-    typeof MeteredPeer !==
+  if (
+    typeof MeteredPeerClass !==
     "function"
-  ){
+  ) {
 
     throw new Error(
-      "MeteredPeer SDK failed to load."
+      "Metered SDK failed to load. Check the Metered script URL."
     );
 
   }
 
 
+  console.log(
+    "Creating MeteredPeer..."
+  );
+
+
   peer =
-    new MeteredPeer({
+    new MeteredPeerClass({
 
       apiKey:
         METERED_PUBLISHABLE_KEY
@@ -1062,15 +1137,14 @@ async function setupMetered(){
 
 
   /* -------------------------------------------------------
-     PEER JOINED
+     REMOTE PEER JOINED
      ------------------------------------------------------- */
 
   peer.on(
     "peer-joined",
     ({
-      peer:remote
+      peer: remote
     }) => {
-
 
       console.log(
         "Peer joined:",
@@ -1079,36 +1153,9 @@ async function setupMetered(){
 
 
       /*
-        Official Metered API:
-        remote.on("track", ...)
-      */
-
-      remote.on(
-        "track",
-        ({
-          streams
-        }) => {
-
-
-          if(
-            streams &&
-            streams.length
-          ){
-
-            attachRemoteStream(
-              streams[0]
-            );
-
-          }
-
-        }
-      );
-
-
-      /*
-        Also handle stream-added
-        because Metered provides
-        stream metadata there.
+        Metered's WebRTC quickstart
+        uses stream-added for the
+        remote MediaStream.
       */
 
       remote.on(
@@ -1117,9 +1164,39 @@ async function setupMetered(){
           stream
         }) => {
 
+          console.log(
+            "Remote stream received."
+          );
+
+
           attachRemoteStream(
             stream
           );
+
+        }
+      );
+
+
+      /*
+        Also support track events.
+      */
+
+      remote.on(
+        "track",
+        ({
+          streams
+        }) => {
+
+          if (
+            streams &&
+            streams.length
+          ) {
+
+            attachRemoteStream(
+              streams[0]
+            );
+
+          }
 
         }
       );
@@ -1150,9 +1227,8 @@ async function setupMetered(){
   peer.on(
     "peer-left",
     ({
-      peer:remote
+      peer: remote
     }) => {
-
 
       console.log(
         "Peer left:",
@@ -1200,7 +1276,6 @@ async function setupMetered(){
       data
     }) => {
 
-
       console.log(
         "Metered data:",
         senderPeerId,
@@ -1208,22 +1283,22 @@ async function setupMetered(){
       );
 
 
-      if(
+      if (
         data &&
         data.type ===
         "photo-shoot"
-      ){
+      ) {
 
         startCountdown();
 
       }
 
 
-      if(
+      if (
         data &&
         data.type ===
         "reset-photos"
-      ){
+      ) {
 
         photos = [];
 
@@ -1244,19 +1319,18 @@ async function setupMetered(){
       to
     }) => {
 
-
       console.log(
-        "Metered:",
+        "Metered state:",
         from,
         "→",
         to
       );
 
 
-      if(
+      if (
         to ===
         "joining"
-      ){
+      ) {
 
         status(
           "Connecting…"
@@ -1265,10 +1339,10 @@ async function setupMetered(){
       }
 
 
-      if(
+      if (
         to ===
         "joined"
-      ){
+      ) {
 
         status(
           "Waiting for your person…"
@@ -1277,10 +1351,10 @@ async function setupMetered(){
       }
 
 
-      if(
+      if (
         to ===
         "reconnecting"
-      ){
+      ) {
 
         status(
           "Reconnecting…",
@@ -1290,10 +1364,10 @@ async function setupMetered(){
       }
 
 
-      if(
+      if (
         to ===
         "closed"
-      ){
+      ) {
 
         status(
           "Disconnected",
@@ -1307,7 +1381,7 @@ async function setupMetered(){
 
 
   /* -------------------------------------------------------
-     ERROR
+     ERRORS
      ------------------------------------------------------- */
 
   peer.on(
@@ -1316,38 +1390,29 @@ async function setupMetered(){
       err
     }) => {
 
-
-      console.error(
-        "METERED ERROR:",
+      showError(
         err
-      );
-
-
-      status(
-        "Connection error",
-        "bad"
       );
 
     }
   );
 
 
+  /* -------------------------------------------------------
+     ADD CAMERA
+     ------------------------------------------------------- */
+
   /*
-    IMPORTANT:
-    Add stream BEFORE join.
+    Add the local MediaStream before joining.
   */
 
-  peer.addStream(
-    localStream,
-    {
-      role:"camera",
-      label:"front camera"
-    }
+  await peer.addStream(
+    localStream
   );
 
 
   console.log(
-    "Local camera added to Metered."
+    "Local camera added."
   );
 
 }
@@ -1359,9 +1424,9 @@ async function setupMetered(){
 
 function attachRemoteStream(
   stream
-){
+) {
 
-  if(!stream){
+  if (!stream) {
     return;
   }
 
@@ -1407,12 +1472,45 @@ function attachRemoteStream(
 
 
 /* =========================================================
+   JOIN METERED ROOM
+   ========================================================= */
+
+async function joinMeteredRoom() {
+
+  const channel =
+    "usbooth-" +
+    room;
+
+
+  console.log(
+    "Joining Metered channel:",
+    channel
+  );
+
+
+  await peer.join(
+    channel
+  );
+
+
+  status(
+    "Waiting for your person…"
+  );
+
+}
+
+
+/* =========================================================
    CREATE BOOTH
    ========================================================= */
 
-async function createBooth(){
+async function createBooth() {
 
-  try{
+  try {
+
+    errorBox.style.display =
+      "none";
+
 
     room =
       generateRoomCode();
@@ -1445,7 +1543,8 @@ async function createBooth(){
     document.querySelector(
       "#roomUI"
     ).scrollIntoView({
-      behavior:"smooth"
+      behavior:
+        "smooth"
     });
 
 
@@ -1458,7 +1557,7 @@ async function createBooth(){
       await startCamera();
 
 
-    if(!cameraOK){
+    if (!cameraOK) {
       return;
     }
 
@@ -1471,35 +1570,14 @@ async function createBooth(){
     );
 
 
-    await peer.join(
-      "usbooth-" + room
-    );
+    await joinMeteredRoom();
 
 
-    status(
-      "Waiting for your person…"
-    );
+  } catch (error) {
 
-
-    console.log(
-      "Joined room:",
-      room
-    );
-
-
-  }catch(error){
-
-    console.error(
-      "CREATE ERROR:",
+    showError(
       error
     );
-
-
-    status(
-      "Unable to create booth",
-      "bad"
-    );
-
 
     alert(
       "Could not start booth:\n\n" +
@@ -1515,9 +1593,13 @@ async function createBooth(){
    JOIN BOOTH
    ========================================================= */
 
-async function joinBooth(){
+async function joinBooth() {
 
-  try{
+  try {
+
+    errorBox.style.display =
+      "none";
+
 
     room =
       document.querySelector(
@@ -1528,10 +1610,23 @@ async function joinBooth(){
       .toUpperCase();
 
 
-    if(!room){
+    if (!room) {
 
       alert(
         "Enter the room code."
+      );
+
+      return;
+
+    }
+
+
+    if (
+      room.length !== 6
+    ) {
+
+      alert(
+        "Room codes are 6 characters."
       );
 
       return;
@@ -1566,7 +1661,8 @@ async function joinBooth(){
     document.querySelector(
       "#roomUI"
     ).scrollIntoView({
-      behavior:"smooth"
+      behavior:
+        "smooth"
     });
 
 
@@ -1579,7 +1675,7 @@ async function joinBooth(){
       await startCamera();
 
 
-    if(!cameraOK){
+    if (!cameraOK) {
       return;
     }
 
@@ -1592,35 +1688,14 @@ async function joinBooth(){
     );
 
 
-    await peer.join(
-      "usbooth-" + room
-    );
+    await joinMeteredRoom();
 
 
-    status(
-      "Connecting to your person…"
-    );
+  } catch (error) {
 
-
-    console.log(
-      "Joined room:",
-      room
-    );
-
-
-  }catch(error){
-
-    console.error(
-      "JOIN ERROR:",
+    showError(
       error
     );
-
-
-    status(
-      "Unable to join booth",
-      "bad"
-    );
-
 
     alert(
       "Could not join booth:\n\n" +
@@ -1636,12 +1711,7 @@ async function joinBooth(){
    MIRROR
    ========================================================= */
 
-function updateMirror(){
-
-  if(!localVideo){
-    return;
-  }
-
+function updateMirror() {
 
   localVideo.classList.toggle(
     "mirrored",
@@ -1651,33 +1721,26 @@ function updateMirror(){
 }
 
 
-const mirrorButton =
-  document.querySelector(
-    "#mirrorBtn"
-  );
+document.querySelector(
+  "#mirrorBtn"
+).onclick =
+  () => {
+
+    mirror =
+      !mirror;
 
 
-if(mirrorButton){
-
-  mirrorButton.onclick =
-    () => {
+    updateMirror();
 
 
-      mirror =
-        !mirror;
+    document.querySelector(
+      "#mirrorBtn"
+    ).classList.toggle(
+      "active",
+      mirror
+    );
 
-
-      updateMirror();
-
-
-      mirrorButton.classList.toggle(
-        "active",
-        mirror
-      );
-
-    };
-
-}
+  };
 
 
 /* =========================================================
@@ -1691,10 +1754,8 @@ document
   .forEach(
     button => {
 
-
       button.onclick =
         () => {
-
 
           selectedFilm =
             button.dataset.film;
@@ -1733,10 +1794,8 @@ document
   .forEach(
     button => {
 
-
       button.onclick =
         () => {
-
 
           selectedLayout =
             button.dataset.layout;
@@ -1775,10 +1834,8 @@ document
   .forEach(
     button => {
 
-
       button.onclick =
         () => {
-
 
           photoCount =
             Number(
@@ -1817,7 +1874,7 @@ document
 
 function captureVideo(
   video
-){
+) {
 
   const canvas =
     document.createElement(
@@ -1866,7 +1923,7 @@ function captureVideo(
    COMBINE BOTH CAMERAS
    ========================================================= */
 
-function createCombinedPhoto(){
+function createCombinedPhoto() {
 
   const local =
     captureVideo(
@@ -1919,10 +1976,6 @@ function createCombinedPhoto(){
   );
 
 
-  /*
-    YOU
-  */
-
   ctx.drawImage(
     local,
     0,
@@ -1931,10 +1984,6 @@ function createCombinedPhoto(){
     height
   );
 
-
-  /*
-    THEM
-  */
 
   ctx.drawImage(
     remote,
@@ -1954,15 +2003,14 @@ function createCombinedPhoto(){
    COUNTDOWN
    ========================================================= */
 
-function startCountdown(){
+function startCountdown() {
 
   clearInterval(
     countdownTimer
   );
 
 
-  let number =
-    3;
+  let number = 3;
 
 
   countDisplay.textContent =
@@ -1973,11 +2021,12 @@ function startCountdown(){
     setInterval(
       () => {
 
-
         number--;
 
 
-        if(number > 0){
+        if (
+          number > 0
+        ) {
 
           countDisplay.textContent =
             number;
@@ -2009,7 +2058,6 @@ function startCountdown(){
           500
         );
 
-
       },
       800
     );
@@ -2021,9 +2069,9 @@ function startCountdown(){
    CAPTURE
    ========================================================= */
 
-function capturePhoto(){
+function capturePhoto() {
 
-  if(!remoteReady){
+  if (!remoteReady) {
 
     alert(
       "Wait until both cameras are connected."
@@ -2034,10 +2082,10 @@ function capturePhoto(){
   }
 
 
-  if(
+  if (
     localVideo.readyState < 2 ||
     remoteVideo.readyState < 2
-  ){
+  ) {
 
     alert(
       "Both cameras are not ready yet."
@@ -2059,16 +2107,16 @@ function capturePhoto(){
 
   console.log(
     "Captured:",
-    photos.length,
-    "/",
-    photoCount
+    photos.length +
+      "/" +
+      photoCount
   );
 
 
-  if(
+  if (
     photos.length >=
     photoCount
-  ){
+  ) {
 
     buildFilm();
 
@@ -2081,90 +2129,87 @@ function capturePhoto(){
    SHUTTER
    ========================================================= */
 
-const shutter =
-  document.querySelector(
-    "#shoot"
-  );
+document.querySelector(
+  "#shoot"
+).onclick =
+  async () => {
 
+    if (!remoteReady) {
 
-if(shutter){
-
-  shutter.onclick =
-    async () => {
-
-
-      if(!remoteReady){
-
-        alert(
-          "Wait until both cameras are connected."
-        );
-
-        return;
-
-      }
-
-
-      shutter.disabled =
-        true;
-
-
-      try{
-
-        /*
-          Metered's send()
-          broadcasts to the room.
-        */
-
-        await peer.send({
-          type:
-            "photo-shoot"
-        });
-
-
-        /*
-          Capture on this phone.
-        */
-
-        startCountdown();
-
-
-      }catch(error){
-
-        console.error(
-          "SHUTTER ERROR:",
-          error
-        );
-
-
-        alert(
-          "Couldn't synchronize shutter."
-        );
-
-      }
-
-
-      setTimeout(
-        () => {
-
-          shutter.disabled =
-            false;
-
-        },
-        3000
+      alert(
+        "Wait until both cameras are connected."
       );
 
-    };
+      return;
 
-}
+    }
+
+
+    const shutter =
+      document.querySelector(
+        "#shoot"
+      );
+
+
+    shutter.disabled =
+      true;
+
+
+    try {
+
+      /*
+        Metered send() broadcasts
+        the shutter event to the room.
+      */
+
+      await peer.send({
+        type:
+          "photo-shoot"
+      });
+
+
+      /*
+        Capture locally too.
+      */
+
+      startCountdown();
+
+
+    } catch (error) {
+
+      console.error(
+        "SHUTTER ERROR:",
+        error
+      );
+
+
+      alert(
+        "Couldn't synchronize shutter."
+      );
+
+    }
+
+
+    setTimeout(
+      () => {
+
+        shutter.disabled =
+          false;
+
+      },
+      3000
+    );
+
+  };
 
 
 /* =========================================================
    BUILD FILM
    ========================================================= */
 
-function buildFilm(){
+function buildFilm() {
 
-  if(!photos.length){
+  if (!photos.length) {
     return;
   }
 
@@ -2181,24 +2226,18 @@ function buildFilm(){
     30;
 
 
-  let columns =
-    1;
-
+  let columns = 1;
 
   let rows =
     photos.length;
 
 
-  /*
-    Grid / horizontal
-  */
-
-  if(
+  if (
     selectedLayout ===
-    "grid" ||
+      "grid" ||
     selectedLayout ===
-    "horizontal"
-  ){
+      "horizontal"
+  ) {
 
     columns =
       Math.min(
@@ -2250,38 +2289,36 @@ function buildFilm(){
     );
 
 
-  /* -------------------------------------------------------
-     FILM COLOR
-     ------------------------------------------------------- */
+  /* Background */
 
-  if(
+  if (
     selectedFilm ===
     "pink"
-  ){
+  ) {
 
     ctx.fillStyle =
       "#ffd6e4";
 
   }
-  else if(
+  else if (
     selectedFilm ===
     "dark"
-  ){
+  ) {
 
     ctx.fillStyle =
       "#151520";
 
   }
-  else if(
+  else if (
     selectedFilm ===
     "polaroid"
-  ){
+  ) {
 
     ctx.fillStyle =
       "#f4efe6";
 
   }
-  else{
+  else {
 
     ctx.fillStyle =
       "#ffffff";
@@ -2297,13 +2334,10 @@ function buildFilm(){
   );
 
 
-  /* -------------------------------------------------------
-     PHOTOS
-     ------------------------------------------------------- */
+  /* Photos */
 
   photos.forEach(
-    (photo,index) => {
-
+    (photo, index) => {
 
       const column =
         index % columns;
@@ -2318,13 +2352,13 @@ function buildFilm(){
       const x =
         margin +
         column *
-        (photoWidth + margin);
+          (photoWidth + margin);
 
 
       const y =
         margin +
         row *
-        (photoHeight + margin);
+          (photoHeight + margin);
 
 
       ctx.drawImage(
@@ -2339,9 +2373,7 @@ function buildFilm(){
   );
 
 
-  /* -------------------------------------------------------
-     TEXT
-     ------------------------------------------------------- */
+  /* Caption */
 
   ctx.textAlign =
     "center";
@@ -2383,10 +2415,6 @@ function buildFilm(){
   );
 
 
-  /* -------------------------------------------------------
-     RESULT
-     ------------------------------------------------------- */
-
   currentStrip =
     canvas.toDataURL(
       "image/png"
@@ -2424,8 +2452,7 @@ document.querySelector(
 ).onclick =
   () => {
 
-
-    if(!currentStrip){
+    if (!currentStrip) {
 
       alert(
         "No photo to save."
@@ -2472,7 +2499,6 @@ document.querySelector(
 ).onclick =
   async () => {
 
-
     photos = [];
 
     currentStrip =
@@ -2487,16 +2513,16 @@ document.querySelector(
       "none";
 
 
-    if(peer){
+    if (peer) {
 
-      try{
+      try {
 
         await peer.send({
           type:
             "reset-photos"
         });
 
-      }catch(error){
+      } catch (error) {
 
         console.warn(
           "RESET ERROR:",
@@ -2543,31 +2569,23 @@ document.querySelector(
    ENTER KEY
    ========================================================= */
 
-const roomInput =
-  document.querySelector(
-    "#roomInput"
-  );
+document.querySelector(
+  "#roomInput"
+).addEventListener(
+  "keydown",
+  event => {
 
+    if (
+      event.key ===
+      "Enter"
+    ) {
 
-if(roomInput){
-
-  roomInput.addEventListener(
-    "keydown",
-    event => {
-
-      if(
-        event.key ===
-        "Enter"
-      ){
-
-        joinBooth();
-
-      }
+      joinBooth();
 
     }
-  );
 
-}
+  }
+);
 
 
 /* =========================================================
@@ -2578,20 +2596,26 @@ updateMirror();
 
 
 console.log(
-  "UsBooth loaded."
+  "━━━━━━━━━━━━━━━━━━━━"
 );
-
 
 console.log(
-  "MeteredPeer available:",
-  typeof MeteredPeer
+  "USBOOTH STARTED"
 );
 
+console.log(
+  "Metered SDK:",
+  typeof MeteredPeerClass
+);
 
 console.log(
   "Publishable key:",
   METERED_PUBLISHABLE_KEY
     .startsWith("pk_live_")
+);
+
+console.log(
+  "━━━━━━━━━━━━━━━━━━━━"
 );
 
 </script>
