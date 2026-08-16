@@ -75,7 +75,31 @@ footer{margin-top:80px;text-align:center;color:#57535f;font-size:9px}
 .choiceTop{display:flex;justify-content:space-between;align-items:center}
 .liveTag{padding:6px 8px;border-radius:999px;background:#211c28;color:#ff9fba;font-size:7px;font-weight:1000;letter-spacing:1px}
 .choice h3{font-size:28px;margin:8px 0}
-.choiceBottom{display:flex;justify-content:space-between;align-items:center;position:absolute;left:28px;right:25px;bottom:23px;color:#aaa6b2;font-size:9px;font-weight:900}
+.choiceBottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:absolute;
+  left:30px;
+  right:25px;
+  bottom:23px;
+  min-height:45px;
+  color:#aaa6b2;
+  font-size:9px;
+  font-weight:900;
+  padding-top:8px;
+  border-top:1px solid rgba(255,255,255,.055);
+}
+
+.choice p{
+  margin:0;
+  padding-bottom:72px;
+}
+
+.choiceBottom span{
+  line-height:1.4;
+  max-width:120px;
+}
 .choice .go{position:static}
 .featureBand{margin-top:95px;padding:42px 0;border-top:1px solid #252430;border-bottom:1px solid #252430;text-align:center}
 .featureBand h2{font-size:28px;margin:10px 0 25px}
@@ -97,6 +121,227 @@ footer{margin-top:80px;text-align:center;color:#57535f;font-size:9px}
 .previewCards div{padding:22px;border:1px solid #292834;border-radius:18px;background:#101018}
 .previewCards span{font-size:24px;display:block;margin-bottom:10px}.previewCards b{font-size:11px}.previewCards p{color:#777481;font-size:9px;line-height:1.5}
 @media(max-width:700px){.previewCards{grid-template-columns:1fr}}
+
+
+/* =========================================================
+   INTRO / LANDING PAGE FINISHING PASS
+========================================================= */
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.18;
+  background-image:
+    radial-gradient(rgba(255,255,255,.18) .7px,transparent .7px);
+  background-size:22px 22px;
+  mask-image:linear-gradient(to bottom,black,transparent 72%);
+}
+.page{position:relative}
+nav{height:58px}
+.logo{font-size:14px}
+.navPill{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  background:rgba(21,20,29,.7);
+  backdrop-filter:blur(12px);
+}
+.navPill:before{
+  content:"";
+  width:6px;height:6px;border-radius:50%;
+  background:#6df0a2;
+  box-shadow:0 0 12px rgba(109,240,162,.7);
+}
+.hero{
+  position:relative;
+  min-height:650px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:80px 10px 55px;
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  width:520px;height:520px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,91,143,.16),transparent 68%);
+  filter:blur(10px);
+  z-index:-1;
+}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 11px;
+  border:1px solid rgba(255,113,159,.18);
+  border-radius:999px;
+  background:rgba(255,113,159,.05);
+}
+.hero h1{
+  max-width:950px;
+  font-size:clamp(58px,10vw,112px);
+  letter-spacing:-7px;
+  margin:22px 0;
+}
+.hero h1 span{
+  text-shadow:0 0 45px rgba(255,113,159,.18);
+}
+.hero p{
+  font-size:15px;
+  max-width:650px;
+}
+.heroActions{
+  margin-top:30px;
+}
+.primaryCta{
+  box-shadow:0 14px 40px rgba(255,113,159,.18);
+  transition:.18s;
+}
+.primaryCta:hover{transform:translateY(-2px);box-shadow:0 18px 50px rgba(255,113,159,.25)}
+.secondaryCta{transition:.18s}
+.secondaryCta:hover{border-color:#ff719f;background:#1b1822}
+.choose{
+  position:relative;
+  padding-top:25px;
+}
+.choices{
+  gap:18px;
+}
+.choice{
+  min-height:340px;
+  padding:30px;
+  border-color:rgba(255,255,255,.09);
+  background:
+    radial-gradient(circle at 100% 0,rgba(255,113,159,.09),transparent 34%),
+    linear-gradient(145deg,rgba(30,29,40,.96),rgba(14,14,20,.98));
+}
+.choice:nth-child(2){
+  background:
+    radial-gradient(circle at 100% 0,rgba(139,101,255,.10),transparent 34%),
+    linear-gradient(145deg,rgba(30,29,40,.96),rgba(14,14,20,.98));
+}
+.choice .icon{
+  display:grid;
+  place-items:center;
+  width:58px;height:58px;
+  border-radius:17px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.08);
+  font-size:29px;
+  margin-bottom:45px;
+}
+.choice h3{font-size:30px;letter-spacing:-.8px}
+.choice p{font-size:12px;max-width:430px}
+.choice .go{
+  transition:.18s;
+}
+.choice:hover .go{transform:translateX(3px)}
+.badge{letter-spacing:1.3px}
+.featureBand{
+  margin-top:110px;
+  padding:55px 0;
+}
+.feature{
+  position:relative;
+  padding:24px 20px;
+  transition:.18s;
+}
+.feature:hover{
+  transform:translateY(-3px);
+  border-color:rgba(255,113,159,.18);
+}
+.feature i{
+  width:44px;height:44px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:rgba(255,113,159,.07);
+  margin:0 auto 12px;
+}
+.how{padding-top:95px}
+.steps{gap:15px}
+.step{
+  position:relative;
+  padding:25px 20px;
+}
+.step strong{
+  font-size:12px;
+  letter-spacing:2px;
+}
+.step b{font-size:13px}
+.step p{font-size:10px}
+.useCases{
+  position:relative;
+  padding:90px 0 10px;
+}
+.useCases > div:first-child{
+  max-width:390px;
+}
+.useCases h2{
+  line-height:1.05;
+  letter-spacing:-1px;
+}
+.chips{gap:9px}
+.chips span{
+  transition:.15s;
+}
+.chips span:hover{
+  border-color:rgba(255,113,159,.3);
+  color:#ffb2c8;
+}
+.productPreview{
+  padding-top:10px;
+}
+.previewCards{
+  gap:14px;
+}
+.previewCards div{
+  transition:.18s;
+}
+.previewCards div:hover{
+  transform:translateY(-3px);
+  border-color:rgba(255,113,159,.18);
+}
+.finalCta{
+  position:relative;
+  overflow:hidden;
+  margin-top:95px;
+  padding:75px 20px;
+}
+.finalCta:before{
+  content:"♡";
+  position:absolute;
+  right:7%;
+  top:-45px;
+  font-size:180px;
+  color:rgba(255,113,159,.035);
+  pointer-events:none;
+}
+.finalCta h2{
+  position:relative;
+  letter-spacing:-1px;
+}
+footer{
+  padding-bottom:15px;
+}
+@media(max-width:700px){
+  nav{height:50px}
+  .hero{min-height:560px;padding-top:55px}
+  .hero h1{font-size:clamp(52px,15vw,78px);letter-spacing:-5px}
+  .hero p{font-size:13px}
+  .choice{
+  min-height:300px;
+}
+.choice p{
+  padding-bottom:76px;
+}
+  .featureBand{padding:42px 0}
+  .useCases{padding-top:65px}
+  .finalCta{padding:55px 16px}
+}
 
 </style>
 </head>
