@@ -1,24 +1,214 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0a070d"><meta name="description" content="UsBooth — one digital photobooth for moments together, whether you're side by side or miles apart.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b070d">
+<meta name="description" content="UsBooth — one booth, two places.">
 <title>UsBooth ♡ — One booth. Two places.</title>
 <style>
-:root{--bg:#0a070d;--panel:#120d15;--line:#2b202c;--text:#f8f2f6;--muted:#a69ba7;--pink:#ff719f;--pink2:#ffabc5;--purple:#9d7cff;--max:1180px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(circle at 10% 0%,rgba(255,88,143,.19),transparent 28%),radial-gradient(circle at 90% 10%,rgba(140,94,255,.15),transparent 25%),radial-gradient(circle at 50% 85%,rgba(255,113,159,.08),transparent 32%),linear-gradient(145deg,#09070c,#140b13 50%,#0a080d);min-height:100vh}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.25;background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(to bottom,black,transparent 75%)}a{color:inherit;text-decoration:none}.container{width:min(var(--max),calc(100% - 36px));margin:auto}nav{position:sticky;top:0;z-index:20;background:rgba(10,7,13,.78);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.06)}.navInner{height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font-size:14px;font-weight:1000;letter-spacing:3px}.brand span{color:var(--pink)}.navLinks{display:flex;align-items:center;gap:5px}.navLinks a{padding:9px 11px;border-radius:999px;color:#b9afb9;font-size:10px;font-weight:850}.navLinks a:hover{background:#1a131b;color:#fff}.navLinks .cta{background:var(--pink);color:#210812}.mobileMenu{display:none;border:1px solid var(--line);background:#151019;color:#fff;border-radius:10px;padding:8px 11px}.hero{min-height:720px;display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:55px;padding:75px 0 65px}.eyebrow{font-size:9px;font-weight:1000;letter-spacing:3px;color:var(--pink2)}h1{font-size:clamp(54px,7.5vw,100px);line-height:.88;letter-spacing:-6px;margin:17px 0 25px}h1 em{font-style:normal;color:var(--pink)}.heroCopy{font-size:16px;line-height:1.75;color:var(--muted);max-width:600px}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:30px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 18px;border-radius:999px;border:1px solid transparent;font-size:10px;font-weight:1000}.btn.primary{background:var(--pink);color:#210812}.btn.secondary{background:#171119;border-color:#382a38;color:#eee}.heroNote{display:flex;gap:14px;margin-top:25px;color:#756b76;font-size:9px}.heroNote span{color:#b9aeb9}.boothPreview{position:relative;min-height:500px;display:grid;place-items:center}.glow{position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(255,113,159,.25),transparent 65%);filter:blur(10px)}.mockBooth{position:relative;width:min(410px,90%);padding:14px;border:1px solid #49333f;border-radius:30px;background:linear-gradient(145deg,#21131e,#0f0c12);box-shadow:0 35px 100px rgba(0,0,0,.55);transform:rotate(2deg)}.mockTop{display:flex;justify-content:space-between;padding:8px 5px 12px;color:#aaa;font-size:8px;font-weight:900}.mockLive{color:#ff9fbb}.mockScreen{aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:linear-gradient(135deg,#4d3343,#1b1118);position:relative;border:5px solid #e9e1e5}.mockScreen:before,.mockScreen:after{content:"";position:absolute;width:38%;height:48%;top:19%;border:2px solid rgba(255,255,255,.7);background:linear-gradient(135deg,#735568,#241821);box-shadow:0 15px 35px rgba(0,0,0,.3)}.mockScreen:before{left:7%;transform:rotate(-4deg)}.mockScreen:after{right:7%;transform:rotate(4deg)}.mockCaption{position:absolute;bottom:24px;left:20px;right:20px;text-align:center;font:18px Georgia,serif;text-shadow:0 3px 10px #000}.floatingCard{position:absolute;padding:12px 14px;border:1px solid #3b2a37;border-radius:14px;background:rgba(18,13,21,.9);backdrop-filter:blur(12px);box-shadow:0 15px 50px rgba(0,0,0,.35);font-size:9px}.fc1{top:16%;right:0}.fc2{bottom:13%;left:0}.floatingCard b{display:block;margin-bottom:4px}.floatingCard span{color:#817782}.section{padding:100px 0}.sectionHead{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:30px}.sectionHead h2{font-size:clamp(30px,4vw,50px);letter-spacing:-2px;margin:8px 0}.sectionLead{color:var(--muted);font-size:11px;line-height:1.7;max-width:520px}.choiceGrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.choice{position:relative;min-height:310px;padding:28px;border:1px solid #352733;border-radius:25px;background:linear-gradient(145deg,#1b121b,#100c12);overflow:hidden;transition:.22s transform,.22s border-color,.22s box-shadow}.choice:hover{transform:translateY(-5px);border-color:#ff719f;box-shadow:0 25px 80px rgba(0,0,0,.35)}.choice .num{position:absolute;right:22px;top:20px;color:#554553;font-size:12px;font-weight:1000}.choiceIcon{font-size:42px;margin-bottom:45px}.choice .tag{display:inline-block;padding:6px 8px;border-radius:999px;background:#271923;color:#ff9fbb;font-size:7px;font-weight:1000;letter-spacing:1px}.choice h3{font-size:28px;margin:10px 0}.choice p{color:#8f858f;font-size:11px;line-height:1.7;max-width:450px}.choiceBottom{position:absolute;bottom:22px;left:28px;right:22px;display:flex;justify-content:space-between;align-items:center;color:#a79ba6;font-size:9px;font-weight:900}.roundArrow{width:42px;height:42px;display:grid;place-items:center;border-radius:50%;background:var(--pink);color:#210812;font-size:18px}.featureGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.feature{padding:23px;border:1px solid var(--line);border-radius:18px;background:rgba(17,13,20,.8)}.feature .icon{font-size:23px;display:block;margin-bottom:18px}.feature b{display:block;font-size:11px;margin-bottom:7px}.feature span{color:#756b76;font-size:9px;line-height:1.6}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.step{padding:26px;border-top:1px solid #4a3542}.stepNo{font-size:12px;color:var(--pink);font-weight:1000}.step h3{font-size:17px;margin:18px 0 7px}.step p{color:#817681;font-size:10px;line-height:1.7}.useGrid{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;align-items:center}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{padding:11px 13px;border:1px solid #302530;background:#120e15;border-radius:999px;color:#aaa0aa;font-size:9px}.memoryBanner{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;padding:38px;border:1px solid #46303d;border-radius:25px;background:radial-gradient(circle at 10% 0,rgba(255,113,159,.14),transparent 45%),#120d15}.memoryBanner h2{font-size:30px;margin:7px 0}.memoryBanner p{color:#8e838e;font-size:10px;line-height:1.7;max-width:650px}.final{padding:110px 0;text-align:center}.final h2{font-size:clamp(38px,6vw,72px);letter-spacing:-4px;margin:10px auto 18px}.final p{color:#887d88;font-size:12px;max-width:550px;margin:auto;line-height:1.7}footer{border-top:1px solid rgba(255,255,255,.07);padding:35px 0 45px;color:#716773}.footerGrid{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:30px}.footerBrand{font-size:12px;font-weight:1000;letter-spacing:3px}.footerBrand span{color:var(--pink)}.footerText{font-size:9px;line-height:1.7;margin-top:10px;max-width:300px}.footerCol b{display:block;color:#ddd4dc;font-size:9px;margin-bottom:10px}.footerCol a{display:block;color:#756b76;font-size:9px;margin:7px 0}.copyright{border-top:1px solid rgba(255,255,255,.05);margin-top:28px;padding-top:18px;font-size:8px}@media(max-width:850px){.navLinks{display:none}.mobileMenu{display:block}.hero{grid-template-columns:1fr;padding-top:55px}.boothPreview{min-height:420px}.featureGrid{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr}.useGrid{grid-template-columns:1fr}.memoryBanner{grid-template-columns:1fr}}@media(max-width:620px){.container{width:min(100% - 24px,var(--max))}.hero{min-height:auto;padding:65px 0}.hero h1{letter-spacing:-4px}.choiceGrid{grid-template-columns:1fr}.choice{min-height:275px}.featureGrid{grid-template-columns:1fr 1fr}.section{padding:75px 0}.floatingCard{display:none}.footerGrid{grid-template-columns:1fr 1fr}.footerGrid>div:first-child{grid-column:1/-1}}
+:root{
+  --bg:#09070c;--panel:#120d15;--panel2:#171019;--line:#30242f;
+  --text:#fff8fb;--muted:#9d929e;--pink:#ff719f;--pink2:#ffb0c9;
+  --max:1160px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 10% 0,rgba(255,113,159,.18),transparent 30%),
+    radial-gradient(circle at 90% 15%,rgba(151,116,255,.13),transparent 28%),
+    linear-gradient(145deg,#09070c,#140b13 55%,#0a080d);
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.wrap{width:min(var(--max),calc(100% - 32px));margin:auto}
+nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(9,7,12,.84);backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.navInner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-size:13px;font-weight:1000;letter-spacing:3px;white-space:nowrap}
+.logo span{color:var(--pink)}
+.navLinks{display:flex;align-items:center;gap:5px}
+.navLinks a{padding:9px 11px;border-radius:999px;color:#aaa0aa;font-size:9px;font-weight:900;white-space:nowrap}
+.navLinks a:hover{background:#1a131b;color:#fff}
+.navLinks .cta{background:var(--pink);color:#210812}
+.navMenu{display:none;border:1px solid var(--line);background:#151019;color:#fff;border-radius:10px;padding:8px 11px;font-size:10px}
+.hero{
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);
+  align-items:center;gap:60px;min-height:690px;padding:70px 0;
+}
+.eyebrow{font-size:9px;font-weight:1000;letter-spacing:3px;color:var(--pink2)}
+h1{font-size:clamp(54px,8vw,96px);line-height:.9;letter-spacing:-6px;margin:16px 0 22px}
+h1 em{font-style:normal;color:var(--pink)}
+.lead{max-width:590px;color:var(--muted);font-size:14px;line-height:1.8}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 18px;border-radius:999px;font-size:10px;font-weight:1000}
+.btn.primary{background:var(--pink);color:#210812}
+.btn.secondary{border:1px solid var(--line);background:#151019;color:#eee}
+.note{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;color:#716773;font-size:8px}
+.mockWrap{display:grid;place-items:center;min-height:470px;position:relative}
+.glow{position:absolute;width:390px;height:390px;border-radius:50%;background:radial-gradient(circle,rgba(255,113,159,.23),transparent 68%)}
+.mock{
+  position:relative;width:min(400px,92%);padding:12px;border-radius:28px;
+  background:linear-gradient(145deg,#241520,#100b11);border:1px solid #49343f;
+  box-shadow:0 30px 100px rgba(0,0,0,.5);transform:rotate(1.5deg)
+}
+.mockTop{display:flex;justify-content:space-between;padding:8px 5px 12px;color:#9f959f;font-size:8px;font-weight:1000}
+.mockLive{color:#ff9fbb}
+.mockScreen{
+  position:relative;aspect-ratio:4/5;border:5px solid #eee7eb;border-radius:18px;overflow:hidden;
+  background:linear-gradient(135deg,#714d60,#241721);
+}
+.mockScreen:before,.mockScreen:after{
+  content:"";position:absolute;top:22%;width:36%;height:42%;
+  border:2px solid rgba(255,255,255,.7);background:linear-gradient(135deg,#815f72,#271a24);
+  box-shadow:0 15px 30px rgba(0,0,0,.35)
+}
+.mockScreen:before{left:8%;transform:rotate(-5deg)}
+.mockScreen:after{right:8%;transform:rotate(5deg)}
+.mockCaption{position:absolute;bottom:20px;left:15px;right:15px;text-align:center;font:17px Georgia,serif}
+.float{
+  position:absolute;padding:11px 13px;border:1px solid #3b2a37;border-radius:13px;
+  background:rgba(18,13,21,.92);backdrop-filter:blur(10px);font-size:8px
+}
+.float b{display:block;margin-bottom:3px}.float span{color:#7d737e}
+.f1{right:-5px;top:15%}.f2{left:-5px;bottom:12%}
+.section{padding:90px 0}
+.sectionHead{margin-bottom:26px}.sectionHead h2{font-size:clamp(30px,5vw,48px);letter-spacing:-2px;margin:8px 0}.sectionLead{color:var(--muted);font-size:10px;line-height:1.7;max-width:560px}
+.choiceGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.choice{
+  position:relative;display:flex;flex-direction:column;min-height:300px;padding:26px;
+  border:1px solid #362834;border-radius:23px;background:linear-gradient(145deg,#1b121b,#100c12);
+  transition:.2s transform,.2s border-color
+}
+.choice:hover{transform:translateY(-4px);border-color:var(--pink)}
+.choiceIcon{font-size:38px;margin-bottom:35px}.tag{width:max-content;padding:6px 8px;border-radius:999px;background:#281923;color:#ff9fbb;font-size:7px;font-weight:1000;letter-spacing:1px}
+.choice h3{font-size:27px;margin:10px 0 7px}.choice p{color:#877d88;font-size:10px;line-height:1.7;max-width:470px}
+.choiceBottom{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:20px;color:#aaa0aa;font-size:8px;font-weight:900}
+.arrow{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--pink);color:#210812;font-size:17px}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.feature{padding:21px;border:1px solid var(--line);border-radius:17px;background:rgba(17,13,20,.82)}
+.feature i{font-style:normal;font-size:22px;display:block;margin-bottom:16px}.feature b{display:block;font-size:10px;margin-bottom:6px}.feature span{color:#746a76;font-size:8px;line-height:1.6}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.step{padding:23px;border-top:1px solid #493542}.step strong{color:var(--pink);font-size:11px}.step b{display:block;margin:16px 0 6px;font-size:13px}.step p{color:#7d737e;font-size:9px;line-height:1.7}
+.use{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:center}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{padding:10px 12px;border:1px solid var(--line);background:#120e15;border-radius:999px;color:#aaa0aa;font-size:8px}
+.banner{display:grid;grid-template-columns:1fr auto;gap:25px;align-items:center;padding:32px;border:1px solid #44303c;border-radius:23px;background:radial-gradient(circle at 10% 0,rgba(255,113,159,.14),transparent 45%),#120d15}.banner h2{margin:8px 0;font-size:27px}.banner p{color:#837984;font-size:9px;line-height:1.7;max-width:620px}
+.final{text-align:center;padding:95px 0}.final h2{font-size:clamp(40px,6vw,68px);letter-spacing:-4px;margin:10px 0 15px}.final p{color:#807681;font-size:10px;line-height:1.7;max-width:520px;margin:auto}
+footer{border-top:1px solid rgba(255,255,255,.06);padding:32px 0 45px;color:#706673;font-size:8px}.footer{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:28px}.footer b{display:block;color:#d8cdd6;margin-bottom:10px}.footer a{display:block;color:#756b76;margin:7px 0}.copy{border-top:1px solid rgba(255,255,255,.05);margin-top:24px;padding-top:15px}
+@media(max-width:850px){.navLinks{display:none}.navMenu{display:block}.hero{grid-template-columns:1fr;padding:55px 0}.mockWrap{min-height:420px}.features{grid-template-columns:1fr 1fr}.use{grid-template-columns:1fr}.banner{grid-template-columns:1fr}}
+@media(max-width:620px){.wrap{width:min(100% - 22px,var(--max))}.hero h1{letter-spacing:-4px}.choiceGrid{grid-template-columns:1fr}.choice{min-height:275px}.features{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr}.section{padding:70px 0}.float{display:none}.footer{grid-template-columns:1fr 1fr}.footer>div:first-child{grid-column:1/-1}}
 </style>
 </head>
 <body>
-<nav><div class="container navInner"><a class="brand" href="index.html">♡ <span>US</span>BOOTH</a><div class="navLinks"><a href="#how">How it works</a><a href="#features">Features</a><a href="memories.html">Memories</a><a href="about.html">About</a><a href="contact.html">Partnerships</a><a class="cta" href="#choose">Create a booth →</a></div><button class="mobileMenu" id="mobileMenu">Menu</button></div></nav>
-<div class="container">
-<section class="hero"><div><div class="eyebrow">A DIGITAL PHOTOBOOTH FOR REAL MOMENTS</div><h1>One booth.<br><em>Two places.</em></h1><p class="heroCopy">UsBooth turns ordinary cameras into a shared little photo studio. Sit next to each other or connect from miles away — then make the moment look exactly how you want.</p><div class="actions"><a class="btn primary" href="#choose">Create a memory <b>→</b></a><a class="btn secondary" href="#how">See how it works</a></div><div class="heroNote"><span>♡ Free to use</span><span>•</span><span>📱 One or two phones</span><span>•</span><span>☁ Temporary sharing</span></div></div><div class="boothPreview"><div class="glow"></div><div class="mockBooth"><div class="mockTop"><span>USBOOTH ♡</span><span class="mockLive">● LIVE</span></div><div class="mockScreen"><div class="mockCaption">together, somehow ♡</div></div><div class="mockTop"><span>CLASSIC</span><span>03 SHOTS</span></div></div><div class="floatingCard fc1"><b>Two-phone ready</b><span>Both cameras connected ♡</span></div><div class="floatingCard fc2"><b>Memory saved</b><span>Polaroid · Love · 3 shots</span></div></div></section>
-<section class="section" id="choose"><div class="sectionHead"><div><div class="eyebrow">START HERE</div><h2>How are you shooting?</h2></div><div class="sectionLead">Choose the setup first. The booth will take care of the rest.</div></div><div class="choiceGrid"><a class="choice" href="booth.html?mode=single"><span class="num">01</span><div class="choiceIcon">📸</div><span class="tag">ONE DEVICE</span><h3>We're together</h3><p>One phone, one camera, two people. Perfect for dates, parties, cafés, birthdays or whenever you're already side by side.</p><div class="choiceBottom"><span>Open one-phone booth</span><span class="roundArrow">→</span></div></a><a class="choice" href="booth.html?mode=two"><span class="num">02</span><div class="choiceIcon">📱</div><span class="tag">TWO DEVICES</span><h3>We're apart</h3><p>Connect two phones, see each other live, get ready together and create one photo that feels like you were standing in the same room.</p><div class="choiceBottom"><span>Open long-distance booth</span><span class="roundArrow">→</span></div></a></div></section>
-<section class="section" id="features"><div class="sectionHead"><div><div class="eyebrow">THE BOOTH</div><h2>More than a camera.</h2></div><div class="sectionLead">A complete little studio built around the moment, from the first countdown to the final memory.</div></div><div class="featureGrid"><div class="feature"><span class="icon">⏱️</span><b>Timed sessions</b><span>Countdowns, multi-shot sessions and a proper shutter flow.</span></div><div class="feature"><span class="icon">🎞️</span><b>Layouts & strips</b><span>Polaroids, strips, collages and different visual compositions.</span></div><div class="feature"><span class="icon">✨</span><b>Creative studio</b><span>Themes, frames, filters, captions, stickers and styling.</span></div><div class="feature"><span class="icon">🔊</span><b>Live connection</b><span>Two-phone camera and voice experience for long-distance memories.</span></div></div></section>
-<section class="section" id="how"><div class="sectionHead"><div><div class="eyebrow">HOW IT WORKS</div><h2>Three steps. One memory.</h2></div></div><div class="steps"><div class="step"><span class="stepNo">01</span><h3>Choose your booth</h3><p>Use one phone when you're together or two phones when you're apart.</p></div><div class="step"><span class="stepNo">02</span><h3>Make the shot yours</h3><p>Pick a style, layout, timer, frame, filter and caption. Preview the look before you shoot.</p></div><div class="step"><span class="stepNo">03</span><h3>Keep the moment</h3><p>Edit, download, save locally or create a temporary share link for someone else.</p></div></div></section>
-<section class="section"><div class="useGrid"><div><div class="eyebrow">MADE FOR MORE THAN COUPLES</div><h2>Bring your people in.</h2><p class="sectionLead">UsBooth can be the little digital booth at a birthday, college fest, wedding, café, reunion or late-night call.</p></div><div class="chips"><span class="chip">💕 Couples</span><span class="chip">👯 Friends</span><span class="chip">🎂 Birthdays</span><span class="chip">🎓 Graduations</span><span class="chip">💍 Weddings</span><span class="chip">🎉 Parties</span><span class="chip">🏫 College events</span><span class="chip">☕ Cafés</span><span class="chip">🌎 Long distance</span></div></div></section>
-<section class="section"><div class="memoryBanner"><div><div class="eyebrow">YOUR LITTLE COLLECTION</div><h2>Memories deserve a home. ♡</h2><p>Open your Memory Vault to browse memories saved by UsBooth on this browser, favorite the ones you love and download them whenever you want.</p></div><a class="btn primary" href="memories.html">Open Memory Vault →</a></div></section>
-<section class="final"><div class="eyebrow">READY WHEN YOU ARE</div><h2>Make the moment<br>feel closer.</h2><p>Start a booth in seconds. No complicated setup — just choose your setup and make a memory.</p><div class="actions" style="justify-content:center"><a class="btn primary" href="#choose">Start UsBooth ♡</a><a class="btn secondary" href="contact.html">Work with Us</a></div></section>
+<nav>
+<div class="wrap navInner">
+<a class="logo" href="index.html">♡ <span>US</span>BOOTH</a>
+<div class="navLinks">
+<a href="#choose">Create</a><a href="#features">Features</a><a href="memories.html">Memories</a><a href="account.html">Account</a><a href="about.html">About</a><a href="contact.html">Partnerships</a><a class="cta" href="#choose">Start →</a>
 </div>
-<footer><div class="container"><div class="footerGrid"><div><div class="footerBrand">♡ <span>US</span>BOOTH</div><div class="footerText">A digital photobooth for the people who make ordinary moments worth keeping.</div></div><div class="footerCol"><b>Explore</b><a href="#choose">Create a booth</a><a href="#features">Features</a><a href="#how">How it works</a><a href="memories.html">Memories</a></div><div class="footerCol"><b>UsBooth</b><a href="about.html">About</a><a href="contact.html">Partnerships</a><a href="contact.html">Contact</a></div><div class="footerCol"><b>Information</b><a href="faq.html">FAQ</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div></div><div class="copyright">© 2026 UsBooth · Made for memories ♡</div></div></footer>
-<script>const m=document.getElementById('mobileMenu'),l=document.querySelector('.navLinks');m?.addEventListener('click',()=>{const open=l.style.display==='flex';l.style.display=open?'none':'flex';if(!open){Object.assign(l.style,{position:'absolute',top:'66px',left:'12px',right:'12px',flexDirection:'column',alignItems:'stretch',padding:'10px',background:'rgba(18,13,21,.98)',border:'1px solid #2b202c',borderRadius:'16px'})}});</script>
-</body></html>
+<button class="navMenu" id="navMenu">Menu</button>
+</div>
+</nav>
+
+<main class="wrap">
+<section class="hero">
+<div>
+<div class="eyebrow">♡ DIGITAL PHOTOBOOTH · ONE OR TWO PHONES</div>
+<h1>One booth.<br><em>Two places.</em></h1>
+<p class="lead">A playful digital photobooth for the people you wish were standing beside you — whether they're beside you or miles away.</p>
+<div class="actions"><a class="btn primary" href="#choose">Create a memory →</a><a class="btn secondary" href="#how">See how it works</a></div>
+<div class="note"><span>♡ Free to use</span><span>•</span><span>📱 One or two phones</span><span>•</span><span>☁ Temporary sharing</span></div>
+</div>
+<div class="mockWrap">
+<div class="glow"></div>
+<div class="mock">
+<div class="mockTop"><span>USBOOTH ♡</span><span class="mockLive">● LIVE</span></div>
+<div class="mockScreen"><div class="mockCaption">together, somehow ♡</div></div>
+<div class="mockTop"><span>CLASSIC</span><span>03 SHOTS</span></div>
+</div>
+<div class="float f1"><b>Two-phone ready</b><span>Both cameras connected ♡</span></div>
+<div class="float f2"><b>Memory saved</b><span>Polaroid · Love · 3 shots</span></div>
+</div>
+</section>
+
+<section class="section" id="choose">
+<div class="sectionHead"><div class="eyebrow">START HERE</div><h2>Choose your setup.</h2><p class="sectionLead">The two modes use separate camera paths, so a microphone or remote connection problem won't prevent a local camera preview.</p></div>
+<div class="choiceGrid">
+<a class="choice" href="booth.html?mode=single"><div class="choiceIcon">📸</div><span class="tag">ONE DEVICE</span><h3>We're together</h3><p>One phone, two people. Use the front camera, choose your style and shoot together.</p><div class="choiceBottom"><span>Open one-phone booth</span><span class="arrow">→</span></div></a>
+<a class="choice" href="booth.html?mode=two"><div class="choiceIcon">📱</div><span class="tag">TWO DEVICES</span><h3>We're apart</h3><p>Connect two phones, see each other live and create one shared memory from different places.</p><div class="choiceBottom"><span>Open two-phone booth</span><span class="arrow">→</span></div></a>
+</div>
+</section>
+
+<section class="section" id="features">
+<div class="sectionHead"><div class="eyebrow">THE BOOTH</div><h2>Everything you'd expect.</h2></div>
+<div class="features">
+<div class="feature"><i>⏱️</i><b>Countdowns</b><span>Instant, 3, 5 and 10 second timers.</span></div>
+<div class="feature"><i>🎞️</i><b>Photo strips</b><span>Multiple shots become one finished design.</span></div>
+<div class="feature"><i>✨</i><b>Creative studio</b><span>Polaroids, frames, filters, captions and more.</span></div>
+<div class="feature"><i>🔊</i><b>Live connection</b><span>Two-phone camera and voice experience.</span></div>
+</div>
+</section>
+
+<section class="section" id="how">
+<div class="sectionHead"><div class="eyebrow">HOW IT WORKS</div><h2>Three steps. One memory.</h2></div>
+<div class="steps">
+<div class="step"><strong>01</strong><b>Choose</b><p>One phone when you're together, two when you're apart.</p></div>
+<div class="step"><strong>02</strong><b>Pose</b><p>Choose your layout and design, then let the synchronized countdown begin.</p></div>
+<div class="step"><strong>03</strong><b>Keep it</b><p>Edit the result, download it or save it to your Memory Vault.</p></div>
+</div>
+</section>
+
+<section class="section">
+<div class="use">
+<div><div class="eyebrow">USE IT ANYWHERE</div><h2>More than couples.</h2><p class="sectionLead">Birthdays, college fests, weddings, cafés, reunions, friends and long-distance calls.</p></div>
+<div class="chips"><span class="chip">💕 Couples</span><span class="chip">👯 Friends</span><span class="chip">🎂 Birthdays</span><span class="chip">🎓 Graduations</span><span class="chip">💍 Weddings</span><span class="chip">🎉 Parties</span><span class="chip">🏫 College</span><span class="chip">☕ Cafés</span><span class="chip">🌎 Long distance</span></div>
+</div>
+</section>
+
+<section class="section">
+<div class="banner"><div><div class="eyebrow">MEMORY VAULT</div><h2>Your memories deserve a home. ♡</h2><p>Open your local vault now, or sign in to UsBooth as we build the cross-device cloud vault.</p></div><a class="btn primary" href="memories.html">Open Memories →</a></div>
+</section>
+
+<section class="final">
+<div class="eyebrow">READY WHEN YOU ARE</div><h2>Make the moment<br>feel closer.</h2><p>Start a booth in seconds. No complicated setup — just choose your setup and make a memory.</p>
+<div class="actions" style="justify-content:center"><a class="btn primary" href="#choose">Start UsBooth ♡</a><a class="btn secondary" href="account.html">My Account</a></div>
+</section>
+</main>
+
+<footer>
+<div class="wrap footer">
+<div><b>♡ USBOOTH</b><span>A digital photobooth for the people who make ordinary moments worth keeping.</span></div>
+<div><b>Explore</b><a href="#choose">Create</a><a href="#features">Features</a><a href="memories.html">Memories</a></div>
+<div><b>UsBooth</b><a href="about.html">About</a><a href="contact.html">Partnerships</a><a href="account.html">Account</a></div>
+<div><b>Information</b><a href="faq.html">FAQ</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+</div>
+<div class="wrap copy">© 2026 UsBooth · One booth. Two places. ♡</div>
+</footer>
+
+<script>
+const navMenu=document.getElementById("navMenu");
+const navLinks=document.querySelector(".navLinks");
+navMenu?.addEventListener("click",()=>{
+  const open=navLinks.dataset.open==="1";
+  navLinks.dataset.open=open?"0":"1";
+  navLinks.style.display=open?"none":"flex";
+  if(!open){
+    navLinks.style.position="absolute";
+    navLinks.style.top="66px";
+    navLinks.style.left="12px";
+    navLinks.style.right="12px";
+    navLinks.style.flexDirection="column";
+    navLinks.style.alignItems="stretch";
+    navLinks.style.padding="10px";
+    navLinks.style.background="#120d15";
+    navLinks.style.border="1px solid #30242f";
+    navLinks.style.borderRadius="16px";
+  }
+});
+</script>
+</body>
+</html>
