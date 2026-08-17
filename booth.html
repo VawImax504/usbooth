@@ -1927,7 +1927,9 @@ let captureBusy = false;
 let reviewPhoto = null;
 let reviewDraftPhotos = [];
 
-let shootMode = "two-phone";
+let shootMode = new URLSearchParams(window.location.search).get("mode") === "single"
+  ? "single-phone"
+  : "two-phone";
 
 
 /* =========================================================
@@ -3677,6 +3679,52 @@ function handleData(
 
 
   /* -------------------------------------------------------
+     SYNCHRONIZED COUNTDOWN
+     Whoever presses the shutter broadcasts the countdown
+     so BOTH phones show the same sequence.
+  ------------------------------------------------------- */
+
+  if(
+    data.type ===
+    "sync-countdown"
+  ){
+
+    if(
+      data.sessionId &&
+      (!session || session.id !== data.sessionId)
+    ){
+      session = {
+        id: data.sessionId,
+        style: data.style || styleSelect.value,
+        totalShots: Number(data.totalShots || shotsSelect.value),
+        shotIndex: Number(data.shotIndex || 0),
+        localImages: [],
+        remoteImages: [],
+        initiator: false,
+        advancing: false
+      };
+    }
+
+    const seconds = Math.max(0, Number(data.seconds || 0));
+
+    showCaptureProgress(
+      Number(data.shotIndex || 0),
+      Number(data.totalShots || shotsSelect.value),
+      data.label || "Get ready…"
+    );
+
+    runCountdown(
+      seconds,
+      data.label || "Get ready…"
+    ).catch(error => {
+      console.error("Synchronized countdown failed:", error);
+    });
+
+    return;
+  }
+
+
+  /* -------------------------------------------------------
      CAPTURE COMMAND
   ------------------------------------------------------- */
 
@@ -4043,10 +4091,21 @@ async function tryFinishSession(){
         false;
 
 
+      await peer.send({
+        type: "sync-countdown",
+        sessionId: session.id,
+        shotIndex: session.shotIndex,
+        totalShots: session.totalShots,
+        seconds: Number(timerSelect.value),
+        style: session.style,
+        label: `Shot ${session.shotIndex + 1} of ${session.totalShots} — pose!`
+      });
+
       await runCountdown(
         Number(
           timerSelect.value
-        )
+        ),
+        `Shot ${session.shotIndex + 1} of ${session.totalShots} — pose!`
       );
 
 
@@ -4077,57 +4136,58 @@ async function tryFinishSession(){
     let finalImage;
 
 
-    if(
-      session.style ===
-      "polaroid"
-    ){
-
-      finalImage =
-        await composePolaroid(
-          session.localImages[0],
-          session.remoteImages[0]
-        );
-
-    }
-
-    else if(
-      session.style ===
-      "strip"
-    ){
+    /*
+      Every captured shot is rendered with the selected
+      design. With 2+ shots, all designed frames are placed
+      into one final strip instead of discarding later shots.
+    */
+    if(total > 1){
 
       const frames = [];
 
+      for(let i = 0; i < total; i++){
 
-      for(
-        let i = 0;
-        i < total;
-        i++
-      ){
+        if(session.style === "polaroid"){
 
-        frames.push(
-          await composeTogether(
-            session.localImages[i],
-            session.remoteImages[i]
-          )
-        );
+          frames.push(
+            await composePolaroid(
+              session.localImages[i],
+              session.remoteImages[i]
+            )
+          );
+
+        }else{
+
+          frames.push(
+            await composeTogether(
+              session.localImages[i],
+              session.remoteImages[i]
+            )
+          );
+
+        }
 
       }
 
+      finalImage = await composeStrip(frames);
 
-      finalImage =
-        await composeStrip(
-          frames
-        );
+    }else{
 
-    }
+      if(session.style === "polaroid"){
 
-    else{
-
-      finalImage =
-        await composeTogether(
+        finalImage = await composePolaroid(
           session.localImages[0],
           session.remoteImages[0]
         );
+
+      }else{
+
+        finalImage = await composeTogether(
+          session.localImages[0],
+          session.remoteImages[0]
+        );
+
+      }
 
     }
 
@@ -4282,11 +4342,52 @@ async function startSinglePhoneSession(){
   showCaptureProgress(0,totalShots,"Getting ready…");
   try{
     for(let i=0;i<totalShots;i++){showCaptureProgress(i,totalShots,`Shot ${i+1} — get ready`);await runCountdown(Number(timerSelect.value),`Shot ${i+1} — pose!`);const image=captureFrame();cameraFlash();rawShots.push(image);showCaptureProgress(i+1,totalShots,`Shot ${i+1} captured ✓`);if(i<totalShots-1)await sleep(650)}
-    setStatus("Creating your photo…","ok");let finalImage;
-    if(styleSelect.value==="polaroid")finalImage=await composeSinglePolaroid(rawShots[0]);
-    else if(styleSelect.value==="strip"){const mini=await Promise.all(rawShots.map(src=>composeSinglePhoto(src)));finalImage=await composeStrip(mini)}
-    else finalImage=await composeSinglePhoto(rawShots[0]);
-    openReview(finalImage,[finalImage,...rawShots]);setStatus("Review your memory before saving.","ok");
+    setStatus("Creating your photo…","ok");
+    let finalImage;
+
+    /*
+      Every selected shot receives the selected design.
+      No shots are discarded when 3+ shots are selected.
+    */
+    if(rawShots.length > 1){
+
+      const designedShots = [];
+
+      for(const src of rawShots){
+
+        if(styleSelect.value === "polaroid"){
+          designedShots.push(
+            await composeSinglePolaroid(src)
+          );
+        }else{
+          designedShots.push(
+            await composeSinglePhoto(src)
+          );
+        }
+
+      }
+
+      finalImage = await composeStrip(designedShots);
+
+    }else if(styleSelect.value === "polaroid"){
+
+      finalImage = await composeSinglePolaroid(rawShots[0]);
+
+    }else{
+
+      finalImage = await composeSinglePhoto(rawShots[0]);
+
+    }
+
+    openReview(
+      finalImage,
+      [finalImage,...rawShots]
+    );
+
+    setStatus(
+      "Review your memory before saving.",
+      "ok"
+    );
   }catch(error){showError(error)}finally{hideCaptureProgress();captureBusy=false;updateCaptureButton()}
 }
 
@@ -4354,6 +4455,16 @@ async function startPhotoSession(){
 
 
   try{
+
+    await peer.send({
+      type: "sync-countdown",
+      sessionId: session.id,
+      shotIndex: 0,
+      totalShots: session.totalShots,
+      seconds: Number(timerSelect.value),
+      style: session.style,
+      label: `Shot 1 of ${session.totalShots} — pose!`
+    });
 
     await runCountdown(
       Number(
@@ -5171,6 +5282,14 @@ captureButton.addEventListener(
   startPhotoSession
 );
 
+/*
+  Either person can press the shutter in two-phone mode.
+  The pressed phone synchronizes the countdown to the other.
+*/
+captureButton.title =
+  "Either phone can press the shutter — both phones count down together.";
+
+
 
 /* =========================================================
    GALLERY BUTTONS
@@ -5221,11 +5340,16 @@ renderGallery();
 
 resetRemote();
 
+// Initialize the mode from the URL before the first camera interaction.
+// In single-phone mode, immediately request the local camera so the
+// live preview appears without requiring another button click.
 applyShootMode();
-
 updatePreview();
-
 updateCaptureButton();
+
+if (shootMode === "single-phone" && !localStream) {
+  startCamera().catch(error => showError(error));
+}
 
 
 console.log(
