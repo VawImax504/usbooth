@@ -1,668 +1,150 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
->
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>UsBooth — Your Account ♡</title>
-
-<meta
-  name="description"
-  content="Sign in to UsBooth and keep your memories connected to your account."
->
-
+<meta name="description" content="Sign in to UsBooth and keep your memories connected to your account.">
 <style>
-
 :root{
-
-  --bg:#160d14;
-  --card:rgba(255,255,255,.08);
-  --line:rgba(255,255,255,.14);
-
-  --text:#fff8fb;
-  --muted:#d8c4ce;
-
-  --accent:#ff7aa8;
-  --accent2:#ffd5e3;
-
+  --bg:#160d14;--card:rgba(255,255,255,.08);--line:rgba(255,255,255,.14);
+  --text:#fff8fb;--muted:#d8c4ce;--accent:#ff7aa8;--accent2:#ffd5e3;
 }
-
-*{
-  box-sizing:border-box;
-}
-
+*{box-sizing:border-box}
 body{
-
-  margin:0;
-
-  min-height:100vh;
-
-  font-family:
-    Inter,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-
-  color:var(--text);
-
-  background:
-
-    radial-gradient(
-      circle at 20% 10%,
-      rgba(255,104,157,.22),
-      transparent 35%
-    ),
-
-    radial-gradient(
-      circle at 85% 80%,
-      rgba(255,190,214,.12),
-      transparent 30%
-    ),
-
-    var(--bg);
-
-  display:grid;
-
-  place-items:center;
-
-  padding:24px;
-
+  margin:0;min-height:100vh;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;
+  color:var(--text);background:
+  radial-gradient(circle at 20% 10%,rgba(255,104,157,.22),transparent 35%),
+  radial-gradient(circle at 85% 80%,rgba(255,190,214,.12),transparent 30%),var(--bg);
+  display:grid;place-items:center;padding:24px;
 }
-
-
 .card{
-
-  width:min(520px,100%);
-
-  padding:34px;
-
-  border:
-    1px solid
-    var(--line);
-
-  border-radius:28px;
-
-  background:var(--card);
-
-  backdrop-filter:blur(20px);
-
-  box-shadow:
-    0 24px 80px
-    rgba(0,0,0,.35);
-
+  width:min(520px,100%);padding:34px;border:1px solid var(--line);
+  border-radius:28px;background:var(--card);backdrop-filter:blur(20px);
+  box-shadow:0 24px 80px rgba(0,0,0,.35)
 }
-
-
-.brand{
-
-  font-weight:900;
-
-  letter-spacing:.08em;
-
-  font-size:14px;
-
-}
-
-
-h1{
-
-  font-family:Georgia,serif;
-
-  font-size:42px;
-
-  line-height:1;
-
-  margin:16px 0 12px;
-
-}
-
-
-p{
-
-  color:var(--muted);
-
-  line-height:1.65;
-
-}
-
-
-label{
-
-  display:block;
-
-  margin:22px 0 8px;
-
-  font-weight:700;
-
-}
-
-
+.brand{font-weight:900;letter-spacing:.08em;font-size:14px}
+h1{font-family:Georgia,serif;font-size:42px;line-height:1;margin:16px 0 12px}
+p{color:var(--muted);line-height:1.65}
+label{display:block;margin:22px 0 8px;font-weight:700}
 input{
-
-  width:100%;
-
-  padding:15px 16px;
-
-  border-radius:14px;
-
-  border:
-    1px solid
-    var(--line);
-
-  background:
-    rgba(0,0,0,.18);
-
-  color:var(--text);
-
-  outline:none;
-
-  font-size:16px;
-
+  width:100%;padding:15px 16px;border-radius:14px;border:1px solid var(--line);
+  background:rgba(0,0,0,.18);color:var(--text);outline:none;font-size:16px
 }
-
-
 button{
-
-  width:100%;
-
-  margin-top:16px;
-
-  padding:15px;
-
-  border:0;
-
-  border-radius:14px;
-
-  background:var(--accent);
-
-  color:#210d16;
-
-  font-weight:900;
-
-  font-size:16px;
-
-  cursor:pointer;
-
+  width:100%;margin-top:16px;padding:15px;border:0;border-radius:14px;
+  background:var(--accent);color:#210d16;font-weight:900;font-size:16px;cursor:pointer
 }
-
-
-button.secondary{
-
-  background:transparent;
-
-  color:var(--text);
-
-  border:
-    1px solid
-    var(--line);
-
-}
-
-
-.status{
-
-  margin-top:18px;
-
-  min-height:24px;
-
-  color:var(--accent2);
-
-}
-
-
-.hidden{
-
-  display:none;
-
-}
-
-
-a{
-
-  color:var(--accent2);
-
-  text-decoration:none;
-
-}
-
-
+button.secondary{background:transparent;color:var(--text);border:1px solid var(--line)}
+.status{margin-top:18px;min-height:24px;color:var(--accent2)}
+.hidden{display:none}
+a{color:var(--accent2);text-decoration:none}
 .account{
-
-  padding:16px;
-
-  border:
-    1px solid
-    var(--line);
-
-  border-radius:16px;
-
-  margin-top:18px;
-
+  padding:16px;border:1px solid var(--line);border-radius:16px;margin-top:18px
 }
-
-
-.small{
-
-  font-size:13px;
-
-}
-
+.small{font-size:13px}
 </style>
-
 </head>
-
-
 <body>
-
-
 <main class="card">
-
-
-  <div class="brand">
-
-    ♡ USBOOTH
-
-  </div>
-
-
-  <h1>
-
-    Your memories,<br>
-
-    connected.
-
-  </h1>
-
-
+  <div class="brand">♡ USBOOTH</div>
+  <h1>Your memories,<br>connected.</h1>
   <p id="intro">
-
-    Sign in with your email.
-
-    We'll send you a one-time link —
-
-    no password to remember.
-
+    Sign in with your email. We'll send you a one-time link — no password to remember.
   </p>
-
-
-  <!-- LOGIN -->
 
   <section id="login">
-
-    <label for="email">
-
-      Email address
-
-    </label>
-
-
-    <input
-
-      id="email"
-
-      type="email"
-
-      autocomplete="email"
-
-      placeholder="you@example.com"
-
-    >
-
-
-    <button id="send">
-
-      Send me a sign-in link ♡
-
-    </button>
-
-
-    <div
-
-      id="status"
-
-      class="status"
-
-    ></div>
-
+    <label for="email">Email address</label>
+    <input id="email" type="email" autocomplete="email" placeholder="you@example.com">
+    <button id="send">Send me a sign-in link ♡</button>
+    <div id="status" class="status"></div>
   </section>
 
-
-  <!-- LOGGED IN -->
-
-  <section
-
-    id="logged"
-
-    class="hidden"
-
-  >
-
+  <section id="logged" class="hidden">
     <div class="account">
-
       <strong id="userEmail"></strong>
-
-      <p class="small">
-
-        You're signed in.
-
-        Cloud Memory Vault is the next
-
-        H2/H3 connection.
-
-      </p>
-
+      <p class="small">You're signed in. Cloud Memory Vault is the next H2/H3 connection.</p>
     </div>
-
-
-    <button id="vault">
-
-      Open Memory Vault
-
-    </button>
-
-
-    <button
-
-      id="signout"
-
-      class="secondary"
-
-    >
-
-      Sign out
-
-    </button>
-
+    <button id="vault">Open Memory Vault</button>
+    <button id="signout" class="secondary">Sign out</button>
   </section>
 
-
-  <p
-
-    class="small"
-
-    style="margin-top:24px"
-
-  >
-
-    <a href="index.html">
-
-      ← Back to UsBooth
-
-    </a>
-
+  <p class="small" style="margin-top:24px">
+    <a href="index.html">← Back to UsBooth</a>
   </p>
-
-
 </main>
 
-
-<!-- SUPABASE CLIENT -->
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
-<!-- YOUR CONFIG -->
-
 <script src="supabase-config.js"></script>
-
-
 <script>
-
 (() => {
-
-
-  const cfg =
-    window.USBOOTH_SUPABASE || {};
-
-
-  const status =
-    document.getElementById("status");
-
-
-  const login =
-    document.getElementById("login");
-
-
-  const logged =
-    document.getElementById("logged");
-
-
-  const userEmail =
-    document.getElementById("userEmail");
-
-
-  /*
-    Check configuration
-  */
+  const cfg=window.USBOOTH_SUPABASE||{};
+  const status=document.getElementById("status");
+  const login=document.getElementById("login");
+  const logged=document.getElementById("logged");
+  const userEmail=document.getElementById("userEmail");
 
   if(
-
     !cfg.url ||
-
     !cfg.publishableKey ||
-
-    cfg.url.includes(
-      "YOUR-PROJECT"
-    ) ||
-
-    cfg.publishableKey.includes(
-      "YOUR_SUPABASE"
-    )
-
+    cfg.url.includes("YOUR-PROJECT") ||
+    cfg.publishableKey.includes("YOUR_SUPABASE")
   ){
-
-    status.textContent =
-      "H2 is scaffolded. Add your Supabase Project URL and publishable key to supabase-config.js first.";
-
+    status.textContent="Account setup is not connected yet. Add your Supabase Project URL and publishable key to supabase-config.js, then reload this page.";
+    document.getElementById("send").disabled = true;
+    document.getElementById("send").style.opacity = ".55";
     return;
-
   }
 
-
-  /*
-    Create Supabase client
-  */
-
-  const supabaseClient =
-    window.supabase.createClient(
-
-      cfg.url,
-
-      cfg.publishableKey,
-
-      {
-
-        auth:{
-
-          persistSession:true,
-
-          autoRefreshToken:true,
-
-          detectSessionInUrl:true
-
-        }
-
+  const supabase=supabasejs.createClient(
+    cfg.url,
+    cfg.publishableKey,
+    {
+      auth:{
+        persistSession:true,
+        autoRefreshToken:true,
+        detectSessionInUrl:true
       }
-
-    );
-
-
-  /*
-    Render account state
-  */
+    }
+  );
 
   async function render(){
-
-    const {data} =
-      await supabaseClient
-        .auth
-        .getSession();
-
-
-    const user =
-      data?.session?.user;
-
-
-    login.classList.toggle(
-      "hidden",
-      !!user
-    );
-
-
-    logged.classList.toggle(
-      "hidden",
-      !user
-    );
-
-
-    if(user){
-
-      userEmail.textContent =
-        user.email ||
-        "Signed-in UsBooth user";
-
-    }
-
+    const {data}=await supabase.auth.getSession();
+    const user=data?.session?.user;
+    login.classList.toggle("hidden",!!user);
+    logged.classList.toggle("hidden",!user);
+    if(user) userEmail.textContent=user.email||"Signed-in UsBooth user";
   }
 
+  document.getElementById("send").addEventListener("click",async()=>{
+    const email=document.getElementById("email").value.trim();
+    if(!email){status.textContent="Enter your email first.";return;}
 
-  /*
-    Send magic link
-  */
+    status.textContent="Sending your sign-in link…";
+    const redirect=`${location.origin}${location.pathname}`;
 
-  document
-    .getElementById("send")
-    .addEventListener(
-      "click",
-      async () => {
+    const {error}=await supabase.auth.signInWithOtp({
+      email,
+      options:{emailRedirectTo:redirect}
+    });
 
+    status.textContent=error
+      ? error.message
+      : "Check your email — your secure sign-in link is on its way ♡";
+  });
 
-        const email =
-          document
-            .getElementById("email")
-            .value
-            .trim();
+  document.getElementById("signout").addEventListener("click",async()=>{
+    await supabase.auth.signOut();
+    await render();
+  });
 
+  document.getElementById("vault").addEventListener("click",()=>{
+    location.href="memories.html";
+  });
 
-        if(!email){
-
-          status.textContent =
-            "Enter your email first.";
-
-          return;
-
-        }
-
-
-        status.textContent =
-          "Sending your sign-in link…";
-
-
-        const redirect =
-          `${location.origin}${location.pathname}`;
-
-
-        const {error} =
-          await supabaseClient
-            .auth
-            .signInWithOtp({
-
-              email,
-
-              options:{
-
-                emailRedirectTo:
-                  redirect
-
-              }
-
-            });
-
-
-        status.textContent =
-
-          error
-
-            ? error.message
-
-            : "Check your email — your secure sign-in link is on its way ♡";
-
-
-      }
-
-    );
-
-
-  /*
-    Sign out
-  */
-
-  document
-    .getElementById("signout")
-    .addEventListener(
-      "click",
-      async () => {
-
-        await supabaseClient
-          .auth
-          .signOut();
-
-        await render();
-
-      }
-
-    );
-
-
-  /*
-    Memory Vault
-  */
-
-  document
-    .getElementById("vault")
-    .addEventListener(
-      "click",
-      () => {
-
-        location.href =
-          "memories.html";
-
-      }
-
-    );
-
-
-  /*
-    Listen for login/logout
-  */
-
-  supabaseClient
-    .auth
-    .onAuthStateChange(
-      () => render()
-    );
-
-
-  /*
-    Initial state
-  */
-
+  supabase.auth.onAuthStateChange(() => render());
   render();
-
-
 })();
-
 </script>
-
-
 </body>
-
 </html>
