@@ -5696,32 +5696,54 @@ console.log(
 
 <script>
 /* =========================================================
-   USBOOTH MODE ROUTER
-   Mode is selected on index.html and passed as ?mode=single|two
+   USBOOTH MODE ROUTER — FIXED
+   index.html opens booth.html?mode=single or ?mode=two.
+
+   IMPORTANT: the old router only changed the CSS class.
+   That left the actual JavaScript shootMode as "two-phone",
+   so single mode looked selected but still required a remote
+   peer and never started the local preview automatically.
 ========================================================= */
 (function () {
   const params = new URLSearchParams(window.location.search);
-  const requestedMode = params.get("mode");
+  const single = params.get("mode") === "single";
 
-  window.__USBOOTH_REQUESTED_MODE__ =
-    requestedMode === "single" ? "single" : "two";
+  window.__USBOOTH_REQUESTED_MODE__ = single ? "single" : "two";
 
-  window.addEventListener("DOMContentLoaded", () => {
-    const single = window.__USBOOTH_REQUESTED_MODE__ === "single";
+  async function initRequestedMode() {
+    // Set the REAL application state, not only the CSS.
+    if (typeof shootMode !== "undefined") {
+      shootMode = single ? "single-phone" : "two-phone";
+    }
 
     document.body.classList.toggle("single-mode", single);
 
     const twoBtn = document.getElementById("twoPhoneMode");
     const singleBtn = document.getElementById("singlePhoneMode");
-
     if (twoBtn) twoBtn.classList.toggle("active", !single);
     if (singleBtn) singleBtn.classList.toggle("active", single);
 
-    // Start on the selected mode without requiring the old mode selector.
-    if (typeof setMode === "function") {
-      setMode(single);
+    // Apply the mode after the main booth script has created all controls.
+    if (typeof applyShootMode === "function") {
+      applyShootMode();
     }
-  });
+
+    // Single-phone mode needs no room, peer or remote camera.
+    // Start the local camera automatically so the user immediately
+    // gets the live preview after granting browser permission.
+    if (single && typeof startCamera === "function" && !localStream) {
+      await startCamera();
+    }
+
+    if (typeof updatePreview === "function") updatePreview();
+    if (typeof updateCaptureButton === "function") updateCaptureButton();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initRequestedMode, { once:true });
+  } else {
+    initRequestedMode();
+  }
 })();
 </script>
 
