@@ -1,16 +1,13 @@
 {
   "name": "usbooth",
-  "version": "3.0.0",
-  "description": "UsBooth - remote shared photo booth",
+  "version": "4.0.0",
+  "description": "UsBooth digital photobooth",
   "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
-  "engines": {
-    "node": ">=18"
-  },
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^5.1.0"
   }
 }
