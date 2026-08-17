@@ -2644,9 +2644,15 @@ function updateCaptureButton(){
     return;
   }
 
+  /*
+    The shutter must not depend on the REMOTE VIDEO element.
+    A remote camera can be connected/receiving data even while
+    its video element is still waiting for metadata/autoplay.
+    The peer connection is enough to start a two-phone shot.
+  */
   captureButton.disabled =
     !localStream ||
-    !remoteReady ||
+    !peer ||
     captureBusy;
 
 }
@@ -4207,7 +4213,6 @@ async function startPhotoSession(){
   if(
     captureBusy ||
     !localStream ||
-    !remoteReady ||
     !peer
   ){
 
