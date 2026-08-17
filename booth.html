@@ -2468,6 +2468,106 @@ async function startCamera(){
 
 
 /* =========================================================
+   SINGLE-PHONE CAMERA ENGINE
+   Intentionally separate from the two-phone camera engine.
+   It never creates/updates a Metered peer.
+========================================================= */
+
+async function startSingleModePreview(){
+
+  clearError();
+
+  if(
+    !navigator.mediaDevices ||
+    !navigator.mediaDevices.getUserMedia
+  ){
+    showError(
+      new Error(
+        "Camera preview is unavailable. Please use HTTPS and allow camera access."
+      )
+    );
+    return false;
+  }
+
+  try{
+
+    setStatus("Opening your camera…");
+
+    if(localStream){
+      localStream
+        .getTracks()
+        .forEach(track => track.stop());
+      localStream = null;
+    }
+
+    const stream =
+      await navigator.mediaDevices.getUserMedia({
+        video:{
+          facingMode,
+          width:{ideal:1280},
+          height:{ideal:960}
+        },
+        audio:true
+      });
+
+    localStream = stream;
+
+    /*
+      Single mode owns ONLY the local preview.
+      No peer, no remote stream, no room connection.
+    */
+    localVideo.pause();
+    localVideo.srcObject = null;
+    localVideo.srcObject = stream;
+    localVideo.muted = true;
+    localVideo.autoplay = true;
+    localVideo.playsInline = true;
+
+    await new Promise(resolve => {
+      if(localVideo.readyState >= 2){
+        resolve();
+        return;
+      }
+
+      const done = () => {
+        localVideo.removeEventListener("loadedmetadata", done);
+        resolve();
+      };
+
+      localVideo.addEventListener("loadedmetadata", done, {once:true});
+    });
+
+    await localVideo.play();
+
+    startCameraButton.textContent = "Camera Running ✓";
+    flipCameraButton.disabled = false;
+    mirrorButton.disabled = false;
+    micButton.disabled = false;
+
+    updatePreview();
+    updateCaptureButton();
+
+    setStatus(
+      "Single-phone camera ready — preview is live ♡",
+      "ok"
+    );
+
+    return true;
+
+  }catch(error){
+
+    console.error(
+      "SINGLE MODE CAMERA ERROR:",
+      error
+    );
+
+    showError(error);
+    return false;
+  }
+}
+
+
+/* =========================================================
    FLIP
 ========================================================= */
 
@@ -5159,6 +5259,9 @@ function applyShootMode(){
   if(single){
     closeTwoPhoneConnection();
     setStatus(localStream ? "Single-phone mode — ready to shoot." : "Start your camera to shoot together.");
+    if(!localStream && typeof startSingleModePreview === "function"){
+      startSingleModePreview();
+    }
   }else{
     setStatus(localStream ? "Two-phone mode — create or join a booth." : "Start your camera to begin.");
   }
@@ -5269,7 +5372,15 @@ document
 
 startCameraButton.addEventListener(
   "click",
-  startCamera
+  async () => {
+
+    if(shootMode === "single-phone"){
+      await startSingleModePreview();
+    }else{
+      await startCamera();
+    }
+
+  }
 );
 
 
@@ -5348,7 +5459,7 @@ updatePreview();
 updateCaptureButton();
 
 if (shootMode === "single-phone" && !localStream) {
-  startCamera().catch(error => showError(error));
+  startSingleModePreview().catch(error => showError(error));
 }
 
 
@@ -5855,8 +5966,12 @@ console.log(
     // Single-phone mode needs no room, peer or remote camera.
     // Start the local camera automatically so the user immediately
     // gets the live preview after granting browser permission.
-    if (single && typeof startCamera === "function" && !localStream) {
-      await startCamera();
+    if (
+      single &&
+      typeof startSingleModePreview === "function" &&
+      !localStream
+    ) {
+      await startSingleModePreview();
     }
 
     if (typeof updatePreview === "function") updatePreview();
