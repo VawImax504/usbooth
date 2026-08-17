@@ -2343,26 +2343,64 @@ async function startCamera(){
     }
 
 
-    localStream =
-      await navigator
-        .mediaDevices
-        .getUserMedia({
+    /*
+      CAMERA-FIRST DESIGN:
+      A microphone permission problem must NEVER kill the
+      camera preview. We request video first. Voice/audio
+      can be attached separately when the voice feature is used.
+    */
+    try{
 
-          video:{
-            facingMode,
+      localStream =
+        await navigator
+          .mediaDevices
+          .getUserMedia({
 
-            width:{
-              ideal:1280
+            video:{
+              facingMode,
+
+              width:{
+                ideal:1280
+              },
+
+              height:{
+                ideal:960
+              }
             },
 
-            height:{
-              ideal:960
-            }
-          },
+            audio:true
 
-          audio:true
+          });
 
-        });
+    }catch(cameraOrMicError){
+
+      console.warn(
+        "Camera+mic request failed; retrying with camera only:",
+        cameraOrMicError
+      );
+
+      localStream =
+        await navigator
+          .mediaDevices
+          .getUserMedia({
+
+            video:{
+              facingMode,
+
+              width:{
+                ideal:1280
+              },
+
+              height:{
+                ideal:960
+              }
+            },
+
+            audio:false
+
+          });
+
+    }
 
 
     /*
@@ -2500,15 +2538,42 @@ async function startSingleModePreview(){
       localStream = null;
     }
 
-    const stream =
-      await navigator.mediaDevices.getUserMedia({
-        video:{
-          facingMode,
-          width:{ideal:1280},
-          height:{ideal:960}
-        },
-        audio:true
-      });
+    let stream;
+
+    /*
+      Camera is independent from microphone permission.
+      If mic permission is denied, preview still starts.
+    */
+    try{
+
+      stream =
+        await navigator.mediaDevices.getUserMedia({
+          video:{
+            facingMode,
+            width:{ideal:1280},
+            height:{ideal:960}
+          },
+          audio:true
+        });
+
+    }catch(cameraOrMicError){
+
+      console.warn(
+        "Single-mode camera+mic request failed; using camera only:",
+        cameraOrMicError
+      );
+
+      stream =
+        await navigator.mediaDevices.getUserMedia({
+          video:{
+            facingMode,
+            width:{ideal:1280},
+            height:{ideal:960}
+          },
+          audio:false
+        });
+
+    }
 
     localStream = stream;
 
@@ -2582,7 +2647,11 @@ flipCameraButton.addEventListener(
         : "user";
 
 
-    await startCamera();
+    if(shootMode === "single-phone"){
+      await startSingleModePreview();
+    }else{
+      await startCamera();
+    }
 
   }
 );
@@ -5272,6 +5341,30 @@ twoPhoneModeButton.addEventListener("click",()=>{
   if(shootMode === "two-phone") return;
   shootMode = "two-phone";
   applyShootMode();
+
+/* =========================================================
+   SINGLE MODE BOOT
+   Explicitly start the independent camera engine when
+   booth.html?mode=single is opened.
+========================================================= */
+
+window.addEventListener("load", async () => {
+
+  if(shootMode === "single-phone"){
+
+    try{
+      await startSingleModePreview();
+    }catch(error){
+      console.error(
+        "Single-mode boot preview failed:",
+        error
+      );
+    }
+
+  }
+
+});
+
 });
 
 singlePhoneModeButton.addEventListener("click",()=>{
@@ -5459,7 +5552,7 @@ updatePreview();
 updateCaptureButton();
 
 if (shootMode === "single-phone" && !localStream) {
-  startSingleModePreview().catch(error => showError(error));
+  startCamera().catch(error => showError(error));
 }
 
 
